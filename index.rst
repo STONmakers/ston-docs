@@ -10,10 +10,10 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   :numbered:
 
    intro
-   설치
+   All about strings <strings>
+   datatypes
     
    
 **STON 소개**
