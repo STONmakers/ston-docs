@@ -18,6 +18,10 @@ Contents:
 
 STON (Superfast Transport Over Network) 은 초고속 HTTP Cache 소프트웨어 솔루션입니다. 클라이언트가 요청하는 컨텐츠를 원본서버로부터 가져와 저장하여, 재요청시 컨텐츠를 빠르게 전송합니다. 일반 상용서버 하드웨어에 설치투입하여 대규모 트래픽 처리시스템을 구성할 수 있습니다.
 
+다음은 명령어 예제입니다.::
+   PURGE /sample.dat HTTP/1.1
+   
+
 ``GET http://11st.co.kr/ HTTP/1.0``
 
 .. image:: ston.png
