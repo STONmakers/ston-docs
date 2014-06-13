@@ -1,1 +1,0 @@
-Search.setIndex({filenames:["index"],envversion:43,titles:["Welcome to STON&#8217;s documentation!"],objtypes:{},objnames:{},terms:{index:0,page:0,modul:0,search:0,content:0},objects:{},titleterms:{document:0,welcom:0,ston:0,indic:0,tabl:0}})
