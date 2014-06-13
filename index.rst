@@ -11,9 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   intro
-   All about strings <strings>
-   datatypes
+   getting_started_ko
     
    
 **STON 소개**
