@@ -12,7 +12,7 @@ Contents:
    :maxdepth: 2
    :numbered:
 
-   소개
+   intro
    설치
     
    
