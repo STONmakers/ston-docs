@@ -18,7 +18,7 @@ STON (Superfast Transport Over Network) 은 초고속 HTTP Cache 소프트웨어
 .. image:: ston.png
 
 =====  =====  =======
-A      B      A and B
+종류  기능  내용 
 =====  =====  =======
 False  False  False
 True   False  False
