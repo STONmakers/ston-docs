@@ -9,11 +9,9 @@ STON Guide
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-   intro
-   All about strings <strings>
-   datatypes
+   getting started
     
    
 **STON 소개**
