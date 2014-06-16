@@ -10,7 +10,7 @@ Getting Started STON-STON
 
 Contents:
 
-.. toctree::
+.. toctree::/Users/jaehaahn/Downloads/ston-docs-master/index.rst
    :maxdepth: 2
 
 GETTING STARTED!!
