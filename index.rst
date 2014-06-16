@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
-	admin/index
+	admin/index.kr
    getting_started_ko
 
    
