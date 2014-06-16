@@ -3,14 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Administrator's Guid
-.. toctree::
-   :maxdepth: 2
 
-   setuptools
-   buildanduploadsphinx   
 
-getting started
+Getting Started STON-STON
 ================================
 
 Contents:
