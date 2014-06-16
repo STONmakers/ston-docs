@@ -10,7 +10,7 @@ STON is the king of all reverse-proxys.
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    01_intro.kr
    02_getting-started.kr
