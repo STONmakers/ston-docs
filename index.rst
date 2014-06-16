@@ -9,7 +9,7 @@ STON Guide
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
 
 	admin/index.kr
    getting_started_ko
