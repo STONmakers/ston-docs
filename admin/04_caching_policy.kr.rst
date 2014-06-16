@@ -1,6 +1,6 @@
-.. _caching_policy:
+О╩©.. _caching_policy:
 
-дЁ╫ла╓ц╔
+Л╨░Л▀╠Л═∙Л╠┘
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one

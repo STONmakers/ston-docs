@@ -1,6 +1,6 @@
-.. _log:
+Ôªø.. _log:
 
-∑Œ±◊ & ∫–ºÆ
+Î°úÍ∑∏ & Î∂ÑÏÑù
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one

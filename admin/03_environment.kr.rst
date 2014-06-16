@@ -1,6 +1,6 @@
-.. _environment:
+﻿.. _environment:
 
-ȯ�漳��
+환경설정
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one

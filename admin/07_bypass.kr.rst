@@ -1,6 +1,6 @@
-.. _bypass:
+ï»¿.. _bypass:
 
-¹ÙÀÌÆĞ½º
+ë°”ì´íŒ¨ìŠ¤
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one
