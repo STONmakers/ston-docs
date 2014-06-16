@@ -5,7 +5,7 @@ Administrators' Guide
 
 STON is the king of all reverse-proxys.
 
-This chapter discusses how:
+목차는 다음과 같습니다:
 
 Contents:
 
