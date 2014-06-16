@@ -1,6 +1,6 @@
-.. _getting-started:
+ï»¿.. _getting-started:
 
-STON ½ÃÀÛÇÏ±â
+STON ì‹œìž‘í•˜ê¸°
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one
