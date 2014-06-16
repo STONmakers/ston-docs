@@ -11,12 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 3
 
-<<<<<<< HEAD
-   getting started
-=======
    getting_started_ko
->>>>>>> FETCH_HEAD
-    
+
    
 **STON 소개**
 
