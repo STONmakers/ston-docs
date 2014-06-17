@@ -67,7 +67,7 @@ OS 구성
 설치
 ====================================
 
-1. 최신버전의 STON을 다운로드 받는다.::
+1. 최신버전의 STON을 다운로드 받는다. ::
 
       [root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
       --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
@@ -90,7 +90,7 @@ OS 구성
 
 		[root@localhost ~]# ./ston.2.0.0.rhel.2.6.32.x64.sh
 
-4. 설치과정은 install.log에 기록됩니다. 로그를 통해 설치 중 발생하는 문제를 찾아낼 수 있습니다.::
+4. 설치과정은 install.log에 기록됩니다. 로그를 통해 설치 중 발생하는 문제를 찾아낼 수 있습니다. ::
 
       #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.1.3.0.rhel.2.6.32.x64.tar.gz
       #DownloadTime: 13 sec
@@ -156,7 +156,12 @@ vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 
 
 1. 발급받은 license.xml을 설치 경로에 복사합니다.
 
-2. server.xml을 열어 <Storage>를 구성합니다. ::
+2. server.xml을 열어 <Storage>를 구성합니다. 
+
+.. note::
+
+   Cache서버는 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면
+   구동되지 않습니다. 자세한 내용은 다음 장에서 설명합니다. ::
 
       <Server>
           <Cache>
@@ -166,11 +171,6 @@ vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 
               </Storage>
           </Cache>
       </Server>
-      
-    .. note::
-
-       Cache서버는 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면
-       구동되지 않습니다. 자세한 내용은 다음 장에서 설명합니다.      
 
 3. STON을 실행합니다.
 
