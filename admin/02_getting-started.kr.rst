@@ -68,17 +68,17 @@ OS 구성
 
 1. 최신버전의 STON을 다운로드 받는다.
 
-		[root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
-		--2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
-		Resolving webhard.winesoft.co.kr... 192.168.0.14
-		Connecting to webhard.winesoft.co.kr|192.168.0.14|:80... connected.
-		HTTP request sent, awaiting response... 200 OK
-		Length: 71340645 (68M) [application/x-gzip]
-		Saving to: “ston.1.3.11.rhel.2.6.32.x64.tar.gz”
+   [root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
+   --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
+   Resolving webhard.winesoft.co.kr... 192.168.0.14
+   Connecting to webhard.winesoft.co.kr|192.168.0.14|:80... connected.
+   HTTP request sent, awaiting response... 200 OK
+   Length: 71340645 (68M) [application/x-gzip]
+   Saving to: “ston.1.3.11.rhel.2.6.32.x64.tar.gz”
 
-		100%[===============================================>] 71,340,645  42.9M/s   in 1.6s
+   100%[===============================================>] 71,340,645  42.9M/s   in 1.6s
 
-		2014-06-17 13:29:15 (42.9 MB/s) - “ston.1.3.11.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
+   2014-06-17 13:29:15 (42.9 MB/s) - “ston.1.3.11.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
 
 
 2. 압축을 해지합니다.
