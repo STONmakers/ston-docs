@@ -29,15 +29,15 @@ XML형식으로 누구나 간단히 편집할 수 있다. ::
     </Server>
     
 여기서는 전역설정의 모든 부분에 대해 설명하지는 않는다. 예를 들어 접근제어나 SNMP등은 
-각 주제를 다루는 장에서 설명한다. 여기서는 기본적인 구조와 기능에 대해서 설명한다. 
+각 주제를 다루는 장에서 설명한다. 기본적인 구조와 기능에 대한 이해를 목적으로 한다.
 
-<Host> 설정
+<Host>
 ------------------------------------------------
 
 관리목적의 기능을 설정한다. ::
 
     <Host>
-        <Name>Machine01</Name>
+        <Name>stream_07</Name>
         <Admin>admin@winesoft.co.kr</Admin>
         <Manager Port="10040" HttpMethod="ON" Role="Admin" UploadMultipartName="confile">
             <Allow>192.168.1.1</Allow>
@@ -47,17 +47,31 @@ XML형식으로 누구나 간단히 편집할 수 있다. ::
         </Manager>
     </Host>
 
-*  ``Name``
+-  ``Name``
     서버 이름을 설정합니다. 이름이 입력되지 않으면, 시스템에 설정된 시스템 이름이 사용됩니다.
-*  ``Admin``
+-  ``Admin``
     관리자 정보(메일 또는 이름)를 설정합니다. 이 항목은 SNMP 조회목적으로만 사용됩니다.
-*  ``Manager``
-    매니저 서비스 포트와 ACL(Access Control List)을 설정합니다. ACL은 IP지정, IP범위지정, 
-    비트마스크, 서브넷 이상 네 가지 형식을 지원합니다. 접속한 세션이 Allow로 접근이 허가된 
-    IP가 아니면 강제로 접속을 종료합니다. API를 호출하는 IP가 매니저 허가 목록에 반드시 
-    등록되어 있어야 합니다.
+-  ``Manager``
+    관리용도로 사용할 매니저 포트와 ACL(Access Control List)을 설정한다. ACL은 IP, IP범위, 
+    BitMask, Subnet 이상 네 가지 형식을 지원한다. 접속한 세션이 Allow로 접근이 허가된 
+    IP가 아니면 강제로 접속을 종료한다. API를 호출하는 IP가 매니저 허가 목록에 반드시
+    등록되어 있어야 한다.
+    
+    접근조건에 따라 접근권한(Role)을 설정할 수 있다. 접근권한이 없는 요청에 대해서는 
+    *401 Unauthorized*로 응답한다. Allow조건에 Role을 명시적으로 선언하지 않았을 경우 
+    Manager의 Role속성이 적용된다.
+    
+    - ``Admin`` 모든 API호출이 가능하다.
+    - ``User`` Monitoring과 Graph계열 API만 호출할 수 있다.
+    - ``Looker`` Graph계열 API만 호출할 수 있다.
+    
+    서비스포트(80)로 HTTP Method를 호출하는 경우 HttpMethod속성의 영향을 받는다. 
+    이 설정이 ON인 경우 서비스포트로 요청되었더라도 HTTP Method라면 ACL의 영향을 받는다. 
+    반대로 이 설정이 OFF인 경우 ACL의 영향을 받지 않는다. 
+    
+    설정파일을 POST(Multipart방식)로 업로드할 때 UploadMultipartName속성의 값을 사용한다.
 
-<Cache> 설정
+<Cache>
 ------------------------------------------------
 
 Cache모듈과 전역자원을 설정합니다. ::
