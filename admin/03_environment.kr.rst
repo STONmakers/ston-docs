@@ -1,16 +1,17 @@
 ﻿.. _environment:
 
-전역설정과 상속
+설정구조
 ******************
 
-설정은 크게 전역(server.xml)과 가상호스트(vhosts.xml)으로 나뉜다.
+설정은 크게 전역(server.xml)과 가상호스트(vhosts.xml)로 나뉜다.
 
    .. figure:: img/conf_files.png
       :align: center
 
       3개의 .xml파일이 전부입니다.
 
-이 장에서는 전역설정에 대해 알아보며 가상호스트가 전역설정을 상속받는 방식에 대해 설명한다.
+이 장에서는 설정구조에 설명한다. 설정구조를 이해해야 앞으로 설명할 많은 기능들을 
+올바르게 설정할 수 있다. 특히 가상호스트 상속에 대해서는 반드시 이해해야 한다.
 
 .. toctree::
    :maxdepth: 2
@@ -107,8 +108,9 @@ Cache서비스 모듈을 설정한다. ::
     
 -  ``Storage``
     콘텐츠를 저장할 디스크를 설정한다. 디스크 개수에 제한은 없다. 각 디스크마다 
-    최대 캐싱용량(Quota, 단위: GB)을 설정할 수 있다. 최대 캐싱용량을 설정하지 않아도 
-    디스크가 꽉 차지 않도록 오래된 컨텐츠를 자동으로 삭제한다.
+    최대 캐싱용량(Quota, 단위: GB)을 설정할 수 있다. Quota를 설정하지 않아도 
+    디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 
+    컨텐츠를 자동으로 삭제한다.
     
     디스크는 장애가 가장 많이 발생하는 장비이므로 장애조건을 설정해야 한다.
     DiskFailSec(초)동안 DiskFailCount만큼 디스크 작업이 실패하면 해당 디스크는 자동으로 
@@ -121,12 +123,19 @@ Cache서비스 모듈을 설정한다. ::
     
     
     
-<VHostDefault> 설정
+<VHostDefault>
 ------------------------------------------------
 
-모든 서비스는 가상호스트를 기반으로 완전히 분리되어 동작합니다. 
-모든 가상호스트는 <VHostDefault>설정을 상속받습니다. 설정유형에 따라 
-캐싱옵션(Options), 원본옵션(OriginOptions), 통계(Stats), 로그(Log)로 나뉩니다. ::
+관리자는 각각의 가상호스트를 독립적으로 설정할 수 있다. 하지만 가상호스트를 생성할 때마다
+동일한 설정을 반복하는 것은 매우 소모적인 일이다.
+
+   .. figure:: img/vhostdefault.png
+      :align: center
+   
+      모든 가상호스트는 <VHostDefault>설정을 상속받는다.
+
+<VHostDefault>는 기능별로 묶인 5개의 하위 태그(캐싱옵션<Options>, 원본옵션<OriginOptions>, 
+미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. ::
 
     <VHostDefault>
         <Options> ... </Options>  
@@ -135,6 +144,7 @@ Cache서비스 모듈을 설정한다. ::
         <Stats> ... </Stats>  
         <Log> ... </Log>
     </VHostDefault>
+
 
 
 <Https> 설정
