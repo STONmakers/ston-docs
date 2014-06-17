@@ -57,9 +57,9 @@ XML형식으로 누구나 간단히 편집할 수 있다. ::
     IP가 아니면 강제로 접속을 종료한다. API를 호출하는 IP가 매니저 허가 목록에 반드시
     등록되어 있어야 한다.
     
-    접근조건에 따라 접근권한(Role)을 설정할 수 있다. 접근권한이 없는 요청에 대해서는 
-    *401 Unauthorized*로 응답한다. Allow조건에 Role을 명시적으로 선언하지 않았을 경우 
-    Manager의 Role속성이 적용된다.
+    접근조건에 따라 접근권한(Role)을 설정할 수 있다. 접근권한이 없는 요청에 
+    대해서는 *401 Unauthorized*로 응답한다. Allow조건에 Role을 명시적으로 선언하지 
+    않았을 경우 Manager의 Role속성이 적용된다.
     
     - ``Admin`` 모든 API호출이 가능하다.
     - ``User`` Monitoring과 Graph계열 API만 호출할 수 있다.
