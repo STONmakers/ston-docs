@@ -66,7 +66,7 @@ OS 구성
 설치
 ====================================
 
-1. 최신버전의 STON을 다운로드 받는다.:
+1. 최신버전의 STON을 다운로드 받는다.
 
       [root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
       --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
