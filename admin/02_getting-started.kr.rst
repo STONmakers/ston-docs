@@ -1,6 +1,6 @@
 ﻿.. _getting-started:
 
-STON 시작하기
+STON 설치하기
 ******************
 
 STON은 모든 것이 간단합니다. 빠르게 설치해서 바로 서비스에 투입할 수 있습니다. 이 장에서는 설치부터 실행까지의 내용을 다룹니다.
@@ -92,13 +92,13 @@ OS 구성
 
 4. 설치과정은 install.log에 기록됩니다. 로그를 통해 설치 중 발생하는 문제를 찾아낼 수 있습니다. ::
 
-      #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.1.3.0.rhel.2.6.32.x64.tar.gz
+      #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
       #DownloadTime: 13 sec
-      #Target: STON 1.3.0
+      #Target: STON 2.0.0
       #Date: 2014.03.03 16:48:35
-      Prepare for STON 1.3.0 install process
+      Prepare for STON 2.0.0 install process
           Stopping STON...
-      		STON stopped
+              STON stopped
       [Copying files]
           `./fuse.conf' -> `/etc/fuse.conf'
           `./libfuse.so.2' -> `/usr/local/ston/libfuse.so.2'
