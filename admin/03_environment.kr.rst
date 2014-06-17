@@ -6,7 +6,7 @@
 설정은 크게 전역설정(server.xml)과 가상호스트설정(vhosts.xml)으로 나뉩니다. 
 그 외의 .txt파일들은 특정 가상호스트의 디테일한 조건들을 설정합니다.
 
-   .. figure:: img/conf_files.jpg
+   .. figure:: img/conf_files.png
       :align: center
 
       3개의 .xml파일이 전부입니다.
