@@ -72,9 +72,8 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다. 개발 단계
 OS 구성
 -----------------------------------------------
 
-표준 64bit Linux 배포판(Cent 6.2이상, Ubuntu 10.04이상)이라면 정상동작한다.
-가장 기본적인 형태로 설치하시면 됩니다. STON은 다른 패키지에 종속성을 
-가지지 않으므로 추가로 설치하실 것은 없습니다.
+가장 기본적인 형태로 설치한다. 표준 64bit Linux 배포판(Cent 6.2이상, Ubuntu 10.04이상)
+이라면 정상동작한다. 패키지에 의존성을 가지지 않는다.
 
 
 
@@ -96,15 +95,15 @@ OS 구성
       2014-06-17 13:29:15 (42.9 MB/s) - “ston.2.0.0.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
 
 
-2. 압축을 해지합니다. ::
+2. 압축을 해지한다. ::
 
 		[root@localhost ~]# tar -zxf ston.2.0.0.rhel.2.6.32.x64.tar.gz
 
-3. 설치 스크립트를 실행합니다. ::
+3. 설치 스크립트를 실행한다. ::
 
 		[root@localhost ~]# ./ston.2.0.0.rhel.2.6.32.x64.sh
 
-4. 설치과정은 install.log에 기록됩니다. 로그를 통해 설치 중 발생하는 문제를 찾아낼 수 있습니다. ::
+4. 설치과정은 install.log에 기록된다. 로그를 통해 설치 중 발생하는 문제를 알 수 있다. ::
 
       #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
       #DownloadTime: 13 sec
@@ -163,11 +162,11 @@ OS 구성
 
 업데이트
 -----------------------------------------------
-최신버전이 배포되면 stonu명령어로 업데이트할 수 있습니다. ::
+최신버전이 배포되면 stonu명령어로 업데이트할 수 있다. ::
 
 	./stonu 2.0.1
 	
-또는 WM(Web Management)을 통해 업데이트를 진행할 수 있습니다.
+또는 WM(Web Management)을 통해 업데이트를 진행할 수 있다.
 
    .. figure:: img/conf_update1.png
       :align: center
@@ -176,14 +175,14 @@ OS 구성
 실행하기
 ====================================
 
-기본 설치경로는 /usr/local/ston/ 입니다. 최초 설치시 필수 설정파일인 server.xml과 
-vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 vhosts.xml.default를 
-복사 또는 수정하시어 설정하시기 바랍니다. *.default파일은 항상 최신패키지와 함께 배포됩니다.
+기본 설치경로는 /usr/local/ston/ 이다. 최초 설치시 필수 설정파일인 server.xml과 
+vshost.xml이 존재하지 않는다. 설치경로의 server.xml.default와 vhosts.xml.default를 
+복사 또는 수정하여 설정하길 권장한다. *.default파일은 항상 최신패키지와 함께 배포된다.
 
 
 샘플 가상호스트 생성
 -----------------------------------------------
-vhost.xml 파일을 열어 다음과 같이 편집합니다. ::
+vhost.xml 파일을 열어 다음과 같이 편집한다. ::
 
     <Vhosts>
         <Vhost Name="www.example.com">
@@ -196,9 +195,9 @@ vhost.xml 파일을 열어 다음과 같이 편집합니다. ::
 
 STON 실행
 -----------------------------------------------
-1. 발급받은 license.xml을 설치 경로에 복사합니다.
+1. 발급받은 license.xml을 설치 경로에 복사한다.
 
-2. server.xml을 열어 <Storage>를 구성합니다. ::
+2. server.xml을 열어 <Storage>를 구성한다. ::
 
       <Server>
           <Cache>
@@ -211,14 +210,14 @@ STON 실행
       
 .. note::
 
-   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면
-   구동되지 않습니다. 자세한 내용은 다음 장에서 설명합니다. ::
+   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에, 디스크가 설정되어 있지 않으면
+   구동되지 않는다. 자세한 내용은 다음 장에서 설명한다. ::
 
-3. STON을 실행합니다.  ::
+3. STON을 실행한다.  ::
 
 		[root@localhost ~]# service ston start
 
-4. STON을 중지합니다.  ::
+STON을 중지하고 싶다면 stop 명령을 사용한다.  ::
 
 		[root@localhost ~]# service ston stop
 
@@ -226,11 +225,11 @@ STON 실행
 가상호스트 동작확인
 -----------------------------------------------
 (Windows 7 기준) C:\Windows\System32\drivers\etc\hosts\hosts 파일에 다음과 같이
-www.example.com 도메인 설정 후 브라우저로 접근합니다. ::
+www.example.com 도메인을 설정한다. ::
 
     192.168.0.100        www.example.com
 
-다음 페이지가 정상적으로 서비스되면 성공입니다.
+브라우저로 www.example.com에 접근했을 때 다음 페이지가 정상적으로 서비스되면 성공입니다.
 
    .. figure:: img/welcome_page.png
       :align: center
@@ -238,7 +237,7 @@ www.example.com 도메인 설정 후 브라우저로 접근합니다. ::
 
 설정 Reload
 -----------------------------------------------
-설정파일을 변경한 뒤에는 반드시 Reload를 호출하여 설정을 반영해주어야 합니다. ::
+설정파일을 변경한 뒤에는 반드시 Reload를 호출해야 설정이 반영된다. ::
 
     ./stonapi conf/reload
 
