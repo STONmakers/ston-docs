@@ -134,8 +134,13 @@ Cache서비스 모듈을 설정한다. ::
    
       모든 가상호스트는 <VHostDefault>설정을 상속받는다.
 
+기본적으로 www.example.com과 img.example.com은 <VHostDefault>의 모든 설정을 상속받는다.
+www.example.com의 경우 별도로 덮어쓰기(Overriding)한 값이 없으므로 Value=20이 된다. 반면
+img.example.com은 Value=30으로 덮어쓰기했으므로 다른 모든 설정은 상속받지만 Value=30이 된다.
+이런 특성을 잘 활용하면 보다 쉽게 가상호스 설정이 가능하다.
+
 <VHostDefault>는 기능별로 묶인 5개의 하위 태그(캐싱옵션<Options>, 원본옵션<OriginOptions>, 
-미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. ::
+미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. 각 옵션에 대해서는 이 책을 통해 차차 설명한다. ::
 
     <VHostDefault>
         <Options> ... </Options>  
@@ -150,7 +155,7 @@ Cache서비스 모듈을 설정한다. ::
 <Https> 설정
 ------------------------------------------------
 
-HTTPS 서비스를 구성합니다. 자세한 내용은 **HTTPS 구성하기**를 참고하세요.
+HTTPS 서비스를 구성한다. 별도의 장에서 설명한다.
 
 
 
