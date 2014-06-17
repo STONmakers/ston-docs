@@ -97,54 +97,54 @@ OS 구성
       #Target: STON 1.3.0
       #Date: 2014.03.03 16:48:35
       Prepare for STON 1.3.0 install process
-            Stopping STON...
-            STON stopped
+          Stopping STON...
+      		STON stopped
       [Copying files]
-		`./fuse.conf' -> `/etc/fuse.conf'
-		`./libfuse.so.2' -> `/usr/local/ston/libfuse.so.2'
-		`./libtbbmalloc_proxy.so' -> `/usr/local/ston/libtbbmalloc_proxy.so'
-		`./start-stop-daemon' -> `/usr/sbin/start-stop-daemon'
-		`./libtbbmalloc_proxy.so.2' -> `/usr/local/ston/libtbbmalloc_proxy.so.2'
-		`./libtbbmalloc.so' -> `/usr/local/ston/libtbbmalloc.so'
-		`./libtbbmalloc.so.2' -> `/usr/local/ston/libtbbmalloc.so.2'
-		`./libtbb.so' -> `/usr/local/ston/libtbb.so'
-		`./libtbb.so.2' -> `/usr/local/ston/libtbb.so.2'
-		`./stond' -> `/usr/local/ston/stond'
-		`./stonx' -> `/usr/local/ston/stonx'
-		`./stonr' -> `/usr/local/ston/stonr'
-		`./stonu' -> `/usr/local/ston/stonu'
-		`./stonapi' -> `/usr/local/ston/stonapi'
-		`./server.xml.default' -> `/usr/local/ston/server.xml.default'
-		`./vhosts.xml.default' -> `/usr/local/ston/vhosts.xml.default'
-		`./ston_format.sh' -> `/usr/local/ston/ston_format.sh'
-		`./ston_diskinfo.sh' -> `/usr/local/ston/ston_diskinfo.sh'
-		`./wm.sh' -> `/usr/local/ston/wm.sh'
-		[Exporting config files]
-		    #Export so directory
-		    /usr/local/ston/ to ld.so.conf
-		    #Export sysctl to /etc/sysctl.conf
-		    vm.swappiness=0
-		    vm.min_free_kbytes=524288
-		    #Export sudoers for WM
-		    Defaults    !requiretty
-		    winesoft ALL=NOPASSWD: /etc/init.d/ston stop, /etc/init.d/ston start, /bin/ps -ef
-		[Configuring STON daemon script]
-		    STON deamon activate in run-level 2345.
-		[Installing sub-packages]
-		    curl installed.
-		    libjpeg installed.
-		    libgomp installed.
-		    rrdtool installed.
-		[Installing WM]
-		    Stopping WM...
-		    WM stopped
-		    `./wm.server_default.xml' -> `/usr/local/ston/wm/tmp/conf/server_default.xml'
-		    `./wm.vhost_default.xml' -> `/usr/local/ston/wm/tmp/conf/vhost_default.xml'
-		    WM configuration found. Current WM port : 8500
-		    PHP module for Legacy(CentOS 5.5) installed
-		    `./libphp5.so.5.5' -> `/usr/local/ston/wm/modules/libphp5.so'
-		    WM installation almost complete. Changing WM privileges.
-		Installation successfully complete
+          `./fuse.conf' -> `/etc/fuse.conf'
+          `./libfuse.so.2' -> `/usr/local/ston/libfuse.so.2'
+          `./libtbbmalloc_proxy.so' -> `/usr/local/ston/libtbbmalloc_proxy.so'
+          `./start-stop-daemon' -> `/usr/sbin/start-stop-daemon'
+          `./libtbbmalloc_proxy.so.2' -> `/usr/local/ston/libtbbmalloc_proxy.so.2'
+          `./libtbbmalloc.so' -> `/usr/local/ston/libtbbmalloc.so'
+          `./libtbbmalloc.so.2' -> `/usr/local/ston/libtbbmalloc.so.2'
+          `./libtbb.so' -> `/usr/local/ston/libtbb.so'
+          `./libtbb.so.2' -> `/usr/local/ston/libtbb.so.2'
+          `./stond' -> `/usr/local/ston/stond'
+          `./stonx' -> `/usr/local/ston/stonx'
+          `./stonr' -> `/usr/local/ston/stonr'
+          `./stonu' -> `/usr/local/ston/stonu'
+          `./stonapi' -> `/usr/local/ston/stonapi'
+          `./server.xml.default' -> `/usr/local/ston/server.xml.default'
+          `./vhosts.xml.default' -> `/usr/local/ston/vhosts.xml.default'
+          `./ston_format.sh' -> `/usr/local/ston/ston_format.sh'
+          `./ston_diskinfo.sh' -> `/usr/local/ston/ston_diskinfo.sh'
+          `./wm.sh' -> `/usr/local/ston/wm.sh'
+      [Exporting config files]
+          #Export so directory
+          /usr/local/ston/ to ld.so.conf
+          #Export sysctl to /etc/sysctl.conf
+          vm.swappiness=0
+          vm.min_free_kbytes=524288
+          #Export sudoers for WM
+          Defaults    !requiretty
+          winesoft ALL=NOPASSWD: /etc/init.d/ston stop, /etc/init.d/ston start, /bin/ps -ef
+      [Configuring STON daemon script]
+          STON deamon activate in run-level 2345.
+      [Installing sub-packages]
+          curl installed.
+          libjpeg installed.
+          libgomp installed.
+          rrdtool installed.
+      [Installing WM]
+          Stopping WM...
+          WM stopped
+          `./wm.server_default.xml' -> `/usr/local/ston/wm/tmp/conf/server_default.xml'
+          `./wm.vhost_default.xml' -> `/usr/local/ston/wm/tmp/conf/vhost_default.xml'
+          WM configuration found. Current WM port : 8500
+          PHP module for Legacy(CentOS 5.5) installed
+          `./libphp5.so.5.5' -> `/usr/local/ston/wm/modules/libphp5.so'
+          WM installation almost complete. Changing WM privileges.
+      Installation successfully complete
 
 -  **Checking revalidate rules in the** :file:`cache.config` **file**
 
