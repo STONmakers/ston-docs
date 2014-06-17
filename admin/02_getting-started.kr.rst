@@ -146,15 +146,23 @@ OS 구성
           WM installation almost complete. Changing WM privileges.
       Installation successfully complete
 
--  **Checking revalidate rules in the** :file:`cache.config` **file**
 
-   Revalidate rules apply freshness limits to specific HTTP objects. You
-   can set freshness limits for objects originating from particular
-   domains or IP addresses, objects with URLs that contain specified
-   regular expressions, objects requested by particular clients, and so
-   on (refer to :file:`cache.config`).
 
-Modifying Aging Factor for Freshness Computations
+실행
+====================================
+기본 설치경로는 /usr/local/ston/ 입니다. 최초 설치시 필수 설정파일인 server.xml과 
+vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 vhosts.xml.default를 
+복사 또는 수정하시어 설정하시기 바랍니다. *.default파일은 항상 최신패키지와 함께 배포됩니다.
+
+1. 발급받은 license.xml을 설치 경로에 복사합니다.
+
+2. server.xml을 열어 <Storage>를 구성합니다.
+
+3. STON을 실행합니다.
+
+
+
+
 -------------------------------------------------
 
 If an object does not contain any expiration information, then Traffic
