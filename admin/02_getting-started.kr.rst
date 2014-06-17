@@ -93,10 +93,10 @@ OS 구성
 4. 설치과정은 install.log에 기록됩니다. 로그를 통해 설치 중 발생하는 문제를 찾아낼 수 있습니다.::
 
    #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
-	#DownloadTime: 13 sec
-	#Target: STON 2.0.0
-	#Date: 2014.03.03 16:48:35
-	Prepare for STON 2.0.0 install process
+   #DownloadTime: 13 sec
+   #Target: STON 2.0.0
+   #Date: 2014.03.03 16:48:35
+   		Prepare for STON 2.0.0 install process
 	    Stopping STON...
 	    STON stopped
 	[Copying files]
