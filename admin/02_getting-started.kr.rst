@@ -9,7 +9,7 @@
    :maxdepth: 2
 
 
-설치하기
+시스템 구성과 설치
 ====================================
 STON은 표준 Linux 서버에서 무리없이 동작하도록 개발되었습니다. 특정 하드웨어에 
 종속적인 기능은 최대한 배제하였습니다. 이는 고객이 합리적인 장비 선택을 할 수 있도록 
@@ -172,12 +172,26 @@ OS 구성
 실행하기
 ====================================
 
-실행
------------------------------------------------
 기본 설치경로는 /usr/local/ston/ 입니다. 최초 설치시 필수 설정파일인 server.xml과 
 vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 vhosts.xml.default를 
 복사 또는 수정하시어 설정하시기 바랍니다. *.default파일은 항상 최신패키지와 함께 배포됩니다.
 
+
+샘플 가상호스트 생성
+-----------------------------------------------
+vhost.xml 파일을 열어 다음과 같이 편집합니다. ::
+
+    <Vhosts>
+        <Vhost Name="www.example.com">
+            <Origin>
+                <Address>welcome.winesoft.co.kr</Address>
+            </Origin>
+        </Vhost>
+    </Vhosts>   
+
+
+STON 실행
+-----------------------------------------------
 1. 발급받은 license.xml을 설치 경로에 복사합니다.
 
 2. server.xml을 열어 <Storage>를 구성합니다. ::
@@ -205,6 +219,23 @@ vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 
 		[root@localhost ~]# service ston stop
 
 
+가상호스트 동작확인
+-----------------------------------------------
+(Windows 7 기준) C:\Windows\System32\drivers\etc\hosts\hosts 파일에 다음과 같이
+www.example.com 도메인 설정 후 브라우저로 접근합니다. ::
+
+    192.168.0.100        www.example.com
+
+다음 페이지가 정상적으로 서비스되면 성공입니다.
+
+   .. figure:: img/welcome_page.png
+      :align: center
 
 
-      
+설정 Reload
+-----------------------------------------------
+설정파일을 변경한 뒤에는 반드시 Reload를 호출하여 설정을 반영해주어야 합니다. ::
+
+    ./stonapi conf/reload
+
+
