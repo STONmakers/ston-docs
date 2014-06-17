@@ -63,32 +63,32 @@ OS 구성
 가지지 않으므로 추가로 설치하실 것은 없습니다.
 
 
+
 설치
 ====================================
 
 1. 최신버전의 STON을 다운로드 받는다.::
 
-      [root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
-      --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.1.3.11.rhel.2.6.32.x64.tar.gz
+      [root@localhost ~]# **wget  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz**
+      --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
       Resolving webhard.winesoft.co.kr... 192.168.0.14
       Connecting to webhard.winesoft.co.kr|192.168.0.14|:80... connected.
       HTTP request sent, awaiting response... 200 OK
       Length: 71340645 (68M) [application/x-gzip]
-      Saving to: “ston.1.3.11.rhel.2.6.32.x64.tar.gz”
+      Saving to: “ston.2.0.0.rhel.2.6.32.x64.tar.gz”
       
       100%[===============================================>] 71,340,645  42.9M/s   in 1.6s
       
-      2014-06-17 13:29:15 (42.9 MB/s) - “ston.1.3.11.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
+      2014-06-17 13:29:15 (42.9 MB/s) - “ston.2.0.0.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
 
 
-2. 압축을 해지합니다.
+2. 압축을 해지합니다. ::
 
-3. 
+		[root@localhost ~]# **tar -zxf ston.2.0.0.rhel.2.6.32.x64.tar.gz**
 
-   Some HTTP objects contain ``Expires`` headers or ``max-age`` headers
-   that explicitly define how long the object can be cached. Traffic
-   Server compares the current time with the expiration time to
-   determine if the object is still fresh.
+3. 설치 스크립트를 실행합니다. ::
+
+		[root@localhost ~]# **./ston.2.0.0.rhel.2.6.32.x64.sh**
 
 -  **Checking the** ``Last-Modified`` **/** ``Date`` **header**
 
