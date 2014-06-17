@@ -74,16 +74,13 @@ XML형식으로 누구나 간단히 편집할 수 있다. ::
 <Cache>
 ------------------------------------------------
 
-Cache모듈과 전역자원을 설정합니다. ::
+Cache서비스 모듈을 설정한다. ::
 
     <Cache>
         <Cleanup>
             <Time>02:00</Time>
             <Age>0</Age>
         </Cleanup>
-        <InfoLog Type="size" Unit="1" Retention="5" SysLog="OFF">ON</InfoLog>
-        <DenyLog Type="size" Unit="1" Retention="5" SysLog="OFF">ON</DenyLog>
-        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF" SysLog="OFF">ON</OriginErrorLog>
         <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
             <Disk>/user/cache1</Disk>    
             <Disk>/user/cache2</Disk>    
@@ -97,6 +94,29 @@ Cache모듈과 전역자원을 설정합니다. ::
         <Listen>0.0.0.0</Listen>        
         <ConfigHistory>30</ConfigHistory>
     </Cache>
+
+-  ``Cleanup``
+    하루에 한 번 시스템 최적화를 수행한다. 서비스 품질저하를 방지하기 위해 
+    최적화는 조금씩 점진적으로 수행된다.
+    - ``Time`` Cleanup이 수행될 시간을 설정한다. 오후 11시 10분을 설정하고 
+    싶다면 23:10으로 설정한다.
+    - ``Age`` (단위: 일) 0보다 큰 경우, 일정 기간동안 한번도 접근되지 않은 콘텐츠를 삭제한다.
+    디스크를 미리 확보하여 서비스 시간 중 디스크 부족이 발생하지 않게 한다.
+    
+-  ``Storage``
+    콘텐츠를 저장할 디스크를 설정한다. 디스크 개수에 제한은 없다. 각 디스크마다 
+    최대 캐싱용량(Quota, 단위: GB)을 설정할 수 있다. 최대 캐싱용량을 설정하지 않아도 
+    디스크가 꽉 차지 않도록 오래된 컨텐츠를 자동으로 삭제한다.
+    
+    디스크는 장애가 가장 많이 발생하는 장비이므로 장애조건을 설정해야 한다.
+    DiskFailSec(초)동안 DiskFailCount만큼 디스크 작업이 실패하면 해당 디스크는 자동으로 
+    배제된다. 배제된 디스크 상태는 "Invalid"로 제공된다. 모든 디스크가 배제될 수도 있는데
+    이 때의 동작방식은 OnCrash속성을 통해 설정 가능하다.
+    - ``hang`` 장애 디스크를 모두 재투입한다. 정상 서비스를 기대한다기 보다는 복구되기 
+    전까지 트래픽을 버티려는 목적이 강하다.
+    - ``bypass`` 모든 요청을 원본서버으로 바이패스 한다. 디스크가 복구되면 
+    즉시 STON이 서비스를 처리한다.
+    - ``selfkill`` STON을 종료시킨다.
     
     
 <VHostDefault> 설정
