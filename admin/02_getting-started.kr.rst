@@ -11,14 +11,25 @@ STON은 모든 것이 간단합니다. 빠르게 설치해서 바로 서비스�
 서버 구성
 ====================================
 
-STON은 시장에서 가장 저렴하게 구입할 수 있는 장비에서도 무리없이 높은 퍼포먼스를 보장하도록 개발되었습니다. 고객이 합리적인 장비 선택을 할 수 있도록 돕는 것 또한 STON의 목표입니다. 서버는 서비스의 특성과 규모에 따라 다르게 구성될 수 있습니다. 일반적인 선택의 기준은 CPU, Memory, Storage입니다. 
+STON은 시장에서 가장 저렴하게 구입할 수 있는 장비에서도 무리없이 높은 퍼포먼스를 보장하도록 개발되었습니다. 고객이 합리적인 장비 선택을 할 수 있도록 돕는 것 또한 STON의 목표입니다. 서버는 서비스의 특성과 규모에 따라 다르게 구성될 수 있습니다. 일반적인 선택의 기준은 CPU, Memory, Storage입니다.
 
 -  **CPU**
-   Quad 코어 이상을 권장합니다. STON은 매니코어(Many Core)에 최적화된 
-   아키텍처를 사용합니다. 코어가 많으면 많을수록 뛰어난 퍼포먼스를 발휘합니다. 
-   매우 높은 사용자 처리량이 필요한 서비스인 경우 코어를 늘려주시는 것이 좋습니다.
+
+   STON은 Many-Core에 대해 확장성(Scalability)를 가집니다. 코어가 많으면 많을수록 
+   초당 처리량이 증가합니다. 높은 처리량이 높은 트래픽을 의미하는 것은 아닙니다.
+
+   .. figure:: img/10g_cpu.jpg
+      :align: center
+
+      클라이언트가 많을수록 많은 CPU는 힘이 됩니다.
+    
+   위 그림처럼 평균파일 크기가 4KB인 서비스는 약 26만번을 전송해야 1GB파일을 
+   한번 전송한 것과 같은 대역폭을 사용합니다. CPU선택의 가장 큰 기준은 얼마나 
+   많은 동시접속을 처리하는가에 있습니다. 일반적으로 Quad 코어 이상이 적합합니다. 
+   
 
 -  **메모리**
+
    4GB이상을 권장합니다. 메모리 크기에 따라 활성화되는 컨텐츠 개수와 메모리에 
    캐싱하는 컨텐츠 양이 달라집니다. 컨텐츠 개수는 4GB = 43만개, 8GB = 170만개, 
    16GB = 690만개, 20 GB 이상 = 1,200만개의 컨텐츠를 인덱싱합니다. 
@@ -29,6 +40,7 @@ STON은 시장에서 가장 저렴하게 구입할 수 있는 장비에서도 �
    즉 자주 사용하는 컨텐츠일수록 메모리에 적재되어 있을 확률이 높습니다.
 
 - **디스크**
+
    SAS디스크 3개 이상을 권장합니다. 디스크 역시 많으면 많을수록 로드를 
    분산할 수 있으므로 좋습니다. 절대 Disk설정을 OS와 로그가 있는 디스크에 하지 
    마시기 바랍니다. 로그의 경우 모든 서비스 상황을 실시간으로 기록하기 때문에 
@@ -39,25 +51,6 @@ STON은 시장에서 가장 저렴하게 구입할 수 있는 장비에서도 �
    파일 변경이 빈번하지 않고 컨텐츠의 크기가 메모리 캐싱크기보다 훨씬 큰 경우 
    RAID를 통한 Read속도 향상이 도움이 될 수 있습니다.
 
-      A cache hit
-
-4. If the data in the cache is stale, then Traffic Server connects to
-   the origin server and checks if the object is still fresh (a
-   :term:`revalidation`). If it is, then Traffic Server immediately sends
-   the cached copy to the client.
-
-5. If the object is not in the cache (a **cache miss**) or if the server
-   indicates the cached copy is no longer valid, then Traffic Server
-   obtains the object from the origin server. The object is then
-   simultaneously streamed to the client and the Traffic Server local
-   cache (see the figure below). Subsequent requests for the object can
-   be served faster because the object is retrieved directly from cache.
-
-   .. figure:: ../static/images/admin/cache_miss.jpg
-      :align: center
-      :alt: A cache miss
-
-      A cache miss
 
 Caching is typically more complex than the preceding overview suggests.
 In particular, the overview does not discuss how Traffic Server ensures
