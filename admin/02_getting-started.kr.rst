@@ -54,24 +54,11 @@ STON은 시장에서 가장 저렴하게 구입할 수 있는 장비에서도 �
    RAID를 통한 Read속도 향상이 도움이 될 수 있습니다.
 
 
-Caching is typically more complex than the preceding overview suggests.
-In particular, the overview does not discuss how Traffic Server ensures
-freshness, serves correct HTTP alternates, and treats requests for
-objects that cannot/should not be cached. The following sections discuss
-these issues in greater detail.
-
-Ensuring Cached Object Freshness
+OS
 ================================
 
-When Traffic Server receives a request for a web object, it first tries
-to locate the requested object in its cache. If the object is in cache,
-then Traffic Server checks to see if the object is fresh enough to
-serve. For HTTP objects, Traffic Server supports optional
-author-specified expiration dates. Traffic Server adheres to these
-expiration dates; otherwise, it picks an expiration date based on how
-frequently the object is changing and on administrator-chosen freshness
-guidelines. Objects can also be revalidated by checking with the origin
-server to see if an object is still fresh.
+STON은 64bit Linux에서만 동작합니다. Cent 6.2이상, Ubuntu 10.04이상을 설치하시길 권당
+
 
 HTTP Object Freshness
 ---------------------
