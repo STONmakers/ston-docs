@@ -156,7 +156,21 @@ vshost.xml이 존재하지 않습니다. 설치 경로의 server.xml.default와 
 
 1. 발급받은 license.xml을 설치 경로에 복사합니다.
 
-2. server.xml을 열어 <Storage>를 구성합니다.
+2. server.xml을 열어 <Storage>를 구성합니다. ::
+
+      <Server>
+          <Cache>
+              <Storage>
+                  <Disk>/cache1/</Disk>
+                  <Disk>/cache2/</Disk>
+              </Storage>
+          </Cache>
+      </Server>
+      
+.. note::
+
+   Cache서버는 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면
+   구동되지 않습니다. 자세한 내용은 다음 장에서 설명합니다.      
 
 3. STON을 실행합니다.
 
