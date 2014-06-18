@@ -121,11 +121,19 @@ Cache서비스 모듈을 설정한다. ::
     *:80은 0.0.0.0:80을 의미한다. 0.0.0.0이 아닌 지정된 IP만을 열고 싶은 경우 다음과 같이 
     Listen할 IP 목록을 명확하게 지정한다. ::
 
-<Cache>
-    <Listen>10.10.10.10</Listen>
-    <Listen>10.10.10.11</Listen>
-    <Listen>127.0.0.2</Listen>
-</Cache>
+       <Cache>
+         <Listen>10.10.10.10</Listen>
+         <Listen>10.10.10.11</Listen>
+         <Listen>127.0.0.2</Listen>
+       </Cache>
+    
+    aaa ::
+
+       <LogObject>
+         <Format = "squid"/>
+         <Filename = "squid"/>
+         <CollationHosts="ipaddress:port"/>
+       </LogObject>
     
 
 -  ``ConfigHistory (단위: 일)``
