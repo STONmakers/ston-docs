@@ -81,10 +81,10 @@ OS 구성
 
 1. 최신버전의 STON을 다운로드 받는다. ::
 
-      [root@localhost ~]# wget  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
-      --2014-06-17 13:29:14--  http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
-      Resolving webhard.winesoft.co.kr... 192.168.0.14
-      Connecting to webhard.winesoft.co.kr|192.168.0.14|:80... connected.
+      [root@localhost ~]# wget  http://foobar.com/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
+      --2014-06-17 13:29:14--  http://foobar.com/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
+      Resolving foobar.com... 192.168.0.14
+      Connecting to foobar.com|192.168.0.14|:80... connected.
       HTTP request sent, awaiting response... 200 OK
       Length: 71340645 (68M) [application/x-gzip]
       Saving to: “ston.2.0.0.rhel.2.6.32.x64.tar.gz”
@@ -104,7 +104,7 @@ OS 구성
 
 4. 설치과정은 install.log에 기록된다. 로그를 통해 설치 중 발생하는 문제를 알 수 있다. ::
 
-      #DownloadURL: http://webhard.winesoft.co.kr/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
+      #DownloadURL: http://foobar.com/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
       #DownloadTime: 13 sec
       #Target: STON 2.0.0
       #Date: 2014.03.03 16:48:35
