@@ -180,7 +180,7 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
 -  ``<NoCache> (기본: 5초, Ratio: 0, Max=5, MaxAge=0)``
     원본서버가 no-cache로 응답했을 때 TTL을 설정한다. ::
     
-    cache-control: no-cache 또는 private 또는 must-revalidate
+        cache-control: no-cache 또는 private 또는 must-revalidate
     
     콘텐츠를 처음 저장할 때 ``<NoCache>`` 뒤에 콘텐츠가 만료(TTL)되도록 설정한다.
     (TTL만료 후) 원본서버에서 변경되지 않았다면(304 Not Modified) ``Ratio`` 비율(0~100)만큼 TTL을 연장한다.
