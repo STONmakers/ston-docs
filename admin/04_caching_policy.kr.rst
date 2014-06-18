@@ -261,8 +261,8 @@ TTL 우선순위
     
 ``<TTL>`` 의 ``Priority (기본: cc_nocache, custom, cc_maxage, rescode)`` 속성으로 설정한다.
 
-- ``cc_nocache`` 원본서버 Cache-Control에 nocache가 명시된 경우
+- ``cc_nocache`` 원본이 Cache-Control: no-cache로 응답한 경우
 - ``custom`` Custom TTL
-- ``cc_maxage`` 원본서버 Cache-Control에 maxage가 명시된 경우
-- ``rescode`` 응답코드별 설정
+- ``cc_maxage`` 원본이 Cache-Control에 maxage를 명시한 경우
+- ``rescode`` 원본 응답코드별 기본 TTL
 
