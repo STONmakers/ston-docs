@@ -38,7 +38,7 @@ STON은 원본서버의 압축여부를 알 수 없다.
    .. figure:: img/acceptencoding.png
       :align: center
 
-   원본서버가 어떤 응답을 줄지 알 수 없다. 
+      원본서버가 어떤 응답을 줄지 알 수 없다. 
 
 ::
 
@@ -65,7 +65,7 @@ OFF로 설정하는 것이 바람직하다.
    .. figure:: img/casesensitive.png
       :align: center
 
-   아마도 같은 콘텐츠이거나 404가 발생한다.
+      아마도 같은 콘텐츠이거나 404가 발생한다.
    
 ::
 
@@ -89,7 +89,7 @@ QueryString에 의하여 동적으로 생성되는 컨텐츠가 아니라면 Que
    .. figure:: img/querystring.png
       :align: center
 
-   동적 콘텐츠가 아니라면 같은 콘텐츠일 가능성이 높다.
+      동적 콘텐츠가 아니라면 같은 콘텐츠일 가능성이 높다.
    
 ::
 
@@ -109,6 +109,5 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
     /private/personal.jsp?login=ok*
     /image/ad.jpg
 
-예외조건이 
-``<ApplyQueryString>``설정에 따라 의미가 달라짐에 주의한다. 
+예외조건이 ``/pub`` ``<ApplyQueryString>``설정에 따라 의미가 달라짐에 주의한다. 
 명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
