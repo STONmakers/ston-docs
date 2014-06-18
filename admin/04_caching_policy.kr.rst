@@ -109,5 +109,6 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
     /private/personal.jsp?login=ok*
     /image/ad.jpg
 
-예외조건이 ``<ApplyQueryString>``설정에 따라 의미가 달라짐에 주의한다. 
+예외조건이 
+``<ApplyQueryString>``설정에 따라 의미가 달라짐에 주의한다. 
 명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
