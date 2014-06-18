@@ -154,7 +154,7 @@ TTL을 길게 설정하면 원본서버의 부하는 줄어들지만 변경사�
 반대로 짧게 설정하면 너주 잦은 변경확인 요청으로 원본서버 부하가 높아진다.
 Cache운영의 묘미는 TTL을 활용하여 원본서버 부하를 줄이는 것에 있다.
 
-원본서버 응답 TTL
+기본설정
 ---------------------
 
 기본적으로 원본서버의 응답에 따라 TTL이 결정된다. 
@@ -163,7 +163,7 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
 원본서버가 304 Not Modified응답을 준다면 TTL은 연장된다. ::
 
     <Options>
-        <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
+        <TTL>
             <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
             <Res2xx Ratio="20" Max="86400">1800</Res2xx>
             <Res3xx>300</Res3xx>
@@ -174,4 +174,26 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
             <OriginBusy>3</OriginBusy>
         </TTL>
     </Options>
+    
+설정 단위는 초(sec)이다.
 
+-  ``<NoCache>``
+    원본서버가 다음과 같이 
+
+-  ``<Res2xx>``
+
+-  ``<Res3xx>``
+
+-  ``<Res4xx>``
+
+-  ``<Res5xx>``
+
+-  ``<ConnectTimeout>``
+
+-  ``<ReceiveTimeout>``
+
+-  ``<OriginBusy>``
+
+   
+   
+   
