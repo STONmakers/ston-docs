@@ -28,7 +28,7 @@ Caching-Key란 원본서버로부터 저장된 콘텐츠를 구분하는 고유 
 같은 URL인데 서로 다른 Caching-Key를 사용할 수 있고, 반대인 경우도 있다.
 
 
-Accept-Encoding
+Accept-Encoding 헤더
 ---------------------
 
 같은 URL에 대한 HTTP요청이라도 Accept-Encoding헤더의 존재 유무에 따라 
@@ -78,6 +78,7 @@ OFF로 설정하는 것이 바람직하다.
    -  ``ON (기본)`` URL 대소문자를 구문한다. 
    
    -  ``OFF`` URL 대소문자를 구분하지 않는다. 모두 소문자로 처리된다.
+
     
 QueryString 구분
 ---------------------
@@ -111,3 +112,32 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 
 예외조건이 ``<ApplyQueryString>`` 설정에 따라 의미가 달라짐에 주의한다. 
 명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
+
+
+Vary 헤더
+---------------------
+
+원본서버의 Vary헤더를 인식하여 콘텐츠를 구분한다. 일반적으로 Vary헤더는 Cache서버의 
+성능을 급격히 떨어트리는 원인이 되기때문에 활성화되어 있지 않다. ::
+
+    <Options>
+        <VaryHeader />
+    </Options>
+
+예를 들어 원본서버가 다음과 같이 Vary헤더를 보냈다고 하더라도 
+인식할 헤더가 설정되어 있지 않다면 무시된다.
+
+    Vary: Accept-Encoding, Accept, User-Agent
+
+User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 하려면 
+다음과 같이 설정한다. 구분자는 Comma(,)를 사용한다. ::
+
+    <Options>
+        <VaryHeader>Accept-Encoding, Accept</VaryHeader>
+    </Options>
+    
+원본서버가 보낸 모든 Vary헤더를 인식하게 하려면 다음과 같이 설정한다. ::
+
+    <Options>
+        <VaryHeader>*</VaryHeader>
+    </Options>
