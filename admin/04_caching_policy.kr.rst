@@ -38,9 +38,7 @@ STON은 원본서버의 압축여부를 알 수 없다.
    .. figure:: img/acceptencoding.png
       :align: center
 
-   원본서버가 어떤 응답을 줄지 알 수 없습니다.
-
-만약 원본서버가 압축을 지원하지 않는다면 동일한 컨텐츠가 중복되어 저장된다. ::
+   원본서버가 어떤 응답을 줄지 알 수 없습니다. ::
 
     <Options>
         <ApplyQueryString>ON</ApplyQueryString>
@@ -48,8 +46,10 @@ STON은 원본서버의 압축여부를 알 수 없다.
 
 -  ``<ApplyQueryString>``
     OFF설정 시 클라이언트가 보내는 Accept-Encoding을 무시한다. 
-    만약 원본서버에서 압축을 지원하지 않거나, 압축이 필요없는 대용량 파일의 경우 
-    Accept-Encoding을 무시하도록 설정하는 것이 바람직하다.
+    
+ON설정에서 원본서버가 압축을 지원하지 않는다면 동일한 컨텐츠가 중복되어 저장된다.
+원본서버에서 압축을 지원하지 않거나, 압축이 필요없는 대용량 파일의 경우 
+OFF로 설정하는 것이 바람직하다.
 
 -  **Checking the** ``Expires`` **or** ``max-age`` **header**
 
