@@ -46,7 +46,7 @@ STON은 원본서버의 압축여부를 알 수 없다.
 
 -  ``<ApplyQueryString>``
 
-   -  ``ON`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 인식한다.
+   -  ``ON (기본)`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 인식한다.
    
    -  ``OFF`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 무시한다.
     
