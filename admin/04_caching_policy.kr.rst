@@ -38,14 +38,15 @@ STON은 원본서버의 압축여부를 알 수 없다.
    .. figure:: img/acceptencoding.png
       :align: center
 
-   원본서버가 어떤 응답을 줄지 알 수 없습니다. 
+   원본서버가 어떤 응답을 줄지 알 수 없다. 
 
 ::
+
     <Options>
-        <ApplyQueryString>ON</ApplyQueryString>
+        <AcceptEncoding>ON</AcceptEncoding>
     </Options>
 
--  ``<ApplyQueryString>``
+-  ``<AcceptEncoding>``
 
    -  ``ON (기본)`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 인식한다.
    
@@ -64,7 +65,7 @@ OFF로 설정하는 것이 바람직하다.
    .. figure:: img/casesensitive.png
       :align: center
 
-   원본이 Windows라면 OFF설정이 바람직합니다.
+   아마도 같은 콘텐츠이거나 404가 발생한다.
    
 ::
 
@@ -74,7 +75,31 @@ OFF로 설정하는 것이 바람직하다.
 
 -  ``<CaseSensitive>``
 
-   -  ``ON (기본)`` URL 대소문자를 구문합니다. 
+   -  ``ON (기본)`` URL 대소문자를 구문한다. 
    
-   -  ``OFF`` URL을 소문자로 변환하여 원본서버로 요청합니다.
+   -  ``OFF`` URL 대소문자를 구분하지 않는다. 모두 소문자로 처리된다.
+    
+QueryString 구분
+---------------------
+
+QueryString에 의하여 동적으로 생성되는 컨텐츠가 아니라면 QueryString을 인식하는 것은 
+불필요하다. 최악의 경우로 QueryString이 아무 의미없이 Random이나 시간 값으로 증가하는 
+경우에는 원본에 엄청난 부하가 발생할 수 있다.
+
+   .. figure:: img/querystring.png
+      :align: center
+
+   동적 콘텐츠가 아니라면 같은 콘텐츠일 가능성이 높다.
+   
+::
+
+    <Options>
+        <ApplyQueryString>ON</ApplyQueryString>
+    </Options>
+
+-  ``<ApplyQueryString>``
+
+   -  ``ON (기본)`` QueryString을 인식한다.
+   
+   -  ``OFF`` QueryString을 무시한다.
     
