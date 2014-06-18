@@ -243,6 +243,26 @@ URL마다 별도의 TTL을 설정한다.
 
     모든 페이지(html, php, jsp 등)에 별도의 TTL을 설정하기 위하여 *.html을 추가하였더라도 
     첫 페이지(/)에는 설정되지 않는다. 
-    STON은 원본서버가 첫 페이지를 어떤 페이지(예를 들어 index.php로 default.jsp 등)로 설정하였는지 
+    원본서버가 첫 페이지를 어떤 페이지(예를 들어 index.php로 default.jsp 등)로 설정하였는지 
     HTTP 프로토콜로는 알 수 없다. 
     그러므로 모든 페이지에 별도의 TTL을 설정하려면 반드시 /를 추가해야 한다.
+    
+    
+TTL 우선순위
+---------------------
+
+적용할 TTL설정의 우선순위를 설정한다. ::
+
+    <Options>
+        <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
+            ... (생략) ...
+        </TTL>
+    </Options>
+    
+``<TTL>`` 의 ``Priority (기본: cc_nocache, custom, cc_maxage, rescode)`` 속성으로 설정한다.
+
+- ``cc_nocache`` 원본서버 Cache-Control에 nocache가 명시된 경우
+- ``custom`` Custom TTL
+- ``cc_maxage`` 원본서버 Cache-Control에 maxage가 명시된 경우
+- ``rescode`` 응답코드별 설정
+
