@@ -16,7 +16,7 @@
 .. toctree::
    :maxdepth: 2
 
-server.xml
+server.xml - 전역설정
 ====================================
 
 실행파일과 같은 경로에 존재하는 server.xml 이 유일한 전역설정 파일이다.
@@ -39,7 +39,7 @@ XML형식으로 누구나 간단히 편집할 수 있다. ::
 
     <Host>
         <Name>stream_07</Name>
-        <Admin>admin@winesoft.co.kr</Admin>
+        <Admin>admin@example.com</Admin>
         <Manager Port="10040" HttpMethod="ON" Role="Admin" UploadMultipartName="confile">
             <Allow>192.168.1.1</Allow>
             <Allow Role="Admin">192.168.2.1-255</Allow>
@@ -140,7 +140,7 @@ img.example.com은 Value=30으로 덮어쓰기했으므로 다른 모든 설정�
 이런 특성을 잘 활용하면 보다 쉽게 가상호스 설정이 가능하다.
 
 <VHostDefault>는 기능별로 묶인 5개의 하위 태그(캐싱옵션<Options>, 원본옵션<OriginOptions>, 
-미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. 각 옵션에 대해서는 이 책을 통해 차차 설명한다. ::
+미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. 각 옵션에 대해서는 차차 설명한다. ::
 
     <VHostDefault>
         <Options> ... </Options>  
@@ -152,35 +152,154 @@ img.example.com은 Value=30으로 덮어쓰기했으므로 다른 모든 설정�
 
 
 
-<Https> 설정
+<Https>
 ------------------------------------------------
 
 HTTPS 서비스를 구성한다. 별도의 장에서 설명한다.
 
 
 
-가상호스트 설정 - vhosts.xml
+vhosts.xml - 가상호스트 설정
 ====================================
 
-서비스할 가상호스트를 설정합니다. 실행파일과 같은 경로에 존재하는 
-vhosts.xml파일을 가상호스트 파일로 인식합니다. XML구조는 복수의 가상호스트와 
-1개의 기본 가상호스트를 설정하는 구조입니다. ::
+서비스할 가상호스트를 설정한다. 실행파일과 같은 경로에 존재하는 
+vhosts.xml파일을 가상호스트 파일로 인식한다. 여러개의 가상호스트를 설정한다. ::
 
     <Vhosts>
-        <Vhost Status="Active" Name="web.winesoft.co.kr"> ... </Vhost>
-        <Vhost Status="Active" Name="img.winesoft.co.kr"> ... </Vhost>
-        <Vhost Status="Active" Name="vod.winesoft.co.kr"> ... </Vhost>
-        <Default>web.winesoft.co.kr</Default>
+        <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
+        <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
+        <Vhost Status="Active" Name="vod.example.com"> ... </Vhost>
     </Vhosts>
     
-가상호스트 설정 따라하기
+가상호스트 생성과 파괴
 ------------------------------------------------
-vhosts.xml을 열고 다음과 같이 편집합니다.
+가상호스트는 vhosts.xml에 <Vhost>태그를 입력하는 것으로 생성된다.
 
-    <Vhosts>
-        <Vhost Status="Active" Name="ston.winesoft.co.kr">
+    <Vhost Status="Active" Name="ston.example.com">
         <Origin>
-            <Address>ston.winesoft.co.kr</Address>
+            <Address>123.123.123.123</Address>
         </Origin>
     </Vhost>
 
+-  ``Vhost``
+    가상호스트를 설정한다.
+    
+    - ``Status (기본: Active)`` Inactive인 경우 해당 가상호스트를 서비스하지 않는다. 캐싱된 콘텐츠는 유지된다.
+    - ``Name`` 가상호스트 이름. 반드시 입력되어야 하며 명시적이어야 한다.
+    
+가상호스를 삭제하려면 해당 가상호스트의 <Vhost>태그를 삭제한다. 삭제된 가상호스트의 
+모든 콘텐츠는 삭제대상이 되며 가상호스트를 다시 추가하려도 콘텐츠는 연계되지 않는다.
+그러므로 가상호스트를 신중하게 삭제하려면 일정시간 ``Status``속성을 Inactive상태로 
+유지하여 혹시 있을지 모르는 재투입 상황에 대비할 수 있다.
+
+    
+가상호스트 찾기
+------------------------------------------------
+다음은 가장 간단한 형태의 HTTP요청이다. ::
+
+    GET / HTTP/1.1
+    Host: www.example.com
+
+일반적인 웹(캐시) 서버는 Host헤더의 값으로 가상호스트를 찾는다. 
+가상호스트에 별명<Alias>을 추가하여 다양한 Host값에서 가상호스트가 서비스되도록 
+할 수 있다. ::
+
+    <Vhost ...>
+        <Alias>www2.example.com</Alias>
+        <Alias>*.sub.example.com</Alias>
+    </Vhost>
+
+Alias의 개수는 제한이 없다. 명확한 표현(www2.example.com)과 
+패턴표현(*.sub.example.com)을 지원한다. 패턴은 복잡한 정규표현식이 아닌 
+prefix에 * 표현을 하나만 붙일 수 있는 간단한 형식만을 지원한다.
+
+정리하면, 가상호스트 검색 순서는 다음과 같다.
+
+1. <Vhost>의 Name속성과 일치하는가?
+2. <Alias>의 명시적인 이름과 일치하는가?
+3. <Alias>의 패턴표현을 만족하는가?
+    
+기본 가상호스트
+------------------------------------------------
+기본 가상호스트를 설정할 수 있다. 클라이언트의 HTTP요청이 가상호스트를 찾지못한 
+경우 기본 가상호스트에 의해 처리된다. 반드시 Vhost의 Name속성과 똑같은 문자열로 설정한다. ::
+
+    <Vhosts>
+        <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
+        <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
+         <Default>www.example.com</Default>
+    </Vhosts>
+    
+서비스 주소
+------------------------------------------------
+서비스 할 주소와 포트를 설정한다.
+
+    <Vhost ...>
+        <Listen>*:80</Listen>
+    </Vhost>
+
+*:80 표현은 모든 IP의 80포트로 오는 요청을 처리한다는 의미이다. 예를 들어 
+특정 IP(1.1.1.1)의 90포트로 서비스하고 싶다면 다음과 같이 설정한다. ::
+    
+    <Vhost ...>
+        <Listen>1.1.1.1:90</Listen>
+    </Vhost>
+    
+서비스 포트를 열지 않으려면 다음과 같이 OFF로 설정한다. ::
+    
+    <Vhost ...>
+        <Listen>OFF</Listen>
+    </Vhost>
+    
+    
+Active 원본서버
+------------------------------------------------
+가상호스트는 원본서버를 복제하는 것이 목적이다. 서비스 형태에 맞게 다양한 
+원본서버 주소를 설정할 수 있다. ::
+
+    <Vhost ...>
+    <Origin>
+        <Address>1.1.1.1</Address>
+        <Address>1.1.1.2</Address>
+    </Origin>
+    </Vhost>
+
+원본서버 주소의 개수는 제한이 없다. Active/Active방식(Round-Robin)으로 선택되며, 
+원본서버 주소 포트가 80인 경우 생략할 수 있다. 예를 들어 다른 포트(8080)로 
+서비스되는 경우 1.1.1.1:8080과 같이 포트번호를 명시해야 한다.
+원본서버 주소는 {IP|Domain}{Port}{Path}형식으로 8가지 형식이 가능하다.
+
+=====  =====
+   Address     Host헤더
+=====  =====
+1.1.1.1	    가상호스트명
+1.1.1.1:8080	가상호스트명:8080
+1.1.1.1/account/dir	가상호스트명
+1.1.1.1:8080/account/dir	가상호스트명:8080
+example.com	example.com
+example.com:8080	example.com:8080
+example.com/account/dir	example.com
+example.com:8080/account/dir	example.com:8080
+=====  =====
+
+예를 들어 원본서버에 example.com/account/dir처럼 경로가 붙어있다면 
+요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 클라이언트가 /img.jpg를 요청하면 
+최종 주소는 example.com/account/dir/img.jpg가 된다.
+
+Standby 원본서버
+------------------------------------------------
+Standby 원본서버를 설정한다. ::
+
+    <Vhost ...>
+        <Origin>
+            <Address>1.1.1.1</Address>
+            <Address>1.1.1.2</Address>
+            <Address2>1.1.1.3</Address2>
+            <Address2>1.1.1.4</Address2>
+        </Origin>
+    </Vhost>
+
+Standby서버는 모든 Active서버가 정상동작하고 있다면 서비스에 투입되지 않는다. 
+Active서버에 장애가 감지되면 해당 서버를 대체하기 위하여 투입되며 Active서버가 
+복구되면 다시 Standby상태로 돌아간다. 만약 Standby서버에 장애가 감지되면 
+해당 Standby서버가 복구되기 전까지 서비스에 투입되지 않는다. Standby서버 개수는 제한이 없습니다.
