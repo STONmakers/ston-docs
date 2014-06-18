@@ -125,16 +125,7 @@ Cache서비스 모듈을 설정한다. ::
          <Listen>10.10.10.10</Listen>
          <Listen>10.10.10.11</Listen>
          <Listen>127.0.0.2</Listen>
-       </Cache>
-    
-    aaa ::
-
-       <LogObject>
-         <Format = "squid"/>
-         <Filename = "squid"/>
-         <CollationHosts="ipaddress:port"/>
-       </LogObject>
-    
+       </Cache>    
 
 -  ``ConfigHistory (단위: 일)``
     STON은 설정이 변경될 때마다 모든 설정을 백업한다. 압축 후 ./conf/ 에 하나의 파일로 저장한다. 
