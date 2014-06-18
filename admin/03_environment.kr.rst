@@ -119,7 +119,14 @@ Cache서비스 모듈을 설정한다. ::
 -  ``Listen``
     모든 가상호스트가 Listen할 IP목록을 지정한다. 모든 가상호스트의 기본 Listen설정인 
     *:80은 0.0.0.0:80을 의미한다. 0.0.0.0이 아닌 지정된 IP만을 열고 싶은 경우 다음과 같이 
-    Listen할 IP 목록을 명확하게 지정한다. 
+    Listen할 IP 목록을 명확하게 지정한다. ::
+
+    <Cache>
+        <Listen>10.10.10.10</Listen>
+        <Listen>10.10.10.11</Listen>
+        <Listen>127.0.0.2</Listen>
+    </Cache>
+    
 
 -  ``ConfigHistory (단위: 일)``
     STON은 설정이 변경될 때마다 모든 설정을 백업한다. 압축 후 ./conf/ 에 하나의 파일로 저장한다. 
