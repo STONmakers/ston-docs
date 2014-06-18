@@ -271,9 +271,9 @@ Active 원본서버
 COMPLEX TABLE:
 
 +------------+------------+-----------+
-| Header 1   | Header 2   | Header 3  |
+| <Address>  | Host헤더   | Header 3  |
 +============+============+===========+
-| body row 1 | column 2   | column 3  |
+| 1.1.1.1    | 가상호스   | column 3  |
 +------------+------------+-----------+
 | body row 2 | Cells may span columns.|
 +------------+------------+-----------+
