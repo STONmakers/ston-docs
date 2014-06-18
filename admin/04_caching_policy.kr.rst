@@ -3,102 +3,53 @@
 캐싱정책
 ******************
 
-.. Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
+Caching-Key의 개념과 컨텐츠 만료 정책에 대해 설명한다.
+원본서버의 부하를 줄이기 위해서는 캐싱정책을 효과적으로 설정해야 한다.
 
-   http://www.apache.org/licenses/LICENSE-2.0
+.. note::
 
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.
+   설명되는 설정을 모든 가상호스트의 기본 설정으로 적용하고 싶다면 
+   <VHostDefault>태그 하위에, 해당 가상호스트에만 적용하고 싶다면 
+   <Vhost>태그 하위에 설정한다.
 
-Web proxy caching enables you to store copies of frequently-accessed web
-objects (such as documents, images, and articles) and then serve this
-information to users on demand. It improves performance and frees up
-Internet bandwidth for other tasks.
+
 
 .. toctree::
    :maxdepth: 2
 
-Understanding HTTP Web Proxy Caching
+Caching-Key
 ====================================
 
-Internet users direct their requests to web servers all over the
-Internet. A caching server must act as a **web proxy server** so it can
-serve those requests. After a web proxy server receives requests for web
-objects, it either serves the requests or forwards them to the **origin
-server** (the web server that contains the original copy of the
-requested information). The Traffic Server proxy supports **explicit
-proxy caching**, in which the user's client software must be configured
-to send requests directly to the Traffic Server proxy. The following
-overview illustrates how Traffic Server serves a request.
+Caching-Key란 원본서버로부터 저장된 콘텐츠를 구분하는 고유 값이다. 
+모든 파일이 /usr/conf.txt 처럼 다른 파일들과 구분되는 고유 값을 가지는 것과 같은 개념이다.
+흔히 Caching-Key는 URL과 혼돈하기 쉽다.
+하지만 같은 URL이라고 하더라도 HTTP의 여러 요소들에 따라 콘텐츠가 달라질 수 
+있으므로 주의해야 한다.
+같은 URL인데 서로 다른 Caching-Key를 사용할 수 있고, 반대인 경우도 있다.
 
-1. Traffic Server receives a client request for a web object.
 
-2. Using the object address, Traffic Server tries to locate the
-   requested object in its object database (**cache**).
-
-3. If the object is in the cache, then Traffic Server checks to see if
-   the object is fresh enough to serve. If it is fresh, then Traffic
-   Server serves it to the client as a **cache hit** (see the figure
-   below).
-
-   .. figure:: ../static/images/admin/cache_hit.jpg
-      :align: center
-      :alt: A cache hit
-
-      A cache hit
-
-4. If the data in the cache is stale, then Traffic Server connects to
-   the origin server and checks if the object is still fresh (a
-   :term:`revalidation`). If it is, then Traffic Server immediately sends
-   the cached copy to the client.
-
-5. If the object is not in the cache (a **cache miss**) or if the server
-   indicates the cached copy is no longer valid, then Traffic Server
-   obtains the object from the origin server. The object is then
-   simultaneously streamed to the client and the Traffic Server local
-   cache (see the figure below). Subsequent requests for the object can
-   be served faster because the object is retrieved directly from cache.
-
-   .. figure:: ../static/images/admin/cache_miss.jpg
-      :align: center
-      :alt: A cache miss
-
-      A cache miss
-
-Caching is typically more complex than the preceding overview suggests.
-In particular, the overview does not discuss how Traffic Server ensures
-freshness, serves correct HTTP alternates, and treats requests for
-objects that cannot/should not be cached. The following sections discuss
-these issues in greater detail.
-
-Ensuring Cached Object Freshness
-================================
-
-When Traffic Server receives a request for a web object, it first tries
-to locate the requested object in its cache. If the object is in cache,
-then Traffic Server checks to see if the object is fresh enough to
-serve. For HTTP objects, Traffic Server supports optional
-author-specified expiration dates. Traffic Server adheres to these
-expiration dates; otherwise, it picks an expiration date based on how
-frequently the object is changing and on administrator-chosen freshness
-guidelines. Objects can also be revalidated by checking with the origin
-server to see if an object is still fresh.
-
-HTTP Object Freshness
+Accept-Encoding
 ---------------------
 
-Traffic Server determines whether an HTTP object in the cache is fresh
-by:
+같은 URL에 대한 HTTP요청이라도 Accept-Encoding헤더의 존재 유무에 따라 
+같은(또는 다른) 컨텐츠가 캐싱될 수 있다. 원본서버에 요청을 보내는 시점에 
+STON은 원본서버의 압축여부를 알 수 없다.
+
+   .. figure:: img/acceptencoding.png
+      :align: center
+
+   원본서버가 어떤 응답을 줄지 알 수 없습니다.
+
+만약 원본서버가 압축을 지원하지 않는다면 동일한 컨텐츠가 중복되어 저장된다. ::
+
+    <Options>
+        <ApplyQueryString>ON</ApplyQueryString>
+    </Options>
+
+-  ``<ApplyQueryString>``
+    OFF설정 시 클라이언트가 보내는 Accept-Encoding을 무시한다. 
+    만약 원본서버에서 압축을 지원하지 않거나, 압축이 필요없는 대용량 파일의 경우 
+    Accept-Encoding을 무시하도록 설정하는 것이 바람직하다.
 
 -  **Checking the** ``Expires`` **or** ``max-age`` **header**
 
