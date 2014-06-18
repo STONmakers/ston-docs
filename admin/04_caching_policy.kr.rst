@@ -175,10 +175,17 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
         </TTL>
     </Options>
     
-설정 단위는 초(sec)이다.
+``Ratio`` (0~100)를 제외한 모든 설정 단위는 초(sec)이다.
 
--  ``<NoCache>``
-    원본서버가 다음과 같이 
+-  ``<NoCache> (기본: 5초)``
+    원본서버가 no-cache로 응답했을 때 TTL을 설정한다. :: 
+    
+    cache-control: no-cache 또는 private 또는 must-revalidate
+    
+    콘텐츠를 처음 저장할 때 TTL을 초기 값으로 설정한다.
+    (TTL만료 후) 원본서버에서 변경되지 않았다면(304 Not Modified) ``Ratio`` 비율만큼 TTL을 연장한다.
+    TTL은 최대 ``Max`` 까지 증가한다.
+    
 
 -  ``<Res2xx>``
 
