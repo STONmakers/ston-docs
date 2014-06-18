@@ -99,11 +99,11 @@ QueryString에 의하여 동적으로 생성되는 컨텐츠가 아니라면 Que
 
 -  ``<ApplyQueryString>``
 
-   -  ``ON (기본)`` QueryString을 인식한다. querystring.txt조건에 만족하면 QueryString이 무시된다.
+   -  ``ON (기본)`` QueryString을 인식한다. QueryString예외조건에 만족하면 QueryString이 무시된다.
    
-   -  ``OFF`` QueryString을 무시한다. querystring.txt조건에 만족하면 QueryString을 인식한다.
+   -  ``OFF`` QueryString을 무시한다. QueryString예외조건에 만족하면 QueryString을 인식한다.
     
-지정한 URL에 대해서만 QueryString을 인식 또는 무시하고 싶다면 querystring.txt에 설정한다. ::
+QueryString예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설정한다. ::
 
     # ./svc/www.example.com/querystring.txt
     /private/personal.jsp?login=ok*
