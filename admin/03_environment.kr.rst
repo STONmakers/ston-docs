@@ -86,12 +86,7 @@ Cache서비스 모듈을 설정한다. ::
             <Disk>/user/cache1</Disk>    
             <Disk>/user/cache2</Disk>    
             <Disk Quota="100">/user/cache3</Disk>
-        </Storage>        
-        <HttpClientSession>
-            <Init>20000</Init>
-            <TopUp>6000</TopUp>
-            <Max>60000</Max>
-        </HttpClientSession>
+        </Storage>
         <Listen>0.0.0.0</Listen>        
         <ConfigHistory>30</ConfigHistory>
     </Cache>
@@ -121,6 +116,27 @@ Cache서비스 모듈을 설정한다. ::
     - ``bypass`` 모든 요청을 원본서버으로 바이패스 한다. 디스크가 복구되면 즉시 STON이 서비스를 처리한다.
     - ``selfkill`` STON을 종료시킨다.
     
+-  ``Listen``
+    모든 가상호스트가 Listen할 IP목록을 지정한다. 모든 가상호스트의 기본 Listen설정인 
+    *:80은 0.0.0.0:80을 의미한다. 0.0.0.0이 아닌 지정된 IP만을 열고 싶은 경우 다음과 같이 
+    Listen할 IP 목록을 명확하게 지정한다. ::
+    
+    <Cache>
+        <Listen>10.10.10.10</Listen>
+        <Listen>10.10.10.11</Listen>
+        <Listen>127.0.0.2</Listen>
+    </Cache>
+
+-  ``ConfigHistory (단위: 일)``
+    STON은 설정이 변경될 때마다 모든 설정을 백업한다. 압축 후 ./conf/ 에 하나의 파일로 저장한다. 
+    파일명은 "날짜_시간_HASH.tgz"로 생성된다. :: 
+    
+    20130910_174843_D62CA26F16FE7C66F81D215D8C52266AB70AA5C8.tgz
+    
+    모든 설정이 완전히 동일하다면 같은 HASH값을 가진다. 
+    이전 설정으로 Rollback되더라도 새로운 설정으로 저장된다. 
+    백업된 설정은 Cleanup시간을 기준으로 ConfigHistory(일) 까지만 저장된다. 
+    특별히 ConfigHistory의 제한은 없다.
     
     
 <VHostDefault>
