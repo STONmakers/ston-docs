@@ -83,7 +83,7 @@ QueryString 구분
 ---------------------
 
 QueryString에 의하여 동적으로 생성되는 컨텐츠가 아니라면 QueryString을 인식하는 것은 
-불필요하다. 최악의 경우로 QueryString이 아무 의미없이 Random이나 시간 값으로 증가하는 
+불필요하다. 최악의 경우로 QueryString이 아무 의미없는 Random이나 시간 값으로 증가하는 
 경우에는 원본에 엄청난 부하가 발생할 수 있다.
 
    .. figure:: img/querystring.png
@@ -99,7 +99,13 @@ QueryString에 의하여 동적으로 생성되는 컨텐츠가 아니라면 Que
 
 -  ``<ApplyQueryString>``
 
-   -  ``ON (기본)`` QueryString을 인식한다.
+   -  ``ON (기본)`` QueryString을 인식한다. querystring.txt조건에 만족하면 QueryString이 무시된다.
    
-   -  ``OFF`` QueryString을 무시한다.
+   -  ``OFF`` QueryString을 무시한다. querystring.txt조건에 만족하면 QueryString을 인식한다.
     
+지정한 URL에 대해서만 QueryString을 인식 또는 무시하고 싶다면 querystring.txt에 설정한다. ::
+
+    # ./svc/www.example.com/querystring.txt
+    /private/personal.jsp?login=ok*
+    /image/ad.jpg
+
