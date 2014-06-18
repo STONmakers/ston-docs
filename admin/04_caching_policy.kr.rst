@@ -178,7 +178,8 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
 ``Ratio`` (0~100)를 제외한 모든 설정 단위는 초(sec) 다.
 
 -  ``<NoCache> (기본: 5초, Ratio: 0, Max=5, MaxAge=0)``
-    원본서버가 no-cache로 응답했을 때 TTL을 설정한다. ::
+    원본서버가 no-cache로 응답했을 때 TTL을 설정한다. 
+    일반적으로 no-cache는 원본서버가 200 OK로 응답했을 때 적용된다. ::
     
         cache-control: no-cache 또는 private 또는 must-revalidate
     
@@ -186,10 +187,12 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
     (TTL만료 후) 원본서버에서 변경되지 않았다면(304 Not Modified) ``Ratio`` 비율(0~100)만큼 TTL을 연장한다.
     TTL은 최대 ``Max`` 까지 증가한다.
     
-    .. note::
+    ``MaxAge`` 가 설정되어 있다면 no-cache라도 max-age를 줄 수 있다.
+    
+   .. figure:: img/nocache_maxage.png
+      :align: center
 
-       ``<NoCache>`` 값 0으로 설정하면 서비스 직후 TTL이 곧바로 만료된다.
-       만약 모든 요청에 대해 원본서버의 응답을 주고 싶다면, 바이패스할 것을 권장한다.     
+      Max-Age만큼 클라이언 쪽에 Caching된다.
     
 
 -  ``<Res2xx>``
@@ -207,5 +210,8 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또
 -  ``<OriginBusy>``
 
    
-   
+.. note::
+
+    TTL 값을 0으로 설정하면 서비스 직후 곧바로 만료된다.
+    만약 모든 요청에 대해 원본서버의 응답을 주고 싶다면 바이패스할 것을 권장한다.
    
