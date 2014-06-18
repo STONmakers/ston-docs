@@ -241,7 +241,7 @@ prefix에 * 표현을 하나만 붙일 수 있는 간단한 형식만을 지원�
     <Vhosts>
         <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
         <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
-         <Default>www.example.com</Default>
+        <Default>www.example.com</Default>
     </Vhosts>
     
 서비스 주소
