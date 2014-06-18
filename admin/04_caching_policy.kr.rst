@@ -3,8 +3,7 @@
 캐싱정책
 ******************
 
-Caching-Key의 개념과 컨텐츠 만료 정책에 대해 설명한다.
-원본서버의 부하를 줄이기 위해서는 캐싱정책을 효과적으로 설정해야 한다.
+Caching-Key와 TTL(Time To Live)에 대해 설명한다.
 
 .. note::
 
@@ -16,6 +15,8 @@ Caching-Key의 개념과 컨텐츠 만료 정책에 대해 설명한다.
 
 .. toctree::
    :maxdepth: 2
+
+
 
 Caching-Key
 ====================================
@@ -141,3 +142,36 @@ User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 �
     <Options>
         <VaryHeader>*</VaryHeader>
     </Options>
+
+
+
+
+TTL (Time To Live)
+====================================
+
+TTL이란 원본으로부터 저장된 콘텐츠의 유효시간을 의미한다. 
+TTL을 길게 설정하면 원본서버의 부하는 줄어들지만 변경사항이 늦게 반영된다. 
+반대로 짧게 설정하면 너주 잦은 변경확인 요청으로 원본서버 부하가 높아진다.
+Cache운영의 묘미는 TTL을 활용하여 원본서버 부하를 줄이는 것에 있다.
+
+원본서버 응답 TTL
+---------------------
+
+기본적으로 원본서버의 응답에 따라 TTL이 결정된다. 
+TTL이 만료되기 전까지 저장된 콘텐츠로 서비스 된다.
+TTL이 만료되면 원본서버로 콘텐츠 변경여부(If-Modified-Since 또는 If-None-Match)를 확인한다.
+원본서버가 304 Not Modified응답을 준다면 TTL은 연장된다. ::
+
+    <Options>
+        <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
+            <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
+            <Res2xx Ratio="20" Max="86400">1800</Res2xx>
+            <Res3xx>300</Res3xx>
+            <Res4xx>30</Res4xx>
+            <Res5xx>30</Res5xx>
+            <ConnectTimeout>3</ConnectTimeout>
+            <ReceiveTimeout>3</ReceiveTimeout>
+            <OriginBusy>3</OriginBusy>
+        </TTL>
+    </Options>
+
