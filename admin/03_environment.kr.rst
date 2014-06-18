@@ -272,10 +272,10 @@ Active 원본서버
 원본서버 주소를 설정할 수 있다. ::
 
     <Vhost ...>
-    <Origin>
-        <Address>1.1.1.1</Address>
-        <Address>1.1.1.2</Address>
-    </Origin>
+        <Origin>
+            <Address>1.1.1.1</Address>
+            <Address>1.1.1.2</Address>
+        </Origin>
     </Vhost>
 
 주소의 개수는 제한이 없다. Active/Active방식(Round-Robin)으로 선택되며, 
