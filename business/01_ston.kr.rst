@@ -46,7 +46,6 @@ STON의 개념, 동작방식, 배경, 이유를 최대한 상세하게 공개하
    :align: center
    
 
-
 손쉬운 사용
 +++++++++++
 
@@ -172,7 +171,7 @@ STON은 고가용성 (High Availability) 설계로 Many-core에 최적화되어 
 |미디어 관리                 | DIMS (Dynamic   | 원본 서버의 이미지를 캐싱하여 crop, thumbnail, resize, |
 | .. figure:: img/media.png  | Img Mgmt System)| reformat, quality, composite 변환기능을 제공           |
 |     :align: center         +-----------------+--------------------------------------------------------+
-|                            | MP4HLS          | 원본 MP4 파일을 HTTP Live Streaming으로 서비스         |
+|     :width: 150%           | MP4HLS          | 원본 MP4 파일을 HTTP Live Streaming으로 서비스         |
 |                            +-----------------+--------------------------------------------------------+
 |                            | Media Trimming  | 미디어 구간재생 (MP4, MP3, M4A)                        |
 |                            +-----------------+--------------------------------------------------------+
