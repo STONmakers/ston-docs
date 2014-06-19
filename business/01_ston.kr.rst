@@ -1,6 +1,6 @@
 ﻿.. _ston:
 
-What is STON?
+소개
 ******************
 
 .. toctree::
