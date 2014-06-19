@@ -73,7 +73,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
-#. **가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
+2. **가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Close</ConnectionHeader>
@@ -87,7 +87,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
     Connection: Close
 
 
-#. **가상호스트 KeepAliveHeader가 OFF로 설정된 경우** ::
+3. **가상호스트 KeepAliveHeader가 OFF로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -100,7 +100,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    ...(생략)...
    Connection: Keep-Alive
 
-#. **가상호스트 KeepAliveHeader가 ON으로 설정된 경우** ::
+4. **가상호스트 KeepAliveHeader가 ON으로 설정된 경우** ::
 
    <Options>
       <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -129,7 +129,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
 
-#. **가상호스트 ``<KeepAliveHeader>`` 의 Max속성이 설정된 경우** ::
+5. **가상호스트 ``<KeepAliveHeader>`` 의 Max속성이 설정된 경우** ::
 
     <Options>
        <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -146,7 +146,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
     Keep-Alive: timeout=10, max=50
 
 
-#. **Keep-Alive의 max가 만료된 경우** ::
+6. **Keep-Alive의 max가 만료된 경우** ::
 
    위의 설정대로 max가 설정되었다면 max는 점차 줄어 다음처럼 1까지 도달하게 된다. ::
 
