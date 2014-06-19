@@ -30,10 +30,12 @@ STON은 정밀한 TTL (Time-To-Live) 설정을 제공하여 컨텐츠 유효성 
 
 
 Customers/Partners
+------------------
 
 .. image:: customers.png
 
 
 Powered by STON
+---------------
 
 .. image:: poweredby.png
