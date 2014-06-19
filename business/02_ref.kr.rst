@@ -56,7 +56,6 @@ Customers/Partners
 Powered by STON
 ---------------
 
-.. image:: game.png
+.. image:: img/poweredby.png
   :align: center
-.. image:: news.png
-  :align: center
+
