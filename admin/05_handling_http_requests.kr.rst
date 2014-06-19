@@ -57,9 +57,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 - 가상호스트 ``Keep-Alive``헤더 설정
 
 
-1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우
-~~~~~~~~~~~~~~~~~~
-::
+**1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
 
    GET / HTTP/1.1
    ...(생략)...
@@ -75,7 +73,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
-**2. <ConnectionHeader>`` 가 ``Close`` 으로 설정된 경우** ::
+**2. ** ``<ConnectionHeader>`` **가** ``Close`` **으로 설정된 경우** ::
 
    <Options>
       <ConnectionHeader>Close</ConnectionHeader>
