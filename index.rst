@@ -11,8 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   admin/index.kr
    business/index.kr
+   admin/index.kr
 
    
 
