@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    admin/index.kr
+   business/index.kr
    getting_started_ko
 
    
