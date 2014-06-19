@@ -50,3 +50,16 @@ STON의 목표 중 하나는 원본서버를 보호하는 것이다.
     서비스에 재투입한다. 
 
 
+DNS
+---------------------
+
+원본서버 주소가 Domain으로 설정되어 있다면 항상 최신의 Resolving결과가 사용된다. ::
+하지만 DNS서버의 장애 또는 네트워크 구간 장애로 인하여 Resolving이 실패할 경우 
+마지막으로 Resolving된 IP에 부하가 집중될 수 있다. 
+
+    <OriginOptions>
+        <DNSBackup>5min</DNSBackup>
+    </OriginOptions>
+
+이런 문제를 극복하기 위하여 Resolving장애 상황이 발생하면 최근(일정시간 동안) 
+``DNSBackup`` 시간동안 사용된 Unique한 IP들을 모두 사용하여 부하를 분산한다. ::
