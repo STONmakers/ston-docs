@@ -165,14 +165,14 @@ POST요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
 
 -  ``BodySensitive``
 
-    -  ``ON (기본)`` Body데이터까지 Caching-Key로 인식한다, 
-    최대 길이는 ``MaxContentLength (기본: 102400 Bytes)`` 속성으로 제한한다.
+    -  ``ON (기본)`` Body데이터까지 Caching-Key로 인식한다.
+       최대 길이는 ``MaxContentLength (기본: 102400 Bytes)`` 속성으로 제한한다.
     예외조건에 만족하면 Body데이터를 무시한다.
     
     -  ``OFF `` Body데이터는 무시한다. 
-    예외조건에 만족하면 Body데이터를 인식한다.
+       예외조건에 만족하면 Body데이터를 인식한다.
    
-POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다.
+POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다. ::
     
     # /svc/www.example.com/postbody.txt
     /bigsale/*.php?nocache=*
