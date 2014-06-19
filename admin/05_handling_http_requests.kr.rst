@@ -59,9 +59,9 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 1. **클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
 
-   GET / HTTP/1.1
-   ...(생략)...
-   Connection: Close
+    GET / HTTP/1.1
+    ...(생략)...
+    Connection: Close
     
    이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
    "Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
