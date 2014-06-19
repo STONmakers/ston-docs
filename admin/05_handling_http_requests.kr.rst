@@ -73,7 +73,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
-**2. ** ``<ConnectionHeader>`` **가** ``Close`` **으로 설정된 경우** ::
+**2.**  ``<ConnectionHeader>`` **가** ``Close`` **로 설정된 경우** ::
 
    <Options>
       <ConnectionHeader>Close</ConnectionHeader>
