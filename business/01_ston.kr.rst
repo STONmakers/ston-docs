@@ -4,7 +4,7 @@ STON 소개
 ******************
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
 1. Web Cache
 ---------
