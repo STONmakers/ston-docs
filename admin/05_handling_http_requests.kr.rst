@@ -73,7 +73,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
-**2. 가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
+**2. ``<ConnectionHeader>`` 가 ``Close`` 으로 설정된 경우** ::
 
    <Options>
       <ConnectionHeader>Close</ConnectionHeader>
@@ -87,7 +87,7 @@ Keep-Alive헤더는 명시되지 않는다. ::
     Connection: Close
 
 
-**3. 가상호스트 KeepAliveHeader가 OFF로 설정된 경우** ::
+**3. ``<KeepAliveHeader>`` 가 ``OFF`` 로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -100,7 +100,7 @@ Keep-Alive헤더가 명시되지 않는다. HTTP세션은 지속적으로 재사
    ...(생략)...
    Connection: Keep-Alive
 
-**4. 가상호스트 KeepAliveHeader가 ON으로 설정된 경우** ::
+**4. ``<KeepAliveHeader>`` 가 ``ON`` 으로 설정된 경우** ::
 
    <Options>
       <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -129,7 +129,7 @@ timeout값은 세션 Keep-Alive시간 설정을 사용한다. ::
    이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
 
-**5. 가상호스트 ``<KeepAliveHeader>`` 의 Max속성이 설정된 경우** ::
+**5. ``<KeepAliveHeader>`` 의 ``Max`` 속성이 설정된 경우** ::
 
     <Options>
        <ConnectionHeader>Keep-Alive</ConnectionHeader>
