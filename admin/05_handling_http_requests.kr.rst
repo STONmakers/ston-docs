@@ -178,6 +178,10 @@ Age 헤더
     <Options>
        <AgeHeader>OFF</AgeHeader>
     </Options>
+    
+   -  ``OFF (기본)`` Age헤더를 생략한다.
+   
+   -  ``OFF`` Age헤더를 명시한다.
 
-HTTP응답에 Age헤더 명시유무를 설정한다. 
-Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며 `RFC2616 - 13.2.3 Age Calculations <http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.2.3>`_ 에 의하여 계산됩니다.
+Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며 
+`RFC2616 - 13.2.3 Age Calculations <http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.2.3>`_ 에 의하여 계산됩니다.
