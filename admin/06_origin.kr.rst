@@ -149,8 +149,8 @@ Range요청
 
 전체 Range 초기화
 ---------------------
-원본서버로부터 처음 파일을 캐싱(컨텐츠 길이를 모름) 또는 
-갱신(컨텐츠가 변경되었을 수도 있음)할 때는 다음과 같이 단순한 형태의 GET 요청을 보낸다. ::
+일반적으로 원본서버로부터 처음 파일을 다운로드(컨텐츠 길이를 모름) 또는 
+갱신확인(컨텐츠가 변경되었을 수도 있음)할 때는 다음과 같이 단순한 형태의 GET 요청을 보낸다. ::
 
     GET /file.dat HTTP/1.1
     
@@ -203,3 +203,61 @@ TTL이 만료되어 파일을 갱신할 때는 다음과 같이 If-Modified-Sinc
     - nginx/1.4.2
     - lighttpd/1.4.32
     - Apache/2.2.22
+    
+    
+기타 HTTP요청헤더 설정
+====================================
+
+Host 헤더
+---------------------
+
+원본서버로 보내는 HTTP요청의 Host헤더를 설정한다.
+별도로 설정하지 않은 경우 가상호스트 이름이 명시된다. ::
+
+    <OriginOptions>
+        <Host />
+    </OriginOptions>
+
+-  ``<Host>``
+   원본서버로 보낼 Host헤더를 설정한다.
+   원본서버에서 80포트 이외의 포트로 서비스하고 있다면 반드시 포트 번호를 명시해야 한다. ::
+   
+        <Host>www.example2.com:8080</Host>
+
+클라이언트가 보낸 Host헤더를 원본으로 보내고 싶은 경우 *로 설정한다.
+
+
+User-Agent 헤더
+---------------------
+
+원본서버로 보내는 HTTP요청의 User-Agent헤더를 설정한다. ::
+
+    <OriginOptions>
+        <UserAgent>STON</UserAgent>
+    </OriginOptions>
+
+-  ``<UserAgent> (기본: STON)``
+   원본서버로 보낼 User-Agent헤더를 설정한다.
+
+
+XFF(X-Forwarded-For) 헤더
+---------------------
+
+클라이언트와 원본서버 사이에 STON이 위치하면 원본서버는 클라이언트 IP를 얻을 수 없다.
+때문에 STON은 원본서버로 보내는 모든 HTTP요청에 X-Forwarded-For헤더를 명시한다. ::
+
+    <OriginOptions>
+        <XFFClientIPOnly>OFF</XFFClientIPOnly>
+    </OriginOptions>
+
+-  ``<XFFClientIPOnly>``
+   
+   -  ``OFF (기본)`` 클라이언트가 보낸 XFF헤더에 클라이언트 IP를 추가한다.
+      클라이언트가 XFF헤더를 보내지 않았다면 클라이언트 IP만 명시된다. ::
+      
+          X-Forwarded-For: 220.61.7.150, 61.1.9.100, 128.134.9.1
+   
+   -  ``ON`` XFF헤더의 첫번째 주소만을 원본서버로 전송한다. ::
+   
+          X-Forwarded-For: 220.61.7.150
+      
