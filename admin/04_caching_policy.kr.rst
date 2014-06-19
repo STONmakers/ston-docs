@@ -3,7 +3,7 @@
 캐싱정책
 ******************
 
-Caching-Key와 TTL(Time To Live)에 대해 설명하고 한다.
+Caching-Key와 TTL(Time To Live)에 대해 설명한다.
 
 .. note::
 
