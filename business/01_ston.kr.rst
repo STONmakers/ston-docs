@@ -1,6 +1,6 @@
 ﻿.. _ston:
 
-Introduction
+소개
 ******************
 
 .. toctree::
