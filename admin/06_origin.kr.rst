@@ -205,7 +205,7 @@ TTL이 만료되어 파일을 갱신할 때는 다음과 같이 If-Modified-Sinc
     - Apache/2.2.22
     
     
-기타 HTTP요청헤더 설정
+기타 HTTP헤더 설정
 ====================================
 
 Host 헤더
@@ -252,7 +252,7 @@ XFF(X-Forwarded-For) 헤더
 
 -  ``<XFFClientIPOnly>``
    
-   -  ``OFF (기본)`` 클라이언트가 보낸 XFF헤더에 클라이언트 IP를 추가한다.
+   -  ``OFF (기본)`` 클라이언트(IP: 128.134.9.1)가 보낸 XFF헤더에 클라이언트 IP를 추가한다.
       클라이언트가 XFF헤더를 보내지 않았다면 클라이언트 IP만 명시된다. ::
       
           X-Forwarded-For: 220.61.7.150, 61.1.9.100, 128.134.9.1
@@ -260,4 +260,19 @@ XFF(X-Forwarded-For) 헤더
    -  ``ON`` XFF헤더의 첫번째 주소만을 원본서버로 전송한다. ::
    
           X-Forwarded-For: 220.61.7.150
-      
+
+
+원본 ETag 인식
+---------------------
+
+원본서버에서 보는 ETag인식여부를 설정한다. ::
+
+    <OriginOptions>
+        <OriginalETag>OFF</OriginalETag>
+    </OriginOptions>
+
+-  ``<OriginalETag>``
+   
+   -  ``OFF (기본)`` ETag헤더를 무시한다.
+   
+   -  ``ON`` ETag를 인식하며 컨텐츠 갱신시 If-None-Match헤더를 추가한다.
