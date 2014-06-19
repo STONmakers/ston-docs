@@ -11,11 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-<<<<<<< HEAD
    admin/index.kr
-=======
-   admin/index.kr
->>>>>>> FETCH_HEAD
    business/index.kr
    getting_started_ko
 
