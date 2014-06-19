@@ -1,6 +1,6 @@
 ﻿.. _aboutston:
 
-About STON
+What is STON?
 **********************
 
 
