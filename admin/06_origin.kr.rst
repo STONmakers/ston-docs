@@ -295,15 +295,15 @@ Redirect 추적
    -  ``ON`` Location헤더에 명시된 주소에서 콘텐츠를 다운로드 한다.
       형식에 맞지 않거나 Location헤더가 없는 경우에는 동작하지 않는다.
 
-다음과 같이 동작한다. ::
-
+::
     HTTP/1.1 302 
     Location: http://moved.example.com/contents_has_been_moved.jpg
 
-      
+``ON`` 설정시 위와 같은 응답에 대해 다음과 같이 동작한다.. ::
+  
    .. figure:: img/conf_redirectiontrace.png
-   :align: center
+      :align: center
       
-   클라이언트는 Redirect여부를 모른다.
+      클라이언트는 Redirect여부를 모른다.
 
 무한히 Redirect되는 경우를 방지하기 위하여 1회만 추적한다.
