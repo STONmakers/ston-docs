@@ -16,9 +16,11 @@ Contents:
    02_getting-started.kr
    03_environment.kr
    04_caching_policy.kr
-   05_handling_http_requests.kr
+   05_handling_http_requests.kr   
    06_origin.kr
-   07_bypass.kr
+   access_control.rst
+   bandwidth_control.rst
+   07_bypass.kr   
    08_multimedia.kr
    09_filesystem.kr
    10_adv_topics.kr
