@@ -199,10 +199,10 @@ Expires헤더를 재설정한다. ::
 -  ``<RefreshExpiresHeader>``
     
    -  ``OFF (기본)`` 원본서버에서 응답한 Expires헤더를 클라이언트에게 명시한다.
-   원본서버에서 Expires헤더가 생략되었다면 클라이언트 응답에도 Expires헤더가 생략된다.
+      원본서버에서 Expires헤더가 생략되었다면 클라이언트 응답에도 Expires헤더가 생략된다.
    
    -  ``ON``  Expires조건을 반영하여 Expires헤더를 명시한다.
-   조건에 해당하지 않는 콘텐츠는 ``OFF`` 설정과 동일하게 동작한다.
+      조건에 해당하지 않는 콘텐츠는 ``OFF`` 설정과 동일하게 동작한다.
    
 Expires조건은 Apache의 `mod_expires <http://httpd.apache.org/docs/2.2/mod/mod_expires.html>`_ 
 와 동일하게 동작한다. 특정 조건(URL이나 MIME Type)에 해당하는 콘텐츠의 
