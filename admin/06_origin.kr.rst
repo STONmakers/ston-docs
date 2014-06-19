@@ -124,4 +124,82 @@ DNS 백업
     </OriginOptions>
 
 -  ``<ReuseTimeout> (기본: 60초)`` 일정 시간동안 사용되지 않은 원본세션은 종료한다.
+   0으로 설정하면 원본서버 세션을 재사용하지 않는다.
    
+   
+원본요청
+====================================
+
+콘텐츠를 Caching하기 위해 원본으로 보내는 HTTP요청에 대해 설정한다.
+
+Range요청
+---------------------
+
+원본서버에서 한번에 다운로드 받는 컨텐츠 크기를 설정한다. 
+원본서버로부터 콘텐츠 전체를 다운로드 받는 것이 일반적이나, 
+동영상처럼 클라이언트가 앞부분만을 주로 소비하는 경우에 원본부하를 줄일 수 있다. ::
+
+    <OriginOptions>
+        <PartSize>0</PartSize>
+    </OriginOptions>
+
+-  ``<PartSize> (기본: 0 MB)`` 0보다 크면 클라이언트가 요청한 지점부터 
+   ``<PartSize>`` 만큼 Range요청을 원본서버로 보낸다.
+
+
+전체 Range 초기화
+---------------------
+원본서버로부터 처음 파일을 캐싱(컨텐츠 길이를 모름) 또는 
+갱신(컨텐츠가 변경되었을 수도 있음)할 때는 다음과 같이 단순한 형태의 GET 요청을 보낸다. ::
+
+    GET /file.dat HTTP/1.1
+    
+하지만 원본서버가 일반적인 GET요청에 대하여 항상 파일을 변조하도록 설정되어 있다면 
+원본파일 그대로를 캐싱할 수 없어서 문제가 될 수 있다.
+가장 대표적인 예는 Apache 웹서버가 mod_h.264_streaming같은 외부모듈과 같이 구동되는 경우이다.
+Apache 웹서버는 다음 그림과 같이 GET요청에 대해서 항상 mod_h.264_streaming모듈을 
+통해서 응답하기 때문에 클라이언트(이 경우에는 STON)는 원본파일 그대로가 아닌 
+변조된 파일을 서비스 받는다.
+
+   .. figure:: img/conf_origin_fullrangeinit1.png
+      :align: center
+      
+      mod_h.264_streaming모듈에 의해 원본에 변조된다.
+
+원치않는 원본컨텐츠 변조를 피하기 위한 방법 중 하나로 항상 원본서버로 요청할 때 
+Range요청을 사용하는 방법이 있다. ::
+
+    <OriginOptions>
+        <FullRangeInit>OFF</FullRangeInit>
+    </OriginOptions>
+
+-  ``<FullRangeInit>``
+
+   -  ``OFF (기본)`` 일반적인 HTTP요청을 보낸다.
+   
+   -  ``ON`` 0부터 시작하는 Range요청을 보낸다. 
+      Apache의 경우 Range헤더가 명시되면 모듈을 우회한다. ::
+      
+        GET /file.dat HTTP/1.1
+        Range: bytes=0-
+    
+      최초로 파일 캐싱할 때는 컨텐츠의 Range를 알지 못하므로 항상 0부터 시작하는 
+      Full-Range를 요청한다. 
+      원본서버가 이같은 요청에 대해 정상적으로 응답(206 OK)하는지 반드시 확인해야 한다.
+
+
+TTL이 만료되어 파일을 갱신할 때는 다음과 같이 If-Modified-Since헤더가 같이 명시된다.
+원본서버가 올바르게 Not Modified응답을 확인해야 한다. ::
+
+    GET /file.dat HTTP/1.1
+    Range: bytes=0-
+    If-Modified-Since: Sat, 29 Oct 1994 19:43:31 GMT
+    
+.. note::
+
+    다음은 ``<FullRangeInit>`` 이 정상동작함을 확인한 웹서버들이다.
+    
+    - Microsoft-IIS/7.5
+    - nginx/1.4.2
+    - lighttpd/1.4.32
+    - Apache/2.2.22
