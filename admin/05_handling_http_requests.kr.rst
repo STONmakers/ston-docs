@@ -8,6 +8,7 @@ HTTP 클라이언트와 STON사이의 HTTP 통신에 대해 설정한다.
 .. toctree::
    :maxdepth: 2
 
+
 HTTP 세션
 ====================================
 
@@ -100,6 +101,7 @@ Keep-Alive헤더가 명시되지 않는다. HTTP세션은 지속적으로 재사
    ...(생략)...
    Connection: Keep-Alive
 
+
 **4.**  ``<KeepAliveHeader>`` **가** ``ON`` **으로 설정된 경우** ::
 
    <Options>
@@ -118,12 +120,12 @@ timeout값은 세션 Keep-Alive시간 설정을 사용한다. ::
 
 .. note::
 
-   ** ``<Keep-Alive>``와 ``<ClientKeepAliveSec>`` 관계**
+   ** ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계**
     
    ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 
    보다 근본적인 문제와 관련이 있다. 
    성능이나 자원적으로 가장 중요한 이슈는 
-   "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" 이다. 
+   `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
    HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 
    Idle세션 정리는 훨씬 민감한 문제이다. 
    이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
@@ -161,3 +163,21 @@ Keep-Alive헤더에 max값을 명시한다.
     HTTP/1.1 200 OK
     ...(생략)...
     Connection: Close    
+
+
+
+클라이언트 Cache-Control
+====================================
+
+클라이언트 Cache-Control과 관련된 설정을 다룬다.
+
+Age 헤더
+---------------------
+::
+
+    <Options>
+       <AgeHeader>OFF</AgeHeader>
+    </Options>
+
+HTTP응답에 Age헤더 명시유무를 설정한다. 
+Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며 `RFC2616 - 13.2.3 Age Calculations <http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.2.3>`_ 에 의하여 계산됩니다.
