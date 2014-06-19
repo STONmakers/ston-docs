@@ -295,7 +295,7 @@ Redirect 추적
    -  ``ON`` Location헤더에 명시된 주소에서 콘텐츠를 다운로드 한다.
       형식에 맞지 않거나 Location헤더가 없는 경우에는 동작하지 않는다.
 
-다음과 같은 응답의 Location을 추적한다. ::
+다음과 같이 동작한다. ::
 
     HTTP/1.1 302 
     Location: http://moved.example.com/contents_has_been_moved.jpg
