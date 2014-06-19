@@ -43,7 +43,7 @@ STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되
 
 .. image:: img/comp.png
   :width: 85%
-  :aligh: center
+  :align: center
 
 Web Cache는 Squid와 같은 오픈소스 소프트웨어나, 이를 기반으로 하드웨어 장비에 탑재한 어플라이언스 형태가 주종을 이루고 있다. 
 
