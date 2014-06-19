@@ -381,3 +381,53 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 {Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
 {Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
+
+원본 헤더
+---------------------
+
+STON은 성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 최적화하여 인식한다. ::
+
+    <Options>
+         <OriginalHeader>OFF</OriginalHeader>
+    </Options>
+    
+-  ``<OriginalHeader>``
+
+   -  ``OFF (기본)`` 표준헤더가 아니라면 무시한다. 
+   
+   -  ``OFF``  비표준 헤더를 저장하여 클라이언트에게 전달한다.
+      단, 메모리와 저장비용을 좀 더 소비한다.
+
+
+Via 헤더
+---------------------
+
+클라이언트에게 보내는 HTTP응답에 Via 헤더 명시여부를 설정한다. ::
+
+    <Options>
+         <ViaHeader>ON</ViaHeader>
+    </Options>
+    
+-  ``<ViaHeader>``
+    
+   -  ``ON (기본)`` Via헤더를 다음과 같이 명시한다. ::
+      
+      Via: STON/1.0.0
+   
+   -  ``OFF``  Via헤더를 생략한다.
+   
+   
+Via 헤더
+---------------------
+ 
+클라이언트에게 보내는 HTTP응답에 Server 헤더 명시여부를 설정한다. ::
+
+    <Options>
+        <ServerHeader>ON</ServerHeader>
+    </Options>
+    
+-  ``<ServerHeader>``
+    
+   -  ``ON (기본)`` 원본서버의 Server헤더를 명시한다. ::
+   
+   -  ``OFF``  Server헤더를 생략한다.
