@@ -313,7 +313,7 @@ HTTP 요청/응답 헤더 변경
 서로 다른 조건이 같은 헤더를 변경하는 경우 Last-Win이 되거나 명시적으로 Append할 수 있다. ::
 
     # /svc/www.example.com/headers.txt
-    # 구분자는 콤마(,)입니다.
+    # 구분자는 콤마(,)이다.
     
     # 요청변경
     # {Match}, {$REQ}, {Action(set|unset|append)} 순서로 표기한다.
@@ -338,6 +338,46 @@ HTTP 요청/응답 헤더 변경
     $URL[/source/*], $RES[cache-control: no-cache], set, 404
     /secure/*.dat, $RES[x-custom], unset, 200
     
-{Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능합니다.
+{Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
 
+- **IP**
+
+     $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
+
+- **GeoIP**
+
+     $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다. 
+     국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 
+     `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
+     
+- **Header**
+
+    $HEADER[Key : Value로 표기합니다. 
+    Value는 명확한 표현과 패턴을 지원한다. 
+    Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
+    
+- **URL**
+
+    $URL[...]로 표기하며 생략이 가능합니다. 명확한 표현과 패턴을 인식합니다.
+    
+{$REQ}와 {$RES}는 헤더변경 방법을 설정한다.
+일반적으로 ``set`` 과 ``append`` 의 경우 {Key: Value}로 설정하며, 
+Value가 입력되지 않은 경우 빈 값("")이 입력된다. 
+``unset`` 의 경우 {Key}만 입력한다.
+
+{Action}은 ``set`` , ``unset`` , ``append`` 3가지로 설정이 가능하다.
+
+- ``set``  요청/응답 헤더에 설정되어 있는 Key와 Value를 헤더에 추가한다. 
+  이미 같은 Key가 존재한다면 이전 값을 덮어쓴다.    
+
+- ``unset`` 요청/응답 헤더에 설정되어 있는 Key에 해당하는 헤더를 삭제한다.
+
+- ``append`` ``set``과 유사하나 해당 Key가 존재한다면 기존의 Value와 설정된 
+  Value사이에 Comma(,)로 구분하여 값을 결합한다.
+  
+
+{Condition}은 200이나 304같은 구체적인 응답 코드외에 2xx, 3xx, 4xx, 5xx처럼 
+응답코드 계열조건으로 설정한다. 
+{Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
+{Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
