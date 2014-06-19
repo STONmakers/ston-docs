@@ -3,7 +3,7 @@
 캐싱정책
 ******************
 
-Caching-Key와 TTL(Time To Live)에 대해 설명한다.
+Caching-Key와 TTL(Time To Live)에 대해 설명하고 한다.
 
 .. note::
 
@@ -406,3 +406,27 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
 다운로드가 진행된다. 파일 교체 이후 접근된 사용자들(겨자색)은 바뀐 파일로 서비스 된다.
 콘텐츠 갱신, 네트워크 장애, 원본서버 장애 등 어떠한 변수에도 콘텐츠 갱신은 
 백그라운드로 진행되기 때문에 실제 서비스에는 전혀 지연이 없다.
+
+
+클라이언트 no-cache 요청시 TTL만료
+---------------------
+
+HTTP요청에 no-cache 설정이 하나 이상 명시된 경우 해당 콘텐츠를 즉시 만료시킨다. ::
+
+    GET /ston.jpg HTTP/1.1
+    ...
+    cache-control: no-cache 또는 cache-control:max-age=0
+    pragma: no-cache
+    ...
+    
+::
+
+    <Options>
+         <NoCacheRequestExpire>OFF</NoCacheRequestExpire>
+    </Options>
+
+-  ``<NoCacheRequestExpire>``
+
+   -  ``OFF (기본)`` 무시한다.
+   
+   -  ``ON`` TTL을 즉시 만료한다.
