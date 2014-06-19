@@ -187,3 +187,70 @@ Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며
    
    -  ``OFF`` Age헤더를 명시한다.
 
+Expires 헤더
+---------------------
+
+Expires헤더를 재설정한다. ::
+
+    <Options>
+       <RefreshExpiresHeader Base="Access">OFF</RefreshExpiresHeader>
+    </Options>
+    
+-  ``<RefreshExpiresHeader>``
+    
+   -  ``OFF (기본)`` 원본서버에서 응답한 Expires헤더를 클라이언트에게 명시한다.
+   원본서버에서 Expires헤더가 생략되었다면 클라이언트 응답에도 Expires헤더가 생략된다.
+   
+   -  ``ON``  Expires조건을 반영하여 Expires헤더를 명시한다.
+   조건에 해당하지 않는 콘텐츠는 ``OFF`` 설정과 동일하게 동작한다.
+   
+Expires조건은 Apache의 `mod_expires <http://httpd.apache.org/docs/2.2/mod/mod_expires.html>`_ 
+와 동일하게 동작한다. 특정 조건(URL이나 MIME Type)에 해당하는 콘텐츠의 
+Expires헤더와 Cache-Control 값을 설정할 수 있다. 
+Cache-Control의 max-age값은 설정된 Expires시간에서 요청한 시간을 뺀 값이 된다. 
+
+Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
+
+   # /svc/www.winesoft.co.kr/expires.txt
+   # 구분자는 콤마(,)이며 {조건},{시간},{기준} 순서로 표기한다.
+
+   $URL[/test.jpg], 86400
+   /test.jpg, 86400
+   *, 86400, access
+   /test/1.gif, 60 sec
+   /test/*.dat, 30 min, modification
+   $MIME[application/shockwave], 1 years
+   $MIME[application/octet-stream], 7 weeks, modification
+   $MIME[image/gif], 3600, modification
+
+- **조건**
+
+    URL과 MIME Type 2가지로 설정이 가능하다. 
+    URL일 경우 $URL[...]로, MIME Type일 경우 $MIME[...]로 표기한다. 
+    패턴표현이 가능하며 $표현이 생략된 경우 URL로 인식한다.
+
+- **시간**
+
+    Expires만료시간을 설정한다. 
+    시간단위 표현을 지원하며 단위를 명시하지 않을 경우 초로 계산된다.
+
+- **기준**
+
+    Expires만료시간의 기준시점을 설정한다. 
+    별도로 기준시점을 명시하지 않으면 Access가 기준시점으로 명시된다. 
+    Access는 현재 시간을 기준으로 한다. 
+    다음은 MIME Type이 image/gif인 파일에 대하여 접근시간으로부터 
+    1일 12시간 후로 Expires헤더 값을 설정하는 예제이다. ::
+    
+        $MIME[image/gif], 1 day 12 hours, access
+      
+    Modification은 원본서버에서 보낸 Last-Modified를 기준으로 한다. 
+    다음은 모든 jpg파일에 대하여 Last-Modified로부터 30분 뒤를 
+    Expires값으로 설정하는 예제이다. ::
+    
+        *.jpg, 30min, modification
+        
+    Modification의 경우 계산된 Expires값이 현재시간보다 과거의 시간일 경우 
+    현재시간을 명시한다. 
+    만약 원본서버에서 Last-Modified헤더를 제공하지 않는다면 Expires헤더를 
+    보내지 않는다.
