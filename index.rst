@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-STON Guide
+STON Web Cache 소개
 ================================
 
 Contents:
@@ -13,57 +13,40 @@ Contents:
 
    admin/index.kr
    business/index.kr
-   getting_started_ko
 
    
-**STON 소개**
+Web Cache
+---------
+Web Cache는 클라이언트에 가장 가까운 (Edge) 위치에서 컨텐츠를 전달하는 서버의 한 종류로서 다음과 같이 동작하는 특징을 가진다.
+클라이언트로부터 컨텐츠의 최초 요청을 받고
+컨텐츠를 원본서버에서 가져와 저장하여 클라이언트에게 다시 전송한다. 
+컨텐츠 재요청을 받으면 원본에서 가져왔던 즉시 전송한다. 
 
-STON (Superfast Transport Over Network) 은 초고속 HTTP Cache 소프트웨어 솔루션입니다. 클라이언트가 요청하는 컨텐츠를 원본서버로부터 가져와 저장하여, 재요청시 컨텐츠를 빠르게 전송합니다. 일반 상용서버 하드웨어에 설치투입하여 대규모 트래픽 처리시스템을 구성할 수 있습니다.
-
-다음은 명령어 예제입니다::
-
-   PURGE /sample.dat HTTP/1.1
+다양한 통신과 연산을 요구받는 일반적인 웹서버와 달리, Web Cache는 정적 컨텐츠 전송에 특화되어 다수 클라이언트에게 동일 컨텐츠를 전송하는 서비스에 매우 효과적이다.
    
-
-``GET http://11st.co.kr/ HTTP/1.0``
-
 .. image:: ston.png
 
-=====  =====  =======
-종류   기능   내용 
-=====  =====  =======
-False  False  False
-True   False  False
-False  True   False
-True   True   True
-=====  =====  =======
-   
-
-=====  =====  =======
-A      B      A and B
-=====  =====  =======
-False  False  False
-True   한글!  False
-False  True   False
-True   True   True
-=====  =====  =======
+서비스 확장 때문에 원본 웹서버를 Scale-Out 하면 컨텐츠 갱신마다 동기화 시켜야 하는 문제가 있다. 동일 컨텐츠를 수백대의 웹서버에 주입한다는 것은 리스크도 크고 관리도 어렵다. 그러나 Web Cache를 사용하면 원본 웹서버는 그대로 유지하면서 Web Cache를 Scale-Out하는것 만으로 손쉽게 서비스를 확장할 수 있다. 원본 웹서버의 컨텐츠만 갱신하면, Web Cache가 자동으로 컨텐츠를 가져다가 전송한다.
 
 
-   
-+------------------------+------------+----------+----------+
-| Header row, column 1   | Header 2   | Header 3 | Header 4 |
-| (header rows optional) |            |          |          |
-+========================+============+==========+==========+
-| body row 1, column 1   | column 2   | column 3 | column 4 |
-+------------------------+------------+----------+----------+
-| body row 2             | ...        | ...      |          |
-+------------------------+------------+----------+----------+
+STON: SE의 Web Cache
+--------------------
+
+STON은 초고속 Web Cache 소프트웨어 솔루션으로서 기획단계부터 서비스 운영자 (SE, System Engineer)의 관점에 맞추어 설계되었다. 별도의 언어를 습득할 필요도 없으며, 설정변경을 위해 빌드를 다시 할 필요도 없다.
 
 
-Indices and tables
-==================
+기능과 철학
+-----------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+STON의 구조는 최대한 많은 상황과 요구사항을 담을 수 있는 커다란 그릇을 만들고자 설계되었다. 그래서 기존의 오픈소스 솔루션들은 전혀 참조 대상이 아니었으며, 프로토콜 처리부분부터 한줄씩 모두 in-house로 제작되었다. 
 
+STON의 개념, 동작방식, 배경, 이유는 홈페이지에 상세하게 공개되고 있으며, 좋은 운영자가 되고자 하는 많은 이들이 STON의 홈페이지를 통하여 지식을 습득하고 있다.
+
+.. image:: features.png
+
+STON은 사용에 숙련도가 필요없는 제품을 목표로 하고 있다.
+
+손쉬운 사용
++++++++++++
+
+STON은 Zero-Configuration을 추구하고 있다. 
