@@ -296,10 +296,11 @@ Redirect 추적
       형식에 맞지 않거나 Location헤더가 없는 경우에는 동작하지 않는다.
 
 ::
+
     HTTP/1.1 302 
     Location: http://moved.example.com/contents_has_been_moved.jpg
 
-``ON`` 설정시 위와 같은 응답에 대해 다음과 같이 동작한다.. ::
+``ON`` 설정시 위와 같은 응답에 대해 다음과 같이 동작한다.
   
    .. figure:: img/conf_redirectiontrace.png
       :align: center
