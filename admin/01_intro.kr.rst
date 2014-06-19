@@ -1,6 +1,6 @@
-.. _intro:
+﻿.. _intro:
 
-STON �Ұ�
+STON 소개
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one

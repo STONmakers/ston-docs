@@ -1,6 +1,6 @@
-.. _handling_http_requests:
+ï»¿.. _handling_http_requests:
 
-HTTP ¿äÃ»Ã³¸®
+HTTP ìš”ì²­ì²˜ë¦¬
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one
