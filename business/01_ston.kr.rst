@@ -200,4 +200,4 @@ STON은 HTTP Cache로 시작되었으나,
 지금은 클라이언트의 다양한 요건에 컨텐츠를 맞추어 빠르게 제공하는 변환 기능 (DIMS, Media관련)을 비롯하여 
 FUSE 파일시스템 제공까지 STON은 단순 Web Cache 의 범주를 뛰어넘기 시작했다.
 컨텐츠 원본을 그대로 운용하면서 보다 손쉽고 유연한 형태로 전송하는 Utility Server Solution이
-STON이 지향하는 목표다.
+STON이 지향하는 목표이다.
