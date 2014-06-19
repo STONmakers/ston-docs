@@ -40,7 +40,7 @@ HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
    - ``ON (기본)`` HTTP응답에 Keep-Alive헤더를 명시한다.
       ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
       값으로 max가 명시된다.
-      이후 HTTP Transaction이 발생할때마다 1씩 차감된다.
+      이후 HTTP 트랜잭션이 발생할때마다 1씩 차감된다.
    
    - ``OFF`` HTTP응답에 Keep-Alive헤더를 생략한다.
 
@@ -70,7 +70,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
     ...(생략)...
     Connection: Close
 
-   이 HTTP Transaction이 완료되면 HTTP 연결을 종료한다.
+   이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
 #. **가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
@@ -123,7 +123,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 
    보다 근본적인 문제와 관련이 있다. 
    성능이나 자원적으로 가장 중요한 이슈는 
-   "Idle세션(=HTTP Transaction이 발생되지 않는 세션)을 언제 정리할 것인가?" 이다. 
+   "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" 이다. 
    HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 
    Idle세션 정리는 훨씬 민감한 문제이다. 
    이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
@@ -138,7 +138,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    </Options>
     
    Keep-Alive헤더에 max값을 명시한다. 
-   이 세션은 max회만큼 사용이 가능하며 HTTP Transaction이 진행될때마다 1씩 감소된다. ::
+   이 세션은 max회만큼 사용이 가능하며 HTTP 트랜잭션이 진행될때마다 1씩 감소된다. ::
     
    HTTP/1.1 200 OK
    ...(생략)...
@@ -155,7 +155,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    Connection: Keep-Alive
    Keep-Alive: timeout=10, max=1
     
-   이 응답은 현재 세션으로 앞으로 1번 HTTP Transaction진행이 가능하다는 의미이다. 
+   이 응답은 현재 세션으로 앞으로 1번 HTTP 트랜잭션진행이 가능하다는 의미이다. 
    이 세션으로 HTTP 요청이 한번 더 진행될 경우 다음과 같이 "Connection: Close"로 응답한다. ::
     
    HTTP/1.1 200 OK
