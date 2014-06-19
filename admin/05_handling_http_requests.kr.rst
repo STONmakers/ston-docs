@@ -66,25 +66,25 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
    이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
    "Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
 
-   HTTP/1.1 200 OK
-   ...(생략)...
-   Connection: Close
+    HTTP/1.1 200 OK
+    ...(생략)...
+    Connection: Close
 
    이 HTTP Transaction이 완료되면 HTTP 연결을 종료한다.
    
 
 #. **가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
 
-   <Options>
-      <ConnectionHeader>Close</ConnectionHeader>
-   </Options>
+    <Options>
+        <ConnectionHeader>Close</ConnectionHeader>
+    </Options>
     
    클라이언트 HTTP요청과 상관없이 "Connection: Close"로 응답한다.
    Keep-Alive헤더는 명시되지 않는다. ::
 
-   HTTP/1.1 200 OK
-   ...(생략)...
-   Connection: Close
+    HTTP/1.1 200 OK
+    ...(생략)...
+    Connection: Close
 
 
 #. **가상호스트 KeepAliveHeader가 OFF로 설정된 경우** ::
