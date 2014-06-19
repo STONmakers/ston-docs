@@ -1,6 +1,6 @@
 ﻿.. _handling_http_requests:
 
-HTTP 클라이언트 처리
+HTTP 클라이언트
 ******************
 
 HTTP 클라이언트와 STON사이의 HTTP 통신에 대해 설정한다.
