@@ -1,6 +1,6 @@
 ﻿.. _ston:
 
-STON 소개
+STON
 ******************
 
 .. toctree::
