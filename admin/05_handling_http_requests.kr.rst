@@ -56,6 +56,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 - 가상호스트 세션 Keep-Alive시간 설정
 - 가상호스트 ``Keep-Alive``헤더 설정
 
+
 1. **클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
 
     GET / HTTP/1.1
