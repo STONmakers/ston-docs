@@ -34,7 +34,7 @@ Web Cache는 서비스 네트워크의 최전방 (Edge)에서 클라이언트에
 
 
 
-2. SE의 Web Cache
+2. STON: SE의 Web Cache
 ========================
 
 Web Cache를 도입하여 설치 및 적용부터 운영에 이르기까지, 가장 많이 접하는 담당자는 보통 운영자(SE, System Engineer)다. 
