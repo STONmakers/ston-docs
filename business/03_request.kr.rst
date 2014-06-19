@@ -1,6 +1,6 @@
-﻿.. _intro:
+﻿.. _request:
 
-STON 소개
+사용문의 및 신청
 ******************
 
 .. Licensed to the Apache Software Foundation (ASF) under one
