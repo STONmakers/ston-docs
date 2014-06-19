@@ -144,6 +144,47 @@ User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 �
     </Options>
 
 
+POST 요청
+---------------------
+
+POST 요청을 Caching하도록 설정한다. 
+POST요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
+
+    <Options>
+        <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>
+    </Options>
+
+-  ``<PostRequest>``
+
+   -  ``OFF (기본)`` POST요청이 오면 세션을 종료한다.
+   
+   -  ``ON`` POST요청을 Caching한다.
+   
+실제로 POST요청을 처리하는 대부분의 경우는 Body데이터를 Caching-Key로 사용한다.
+``BodySensitive`` 속성과 예외조건을 통해 정교한 설정이 가능하다.
+
+-  ``BodySensitive``
+
+    -  ``ON (기본)`` Body데이터까지 Caching-Key로 인식한다, 
+    최대 길이는 ``MaxContentLength (기본: 102400 Bytes)`` 속성으로 제한한다.
+    예외조건에 만족하면 Body데이터를 무시한다.
+    
+    -  ``OFF `` Body데이터는 무시한다. 
+    예외조건에 만족하면 Body데이터를 인식한다.
+   
+POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다.
+    
+    # /svc/www.example.com/postbody.txt
+    /bigsale/*.php?nocache=*
+    /goods/search.php
+    
+예외조건이 ``BodySensitive`` 설정에 따라 의미가 달라짐에 주의한다. 
+명확한 URL 또는 패턴(*만 허용한다.)으로 설정이 가능하다.
+  
+.. note::
+
+    ``MaxContentLength`` 속성을 너무 크게 설정할 경우 Caching-Key 관리에
+    메모리가 필요하다. 가능한 작게 설정하는 것이 좋다.
 
 
 TTL (Time To Live)
