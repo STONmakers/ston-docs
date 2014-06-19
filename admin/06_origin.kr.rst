@@ -301,9 +301,9 @@ Redirect 추적
     Location: http://moved.example.com/contents_has_been_moved.jpg
 
       
-.. figure:: img/conf_redirectiontrace.png
-    :align: center
+   .. figure:: img/conf_redirectiontrace.png
+   :align: center
       
-    클라이언트는 Redirect여부를 모른다.
+   클라이언트는 Redirect여부를 모른다.
 
 무한히 Redirect되는 경우를 방지하기 위하여 1회만 추적한다.
