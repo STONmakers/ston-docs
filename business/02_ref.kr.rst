@@ -50,10 +50,13 @@ STON은 HLS (HTTP Live Streaming)을 지원하여, 헤더제어를 이용한 원
 Customers/Partners
 ------------------
 
-.. image:: customers.png
-
+.. image:: img/customers.png
+  :align: center
 
 Powered by STON
 ---------------
 
-.. image:: poweredby.png
+.. image:: game.png
+  :align: center
+.. image:: news.png
+  :align: center
