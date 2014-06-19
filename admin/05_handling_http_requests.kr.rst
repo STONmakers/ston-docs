@@ -37,8 +37,7 @@ HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
 
 -  ``<KeepAliveHeader>``
 
-   - ``ON (기본)``
-      HTTP응답에 Keep-Alive헤더를 명시한다.
+   - ``ON (기본)``  HTTP응답에 Keep-Alive헤더를 명시한다.
       ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
       값으로 max가 명시된다.
       이후 HTTP 트랜잭션이 발생할때마다 1씩 차감된다.
