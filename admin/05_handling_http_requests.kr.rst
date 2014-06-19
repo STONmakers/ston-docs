@@ -38,9 +38,9 @@ HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
 -  ``<KeepAliveHeader>``
 
    - ``ON (기본)`` HTTP응답에 Keep-Alive헤더를 명시한다.
-      ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
-      값으로 max가 명시된다.
-      이후 HTTP 트랜잭션이 발생할때마다 1씩 차감된다.
+   ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
+   값으로 max가 명시된다.
+   이후 HTTP 트랜잭션이 발생할때마다 1씩 차감된다.
    
    - ``OFF`` HTTP응답에 Keep-Alive헤더를 생략한다.
 
@@ -63,14 +63,14 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
     ...(생략)...
     Connection: Close
     
-   이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
-   "Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
+    이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
+    "Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
 
     HTTP/1.1 200 OK
     ...(생략)...
     Connection: Close
 
-   이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
+    이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
 **2. 가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
