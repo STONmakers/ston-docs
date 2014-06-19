@@ -1,6 +1,6 @@
 ﻿.. _ston:
 
-STON
+Introduction
 ******************
 
 .. toctree::
