@@ -3,14 +3,12 @@
 Administrators' Guide
 **********************
 
-STON is the king of all reverse-proxys.
-
-목차는 다음과 같습니다:
+STON 관리자 완벽가이드
 
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    01_intro.kr
    02_getting-started.kr
