@@ -205,7 +205,7 @@ TTL이 만료되어 파일을 갱신할 때는 다음과 같이 If-Modified-Sinc
     - Apache/2.2.22
     
     
-기타 HTTP헤더 설정
+원본 HTTP 처리
 ====================================
 
 Host 헤더
@@ -262,7 +262,7 @@ XFF(X-Forwarded-For) 헤더
           X-Forwarded-For: 220.61.7.150
 
 
-원본 ETag 인식
+ETag 헤더 인식
 ---------------------
 
 원본서버에서 보는 ETag인식여부를 설정한다. ::
@@ -276,3 +276,33 @@ XFF(X-Forwarded-For) 헤더
    -  ``OFF (기본)`` ETag헤더를 무시한다.
    
    -  ``ON`` ETag를 인식하며 컨텐츠 갱신시 If-None-Match헤더를 추가한다.
+
+   
+Redirect 추적
+---------------------
+
+원본서버에서 Redirect계열의 응답(301, 302, 303, 307)이 발생할 경우 Location헤더를 
+추적하여 콘텐츠를 요청한다. ::
+
+    <OriginOptions>
+        <RedirectionTrace>OFF</RedirectionTrace>
+    </OriginOptions>
+
+-  ``<RedirectionTrace>``
+
+   -  ``OFF (기본)`` 3xx 응답으로 저장된다.
+   
+   -  ``ON`` Location헤더에 명시된 주소에서 콘텐츠를 다운로드 한다.
+      형식에 맞지 않거나 Location헤더가 없는 경우에는 동작하지 않는다.
+
+다음과 같은 응답의 Location을 추적한다. ::
+
+    HTTP/1.1 302 
+    Location: http://moved.example.com/contents_has_been_moved.jpg
+      
+   .. figure:: img/conf_redirectiontrace.png
+      :align: center
+      
+      클라이언트는 Redirect여부를 모른다.
+
+무한히 Redirect되는 경우를 방지하기 위하여 Redirect응답은 1회만 처리됩니다.
