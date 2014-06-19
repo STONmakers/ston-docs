@@ -187,6 +187,7 @@ Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며
    
    -  ``OFF`` Age헤더를 명시한다.
 
+
 Expires 헤더
 ---------------------
 
@@ -254,3 +255,89 @@ Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
     현재시간을 명시한다. 
     만약 원본서버에서 Last-Modified헤더를 제공하지 않는다면 Expires헤더를 
     보내지 않는다.
+
+
+ETag 헤더
+---------------------
+
+클라이언트에게 보내는 HTTP응답에 ETag 헤더 명시여부를 설정한다. ::
+
+    <Options>
+        <ETagHeader>ON</ETagHeader>
+    </Options>
+    
+-  ``<ETagHeader>``
+    
+   -  ``ON (기본)`` ETag헤더를 명시한다.
+   
+   -  ``OFF``  ETag헤더를 생략한다.
+   
+   
+
+
+기타 HTTP헤더 설정
+====================================
+
+HTTP 요청/응답 헤더 변경
+---------------------
+
+클라이언트 HTTP요청과 STON의 HTTP응답을 특정 조건에 따라 변경할 수 있다. 
+변경시점을 정확히 이해해야 한다.
+
+- **HTTP 요청헤더 변경시점**
+
+    클라이언트 HTTP 요청을 최초로 인식하는 시점에 헤더를 변경한다. 
+    헤더가 변경되었다면 변경된 상태로 Cache 모듈에서 처리된다.
+    단, Host헤더와 URI는 변조할 수 없다.
+
+- **HTTP 응답헤더 변경시점**
+
+    클라이언트 응답 직전에 헤더를 변경한다. 
+    단, Content-Length는 변경할 수 없다.
+    
+::
+
+    <Options>
+        <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
+    </Options>
+    
+-  ``<ModifyHeader>``
+    
+   -  ``OFF (기본)`` 변경하지 않는다.
+   
+   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.      
+      
+헤더 변경조건은 /svc/{가상호스트 이름}/headers.txt에 설정한다. 
+헤더는 복수로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 동시에 적용된다. 
+최초 조건에만 변경을 원할 경우 ``FirstOnly`` 속성을 ``ON`` 으로 설정한다.
+서로 다른 조건이 같은 헤더를 변경하는 경우 Last-Win이 되거나 명시적으로 Append할 수 있다. ::
+
+    # /svc/www.example.com/headers.txt
+    # 구분자는 콤마(,)입니다.
+    
+    # 요청변경
+    # {Match}, {$REQ}, {Action(set|unset|append)} 순서로 표기한다.
+    $IP[192.168.1.1], $REQ[SOAPAction], unset
+    $IP[192.168.2.1-255], $REQ[accept-encoding: gzip], set
+    $IP[192.168.3.0/24], $REQ[cache-control: no-cache], append
+    $IP[192.168.4.0/255.255.255.0], $REQ[x-custom-header], unset
+    $IP[AP], $REQ[X-Forwarded-For], unset
+    $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
+    $HEADER[via], $REQ[via], unset
+    $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
+    
+    # 응답변경
+    # {Match}, {$RES}, {Action(set|unset|append)}, {condition} 순서로 표기한다.
+    # {condition}은 특정 응답코드에 한하여 헤더를 변경할 수 있지만 필수는 아니다.
+    $IP[192.168.1.1], $RES[via: STON for CDN], set
+    $IP[192.168.2.1-255], $RES[X-Cache], unset, 200
+    $IP[192.168.3.0/24], $RES[cache-control: no-cache, private], append, 3xx
+    $IP[192.168.4.0/255.255.255.0], $RES[x-custom-header], unset
+    $HEADER[user-agent: *IE6*], $RES[vary], unset
+    $HEADER[x-custom-header], $RES[cache-control: no-cache, private], append, 5xx
+    $URL[/source/*], $RES[cache-control: no-cache], set, 404
+    /secure/*.dat, $RES[x-custom], unset, 200
+    
+{Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능합니다.
+
+
