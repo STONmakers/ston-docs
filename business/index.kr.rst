@@ -1,6 +1,6 @@
-﻿.. _business-guide:
+﻿.. _aboutston:
 
-Business Guide
+About STON
 **********************
 
 
