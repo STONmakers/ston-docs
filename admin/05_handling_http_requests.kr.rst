@@ -12,8 +12,9 @@ HTTP 세션
 ====================================
 
 HTTP클라이언트가 서버(STON)에 접속하면 HTTP세션이 생성된다.
-HTTP 세션을 통해 서버에 저장된 여러 콘텐츠를 서비스 받는다. 
-요청부터 응답까지를 **HTTP 트랜잭션** 이라고 부른다.
+클라이언트는 HTTP 세션을 통해 서버에 저장된 여러 콘텐츠를 서비스 받는다. 
+요청부터 응답까지를 하나의 **HTTP 트랜잭션** 이라고 부른다.
+HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
 
 다음은 HTTP세션과 관련된 설정이다. ::
 
@@ -31,15 +32,15 @@ HTTP 세션을 통해 서버에 저장된 여러 콘텐츠를 서비스 받는�
 -  ``<ClientKeepAliveSec> (기본: 10초)``
 
     클라이언트 세션과 아무런 통신이 없는 상태로 설정된 시간이 경과하면 세션을 종료한다. 
-    시간을 너무 길게 설정하시면 통신을 하지 않는 세션이 지나치게 많아질 수 있다.
+    시간을 너무 길게 설정하면 통신을 하지 않는 세션이 지나치게 많아진다.
     너무 많은 세션은 성능저하의 원인이 된다.
 
 -  ``<KeepAliveHeader>``
 
     - ``ON (기본)`` HTTP응답에 Keep-Alive헤더를 명시한다.
-        ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
-        값으로 max가 명시된다.
-        이후 HTTP Transaction이 발생할때마다 1씩 차감된다.
+      ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
+      값으로 max가 명시된다.
+      이후 HTTP Transaction이 발생할때마다 1씩 차감된다.
    
     - ``OFF`` HTTP응답에 Keep-Alive헤더를 생략한다.
 
@@ -55,7 +56,7 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 - 가상호스트 세션 Keep-Alive시간 설정
 - 가상호스트 ``Keep-Alive``헤더 설정
 
-1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우 ::
+1. **클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
 
     GET / HTTP/1.1
     ...(생략)...
@@ -70,7 +71,7 @@ Keep-Alive헤더는 명시되지 않습니다.
 
 이 HTTP Transaction이 완료되면 HTTP 연결을 종료한다.
 
-#. 가상호스트 ConnectionHeader가 "Close"으로 설정된 경우 ::
+#. **가상호스트 ConnectionHeader가 "Close"으로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Close</ConnectionHeader>
@@ -83,7 +84,7 @@ Keep-Alive헤더는 명시되지 않습니다.
     ...(생략)...
     Connection: Close
 
-#. 가상호스트 KeepAliveHeader가 OFF로 설정된 경우 ::
+#. **가상호스트 KeepAliveHeader가 OFF로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -96,7 +97,7 @@ Keep-Alive헤더는 명시되지 않습니다.
     ...(생략)...
     Connection: Keep-Alive
 
-#. 가상호스트 KeepAliveHeader가 ON으로 설정된 경우 ::
+#. **가상호스트 KeepAliveHeader가 ON으로 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -124,7 +125,7 @@ Keep-Alive헤더는 명시되지 않습니다.
     Idle세션 정리는 훨씬 민감한 문제이다. 
     이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
 
-#. 가상호스트 ``<KeepAliveHeader>`` 의 Max속성이 설정된 경우 ::
+#. **가상호스트 ``<KeepAliveHeader>`` 의 Max속성이 설정된 경우** ::
 
     <Options>
         <ConnectionHeader>Keep-Alive</ConnectionHeader>
@@ -140,7 +141,7 @@ Keep-Alive헤더는 명시되지 않습니다.
     Connection: Keep-Alive
     Keep-Alive: timeout=10, max=50
 
-#. Keep-Alive의 max가 만료된 경우 ::
+#. **Keep-Alive의 max가 만료된 경우** ::
 
     위의 설정대로 max가 설정되었다면 max는 점차 줄어 다음처럼 1까지 도달하게 된다. ::
 
