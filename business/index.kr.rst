@@ -1,4 +1,4 @@
-﻿.. _admin-guide:
+﻿.. _business-guide:
 
 Business Guide
 **********************
