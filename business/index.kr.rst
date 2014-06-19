@@ -7,7 +7,7 @@ What is STON?
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    01_ston.kr
    02_ref.kr
