@@ -69,7 +69,7 @@ STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키
 
 .. image:: img/features/easy.png
    :align: left
-   :width: 12%
+   :width: 15%
    
 도입에서 운영에 이르기까지, Web Cache를 가장 많이 접하는 담당자는 보통 운영자이다. (SE, System Engineer) 
 STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되었다. 
