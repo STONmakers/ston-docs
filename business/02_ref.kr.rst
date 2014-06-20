@@ -78,4 +78,4 @@ Powered by STON
 
 
 
-이용문의: license@winesoft.co.kr
+이용문의: :ref:`request`
