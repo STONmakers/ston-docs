@@ -37,8 +37,8 @@ Web Cache는 정적 컨텐츠 전송에 집중하여 서비스의 속도를 크�
 ==============
 
 .. image:: img/stonlogo.png
-  :align: left
-  :width: 30%
+  :align: center
+  :width: 40%
   
 STON은 가능한 모든 요구사항과 상황에 대처할 수 있는 커다란 그릇을 지향하여 설계되었다. 
 풍부한 네트워크 소프트웨어 개발경험을 기반으로, 프로토콜 처리부터 한줄씩 모두 in-house로 개발하였으며,
@@ -57,11 +57,19 @@ STON의 개념, 동작방식, 배경, 이유를 최대한 상세하게 공개하
    
 강력한 성능
 +++++++++++
+
+.. image:: img/features/perf.png
+   :align: left
+
 STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키텍처의 고가용성 (High Availability) 설계로 Many-core에 최적화되어 있다.
 
 
 손쉬운 사용
 +++++++++++
+
+.. image:: img/features/easy.png
+   :align: left
+   
 도입에서 운영에 이르기까지, Web Cache를 가장 많이 접하는 담당자는 보통 운영자이다. (SE, System Engineer) 
 STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되었다. 
 어려운 코딩을 할 필요도, 변경설정 적용을 위해 빌드를 다시 할 필요도 없다. 
@@ -70,12 +78,20 @@ Zero-Configuration을 추구하여 숙련도가 필요없는 제품을 목표로
 
 실시간 통계
 +++++++++++
+
+.. image:: img/features/monit.png
+   :align: left
+   
 STON은 강력한 성능과 동시에, 실시간 모니터링 및 통계를 제공한다. 
 자체 API 및 SNMP를 통하여 초단위까지의 모니터링/통계/로그를 제공한다.
 
 
 합리적 가격
 +++++++++++
+
+.. image:: img/features/price.png
+   :align: left
+
 STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로서, 막대한 구매비용이 필요하지 않다. 
 서비스 확장규모에 따라 사용하는 만큼만 비용이 추가되는 유연한 적용방법을 가지고 있다.
   
