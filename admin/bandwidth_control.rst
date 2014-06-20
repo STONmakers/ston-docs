@@ -37,7 +37,7 @@ Bandwidth 조절
 Bandwidth Throttling
 ====================================
 
-Bandwidth Throttling이란 (각 세션마다)클라이언트 전송 대역폭을 동적으로 조절하는 기능이다.
+BT(Bandwidth Throttling)이란 (각 세션마다)클라이언트 전송 대역폭을 동적으로 조절하는 기능이다.
 일반적인 미디어 파일의 내부는 다음과 같이 헤더, V(Video), A(Audio)로 구성되어 있다.
 
 .. figure:: img/conf_media_av.png
@@ -87,20 +87,20 @@ Bandwidth Throttling이란 (각 세션마다)클라이언트 전송 대역폭을
    -  ``<Boost> (기본: 5 초)``
    
       일정 시간만큼의 데이터를 속도제한 없이 클라이언트에게 전송한다.
-      데이터의 양은 "Boost X Bandwidth X Ratio"의 공식으로 계산한다.
+      데이터의 양은 ``<Boost>`` X ``<Bandwidth>`` X ``<Ratio>`` 공식으로 계산한다.
          
 -  ``<Throttling>``
 
-   -  ``OFF (기본)`` Bandwidth Throttling을 사용하지 않는다.
+   -  ``OFF (기본)`` BT를 적용하지 않는다.
   
-   -  ``ON`` 조건목록과 일치하면 Bandwidth Throttling을 적용한다.
+   -  ``ON`` 조건목록과 일치하면 BT를 적용한다.
 
 
-조건목록
+Bandwidth Throttling 조건목록
 --------------------------
 
-Bandwidth Throttling 조건목록을 설정한다.
-조건목록과 일치해야 Bandwidth Throttling이 적용된다.
+BT 조건목록을 설정한다.
+조건목록과 일치해야 BT가 적용된다.
 설정된 순서대로 조건과 일치하는지 검사한다.
 전송 정책은 /svc/{가상호스트 이름}/throttling.txt 에 설정한다. ::
 
@@ -167,7 +167,7 @@ QueryString 우선조건
    - ``ON`` QueryString으로 조건을 재정의한다.
    
 위와 같이 설정되어 있다면 다음과 같이 클라이언트가 요청한 URL에 따라 
-Bandwidth Throttling이 동적으로 설정된다. ::
+BT가 동적으로 설정된다. ::
 
     # 10초의 데이터를 속도 제한없이 전송한 후 1.3Mbps(1mbps X 130%)로 클라이언트에게 전송한다.
     http://www.winesoft.co.kr/video/sample.wmv?myboost=10&mybandwidth=1&myratio=130
@@ -180,7 +180,7 @@ Bandwidth Throttling이 동적으로 설정된다. ::
 조건목록을 검색한다.
 여기서도 적합한 조건을 찾지 못하는 경우 ``<Settings>`` 에 설정된 기본 값을 사용한다.
 QueryString이 일부 존재하더라도 조건목록에서 미적용옵션(no)이 설정되어 있다면 
-Bandwidth Throttling은 적용되지 않는다.
+BT는 적용되지 않는다.
 
 QueryString을 사용하므로 자칫 ``<ApplyQueryString>`` 과 혼동을 일으킬 소지가 있다. 
 ``<ApplyQueryString>`` 이 ``ON`` 인 경우 클라이언트가 요청한 URL의 QueryString이 
@@ -189,7 +189,7 @@ QueryString을 사용하므로 자칫 ``<ApplyQueryString>`` 과 혼동을 일�
     GET /video.mp4?mybandwidth=2000&myratio=130&myboost=10
     GET /video.mp4?tag=3277&myboost=10&date=20130726
         
-예를 들어 위와 같은 입력은 Bandwidth Throttling을 결정하는데 쓰일 뿐 
+예를 들어 위와 같은 입력은 BT를 결정하는데 쓰일 뿐 
 Caching-Key를 생성하거나 원본서버로 요청을 보낼 때는 생략된다. 
 즉 각각 다음과 같이 인식된다. ::
 
