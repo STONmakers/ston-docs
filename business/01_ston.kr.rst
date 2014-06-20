@@ -57,7 +57,7 @@ STON의 개념, 동작방식, 배경, 이유를 최대한 상세하게 공개하
 
 .. image:: img/features/perf.png
    :align: left
-   :width: 15%
+   :width: 12%
 
 STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키텍처의 고가용성 (High Availability) 설계로 Many-core에 최적화되어 있다.
 
@@ -82,7 +82,7 @@ Zero-Configuration을 추구하여 숙련도가 필요없는 제품을 목표로
 
 .. image:: img/features/monit.png
    :align: left
-   :width: 15%
+   :width: 12%
    
 STON은 강력한 성능과 동시에, 실시간 모니터링 및 통계를 제공한다. 
 자체 API 및 SNMP를 통하여 초단위까지의 모니터링/통계/로그를 제공한다.
@@ -95,7 +95,7 @@ STON은 강력한 성능과 동시에, 실시간 모니터링 및 통계를 제�
 
 .. image:: img/features/price.png
    :align: left
-   :width: 15%
+   :width: 12%
 
 STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로서, 막대한 구매비용이 필요하지 않다. 
 서비스 확장규모에 따라 사용하는 만큼만 비용이 추가되는 유연한 적용방법을 가지고 있다.
