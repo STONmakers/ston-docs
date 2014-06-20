@@ -157,7 +157,7 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
     
     Note: iPad, iPhone 3G, and iPod touch (2nd generation and later) support H.264 Baseline 3.1. If your app runs on older versions of iPhone or iPod touch, however, you should use H.264 Baseline 3.0 for compatibility. If your content is intended solely for iPad, Apple TV, iPhone 4 and later, and Mac OS X computers, you should use Main Level 3.1.	
     
-    'https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1 <https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1>'_ 발췌
+    '관련링크 <https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1>'_
    
 
 기존 방식의 경우 Pseudo Streaming과 HLS를 위해 다음과 같이 원본파일이 각각 존재해야 한다. 
@@ -260,8 +260,8 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 
 
 
-비디오/오디오
+이미지
 ====================================
 
-MP4, M4A, MP3 등 다양한 Video/Audio 포맷을 지원한다.
+DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공할 수 있는 기능입니다. 기본적인 가공형태는 모두 6가지(crop, thumbnail, resize, reformat, quality, composite)이며 이를 조합하여 복합적인 가공이 가능합니다.
 
