@@ -5,7 +5,6 @@
 
 쇼핑몰 
 ------
-**수많은 파일의 전송**
 
 .. image:: img/ref/shopping.png
   :align: center
@@ -20,7 +19,6 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 
 게임
 ------
-**대용량 파일 전송**
 
 .. image:: img/ref/game.png
   :align: center
@@ -32,7 +30,6 @@ STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 
 
 언론 / 커뮤니티
 -----------------
-**번개같은 응답속도**
 
 .. image:: img/ref/news.png
   :align: center
@@ -48,7 +45,6 @@ STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 �
 
 동영상 서비스
 -------------
-**HTTP 동영상 전송**
 
 .. image:: img/ref/media.png
   :align: center
