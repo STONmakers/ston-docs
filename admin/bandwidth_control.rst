@@ -172,7 +172,7 @@ BT가 동적으로 설정된다. ::
     # 10초의 데이터를 속도 제한없이 전송한 후 1.3Mbps(1mbps X 130%)로 클라이언트에게 전송한다.
     http://www.winesoft.co.kr/video/sample.wmv?myboost=10&mybandwidth=1&myratio=130
     
-반드시 모든 파라미터를 명시할 필요는 없다.
+반드시 모든 파라미터를 명시할 필요는 없다. ::
 
     http://www.winesoft.co.kr/video/sample.wmv?myratio=150
     
@@ -184,7 +184,7 @@ BT는 적용되지 않는다.
 
 QueryString을 사용하므로 자칫 ``<ApplyQueryString>`` 과 혼동을 일으킬 소지가 있다. 
 ``<ApplyQueryString>`` 이 ``ON`` 인 경우 클라이언트가 요청한 URL의 QueryString이 
-모두 인식되지만 ``BoostParam`` , ``BandwidthParam`` , ``RatioParam`` 은 제외된다.
+모두 인식되지만 ``BoostParam`` , ``BandwidthParam`` , ``RatioParam`` 은 제외된다. ::
 
     GET /video.mp4?mybandwidth=2000&myratio=130&myboost=10
     GET /video.mp4?tag=3277&myboost=10&date=20130726
