@@ -69,7 +69,7 @@ STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키
 
 .. image:: img/features/easy.png
    :align: left
-   :width: 10%
+   :width: 8%
    
 도입에서 운영에 이르기까지, Web Cache를 가장 많이 접하는 담당자는 보통 운영자이다. (SE, System Engineer) 
 STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되었다. 
@@ -95,7 +95,7 @@ STON은 강력한 성능과 동시에, 실시간 모니터링 및 통계를 제�
 
 .. image:: img/features/price.png
    :align: left
-   :width: 12%
+   :width: 8%
 
 STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로서, 막대한 구매비용이 필요하지 않다. 
 서비스 확장규모에 따라 사용하는 만큼만 비용이 추가되는 유연한 적용방법을 가지고 있다.
