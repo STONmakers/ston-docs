@@ -110,7 +110,7 @@ STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로�
 =========
 
 
-**Cache as a Service**
+**"Cache as a Service"**
 
 .. image:: img/comp.png
   :width: 95%
