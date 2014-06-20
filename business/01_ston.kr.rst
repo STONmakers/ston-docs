@@ -18,7 +18,7 @@ Web Cache는 서비스 네트워크의 최전방(Edge)에서 클라이언트에�
 다양한 통신과 연산의 부하가 걸리는 일반 웹서버와 달리, 
 Web Cache는 정적 컨텐츠 전송에 집중하여 서비스의 속도를 크게 향상시킬수 있다.
    
-.. image:: img/ston.png
+.. image:: img/webcache.png
    :align: center
 
 서비스 확장 때문에 원본 웹서버를 Scale-Out 하면 컨텐츠 갱신마다 동기화 시켜야 하는 문제가 있다. 
@@ -36,7 +36,7 @@ Web Cache는 정적 컨텐츠 전송에 집중하여 서비스의 속도를 크�
 2. STON Web Cache
 ==============
 
-.. image:: img/ston.png
+.. image:: img/stonlogo.png
   :align: center
   
 STON은 가능한 한 최대의 요구사항과 상황에 대처할 수 있는 커다란 그릇을 지향하여 설계되었다. 
