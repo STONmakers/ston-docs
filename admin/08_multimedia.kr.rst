@@ -261,5 +261,12 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 이미지
 ====================================
 
-DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공할 수 있는 기능입니다. 기본적인 가공형태는 모두 6가지(crop, thumbnail, resize, reformat, quality, composite)이며 이를 조합하여 복합적인 가공이 가능합니다.
+DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공할 수 있는 기능이다. 
+기본적인 가공형태는 모두 6가지(crop, thumbnail, resize, reformat, quality, composite)이며 
+이를 조합하여 복합적인 가공이 가능하다.
+
+.. figure:: img/dims.png
+   :align: center
+   
+   다양한 동적 이미지 가공
 
