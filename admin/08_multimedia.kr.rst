@@ -11,7 +11,7 @@ STON은 단일한 콘텐츠를 다양한 형태로 동적가공하여 서비스�
 .. toctree::
    :maxdepth: 2
 
-Video/Audio
+비디오/오디오
 ====================================
 
 MP4, M4A, MP3 등 다양한 Video/Audio 포맷을 지원한다.
@@ -136,6 +136,30 @@ HTTP Live Streaming
 MP4파일을 HLS(HTTP Live Streaming)로 서비스한다. 
 원본서버는 더 이상 HLS서비스를 위해 파일을 분할할 필요가 없다. 
 MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간으로 .m3u8/.ts파일 변환 후 서비스한다. 
+
+..  note::
+
+    MP4HLS는 Elementary Stream(Video 또는 Audio)을 변환하는 트랜스코딩(Transcoding)이 아니다. 
+    그러므로 HLS에 적합한 형식으로 인코딩된 MP4파일에 한해서 원활한 단말 재생이 가능하다. 
+    인코딩이 적합하지 않을 경우 화면이나 깨지거나 소리가 재생되지 않을 수 있다. 
+    현재(2014.2.20) Apple에서 밝히고 있는 Video/Audio 인코딩 규격은 다음과 같다.
+
+    What are the specifics of the video and audio formats supported?
+    Although the protocol specification does not limit the video and audio formats, the current Apple implementation supports the following formats:
+    
+    [Video]
+    H.264 Baseline Level 3.0, Baseline Level 3.1, Main Level 3.1, and High Profile Level 4.1.
+    
+    [Audio]
+    HE-AAC or AAC-LC up to 48 kHz, stereo audio
+    MP3 (MPEG-1 Audio Layer 3) 8 kHz to 48 kHz, stereo audio
+    AC-3 (for Apple TV, in pass-through mode only)
+    
+    Note: iPad, iPhone 3G, and iPod touch (2nd generation and later) support H.264 Baseline 3.1. If your app runs on older versions of iPhone or iPod touch, however, you should use H.264 Baseline 3.0 for compatibility. If your content is intended solely for iPad, Apple TV, iPhone 4 and later, and Mac OS X computers, you should use Main Level 3.1.	
+    
+    'https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1 <https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1>'_ 발췌
+   
+
 기존 방식의 경우 Pseudo Streaming과 HLS를 위해 다음과 같이 원본파일이 각각 존재해야 한다. 
 이런 경우 STON 역시 원본 파일을 그대로 복제하여 고객에게 서비스한다. 
 하지만 재생시간이 길수록 파생파일은 많아지며 관리의 어려움은 증가한다.
@@ -233,3 +257,11 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 #.	``STON`` 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
 #.	``STON`` 100번째(99.ts)파일 생성 후 Range 서비스
 #.	``STON`` 서비스가 완료되면 99.ts파일 파괴
+
+
+
+비디오/오디오
+====================================
+
+MP4, M4A, MP3 등 다양한 Video/Audio 포맷을 지원한다.
+
