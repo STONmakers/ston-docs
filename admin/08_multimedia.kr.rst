@@ -225,9 +225,9 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 1.	[STON] 최초 로딩. (아무 것도 캐싱되어 있지 않음.)
 2.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청) ::
     
-    GET /video.mp4/mp4hls/99.ts HTTP/1.1
-    Range: bytes=0-512000
-    Host: www.wineosft.com
+        GET /video.mp4/mp4hls/99.ts HTTP/1.1
+        Range: bytes=0-512000
+        Host: www.wineosft.com
     
 3.	[STON] /video.mp4 파일 캐싱객체 생성.
 4.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
