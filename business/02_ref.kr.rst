@@ -8,6 +8,7 @@
 
 .. image:: img/ref/shopping.png
   :align: center
+  :width: 85%
   
 고객은 구매결정에 이르기까지 썸네일, 전면배치 사진, 상세 사진 등 다양한 이미지를 보게 된다.
 오픈마켓에는 하루에도 수천 수만 개의 상품이 등록되었다가 사라지는데, 
@@ -22,6 +23,7 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 
 .. image:: img/ref/game.png
   :align: center
+  :width: 85%
 
 온라인 게임은 클라이언트 파일을 빠르고 결함없이 배포해야 한다. 
 고사양화로 클라이언트 파일 용량은 계속 증가하여 수십기가에 이르기도 한다.
@@ -33,6 +35,7 @@ STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 
 
 .. image:: img/ref/news.png
   :align: center
+  :width: 85%
 
 언론사, 커뮤니티 사이트는 동일 컨텐츠를 많은 사용자들에게 제공하기 때문에 304 Not Modified 
 응답의 비율이 높은 편이다. 
@@ -48,6 +51,7 @@ STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 �
 
 .. image:: img/ref/media.png
   :align: center
+  :width: 85%
 
 미디어 전용 프로토콜의 사용은 줄어들고 있는 반면, HTTP/MP4 동영상 서비스는 점점 늘어가고 있다.
 특히 모바일 디바이스의 급속한 보급으로 HTTP 기반의 Streaming 방식이 점점 보편화 되는 추세다.
