@@ -17,9 +17,9 @@ Contents:
    05_handling_http_requests.kr   
    06_origin.kr
    access_control.rst
-   bandwidth_control.rst
    07_bypass.kr   
    08_multimedia.kr
+   bandwidth_control.rst   
    09_filesystem.kr
    10_adv_topics.kr
    11_monitoring_stats.kr
