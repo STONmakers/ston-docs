@@ -385,7 +385,7 @@ Format 변경
        
     -  ``File`` 합성할 이미지파일 경로를 지정한다. 
     
-    -  ``Gravity (기본: c) 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재합니다.
+    -  ``Gravity (기본: c)`` 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재합니다.
        
        .. figure:: img/conf_dims2.png
           :align: center
@@ -403,7 +403,7 @@ Format 변경
 
     -  ``Dissolve (기본: 50)`` 합성할 이미지의 투명도(0~100).
 
-Composite 옵션을 설정했다면 ``Name`` 속성을 사용하여 이미지를 합성할 수 있다. ::
+``<Composite>`` 을 설정했다면 ``Name`` 속성을 사용하여 이미지를 합성할 수 있다. ::
 
     http://image.winesoft.com/img.jpg/dims/composite/water1/
 
@@ -416,14 +416,14 @@ Composite 옵션을 설정했다면 ``Name`` 속성을 사용하여 이미지를
 예를 들어 1024 X 768 이하의 이미지는 품질을 50%로 떨어트리고 그 이상의 
 이미지는 1024 X 768로 크기변환을 하려면 다음과 같이 ByOriginal로 설정한다. ::
 
-<Options>
-    <Dims Status="Active" Keyword="dims" port="8500">
-        <ByOriginal Name="size1">
-            <Condition Width="1024" Height="768">/quality/25/</Condition>
-            <Condition>/resize/1024x768/</Condition>
-        </ByOriginal>
-    </Dims>
-</Options>
+    <Options>
+        <Dims Status="Active" Keyword="dims" port="8500">
+            <ByOriginal Name="size1">
+                <Condition Width="1024" Height="768">/quality/25/</Condition>
+                <Condition>/resize/1024x768/</Condition>
+            </ByOriginal>
+        </Dims>
+    </Options>
 
 -  ``<ByOriginal>`` 
 
