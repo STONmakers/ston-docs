@@ -11,8 +11,8 @@ Release Notes
 기능개선/정책변경
 -----------------
 		Bypass-Control 개선
-		**Before.** 명시적인 URL 또는 Cookie등으로 바이패스(또는 예외) 설정
-		**After.** IP, Header, URL 또는 이를 결합한 복합조건으로 바이패스 가능. Cookie바이패스 삭제.
+		| **Before.** 명시적인 URL 또는 Cookie등으로 바이패스(또는 예외) 설정
+		| **After.** IP, Header, URL 또는 이를 결합한 복합조건으로 바이패스 가능. Cookie바이패스 삭제.
 		
 		클라이언트 트래픽 - 디렉토리 별 requestHitRaio 추가
 		WM - hostname과 IP가 로그인하지 않은 상태에서 표시되지 않도록 수정
@@ -35,8 +35,8 @@ Release Notes
 		5분평균 통계(XML, JSON)에서 5분간 총 양이 함께 표기됩니다.
 		HTTP POST요청캐싱과 Bypass정책이 동시에 설정된 경우, 서비스 정책이 재정립되었습니다
 		Trimming정책 변경
-		**Before.** Trimming의 끝(end) 시간에 가장 인접하도록 분할
-		**After.** Trimming의 끝(end) 시간의 이전 Key-Frame으로 분할
+		| **Before.** Trimming의 끝(end) 시간에 가장 인접하도록 분할
+		| **After.** Trimming의 끝(end) 시간의 이전 Key-Frame으로 분할
 		
 버그 수정
 ---------
@@ -48,8 +48,8 @@ Release Notes
 기능개선/정책변경
 -----------------
 		서비스 거부 조건에서 응답코드를 설정할 수 있습니다.
-		**Before.** 에러 페이지에 "401 Access Denied"라고 명시
-		**After.** 별도의 페이지 없이 설정된 응답코드로만 응답
+		| **Before.** 에러 페이지에 "401 Access Denied"라고 명시
+		| **After.** 별도의 페이지 없이 설정된 응답코드로만 응답
 버그 수정
 ---------
 		잘못된 MP4영상 Trimming 중 비정상 종료되던 증상.
@@ -88,8 +88,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		Log 롤링 조건
-		**Before.** 시간 또는 크기 중 택1
-		**After.** 시간과 크기 동시설정 가능
+		| **Before.** 시간 또는 크기 중 택1
+		| **After.** 시간과 크기 동시설정 가능
 		WM - 페이지 상단에 서버의 호스트명과 IP를 보여줍니다.
 버그 수정
 ---------
@@ -151,11 +151,11 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		SNMP [vhostIndex] 관리 정책변경
-		**Before.** 가상호스트가 삭제되거나 순서가 변경될 경우 [vhostIndex]가 재조정된다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제된 경우 A(1), C(2)로 재조정된다.
-		**After.** [vhostIndex]를 기억한다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제되더라도 A(1), C(3)을 유지한다. 신규 가상호스트가 추가되면 비어있는 [vhostIndex]를 가진다. 예를 들어 가상호스트 D가 추가되면 A(1), D(2), C(3)로 재조정된다.
+		| **Before.** 가상호스트가 삭제되거나 순서가 변경될 경우 [vhostIndex]가 재조정된다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제된 경우 A(1), C(2)로 재조정된다.
+		| **After.** [vhostIndex]를 기억한다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제되더라도 A(1), C(3)을 유지한다. 신규 가상호스트가 추가되면 비어있는 [vhostIndex]를 가진다. 예를 들어 가상호스트 D가 추가되면 A(1), D(2), C(3)로 재조정된다.
 		설정 리로드 API 변경
-		**Before.** /conf/reloadall, /conf/reloadserver, /conf/reloadvhosts가 별도로 존재하며 기능을 달리한다.
-		**After.** /conf/reload로 일괄통일한다. 하위 호환성을 위해 기존 API를 유지한다.
+		| **Before.** /conf/reloadall, /conf/reloadserver, /conf/reloadvhosts가 별도로 존재하며 기능을 달리한다.
+		| **After.** /conf/reload로 일괄통일한다. 하위 호환성을 위해 기존 API를 유지한다.
 
 1.2.14 (2014.2.6)
 ++++++++++++++++++
@@ -163,8 +163,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		원본주소 DNS 정책 변경
-		**Before.** 다른 가상호스트지만 원본주소로 같은 Domain을 사용한다면 Domain Resolving결과를 공유한다.
-		**After.** 모든 가상호스트는 독립적으로 Domain Resolving을 수행하며 공유하지 않는다.
+		| **Before.** 다른 가상호스트지만 원본주소로 같은 Domain을 사용한다면 Domain Resolving결과를 공유한다.
+		| **After.** 모든 가상호스트는 독립적으로 Domain Resolving을 수행하며 공유하지 않는다.
 버그 수정
 ---------
 		WM을 통한 Disk Hot-Swap 오동작 수정.
@@ -189,11 +189,11 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		원본서버 Cach-Control 헤더 인식정책 변경
-		**Before.** no-cache 또는 max-age만을 인식한다.
-		**After.** no-cache, no-store, no-transform, muset-revalidate, proxy-revalidate, private, max-age를 구분하여 인식한다. custom은 무시한다.
+		| **Before.** no-cache 또는 max-age만을 인식한다.
+		| **After.** no-cache, no-store, no-transform, muset-revalidate, proxy-revalidate, private, max-age를 구분하여 인식한다. custom은 무시한다.
 		5분 평균 Request Hit율 계산방식 변경
-		**Before.** 각 TCP_XXX의 (단위 시간에 대한)평균을 구한 뒤 Hit율 계산한다. 각 평균 값이 단위 시간보다 작을 때 누락될 수 있다.
-		**After.** (평균을 내지 않고) 비율로만 계산하여 값이 누락되지 않는다.
+		| **Before.** 각 TCP_XXX의 (단위 시간에 대한)평균을 구한 뒤 Hit율 계산한다. 각 평균 값이 단위 시간보다 작을 때 누락될 수 있다.
+		| **After.** (평균을 내지 않고) 비율로만 계산하여 값이 누락되지 않는다.
 
 1.2.10 (2013.12.13)
 ++++++++++++++++++
@@ -201,8 +201,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		HTTPS 통신에서 Access로그 범위 변경
-		**Before.** 클라이언트가 SSL Server Finished 패킷을 온전히 수신한 HTTPS 트랜잭션만을 Access로그에 기록한다.
-		**After.** 클라이언트가 SSL Server Finished 패킷을 온전히 수신하지 못했더라도 HTTP Request 패킷을 보냈다면 Access로그에 기록한다.
+		| **Before.** 클라이언트가 SSL Server Finished 패킷을 온전히 수신한 HTTPS 트랜잭션만을 Access로그에 기록한다.
+		| **After.** 클라이언트가 SSL Server Finished 패킷을 온전히 수신하지 못했더라도 HTTP Request 패킷을 보냈다면 Access로그에 기록한다.
 버그 수정
 ---------
 		비정상 종료(물리적 세션 손실)된 HTTPS세션이 재사용될 때 이전에 요청되었던 컨텐츠와 현재 요청된 컨텐츠를 동시에 처리하던 증상. 2개의 HTTP 요청이 동시에 처리될 수 있었으며 이를 항상 현재 요청한 요청만이 유효하도록 수정.
@@ -213,8 +213,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		Bandwidth-Throttling 정책 변경
-		**Before.** Boost 시간동안 미디어를 전송할 때 헤더를 포함한다. 헤더가 클 경우 미디어 데이터가 전송되지 않아 버퍼링이 발생할 수 있다.
-		**After.** 미디어 헤더는 대역폭 제한없이 전송한다. 헤더 전송이 완료된 후 Boost 시간이 시작된다.
+		| **Before.** Boost 시간동안 미디어를 전송할 때 헤더를 포함한다. 헤더가 클 경우 미디어 데이터가 전송되지 않아 버퍼링이 발생할 수 있다.
+		| **After.** 미디어 헤더는 대역폭 제한없이 전송한다. 헤더 전송이 완료된 후 Boost 시간이 시작된다.
 버그 수정
 ---------
 		WM 포트 변경 후 STON 업데이트 시 변경된 포트가 유지되지 않던 증상
@@ -347,8 +347,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		Transfer-Encoding으로 전송된 컨텐츠를 (전송지연 등의 이유로) 온전하게 캐싱하지 못한 경우 클라이언트 서비스정책 변경
-		**Before.** 캐싱에 실패한 현재 컨텐츠를 서비스
-		**After.** 이전에 온전하게 캐싱된 컨텐츠가 있다면 이전 컨텐츠로 서비스. 없다면 500 Internal Error.
+		| **Before.** 캐싱에 실패한 현재 컨텐츠를 서비스
+		| **After.** 이전에 온전하게 캐싱된 컨텐츠가 있다면 이전 컨텐츠로 서비스. 없다면 500 Internal Error.
 		
 버그 수정
 ---------
@@ -383,8 +383,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		(파일이 없을 때) GeoIP파일목록 조회 결과 변경
-		**Before.** 404 NOT FOUND
-		**After.** 200 OK ("files": [] 응답)
+		| **Before.** 404 NOT FOUND
+		| **After.** 200 OK ("files": [] 응답)
 		
 버그 수정
 ---------
@@ -410,8 +410,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		No-Cache요청 인식조건 변경
-		**Before.** "pragma: no-cache" 또는 "cache-control: no-cache"
-		**After.** 기존 조건에 "cache-control: max-age=0" 추가
+		| **Before.** "pragma: no-cache" 또는 "cache-control: no-cache"
+		| **After.** 기존 조건에 "cache-control: max-age=0" 추가
 		
 버그 수정
 ---------
@@ -432,8 +432,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		원본서버 장애코드 변경
-		**Before.** 숫자로 표시
-		**After.** 읽기 쉬운 형식으로 표시(Connect-Timeout, Receive-Timeout, Server-Close)
+		| **Before.** 숫자로 표시
+		| **After.** 읽기 쉬운 형식으로 표시(Connect-Timeout, Receive-Timeout, Server-Close)
 		
 		원본서버 장애로그 기록시 주석으로 에러상황을 기록하던 것 제거. OriginErrorLog로 통합.
 버그 수정
@@ -457,24 +457,24 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		로그 디스크 여유공간이 부족해질 경우 정책 변경
-		**Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
-		**After.** Access로그만을 삭제. 만약 현재 사용 중인 로그를 지워야하는 상황이라면 새로운 로그 생성 후 삭제함.
+		| **Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
+		| **After.** Access로그만을 삭제. 만약 현재 사용 중인 로그를 지워야하는 상황이라면 새로운 로그 생성 후 삭제함.
 		
 		STON 종료 후 (vhosts.xml에서)삭제된 가상호스트 파일들에 대한 정책 변경
-		**Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
-		**After.** 디스크 여유공간이 부족해지면 우선적으로 삭제.
+		| **Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
+		| **After.** 디스크 여유공간이 부족해지면 우선적으로 삭제.
 		
 		(가상호스트 별) 재구동 시 정상적으로 로딩되지 않은 디스크의 파일들에 대한 정책 변경
-		**Before.** 서비스 중 자연히 덮어씌워지도록 남겨둠
-		**After.** 해당 디스크를 신뢰할 수 없다고 판단하여 모두 무효화. 클린업 시간 또는 디스크 여유공간 부족 시점에 모두 삭제.
+		| **Before.** 서비스 중 자연히 덮어씌워지도록 남겨둠
+		| **After.** 해당 디스크를 신뢰할 수 없다고 판단하여 모두 무효화. 클린업 시간 또는 디스크 여유공간 부족 시점에 모두 삭제.
 		
 		도메인 Resolving결과 조회 API 변경.
-		**Before.** /dns/list
-		**After.** /monitoring/dnslist
+		| **Before.** /dns/list
+		| **After.** /monitoring/dnslist
 		
 		로그 트레이스 API 변경
-		**Before.** /logtrace/...
-		**After.** /monitoring/logtrace/...
+		| **Before.** /logtrace/...
+		| **After.** /monitoring/logtrace/...
 		
 		도메인 Resolving결과에 백업된 IP목록 추가
 
@@ -494,8 +494,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 		TLS_RSA_WITH_3DES_EDE_CBC_SHA
 		
 		숫자(초=sec)로만 하던 표현을 인식하기 쉬운 문자형식으로 표현가능
-		**Before.** /image/ad.jpg, 1800
-		**After.** /image/ad.jpg, 6 hours
+		| **Before.** /image/ad.jpg, 1800
+		| **After.** /image/ad.jpg, 6 hours
 		
 		SNMP에서 평균으로만 제공하던 수치를 누적으로 제공 (클라이언트/원본)
 		기존에 Count라는 표현을 Average로 변경. Average는 시간으로 나눈 평균을 의미
@@ -579,11 +579,11 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 -----------------
 		원본서버 부하분산 정책이 Session에서 RoundRobin으로 변경되었습니다.
 		전역로그(Info, Deny, OriginError)를 시간으로 롤링시킨다.
-		**Before.** 크기로만 롤링가능(Size속성만 존재)
-		**After.** 시간/크기로 롤링가능 (Size속성 제거. Type, Unit속성 추가)
+		| **Before.** 크기로만 롤링가능(Size속성만 존재)
+		| **After.** 시간/크기로 롤링가능 (Size속성 제거. Type, Unit속성 추가)
 		잘못된 형식 또는 존재하지 않는 가상호스트를 대상으로 Purge/Expire/ExpireAfter/HardPurge 호출시 응답코드 변경
-		**Before.** 200 OK
-		**After.** 400 BAD REQUEST 또는 404 NOT FOUND
+		| **Before.** 200 OK
+		| **After.** 400 BAD REQUEST 또는 404 NOT FOUND
 		
 버그 수정
 ---------
@@ -599,16 +599,16 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		원본서버 주소가 빠졌을 때 동작방식 변경
-		**Before.** 이미 연결되어 있다면 재사용한다.
-		**After.** 즉시 재사용하지 않는다.
+		| **Before.** 이미 연결되어 있다면 재사용한다.
+		| **After.** 즉시 재사용하지 않는다.
 		
 		ApplyQueryString이 ON일 때 Purge/Expire동작방식 변경.
-		**Before.** 입력된 URL과 해당 URL에 QueryString이 붙은 컨텐츠 Purge/Expire
-		**After.** 입력된 URL만 Purge/Expire
+		| **Before.** 입력된 URL과 해당 URL에 QueryString이 붙은 컨텐츠 Purge/Expire
+		| **After.** 입력된 URL만 Purge/Expire
 		
 		Active세션 산출방식 변경
-		**Before.** 통계를 뽑는 시점에 데이터 전송이 이루어지고 있는 세션
-		**After.** 데이터 전송이 발생한 Unique한 세션
+		| **Before.** 통계를 뽑는 시점에 데이터 전송이 이루어지고 있는 세션
+		| **After.** 데이터 전송이 발생한 Unique한 세션
 		
 		통계/성능 데이터가 추가/삭제되었습니다.
 		접속 허용(Allow)/차단(Deny) 통계 추가
@@ -655,8 +655,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 -----------------
 		ETag헤더를 제공할 때 따옴표("...")로 묶어서 표기
 		HIT율 계산식 변경
-		**Before.** 즉시응답 / 모든응답
-		**After.** (TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT) / 모든 응답
+		| **Before.** 즉시응답 / 모든응답
+		| **After.** (TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT) / 모든 응답
 		
 		통계/성능 데이터가 추가/삭제되었습니다.
 		캐시 HIT결과(TCP_*) 추가
@@ -686,8 +686,8 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 기능개선/정책변경
 -----------------
 		Accept-Encoding처리 정책변경.
-		**Before.** 클라이언트와 원본서버의 압축이 호환되지 않으면 500에러로 응답한다.
-		**After.** 클라이언트와 원본서버의 압축이 호환되지 않더라도 원본서버의 응답을 보낸다.
+		| **Before.** 클라이언트와 원본서버의 압축이 호환되지 않으면 500에러로 응답한다.
+		| **After.** 클라이언트와 원본서버의 압축이 호환되지 않더라도 원본서버의 응답을 보낸다.
 		
 		다음과 같이 통계/성능 데이터가 추가되었습니다.
 		원본/클라이언트 Active세션수가 추가되었습니다.
