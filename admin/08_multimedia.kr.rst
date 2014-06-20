@@ -1,6 +1,6 @@
 ﻿.. _multimedia:
 
-멀티미디어
+미디어
 ******************
 
 클라이언트 환경과 서비스의 다양화와 함께 콘텐츠를 다양한 형태로 가공할 필요가 있다.
@@ -130,4 +130,107 @@ lighttpd의 `Mod-H264-Streaming-Testing-Version2 <http://h264.code-shop.com/trac
 모두 **start** 를 QueryString으로 사용하고 있다.
 
 
+HTTP Live Streaming
+-----------------------
 
+MP4파일을 HLS(HTTP Live Streaming)로 서비스한다. 
+원본서버는 더 이상 HLS서비스를 위해 파일을 분할할 필요가 없다. 
+MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간으로 .m3u8/.ts파일 변환 후 서비스한다. 
+기존 방식의 경우 Pseudo Streaming과 HLS를 위해 다음과 같이 원본파일이 각각 존재해야 한다. 
+이런 경우 STON 역시 원본 파일을 그대로 복제하여 고객에게 서비스한다. 
+하지만 재생시간이 길수록 파생파일은 많아지며 관리의 어려움은 증가한다.
+
+.. figure:: img/conf_media_mp4hls1.png
+   :align: center
+   
+   수고가 많은 HLS
+   
+STON의 ``<MP4HLS>`` 는 원본파일로부터 HLS서비스에 필요한 파일을 자동으로 생성한다.
+
+.. figure:: img/confconf_media_mp4hls2.png
+   :align: center
+   
+   똑똑한 HLS
+
+모든 .m3u8/.ts파일은 원본파일에서 파생되며 별도의 저장공간을 소비하지 않는다. 
+서비스 즉시 메모리에 임시적으로 생성되며 서비스되지 않을 때 자동으로 없어진다. ::
+
+    <Media>    
+        <MP4HLS Status="Inactive" Keyword="mp4hls">
+            <Index>index.m3u8</Index>
+            <Sequence>0</Sequence>
+            <Duration>10</Duration>
+        </MP4HLS>
+    </Media>
+    
+-  ``<MP4HLS>``
+   
+   ``Status`` 속성이 ``Active`` 일 때 활성화된다.   
+
+
+예를 들어 서비스 주소가 다음과 같다면 해당 주소로 Pseudo Streaming을 진행할 수 있다. ::
+
+    http://www.winesoft.com/video.mp4
+    
+STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 HLS서비스를 진행한다. 
+다음 URL이 호출되면 /video.mp4로부터 index.m3u8파일을 생성한다. 
+인덱스 파일명은 ``<Index>`` 에서 문자열로 설정한다. ::
+
+    http://www.winesoft.com/video.mp4/mp4hls/index.m3u8
+    
+생성된 index.m3u8은 다음과 같다.
+
+    #EXTM3U
+    #EXT-X-TARGETDURATION: 10
+    #EXT-X-MEDIA-SEQUENCE: 0
+    #EXTINF:10,
+    /video.mp4/mp4hls/0.ts
+    #EXTINF:10,
+    /video.mp4/mp4hls/1.ts
+    #EXTINF:10,
+    /video.mp4/mp4hls/2.ts
+    
+    ... (생략)...
+    
+    #EXTINF:10,
+    /video.mp4/mp4hls/161.ts
+    #EXTINF:9,
+    /video.mp4/mp4hls/162.ts
+    #EXT-X-ENDLIST
+    
+#EXT-X-TARGETDURATION은 ``<Duration>`` 으로 설정할 수 있다. 
+주의할 점은 원본파일은 정확히 Video의 KeyFrame에 의해서만 분할된다는 것이다. 
+다음 4가지 경우가 존재할 수 있다.
+
+-  KeyFrame 간격보다 <Duration>설정이 큰 경우
+   
+   KeyFrame이 3초, ``<Duration>`` 이 20초라면 20초를 넘지 않는 KeyFrame의 배수인 18초로 분할된다.
+   
+-  KeyFrame 간격과 ``<Duration>`` 이 비슷한 경우
+   
+   KeyFrame이 9초, ``<Duration>`` 이 10초라면 10초를 넘지 않는 KeyFrame의 배수인 9초로 분할된다.
+   
+-  KeyFrame 간격이 ``<Duration>`` 설정보다 큰 경우
+
+   KeyFrame단위로 분할된다.
+   
+-  Video가 없는 경우
+
+   ``<Duration>`` 단위로 분할된다.
+   
+#EXT-X-MEDIA-SEQUENCE은 .ts파일의 시작 숫자를 정의하며 ``<Sequence>`` 로 설정한다.
+
+좀 더 구체적으로 다음과 같은 매커니즘을 통해 매우 높은 반응성과 품질을 제공한다.
+
+1.	[STON] 최초 로딩. (아무 것도 캐싱되어 있지 않음.)
+#.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청) ::
+    
+    GET /video.mp4/mp4hls/99.ts HTTP/1.1
+    Range: bytes=0-512000
+    Host: www.wineosft.com
+    
+#.	[STON] /video.mp4 파일 캐싱객체 생성.
+#.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
+#.	[STON] 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
+#.	[STON] 100번째(99.ts)파일 생성 후 Range 서비스
+#.	[STON] 서비스가 완료되면 99.ts파일 파괴
