@@ -499,7 +499,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - HTTPS CipherSuite가 추가되었습니다.
    - RSA_WITH_RC4_MD5
    - TLS_RSA_WITH_3DES_EDE_CBC_SHA
-   - 
+   |
    - 숫자(초=sec)로만 하던 표현을 인식하기 쉬운 문자형식으로 표현가능
    | **Before.** /image/ad.jpg, 1800
    | **After.** /image/ad.jpg, 6 hours
