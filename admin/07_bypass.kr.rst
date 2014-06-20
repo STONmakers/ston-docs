@@ -3,7 +3,7 @@
 바이패스
 ******************
 
-결제나 개인화된 웹 페이지처럼 Caching하면 안되는 클라이언트 요청이 있다.
+개인화된 웹 페이지처럼 Caching하면 안되는 클라이언트 요청이 있다.
 바이패스는 HTTP트랜잭션 단위로 동작한다.
 
 
@@ -77,10 +77,10 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 2번째 파라미터를 사용하면 보다 분명하게 조건을 설정할 수 있다. ::
 
     # /svc/www.winesoft.co.kr/bypass.txt
-    $HEADER[cookie: *ILLEGAL*], cache          // 항상 Caching처리
-    !HEADER[referer:]          // 기본 설정에 따라 다름
-    !HEADER[referer] & !HEADER[user-agent] & !HEADER[host], bypass          // 항상 바이패스
-    $URL[/source/public.zip]          // 기본 설정에 따라 다름
+    $HEADER[cookie: *ILLEGAL*], cache               // 항상 Caching처리
+    !HEADER[referer:]                               // 기본 설정에 따라 다름
+    !HEADER[referer] & !HEADER[user-agent], bypass  // 항상 바이패스
+    $URL[/source/public.zip]                        // 기본 설정에 따라 다름
 
 정리하면 우선순위는 다음과 같다.
 
