@@ -220,17 +220,16 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
    
 #EXT-X-MEDIA-SEQUENCE은 .ts파일의 시작 숫자를 정의하며 ``<Sequence>`` 로 설정한다.
 
-좀 더 구체적으로 다음과 같은 매커니즘을 통해 매우 높은 반응성과 품질을 제공한다.
+다음 클라이언트 요청에 대해 STON이 어떻게 동작하는지 이해해보자. ::
+
+    GET /video.mp4/mp4hls/99.ts HTTP/1.1
+    Range: bytes=0-512000
+    Host: www.wineosft.com
 
 1.	[STON] 최초 로딩. (아무 것도 캐싱되어 있지 않음.)
-2.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청) ::
-    
-        GET /video.mp4/mp4hls/99.ts HTTP/1.1
-        Range: bytes=0-512000
-        Host: www.wineosft.com
-    
-3.	[STON] /video.mp4 파일 캐싱객체 생성.
-4.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
-5.	[STON] 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
-6.	[STON] 100번째(99.ts)파일 생성 후 Range 서비스
-7.	[STON] 서비스가 완료되면 99.ts파일 파괴
+#.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청)     
+#.	[STON] /video.mp4 파일 캐싱객체 생성.
+#.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
+#.	[STON] 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
+#.	[STON] 100번째(99.ts)파일 생성 후 Range 서비스
+#.	[STON] 서비스가 완료되면 99.ts파일 파괴
