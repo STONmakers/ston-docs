@@ -92,6 +92,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - Log 롤링 조건
    | **Before.** 시간 또는 크기 중 택1
    | **After.** 시간과 크기 동시설정 가능
+   |
    - WM - 페이지 상단에 서버의 호스트명과 IP를 보여줍니다.
 버그 수정
 ---------
@@ -155,6 +156,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - SNMP [vhostIndex] 관리 정책변경
    | **Before.** 가상호스트가 삭제되거나 순서가 변경될 경우 [vhostIndex]가 재조정된다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제된 경우 A(1), C(2)로 재조정된다.
    | **After.** [vhostIndex]를 기억한다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제되더라도 A(1), C(3)을 유지한다. 신규 가상호스트가 추가되면 비어있는 [vhostIndex]를 가진다. 예를 들어 가상호스트 D가 추가되면 A(1), D(2), C(3)로 재조정된다.
+   |
    - 설정 리로드 API 변경
    | **Before.** /conf/reloadall, /conf/reloadserver, /conf/reloadvhosts가 별도로 존재하며 기능을 달리한다.
    | **After.** /conf/reload로 일괄통일한다. 하위 호환성을 위해 기존 API를 유지한다.
@@ -193,9 +195,11 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - 원본서버 Cach-Control 헤더 인식정책 변경
    | **Before.** no-cache 또는 max-age만을 인식한다.
    | **After.** no-cache, no-store, no-transform, muset-revalidate, proxy-revalidate, private, max-age를 구분하여 인식한다. custom은 무시한다.
+   |
    - 5분 평균 Request Hit율 계산방식 변경
    | **Before.** 각 TCP_XXX의 (단위 시간에 대한)평균을 구한 뒤 Hit율 계산한다. 각 평균 값이 단위 시간보다 작을 때 누락될 수 있다.
    | **After.** (평균을 내지 않고) 비율로만 계산하여 값이 누락되지 않는다.
+   
 
 1.2.10 (2013.12.13)
 ++++++++++++++++++
@@ -457,34 +461,33 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - HTTPS CipherSuite 조회
    - 접근차단 조건(acl.txt) 조회
    - Expires헤더 조건(expires.txt) 조회
-   - 
+   
 기능개선/정책변경
 -----------------
    - 로그 디스크 여유공간이 부족해질 경우 정책 변경
    | **Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
    | **After.** Access로그만을 삭제. 만약 현재 사용 중인 로그를 지워야하는 상황이라면 새로운 로그 생성 후 삭제함.
-   - 
+   |
    - STON 종료 후 (vhosts.xml에서)삭제된 가상호스트 파일들에 대한 정책 변경
    | **Before.** 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
    | **After.** 디스크 여유공간이 부족해지면 우선적으로 삭제.
-   - 
+   | 
    - (가상호스트 별) 재구동 시 정상적으로 로딩되지 않은 디스크의 파일들에 대한 정책 변경
    | **Before.** 서비스 중 자연히 덮어씌워지도록 남겨둠
    | **After.** 해당 디스크를 신뢰할 수 없다고 판단하여 모두 무효화. 클린업 시간 또는 디스크 여유공간 부족 시점에 모두 삭제.
-   - 
+   | 
    - 도메인 Resolving결과 조회 API 변경.
    | **Before.** /dns/list
    | **After.** /monitoring/dnslist
-   - 
+   | 
    - 로그 트레이스 API 변경
    | **Before.** /logtrace/...
    | **After.** /monitoring/logtrace/...
-   - 
+   | 
    - 도메인 Resolving결과에 백업된 IP목록 추가
 
 1.1.9 (2013.2.27)
 ++++++++++++++++++
-
 
    - Apache의 mod_expires와 같이 Expires헤더를 재설정할 수 있습니다.
    - HTTPS의 CipherSuite를 설정할 수 있습니다.
@@ -500,14 +503,14 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - 숫자(초=sec)로만 하던 표현을 인식하기 쉬운 문자형식으로 표현가능
    | **Before.** /image/ad.jpg, 1800
    | **After.** /image/ad.jpg, 6 hours
-
+   |
    - SNMP에서 평균으로만 제공하던 수치를 누적으로 제공 (클라이언트/원본)
    - 기존에 Count라는 표현을 Average로 변경. Average는 시간으로 나눈 평균을 의미
    - 시간동안 집계된 전체 수는 Count로 표현
    - 전체 요청/응답 개수 추가
    - 응답코드별 응답/완료 개수 추가
    - Request Hit Count 추가
-   - 
+   
    - 재시작/종료/캐시초기화 API를 호출할 때 "확인" 과정없이 호출할 수 있습니다.
    - 시스템 Load Average - 1분/5분/15분 통계추가
    - 모든 가상호스트의 원본서버를 초기화 할 수 있습니다.
@@ -584,6 +587,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - 전역로그(Info, Deny, OriginError)를 시간으로 롤링시킨다.
    | **Before.** 크기로만 롤링가능(Size속성만 존재)
    | **After.** 시간/크기로 롤링가능 (Size속성 제거. Type, Unit속성 추가)
+   |
    - 잘못된 형식 또는 존재하지 않는 가상호스트를 대상으로 Purge/Expire/ExpireAfter/HardPurge 호출시 응답코드 변경
    | **Before.** 200 OK
    | **After.** 400 BAD REQUEST 또는 404 NOT FOUND
@@ -604,15 +608,15 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - 원본서버 주소가 빠졌을 때 동작방식 변경
    | **Before.** 이미 연결되어 있다면 재사용한다.
    | **After.** 즉시 재사용하지 않는다.
-   
+   |
    - ApplyQueryString이 ON일 때 Purge/Expire동작방식 변경.
    | **Before.** 입력된 URL과 해당 URL에 QueryString이 붙은 컨텐츠 Purge/Expire
    | **After.** 입력된 URL만 Purge/Expire
-   
+   |
    - Active세션 산출방식 변경
    | **Before.** 통계를 뽑는 시점에 데이터 전송이 이루어지고 있는 세션
    | **After.** 데이터 전송이 발생한 Unique한 세션
-   
+   |
    - 통계/성능 데이터가 추가/삭제되었습니다.
    - 접속 허용(Allow)/차단(Deny) 통계 추가
    - 종합통계에 요청회수, Active세션 통계 추가
@@ -660,7 +664,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - HIT율 계산식 변경
    | **Before.** 즉시응답 / 모든응답
    | **After.** (TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT) / 모든 응답
-   
+   |
    - 통계/성능 데이터가 추가/삭제되었습니다.
    - 캐시 HIT결과(TCP_*) 추가
    - 평균통계에 통계를 생성한 날짜/시간 추가
@@ -691,7 +695,7 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
    - Accept-Encoding처리 정책변경.
    | **Before.** 클라이언트와 원본서버의 압축이 호환되지 않으면 500에러로 응답한다.
    | **After.** 클라이언트와 원본서버의 압축이 호환되지 않더라도 원본서버의 응답을 보낸다.
-   
+   |
    - 다음과 같이 통계/성능 데이터가 추가되었습니다.
    - 원본/클라이언트 Active세션수가 추가되었습니다.
    - STON이 사용하는 CPU(Kernel, User) 성능수치가 추가되었습니다.
@@ -945,12 +949,13 @@ API의 모든 함수를 리눅스 콘솔에서 호출할 수 있습니다.
 0.9.6 (2012.6.12)
 ++++++++++++++++++
 
-   - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 잇습니다. 	<Server>
-   	  <Host>
-   	    <SNMP Port="161" Status="Active">
-   	      <Allow>211.104.97.150</Allow>
-   	    </SNMP>
-   	  </Host>
-   	</Server>
+   - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 잇습니다.
+   <Server>
+     <Host>
+       <SNMP Port="161" Status="Active">
+         <Allow>211.104.97.150</Allow>
+       </SNMP>
+     </Host>
+   </Server>
    	 
    - 원본서버에서 Content Length없는 응답이 올 경우, Origin로그에 원본서버 에러로 기록하지 않도록 변경되었습니다. 원본서버에서 일방적으로 연결을 종료한 경우, 만약 해당 세션이 Content Length가 없는 HTTP 트랜잭션을 수행 중이었다면 원본에러로 기록되지 않습니다.
