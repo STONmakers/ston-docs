@@ -202,15 +202,15 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 주의할 점은 원본파일은 정확히 Video의 KeyFrame에 의해서만 분할된다는 것이다. 
 다음 4가지 경우가 존재할 수 있다.
 
--  **KeyFrame 간격보다 <Duration>설정이 큰 경우**
+-  **KeyFrame 간격보다 ``<Duration>`` 설정이 큰 경우**
    
    KeyFrame이 3초, ``<Duration>`` 이 20초라면 20초를 넘지 않는 KeyFrame의 배수인 18초로 분할된다.
    
--  **KeyFrame 간격과 ``<Duration>`` 이 비슷한 경우**
+-  **KeyFrame 간격과** ``<Duration>`` **이 비슷한 경우**
    
    KeyFrame이 9초, ``<Duration>`` 이 10초라면 10초를 넘지 않는 KeyFrame의 배수인 9초로 분할된다.
    
--  **KeyFrame 간격이 ``<Duration>`` 설정보다 큰 경우**
+-  **KeyFrame 간격이** ``<Duration>`` **설정보다 큰 경우**
 
    KeyFrame단위로 분할된다.
    
