@@ -147,7 +147,7 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
    
 STON의 ``<MP4HLS>`` 는 원본파일로부터 HLS서비스에 필요한 파일을 자동으로 생성한다.
 
-.. figure:: img/confconf_media_mp4hls2.png
+.. figure:: img/conf_media_mp4hls2.png
    :align: center
    
    똑똑한 HLS
@@ -178,7 +178,7 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 
     http://www.winesoft.com/video.mp4/mp4hls/index.m3u8
     
-생성된 index.m3u8은 다음과 같다.
+생성된 index.m3u8은 다음과 같다. ::
 
     #EXTM3U
     #EXT-X-TARGETDURATION: 10
@@ -202,19 +202,19 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 주의할 점은 원본파일은 정확히 Video의 KeyFrame에 의해서만 분할된다는 것이다. 
 다음 4가지 경우가 존재할 수 있다.
 
--  KeyFrame 간격보다 <Duration>설정이 큰 경우
+-  **KeyFrame 간격보다 <Duration>설정이 큰 경우**
    
    KeyFrame이 3초, ``<Duration>`` 이 20초라면 20초를 넘지 않는 KeyFrame의 배수인 18초로 분할된다.
    
--  KeyFrame 간격과 ``<Duration>`` 이 비슷한 경우
+-  **KeyFrame 간격과 ``<Duration>`` 이 비슷한 경우**
    
    KeyFrame이 9초, ``<Duration>`` 이 10초라면 10초를 넘지 않는 KeyFrame의 배수인 9초로 분할된다.
    
--  KeyFrame 간격이 ``<Duration>`` 설정보다 큰 경우
+-  **KeyFrame 간격이 ``<Duration>`` 설정보다 큰 경우**
 
    KeyFrame단위로 분할된다.
    
--  Video가 없는 경우
+-  **Video가 없는 경우**
 
    ``<Duration>`` 단위로 분할된다.
    
@@ -223,14 +223,14 @@ STON은 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 H
 좀 더 구체적으로 다음과 같은 매커니즘을 통해 매우 높은 반응성과 품질을 제공한다.
 
 1.	[STON] 최초 로딩. (아무 것도 캐싱되어 있지 않음.)
-#.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청) ::
+2.	[Client] HTTP Range 요청. (100번째 파일의 최초 500KB 요청) ::
     
     GET /video.mp4/mp4hls/99.ts HTTP/1.1
     Range: bytes=0-512000
     Host: www.wineosft.com
     
-#.	[STON] /video.mp4 파일 캐싱객체 생성.
-#.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
-#.	[STON] 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
-#.	[STON] 100번째(99.ts)파일 생성 후 Range 서비스
-#.	[STON] 서비스가 완료되면 99.ts파일 파괴
+3.	[STON] /video.mp4 파일 캐싱객체 생성.
+4.	[STON] /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
+5.	[STON] 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
+6.	[STON] 100번째(99.ts)파일 생성 후 Range 서비스
+7.	[STON] 서비스가 완료되면 99.ts파일 파괴
