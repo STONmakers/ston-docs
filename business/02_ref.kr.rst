@@ -75,8 +75,6 @@ Powered by STON
 .. image:: img/ref/poweredby.png
   :align: center
 
-.. image:: img/ref/poweredby2.png
-  :align: center
 
 
 이용문의: license@winesoft.co.kr
