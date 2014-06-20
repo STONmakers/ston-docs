@@ -156,8 +156,6 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
     AC-3 (for Apple TV, in pass-through mode only)
     
     Note: iPad, iPhone 3G, and iPod touch (2nd generation and later) support H.264 Baseline 3.1. If your app runs on older versions of iPhone or iPod touch, however, you should use H.264 Baseline 3.0 for compatibility. If your content is intended solely for iPad, Apple TV, iPhone 4 and later, and Mac OS X computers, you should use Main Level 3.1.	
-    
-    '관련링크 <https://developer.apple.com/library/ios/documentation/networkinginternet/conceptual/streamingmediaguide/FrequentlyAskedQuestions/FrequentlyAskedQuestions.html#//apple_ref/doc/uid/TP40008332-CH103-SW1>'_
    
 
 기존 방식의 경우 Pseudo Streaming과 HLS를 위해 다음과 같이 원본파일이 각각 존재해야 한다. 
