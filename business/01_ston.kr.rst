@@ -116,6 +116,8 @@ STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로�
   :width: 95%
   :align: center
 
+|
+
 기존 시장의 Web Cache는 Squid, Apache Traffic Server와 같은 오픈소스 소프트웨어나, 
 이를 기반으로 하드웨어 장비에 탑재한 어플라이언스 형태가 주종을 이루고 있었다. 
 
