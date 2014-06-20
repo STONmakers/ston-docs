@@ -4,13 +4,11 @@ Bandwidth 조절
 ******************
 
 가상호스트별로 다양한 방식의 Bandwidth 제한(조절)방법이 존재한다. 
-모든 설정이 중복될 수 있으며 이를 정확히 이해해야 원하는 결과를 얻을 수 있다. 
-우선순위별에 따라 설명한다.
 
 .. toctree::
    :maxdepth: 2
 
-가상호스트 최대 Bandwidth
+가상호스트 Bandwidth 제한
 ====================================
 
 가상호스트의 최대 Bandwidth을 설정한다. 
@@ -32,7 +30,7 @@ Bandwidth 조절
 
 ``Session`` 은 다음과 같이 동작합니다.
 
-1. ``Session`` 이 설정되어 있더라도 모든 클라이언트 Bandwidth의 합은 가상호스트 ``<TrafficCap>`` 을 넘을 수 없다.
+1. ``Session`` 이 설정되어 있더라도 모든 클라이언트 Bandwidth의 합은 ``<TrafficCap>`` 을 넘을 수 없다.
 2. ``<BandwidthThrottling>`` 을 설정해도 클라이언트 세션별 최대 속도는 ``Session`` 을 넘을 수 없다.
 
 
@@ -82,20 +80,20 @@ Bandwidth Throttling이란 (각 세션마다)클라이언트 전송 대역폭을
       ``Unit`` 속성을 통해 기본 단위( ``kbps`` , ``mbps`` , ``bytes`` , ``kb`` , ``mb`` )를 
       설정한다.
    
-      -  ``<Ratio> (기본: 100 %)``
+   -  ``<Ratio> (기본: 100 %)`` 
    
-      -  ``<Bandwidth>`` 설정에 비율을 반영하여 대역폭을 설정한다.
+      ``<Bandwidth>`` 설정에 비율을 반영하여 대역폭을 설정한다.
    
-      -  ``<Boost> (기본: 5 초)``
+   -  ``<Boost> (기본: 5 초)``
    
-         일정 시간만큼의 데이터를 속도제한 없이 클라이언트에게 전송한다.
-         데이터의 양은 "Boost X Bandwidth X Ratio"의 공식으로 계산한다.
+      일정 시간만큼의 데이터를 속도제한 없이 클라이언트에게 전송한다.
+      데이터의 양은 "Boost X Bandwidth X Ratio"의 공식으로 계산한다.
          
-   -  ``<Throttling>``
-   
-      -  ``OFF (기본)`` Bandwidth Throttling을 사용하지 않는다.
-      
-      -  ``ON`` 조건목록과 일치하면 Bandwidth Throttling을 적용한다.
+-  ``<Throttling>``
+
+   -  ``OFF (기본)`` Bandwidth Throttling을 사용하지 않는다.
+  
+   -  ``ON`` 조건목록과 일치하면 Bandwidth Throttling을 적용한다.
 
 
 조건목록
