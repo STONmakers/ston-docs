@@ -87,6 +87,7 @@ Release Notes
 View를 통해 가상호스트를 통합하여 모니터링 할 수 있습니다.
 컨트롤 API(Purge, Expire, HardPurge, ExpireAfter)의 대상이 없을 때 HTTP 응답코드를 설정할 수 있습니다.
 FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
+
 기능개선/정책변경
 -----------------
 		- Log 롤링 조건
