@@ -38,7 +38,7 @@ Web Cache는 정적 컨텐츠 전송에 집중하여 서비스의 속도를 크�
 
 .. image:: img/stonlogo.png
   :align: center
-  :width: 80%
+  :width: 70%
   
 STON은 가능한 한 최대의 요구사항과 상황에 대처할 수 있는 커다란 그릇을 지향하여 설계되었다. 
 풍부한 네트워크 소프트웨어 개발경험을 기반으로, 프로토콜 처리부터 한줄씩 모두 in-house로 개발하였으며
