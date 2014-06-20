@@ -412,6 +412,58 @@ Composite 옵션을 설정했다면 ``Name`` 속성을 사용하여 이미지를
 원본이미지 조건판단
 -----------------------
 
+원본 이미지 조건에 따라 동적으로 가공 옵션을 다르게 적용할 수 있다. 
+예를 들어 1024 X 768 이하의 이미지는 품질을 50%로 떨어트리고 그 이상의 
+이미지는 1024 X 768로 크기변환을 하려면 다음과 같이 ByOriginal로 설정한다. ::
+
+<Options>
+    <Dims Status="Active" Keyword="dims" port="8500">
+        <ByOriginal Name="size1">
+            <Condition Width="1024" Height="768">/quality/25/</Condition>
+            <Condition>/resize/1024x768/</Condition>
+        </ByOriginal>
+    </Dims>
+</Options>
+
+-  ``<ByOriginal>`` 
+
+   ``Name`` 속성으로 호출한다. 하위에 다양한 조건의 ``<Condition>`` 을 설정한다.
+   
+-  ``<Condition>`` 
+
+   조건을 만족할 때 설정된 값을 적용한다. 설정하는 속성은 "상관없음"으로 판단한다.
+
+   -  ``Width`` 가로길이가 설정 값보다 작으면 적용된다.
+   
+   -  ``Heigth`` 세로길이가 설정 값보다 작으면 적용된다.
+
+``<ByOriginal>``의 조건(Condition)은 명시된 순서대로 적용된다. 
+그러므로 작은 이미지 조건을 먼저 배치해야 한다.
+다음과 같이 호출한다. ::
+
+    http://image.winesoft.com/img.jpg/dims/byoriginal/size1/
+    
+또 다른 예로 이미지 크기에 따라 다른 ``<Composite>`` 조건을 줄 수 있다. 
+이런 경우 다음과 같이 사전에 정의된 ``<Composite>`` 의 ``Name`` 으로 설정한다. ::
+
+    <Options>
+        <Dims Status="Active" Keyword="dims" port="8500">
+            <Composite Name="water1" File="/img/small.jpg" />
+            <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
+            <Composite Name="water3" File="/img/big.jpg" Gravity="se" Geometry="+10+10" Dissolve="50" />
+            <ByOriginal Name="size_water">
+                <Condition Width="400">/composite/water1/</Condition>
+                <Condition Width="800">/composite/water2/</Condition>
+                <Condition>/composite/water3/</Condition>
+            </ByOriginal>
+        </Dims>
+    </Options>
+    
+다음과 같이 호출하시면 원본 이미지 크기에 따라 합성이 적용된다. ::
+
+    http://image.winesoft.com/img.jpg/dims/byoriginal/size_water/
+
+
 
 기타사항
 -----------------------
