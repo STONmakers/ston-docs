@@ -20,10 +20,10 @@ Release Notes
 		WM - hostname과 IP가 로그인하지 않은 상태에서 표시되지 않도록 수정
 버그 수정
 ---------
-		DNS가 Resolving응답을 정상적으로 주지만 주소가 없을 때 죽는 버그.
-		origin.log, filesystem.log 롤링할 때 파일명이 GMT시간으로 생성되던 증상. 로컬시간으로 생성되도록 수정.
-		/monitoring/hwinfo API에서 디스크 사용량이 표시되지 않던 증상
-		WM - 마지막 접근시간이 올바르게 표시되지 않던 증상
+		- DNS가 Resolving응답을 정상적으로 주지만 주소가 없을 때 죽는 버그.
+		- origin.log, filesystem.log 롤링할 때 파일명이 GMT시간으로 생성되던 증상. 로컬시간으로 생성되도록 수정.
+		- /monitoring/hwinfo API에서 디스크 사용량이 표시되지 않던 증상
+		- WM - 마지막 접근시간이 올바르게 표시되지 않던 증상
 
 1.3.10 (2014.6.3)
 ++++++++++++++++++
