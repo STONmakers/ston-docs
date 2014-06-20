@@ -48,7 +48,7 @@ BT(Bandwidth Throttling)이란 (각 세션마다)클라이언트 전송 대역�
 헤더는 재생시간이 길거나 Key Frame주기가 짧을수록 커진다. 
 그러므로 인식할 수 있는 미디어 파일이라면 원활한 재생을 위해 
 헤더는 대역폭 제한없이 전송한다. 
-다음 그림처럼 헤더가 완전히 전송된 뒤 Bandwidth-Throttling이 시작된다.
+다음 그림처럼 헤더가 완전히 전송된 뒤 BT가 시작된다.
 
 .. figure:: img/conf_bandwidththrottling2.png
    :align: center
@@ -120,7 +120,7 @@ BT 조건목록을 설정한다.
     # boost만 정의. 10초의 데이터를 속도 제한없이 전송한 후 1000 Kbps로 클라이언트에게 전송한다.
     HEADER[cookie], , , 10
     
-    # 확장자가 m4a인 경우 Bandwidth-Throttling을 적용하지 않는다.
+    # 확장자가 m4a인 경우 BT를 적용하지 않는다.
     $URL[*.m4a], no
 
 일부 미디어 파일(MP4, M4A, MP3)에 대해서는 미디어로부터 Bandwidth를 얻을 수 있다. 
@@ -140,8 +140,8 @@ BT 조건목록을 설정한다.
 QueryString 우선조건
 --------------------------
 
-약속된 QueryString을 사용하여 Bandwidth, Ratio, Boost를 동적으로 설정한다. 
-이 설정은 Bandwidth-Throttling조건보다 우선한다. 
+약속된 QueryString을 사용하여 ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 를 동적으로 설정한다. 
+이 설정은 BT조건보다 우선한다. 
 
 ::
 
