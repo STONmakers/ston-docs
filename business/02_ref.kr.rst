@@ -1,6 +1,6 @@
 ﻿.. _ref:
 
-이용 고객
+이용 및 고객사
 =======
 
 쇼핑몰 
@@ -15,7 +15,7 @@ STON은 정밀한 TTL (Time-To-Live) 설정을 제공하여 컨텐츠 유효성 
 DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-the-fly로 가공하여 전송할 수 있다. 
 (리사이즈, 크롭, 포맷변경, 조합 등) 또한 원본 장애시에도 설정에 따라 고객에게 상품페이지를 원활하게 전달한다.
 
-게임사
+게임
 ------
 **대용량 파일 전송**
 
@@ -24,7 +24,7 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 전송한다.
 그리고 파일을 이어 받고자 할 때, 정확한 부분전송으로 효율성을 높이고 전송시간을 단축시킨다.
 
-언론사 / 커뮤니티
+언론 / 커뮤니티
 -----------------
 **번개같은 응답속도**
 
@@ -59,3 +59,5 @@ Powered by STON
 .. image:: img/poweredby.png
   :align: center
 
+
+이용문의: license@winesoft.co.kr
