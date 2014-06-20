@@ -7,7 +7,7 @@
 ------
 **수많은 파일의 전송**
 
-.. image:: /img/ref/shopping.png
+.. image:: img/ref/shopping.png
   :align: center
   
 고객은 구매결정에 이르기까지 썸네일, 전면배치 사진, 상세 사진 등 다양한 이미지를 보게 된다.
@@ -22,7 +22,7 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 ------
 **대용량 파일 전송**
 
-.. image:: /img/ref/game.png
+.. image:: img/ref/game.png
   :align: center
 
 온라인 게임은 클라이언트 파일을 빠르고 결함없이 배포해야 한다. 
@@ -34,7 +34,7 @@ STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 
 -----------------
 **번개같은 응답속도**
 
-.. image:: /img/ref/news.png
+.. image:: img/ref/news.png
   :align: center
 
 언론사, 커뮤니티 사이트는 동일 컨텐츠를 많은 사용자들에게 제공하기 때문에 304 Not Modified 
@@ -50,7 +50,7 @@ STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 �
 -------------
 **HTTP 동영상 전송**
 
-.. image:: /img/ref/media.png
+.. image:: img/ref/media.png
   :align: center
 
 미디어 전용 프로토콜의 사용은 줄어들고 있는 반면, HTTP/MP4 동영상 서비스는 점점 늘어가고 있다.
