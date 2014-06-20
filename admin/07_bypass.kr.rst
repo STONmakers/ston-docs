@@ -153,7 +153,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
         
    - ``OFF`` 전용세션을 사용하지 않는다.
 
-원본서버가 사용자의 로그인 정보를 소켓에 기반하여 유지하는 경우처럼 클라이언트의 
+원본서버가 사용자의 로그인 정보를 세션에 기반하여 유지하는 경우처럼 클라이언트의 
 요청이 반드시 같은 소켓으로 처리되야 하는 경우가 유용하다.
 
 .. note::
@@ -162,3 +162,74 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
    원본서버에 연결되므로 엄청난 부하를 줄 수 있습니다. 
    또한 이렇게 연결된 원본세션은 클라이언트가 소유하게 되므로 악의적인 공격상황에서 
    위험을 초래할 수도 있다.
+   
+
+Timeout
+-----------------------
+
+바이패스는 일반적으로 원본서버에서 동적으로 처리한 결과를 응답하는 경우가 많다.
+이로 인해 처리 속도가 정적인 콘텐츠보다 느릴 가능성이 높다.
+바이패스 전용 Timeout을 설정하여 섣부른 장애판단이 되지 않도록 한다. ::
+
+    <OriginOptions>        
+        <BypassConnectTimeout>5</BypassConnectTimeout>
+        <BypassReceiveTimeout>300</BypassReceiveTimeout>
+    </OriginOptions>
+
+-  ``<BypassConnectTimeout> (기본: 5초)``
+   
+   바이패스를 위해 n초 이내에 원본서버와 접속이 이루어지지 않는 경우 접속실패로 처리한다.
+
+
+-  ``<BypassReceiveTimeout> (기본: 5초)``
+
+   바이패스 중 원본서버의 응답이 n초 없을 경우 전송실패로 처리한다.
+   
+   
+
+HTTP 헤더
+-----------------------
+
+기존 원본서버 HTTP헤더 설정을 바이패스할 때도 적용할지 설정한다. ::
+
+    <OriginOptions>
+        <UserAgent Bypass="OFF">...</UserAgent>
+        <Host Bypass="ON"/>
+        <XFFClientIPOnly Bypass="ON">...</XFFClientIPOnly>
+    </OriginOptions>
+    
+-  ``Bypass``
+
+   - ``ON`` 설정된 헤더를 명시한다.
+        
+   - ``OFF`` 클라이언트가 보낸 관련헤더를 명시한다.
+
+
+Port 바이패스
+====================================
+
+특정 TCP포트의 모든 패킷을 원본서버로 바이패스한다. 
+가상호스트 전용설정이다. ::
+
+    <Vhosts>
+        <Vhost Name="www.example">
+            <PortBypass>443</PortBypass>
+            <PortBypass Dest=”1935”>1935</PortBypass>
+        </Vhost>
+    </Vhosts>
+
+-  ``<PortBypass>``
+   
+   지정된 포트로 입력된 모든 패킷을 원본서버의 같은 포트로 바이패스한다.
+   ``Dest`` 속성으로 원본서버 포트를 설정한다.
+
+예를 들어 443포트를 바이패스 한다면 클라이언트는 원본서버와 직접 SSL통신을 하는 효과를 가진다. 
+바이패스되는 포트는 절대 중복설정할 수 없다. 
+
+.. note::
+   
+   구조적으로 Port 바이패스는 HTTP보다 하위 Layer인 TCP에서 이루어진다. 
+   특정 가상호스트 하위에 Port 바이패스를 설정하는 이유는 통계를 수집할 주체가
+   필요하기 때문이다.
+   
+
