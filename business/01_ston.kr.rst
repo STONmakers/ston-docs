@@ -50,16 +50,13 @@ STON의 개념, 동작방식, 배경, 이유를 최대한 상세하게 공개하
 
 3. 특징
 ========================
-
-.. image:: img/features.png
-   :align: center
-   :width: 75%
    
 강력한 성능
 +++++++++++
 
 .. image:: img/features/perf.png
    :align: left
+   :width: 30%
 
 STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키텍처의 고가용성 (High Availability) 설계로 Many-core에 최적화되어 있다.
 
