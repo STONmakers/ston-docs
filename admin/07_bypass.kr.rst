@@ -87,3 +87,38 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 1. No-Cache 바이패스
 2. bypass.txt에 bypass라고 명시된 경우
 3. bypass.txt의 기본 설정
+
+
+바이패스 동작
+====================================
+
+바이패스의 구체적인 동작방식을 설정한다.
+
+원본 고정
+-----------------------
+
+같은 클라이언트가 항상 동일한 서버로 바이패스되도록 설정한다. ::
+
+     <Options>
+        <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
+        <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
+    </Options>
+    
+-  ``OriginAffinity``
+
+   - ``ON (기본)`` 클라이언트 요청이 항상 같은 서버로 바이패스되는 것을 보장한다. 
+     단, 같은 소켓임을 보장하지는 않는다. 
+     바이패스해야 하는 원본서버와 연결된 모든 소켓이 끊어지는 상황이 발생할 수도 있다. 
+     하지만 이런 경우에도 해당 서버로 새로운 소켓연결을 요청한다.
+     
+     .. figure:: img/private_bypass3.jpg
+        :align: center
+      
+        항상 같은서버로 바이패스된다.
+     
+     바이패스하던 원본서버가 장애로 배제되거나 DNS에서 빠질 경우 새로운 서버로 
+     바이패스된다.
+   
+   - ``OFF`` 원본서버로 바이패스한다.
+
+
