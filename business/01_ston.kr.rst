@@ -67,7 +67,7 @@ STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키
 
 .. image:: img/features/easy.png
    :align: left
-   :width: 15%
+   :width: 10%
    
 도입에서 운영에 이르기까지, Web Cache를 가장 많이 접하는 담당자는 보통 운영자이다. (SE, System Engineer) 
 STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되었다. 
@@ -84,6 +84,7 @@ Zero-Configuration을 추구하여 숙련도가 필요없는 제품을 목표로
    
 STON은 강력한 성능과 동시에, 실시간 모니터링 및 통계를 제공한다. 
 자체 API 및 SNMP를 통하여 초단위까지의 모니터링/통계/로그를 제공한다.
+
 
 
 합리적 가격
