@@ -954,8 +954,8 @@ API의 모든 함수를 리눅스 콘솔에서 호출할 수 있습니다.
    <Server>
      <Host>
        <SNMP Port="161" Status="Active">
-         <Allow>211.104.97.150</Allow>
-       </SNMP>
+       <Allow>211.104.97.150</Allow>
+     </SNMP>
      </Host>
    </Server>
 
