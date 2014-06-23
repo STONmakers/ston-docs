@@ -954,13 +954,13 @@ API의 모든 함수를 리눅스 콘솔에서 호출할 수 있습니다.
    - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 있습니다. ::
 ::
 
-   <Server>
-      <Host>
-         <SNMP Port="161" Status="Active">
-            <Allow>211.104.97.150</Allow>
-         </SNMP>
-      </Host>
-   </Server>
+<Server>
+   <Host>
+      <SNMP Port="161" Status="Active">
+         <Allow>211.104.97.150</Allow>
+      </SNMP>
+   </Host>
+</Server>
 
-::
+
    - 원본서버에서 Content Length없는 응답이 올 경우, Origin로그에 원본서버 에러로 기록하지 않도록 변경되었습니다. 원본서버에서 일방적으로 연결을 종료한 경우, 만약 해당 세션이 Content Length가 없는 HTTP 트랜잭션을 수행 중이었다면 원본에러로 기록되지 않습니다.
