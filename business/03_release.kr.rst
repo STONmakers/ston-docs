@@ -268,7 +268,10 @@ FAQ에 "Wowza는 어떻게 연동하나요?"가 추가 되었습니다.
 ++++++++++++++++++
 
 
-   - Bandwidth-Throttling을 통해 전송 대역폭을 다양하게 설정할 수 있습니다. Warning: 다음 버전에서 Media.Pacing은 Bandwidth-Throttling에 통합될 것입니다. 미디어 파일(현재 MP3, MP4, M4A 지원)의 Bitrate를 Bandwidth-Throttling에서 인식할 수 있는 형태가 될 것입니다. 현재는 기존 기능인 Media.Pacing이 더 우선하도록 개발되어 있습니다. 
+   - Bandwidth-Throttling을 통해 전송 대역폭을 다양하게 설정할 수 있습니다. 
+   
+   .. Warning:: 다음 버전에서 Media.Pacing은 Bandwidth-Throttling에 통합될 것입니다. 미디어 파일(현재 MP3, MP4, M4A 지원)의 Bitrate를 Bandwidth-Throttling에서 인식할 수 있는 형태가 될 것입니다. 현재는 기존 기능인 Media.Pacing이 더 우선하도록 개발되어 있습니다. 
+
    - 가상호스트별로 클라이언트 최대 Bandwidth를 제한하도록 설정할 수 있습니다.
    - 헤더가 뒤에 있는 M4A파일을 헤더를 앞으로 옮겨서 서비스하도록 설정할 수 있습니다.
    - M4A파일을 원하는 구간만큼 잘라내어 서비스하도록 설정할 수 있습니다.
