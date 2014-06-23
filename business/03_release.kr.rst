@@ -11,9 +11,12 @@ Release Notes
 기능개선/정책변경
 -----------------
    - Bypass-Control 개선
-   | **Before.** 명시적인 URL 또는 Cookie등으로 바이패스(또는 예외) 설정 
-   | **After.** IP, Header, URL 또는 이를 결합한 복합조건으로 바이패스 가능. Cookie바이패스 삭제.
-   |
+   
+   .. note::
+   
+    **Before.** 명시적인 URL 또는 Cookie등으로 바이패스(또는 예외) 설정 
+    **After.** IP, Header, URL 또는 이를 결합한 복합조건으로 바이패스 가능. Cookie바이패스 삭제.
+   
    - 클라이언트 트래픽 - 디렉토리 별 requestHitRaio 추가
    - WM - hostname과 IP가 로그인하지 않은 상태에서 표시되지 않도록 수정
    
