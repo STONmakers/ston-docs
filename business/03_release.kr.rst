@@ -949,7 +949,8 @@ API의 모든 함수를 리눅스 콘솔에서 호출할 수 있습니다.
 0.9.6 (2012.6.12)
 ++++++++++++++++++
 
-   - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 잇습니다.
+   - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 있습니다. ::
+
    <Server>
      <Host>
        <SNMP Port="161" Status="Active">
