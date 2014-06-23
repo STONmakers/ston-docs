@@ -62,6 +62,7 @@ STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 �
 STON은 HLS (HTTP Live Streaming)을 지원하여, 헤더제어를 이용한 원활한 Pseudo-Streaming, 
 대역폭 조절로 다양한 Bitrate 재생과, 사용자가 원하는 구간추출재생 등의 기능을 제공하고 있다.
 
+|
 
 Customers/Partners
 ------------------
@@ -77,4 +78,4 @@ Powered by STON
 
 
 
-이용문의: license@winesoft.co.kr
+STON :ref:`request` 

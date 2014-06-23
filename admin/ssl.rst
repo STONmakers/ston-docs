@@ -1,9 +1,9 @@
 ﻿.. _bandwidth_control:
 
-Bandwidth 조절
+HTTPS
 ******************
 
-가상호스트별로 다양한 방식의 Bandwidth 제한(조절)방법이 존재한다. 
+HTTPS 구성방법에 대해 설명한다.
 
 .. toctree::
    :maxdepth: 2
