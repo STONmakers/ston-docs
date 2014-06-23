@@ -17,6 +17,7 @@ Release Notes
    - 클라이언트 트래픽 - 디렉토리 별 requestHitRaio 추가
    
    - WM - hostname과 IP가 로그인하지 않은 상태에서 표시되지 않도록 수정
+   
 버그 수정
 ---------
    - DNS가 Resolving응답을 정상적으로 주지만 주소가 없을 때 죽는 버그.
