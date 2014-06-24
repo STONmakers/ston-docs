@@ -20,7 +20,7 @@ Mount된 경로에 접근하는 모든 프로세스는 STON을 통해 파일이 
 전역설정(server.xml)에 설정한다. ::
 
     <Cache>
-        <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^" >OFF</FileSystem>
+        <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">OFF</FileSystem>
     </Cache>
     
 -  ``<FileSystem>``
@@ -52,7 +52,7 @@ FileSystem은 Cache모듈에 접근하는 새로운 다리를 하나 더 놓은 
       
    어떤 서버라도 OK
    
-현재 STON File System이 지원하는 함수 목록은 다음과 같으며 점차 발전시켜 나갈 계획이다.
+현재 STON File System이 지원하는 함수 목록은 다음과 같다.
 
 ========= =============== ===========
 FUSE	  C	              LINUX
@@ -76,24 +76,24 @@ File I/O는 내부적으로 여러 단계를 거친다.
 HTTP 요청에는 다음과 같이 Host헤더가 명시되어 있어 가상호스트를 쉽게 찾을 수 있다. ::
 
     GET /ston.jpg HTTP/1.1
-    host: winesoft.co.kr
+    host: example.com
     
 File System에서는 첫 번째 경로로 이 문제를 해결한다. 
 예를 들어 STON이 /cachefs 라는 경로에 Mount되어 있다면 로컬파일에 접근하기 위해서는 
 다음 경로를 사용해야 한다. ::
 
-    /cachefs/winesoft.co.kr/ston.jpg
+    /cachefs/example.com/ston.jpg
         
 가상호스트의 Alias도 그대로 이용할 수 있다. 
-예를 들어 winesoft.co.kr의 Alias로 *.winesoft.co.kr이 지정되어 있다면 다음 접근은 
+예를 들어 example.com의 Alias로 *.example.com이 지정되어 있다면 다음 접근은 
 모두 같은 파일을 가리킨다. ::
 
-    /cachefs/winesoft.co.kr/ston.jpg
-    /cachefs/img.winesoft.co.kr/ston.jpg
-    /cachefs/example.winesoft.co.kr/ston.jpg
+    /cachefs/example.com/ston.jpg
+    /cachefs/img.example.com/ston.jpg
+    /cachefs/example.example.com/ston.jpg
     
-Apache를 기준으로 설명하면 winesoft.co.kr을 서비스하기 위해서는 
-DocumentRoot가 /cachefs/winesoft.co.kr/로 설정되어 있어야 한다.
+Apache를 기준으로 설명하면 example.com을 서비스하기 위해서는 
+DocumentRoot가 /cachefs/example.com/로 설정되어 있어야 한다.
 
 
 가상호스트 설정
