@@ -54,7 +54,7 @@ SSL3.0/TLS1.0을 설정한다.
    
    -  ``<Key>`` 서버 인증서의 개인키. 암호화된 형식은 지원하지 않는다.
    
-      ``<CA>`` CA(Certificate Authority) 체인 인증서
+   -  ``<CA>`` CA(Certificate Authority) 체인 인증서
   
 같은 Port를 서비스하더라도 보다 명확한 표현이 우선한다. 
 
@@ -85,13 +85,13 @@ CipherSuite 설정
 
 
 
-멀티 Domain에 대한 SSL구성
+멀티 Domain 구성
 ====================================
 
 한 대의 서버에서 여러 서비스를 동시에 운영할 경우 SSL설정이 문제가 될 수 있다. 
 대부분의 Web/Cache서버들은 HTTP 요청의 Host헤더를 보고 어떤 가상호스트에서 서비스할 것인지 결정한다. 
 
-.. figure:: img/faq_ssl.jpg
+.. figure:: img/ssl_alert.png
    :align: center
       
    일반적 HTTPS통신
