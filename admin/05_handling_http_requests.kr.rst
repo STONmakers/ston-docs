@@ -4,6 +4,7 @@ HTTP 클라이언트
 ******************
 
 HTTP 클라이언트와 STON사이의 HTTP 통신에 대해 설정한다.
+URL전처리를 사용하면 정규표현식으로 URL을 변경할 수 있다.
 
 .. toctree::
    :maxdepth: 2
