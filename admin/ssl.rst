@@ -1,6 +1,6 @@
-﻿.. _bandwidth_control:
+﻿.. _ssl:
 
-HTTPS
+SSL/TLS
 ******************
 
 HTTPS 구성방법에 대해 설명한다.
@@ -8,192 +8,193 @@ HTTPS 구성방법에 대해 설명한다.
 .. toctree::
    :maxdepth: 2
 
-가상호스트 Bandwidth 제한
+HTTPS
 ====================================
 
-가상호스트의 최대 Bandwidth을 설정한다. 
-가장 우선하는 물리적인 방법이다. ::
+SSL3.0/TLS1.0을 설정한다.
+보안상의 이유로 SSL 2.0은 지원하지 않는다.
+지원하는 CipherSuites는 다음과 같다.
 
-    <Options>
-        <TrafficCap Session="0">0</TrafficCap>
-    </Options>
+- RSA_WITH_RC4_SHA
+
+- RSA_WITH_RC4_MD5
+
+- RSA_WITH_AES_128_CBC_SHA
+
+- RSA_WITH_AES_256_CBC_SHA
+
+- RSA_WITH_3DES_EDE_CBC_SHA
+
+별도의 IP 또는 포트를 지정하지 않는 경우 기본으로 바인딩되는 서비스 주소는 "*:443" 이다.
+전역설정(server.xml)에 설정한다. ::
+
+   <Server>
+      <Https>
+          <Cert>/usr/ssl/cert.pem</Cert>
+          <Key>/usr/ssl/certkey.pem</Key>
+          <CA>/usr/ssl/CA.pem</CA>
+      </Https>
     
--  ``<TrafficCap> (기본: 0 Mbps)``
-
-   가상호스트의 최대 Bandwidth를 Mbps단위로 설정한다. 
-   0으로 설정하면 Bandwidth을 제한하지 않는다. 
-   ``Session (기본: 0 Kbps)`` 속성은 클라이언트 세션별로 전송할 수 있는 
-   최대 Bandwidth을 설정한다.
-
-예를 들어 ``<TrafficCap>`` 을 50 (Mbps)로 설정했다면 50Mbps NIC를 설치한 것과 같은 효과를 낸다. 
-해당 가상호스트에 접근하는 모든 클라이언트 Bandwidth의 합은 50Mbps를 넘을 수 없다. 
-
-``Session`` 은 다음과 같이 동작합니다.
-
-1. ``Session`` 이 설정되어 있더라도 모든 클라이언트 Bandwidth의 합은 ``<TrafficCap>`` 을 넘을 수 없다.
-2. ``<BandwidthThrottling>`` 을 설정해도 클라이언트 세션별 최대 속도는 ``Session`` 을 넘을 수 없다.
-
-
-Bandwidth Throttling
-====================================
-
-BT(Bandwidth Throttling)이란 (각 세션마다)클라이언트 전송 대역폭을 동적으로 조절하는 기능이다.
-일반적인 미디어 파일의 내부는 다음과 같이 헤더, V(Video), A(Audio)로 구성되어 있다.
-
-.. figure:: img/conf_media_av.png
-   :align: center
-      
-   헤더는 대상이 아니다
-
-헤더는 재생시간이 길거나 Key Frame주기가 짧을수록 커진다. 
-그러므로 인식할 수 있는 미디어 파일이라면 원활한 재생을 위해 
-헤더는 대역폭 제한없이 전송한다. 
-다음 그림처럼 헤더가 완전히 전송된 뒤 BT가 시작된다.
-
-.. figure:: img/conf_bandwidththrottling2.png
-   :align: center
-      
-   동작 시나리오
-   
-::
-
-    <Options>
-        <BandwidthThrottling>
-            <Settings>
-              <Bandwidth Unit="kbps">1000</Bandwidth>
-              <Ratio>100</Ratio>
-              <Boost>5</Boost>      
-            </Settings>
-            <Throttling>OFF</Throttling> 
-        </BandwidthThrottling>
-    </Options>
+      <Https Listen="1.1.1.1:443">
+          <Cert>/usr/ssl_ip_port/cert.pem</Cert>
+          <Key>/usr/ssl_ip_port/certkey.pem</Key>
+          <CA>/usr/ssl_ip_port/CA.pem</CA>
+      </Https>
     
-``<BandwidthThrottling>`` 태그 하위에 설정한다.
-
--  ``<Settings>``
+      <Https Listen="*:886">
+          <Cert>/usr/ssl_port/cert.pem</Cert>
+          <Key>/usr/ssl_port/certkey.pem</Key>
+          <CA>/usr/ssl_port/CA.pem</CA>
+      </Https>
+   </Server>
    
-   기본 동작을 설정한다.
+-  ``<Https>`` HTTPS를 구성한다.
    
-   -  ``<Bandwidth> (기본: 1000 Kbps)``
+   -  ``<Cert>`` 서버 인증서
    
-      클라이언트 전송 대역폭을 설정한다. 
-      ``Unit`` 속성을 통해 기본 단위( ``kbps`` , ``mbps`` , ``bytes`` , ``kb`` , ``mb`` )를 
-      설정한다.
+   -  ``<Key>`` 서버 인증서의 개인키. 암호화된 형식은 지원하지 않는다.
    
-   -  ``<Ratio> (기본: 100 %)`` 
-   
-      ``<Bandwidth>`` 설정에 비율을 반영하여 대역폭을 설정한다.
-   
-   -  ``<Boost> (기본: 5 초)``
-   
-      일정 시간만큼의 데이터를 속도제한 없이 클라이언트에게 전송한다.
-      데이터의 양은 ``<Boost>`` X ``<Bandwidth>`` X ``<Ratio>`` 공식으로 계산한다.
-         
--  ``<Throttling>``
-
-   -  ``OFF (기본)`` BT를 적용하지 않는다.
+      ``<CA>`` CA(Certificate Authority) 체인 인증서
   
-   -  ``ON`` 조건목록과 일치하면 BT를 적용한다.
+같은 Port를 서비스하더라도 보다 명확한 표현이 우선한다. 
 
+예를 들어 위 예제처럼 NIC가 여러 개인 경우 1.1.1.1:443으로 들어온 클라이언트는 
+명시적 표현인 2번째(1.1.1.1:443) 인증서로 서비스되며 1.1.1.4:443으로 들어온 
+클라이언트는 일반적 표현인 1번째(생략 또는 *:443) 인증서로 서비스된다.
+인증서파일을 같은 이름으로 덮어쓰기 하여도 리로드할 때 반영됩니다.
 
-Bandwidth Throttling 조건목록
+.. note::
+
+   인증서 포맷은 PEM(Privacy Enhanced Mail), 비대칭키 알고리즘은 RSA만 지원한다.
+   
+
+CipherSuite 설정
 --------------------------
 
-BT 조건목록을 설정한다.
-조건목록과 일치해야 BT가 적용된다.
-설정된 순서대로 조건과 일치하는지 검사한다.
-전송 정책은 /svc/{가상호스트 이름}/throttling.txt 에 설정한다. ::
+``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
-    # /svc/www.example.com/throttling.txt
-    # 구분자는 콤마(,)이며 {조건},{Bandwidth},{Ratio},{Boost} 순서로 표기한다.
-    # {조건}을 제외한 모든 필드는  생략가능하다.
-    # 생략된 필드는 ``<Settings>`` 에 설정된 기본 값을 사용한다.
-    # 모든 조건표현은 acl.txt설정과 동일하다.
-    # {Bandwidth} 단위는 ``<Settings>`` ``<Bandwidth>`` 의 ``Unit`` 속성을 사용한다.
-    
-    # 3초의 데이터를 속도 제한없이 전송한 후 3Mbps(3000Kbps = 2000Kbps X 150%)로 클라이언트에게 전송한다.
-    $IP[192.168.1.1], 2000, 150, 3
-    
-    # bandwidth만 정의. 5(기본)초의 데이터를 속도 제한없이 전송한 후 800 Kbps로 클라이언트에게 전송한다.
-    !HEADER[referer], 800
-    
-    # boost만 정의. 10초의 데이터를 속도 제한없이 전송한 후 1000 Kbps로 클라이언트에게 전송한다.
-    HEADER[cookie], , , 10
-    
-    # 확장자가 m4a인 경우 BT를 적용하지 않는다.
-    $URL[*.m4a], no
+   <Server>
+      <Https CipherSuite="ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP">
+          <Cert>/usr/ssl/cert.pem</Cert>
+          <Key>/usr/ssl/certkey.pem</Key>
+          <CA>/usr/ssl/CA.pem</CA>
+      </Https>
+   </Server>
 
-일부 미디어 파일(MP4, M4A, MP3)에 대해서는 미디어로부터 Bandwidth를 얻을 수 있다. 
-접근되는 콘텐츠의 확장자는 반드시 .mp4, .m4a, .mp3 중 하나여야 한다. 
-동적으로 Bandwidth를 추출하시려면 다음과 같이 Bandwidth뒤에 **x** 를 붙인다. ::
-
-    # /vod/*.mp4 파일에 대한 접근이라면 bandwidth를 구한다. 구할 수 없다면 1000을 bandwidth로 사용한다.
-    $URL[/vod/*.mp4], 1000x, 120, 5
-
-    # user-agent헤더가 없다면 bandwidth를 구한다. 구할 수 없다면 500을 bandwidth로 사용한다.
-    !HEADER[user-agent], 500x
-
-    # /low_quality/* 파일에 대한 접근이라면 bandwidth를 구한다. 구할 수 없다면 기본 값을 bandwidth로 사용한다.
-    $URL[/low_quality/*], x, 200
+-  ``CipherSuite`` `Apache mod_ssl의 SSL CipherSuite표현 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ 을 따른다.
 
 
-QueryString 우선조건
+
+멀티 Domain에 대한 SSL구성
+====================================
+
+한 대의 서버에서 여러 서비스를 동시에 운영할 경우 SSL설정이 문제가 될 수 있다. 
+대부분의 Web/Cache서버들은 HTTP 요청의 Host헤더를 보고 어떤 가상호스트에서 서비스할 것인지 결정한다. 
+
+.. figure:: img/faq_ssl.jpg
+   :align: center
+      
+   일반적 HTTPS통신
+   
+일반적으로 SSL은 클라이언트(Browser)가 자신이 접속하려는 서버 도메인명(winesoft.co.kr)을 
+인증서를 통해 확인하는 것으로 신원확인을 한다. 
+만약 인증서로 신원확인이 되지 않는다면(잘못된 인증서 또는 유효기간 만료 등) 다음과 같이 
+사용자에게 신뢰여부를 묻는다(아예 차단하는 경우도 있다). 
+신뢰는 클라이언트가 하는 것이므로 정상적인 신원확인이 안되어도 계속 진행하길 원한다면 
+SSL통신이 이루어진다.
+
+.. figure:: img/faq_ssl1.jpg
+   :align: center
+      
+   사용자에게 판단을 맡긴다.
+   
+서버에서 SSL을 사용하는 가상호스트가 하나라면 문제가 되지 않는다. 
+하지만 여러 개의 가상호스트를 동시에 운영하는 서버에서는 문제가 될 수 있다. 
+왜냐하면 서버가 클라이언트에게 인증서를 전달할 때("일반적 HTTPS통신"의 "2. 인증서 전달") 
+클라이언트가 어떤 Host에 접속하려는지 알 수 없기 때문이다. 
+
+이 문제를 극복하는 대표적인 방법은 다음과 같다.
+
+=================== ====================================== ========================================================================
+방식	            장점	                               단점
+=================== ====================================== ========================================================================
+SNI                 서버설정만으로 동작 (표준)	           Windows XP와 IE6 미지원
+Multi Certificate	인증서만 교체하여 동작	               메인 도메인 또는 서비스 주체가 같아야 하며 자칫 재발급이 빈번할 수 있음
+Multi Port          포트만 변경하여 동작	               웹 페이지에서 HTTPS포트를 명시해주어야 함
+Multi NIC	        서버설정만으로 동작 (가장 널리쓰임)    NIC와 IP추가 구성필요
+=================== ====================================== ========================================================================
+
+
+SNI (Server Name Indication)
 --------------------------
 
-약속된 QueryString을 사용하여 ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 를 동적으로 설정한다. 
-이 설정은 BT조건보다 우선한다. 
+SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_ 
+확장 필드를 사용하는 방식이다. 
+이 기능은 처음 클라이언트가 서버에게 SSL 연결을 요청할 때 HTTP 요청의 Host헤더처럼 
+대상 가상호스트를 명시함으로써 가능하다. 
+이 기능은 가장 우아한 방법이지만 호환성에 문제가 있다. 
+다음은 SNI를 지원하지 않는 클라이언트 목록이다.
+(출처: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ ).
 
-::
+- Internet Explorer (any version) on Windows XP or Internet Explorer 6 or earlier
+- Safari on Windows XP
+- BlackBerry Browser
+- Windows Mobile up to 6.5
+- Android default browser on Android 2.x[34] (Fixed in Honeycomb for tablets and Ice Cream Sandwich for phones)
+- wget before 1.14
+- Java before 1.7
 
-    <Options>
-        <BandwidthThrottling>
-            <Settings>
-              <Bandwidth Param="mybandwidth" Unit="mbps">2</Bandwidth>
-              <Ratio Param="myratio">100</Ratio>
-              <Boost Param="myboost">3</Boost> 
-            </Settings>
-            <Throttling QueryString="ON">ON</Throttling>
-        </BandwidthThrottling>
-    </Options>
-    
--  ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 의 ``Param``
+현실적으로 SNI의 사용은 불가능하므 STON은 SNI를 지원하고 있지 않다.
 
-    각각의 의미에 맞게 QueryString 키를 설정한다.
+
+
+Multi Certificate
+--------------------------
+
+인증서의에 여러 도메인을 넣거나 Wildcard(i.e. *.winesoft.co.kr)를 명시하여 
+하나의 인증서로 여러 도메인의 신원을 확인시킬 수 있는 방법이다.
+
+.. figure:: img/faq_ssl2.jpg
+   :align: center
+      
+   하나의 인증서로 여러 Domain을 인증한다.
    
--  ``<Throttling>`` 의 ``QueryString``
+서비스 주체가 같다면 효과적인 방법이지만 무관하다면 같은 인증서를 공유하는 것은 
+현실적으로 어렵다. 
+이 방법은 인증서만 교체하면 되는 것이므로 STON에서 별도로 설정하실 것은 없다
+[ `DigiCert <http://www.digicert.com/wildcard-ssl-certificates.htm>`_ 참고].
 
-   - ``OFF (기본)`` QueryString으로 조건을 재정의하지 않는다.
-   
-   - ``ON`` QueryString으로 조건을 재정의한다.
-   
-위와 같이 설정되어 있다면 다음과 같이 클라이언트가 요청한 URL에 따라 
-BT가 동적으로 설정된다. ::
 
-    # 10초의 데이터를 속도 제한없이 전송한 후 1.3Mbps(1mbps X 130%)로 클라이언트에게 전송한다.
-    http://www.winesoft.co.kr/video/sample.wmv?myboost=10&mybandwidth=1&myratio=130
+
+Multi Port
+--------------------------
+
+SSL은 기본적으로 443포트를 사용한다.
+SSL포트를 중복되지 않는 포트로 설정하시면 인증서를 여러개 설치할 수 있다. 
+클라이언트에서는 다음과 같이 포트를 명시함으로써 SSL통신이 가능하다. ::
+
+    https://winesoft.co.kr:543/
     
-반드시 모든 파라미터를 명시할 필요는 없다. ::
+STON에서는 다음과 같이 Listen속성에 포트를 명시하여 인증서를 여러개로 설정한다. ::
 
-    http://www.winesoft.co.kr/video/sample.wmv?myratio=150
+    <Https> ..A사 인증서.. </Https>  
+    <Https Listen="*:543"> ..B사 인증서.. </Https>  
+    <Https Listen="*:544"> ..C사 인증서.. </Https>
     
-위와 같이 일부 조건이 생략된 경우 나머지 조건(여기서는 bandwidth, boost)을 결정하기 위해 
-조건목록을 검색한다.
-여기서도 적합한 조건을 찾지 못하는 경우 ``<Settings>`` 에 설정된 기본 값을 사용한다.
-QueryString이 일부 존재하더라도 조건목록에서 미적용옵션(no)이 설정되어 있다면 
-BT는 적용되지 않는다.
+이 방법은 가장 경제적이기는하나 모든 웹페이지 링크에 HTTPS 포트를 명시해야 하는 문제가 있다.
 
-QueryString을 사용하므로 자칫 ``<ApplyQueryString>`` 과 혼동을 일으킬 소지가 있다. 
-``<ApplyQueryString>`` 이 ``ON`` 인 경우 클라이언트가 요청한 URL의 QueryString이 
-모두 인식되지만 ``BoostParam`` , ``BandwidthParam`` , ``RatioParam`` 은 제외된다. ::
 
-    GET /video.mp4?mybandwidth=2000&myratio=130&myboost=10
-    GET /video.mp4?tag=3277&myboost=10&date=20130726
-        
-예를 들어 위같은 입력은 BT를 결정하는데 쓰일 뿐 
-Caching-Key를 생성하거나 원본서버로 요청을 보낼 때는 생략된다. 
-즉 각각 다음과 같이 인식된다. ::
+Multi NIC
+--------------------------
 
-    GET /video.mp4
-    GET /video.mp4?tag=3277&date=20130726
-    
-    
+서버의 NIC가 여러개로 구성되어 있다면 NIC마다 IP를 별도로 할당할 수 있다. 
+그러므로 서버 IP마다 별도의 인증서를 설치하여 클라이언트가 접속한 서버IP에 기반하여 
+인증서를 결정하도록 설정한다. 
+STON에서는 다음과 같이 Listen속성에 IP명시하여 인증서를 여러개로 설정한다. ::
+
+    <Https Listen="10.10.10.10"> ..A사 인증서.. </Https>  
+    <Https Listen="10.10.10.11"> ..B사 인증서.. </Https>  
+    <Https Listen="10.10.10.12"> ..C사 인증서.. </Https>
+
+이 방법은 현재 가장 일반적으로 사용되는 방식이다.
+
