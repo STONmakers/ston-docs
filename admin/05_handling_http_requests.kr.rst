@@ -212,7 +212,7 @@ Cache-Control의 max-age값은 설정된 Expires시간에서 요청한 시간을
 
 Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
 
-   # /svc/www.winesoft.co.kr/expires.txt
+   # /svc/www.exmaple.com/expires.txt
    # 구분자는 콤마(,)이며 {조건},{시간},{기준} 순서로 표기한다.
 
    $URL[/test.jpg], 86400
@@ -432,3 +432,104 @@ Server 헤더
    -  ``ON (기본)`` 원본서버의 Server헤더를 명시한다. ::
    
    -  ``OFF``  Server헤더를 생략한다.
+
+
+
+URL 전처리
+====================================
+
+`정규표현식 <http://en.wikipedia.org/wiki/Regular_expression>`_ 을 사용하여 요청된 URL을 변경한다. 
+URL 전처리는 가상호스트 설정(vhosts.xml)에 한다. 
+대부분의 설정이 가상호스트에 종속되지만, URL전처리의 경우 클라이언트가 요청한 
+Host의 이름을 변경할 수 있으므로 가상호스트와 같은 레벨로 설정한다. ::
+
+    <Vhosts>
+        <Vhost ...> ... </Vhost>
+        <Vhost ...> ... </Vhost>
+        <URLRewrite ...> ... </URLRewrite>
+        <URLRewrite ...> ... </URLRewrite>
+    </Vhosts>
+    
+복수로 설정할 수 있으며 순차적으로 정규표현식 일치 여부를 비교한다. 
+URL전처리가 설정되어 있다면 모든 클라이언 요청(HTTP 또는 File I/O)은 
+반드시 URL Rewriter를 거친다.
+
+.. figure:: img/urlrewrite1.png
+   :align: center
+      
+   모든 요청은 URL Rewriter를 거친다.
+   
+만약 URL Rewriter에 의해 접근하려는 Host이름이 변경되었다면 클라이언트 HTTP요청의 
+Host헤더가 변경된 것으로 간주한다.
+
+설정
+---------------------
+
+::
+
+    <URLRewrite AccessLog="Replace">
+        <Pattern>www.exmaple.com/([^/]+)/(.*)</Pattern>
+        <Replace>#1.exmaple.com/#2</Replace>
+    </URLRewrite>
+    
+-  ``<URLRewrite>``
+
+   URL전처리를 설정한다.
+   ``AccessLog (기본: Replace)`` 속성은  Access로그에 기록될 URL을 설정한다. 
+   ``Replace`` 인 경우 변환 후 URL(/logo.jpg)을, ``Pattern`` 인 경우 변환 전 
+   URL(/baseball/logo.jpg)을 Access로그에 기록한다.
+   
+   -  ``<Pattern>`` 매칭시킬 패턴을 설정한다. 한개의 패턴은 ( ) 괄호를 사용하여 표현된다.
+   
+   -  ``<Replace>`` 변환형식을 설정한다. 일치된 패턴에 대해서는 #1, #2와 같이 
+      사용할 수 있다. #0는 요청 URL전체를 의미한다. 
+      패턴은 최대 9개(#9)까지 지정할 수 있다.
+      
+처리량은 통계로 제공되며 Graph로도 확인할 수 있다. 
+URL전처리는 STON의 다른 기능들과 결합하여 다음과 같이 간결한 표현이 가능하게 한다. ::
+
+    <URLRewrite>
+        <Pattern>example.com/([^/]+)/(.*)</Pattern>
+        <Replace>example.com/#1.php?id=#2</Replace>
+    </URLRewrite>
+    // Pattern : example.com/releasenotes/1.3.4
+    // Replace : example.com/releasenotes.php?id=1.3.4
+
+    <URLRewrite>
+        <Pattern>example.com/download/(.*)</Pattern>
+        <Replace>download.example.com/#1</Replace>
+    </URLRewrite>
+    // Pattern : example.com/download/1.3.4
+    // Replace : download.example.com/1.3.4
+
+    <URLRewrite>
+        <Pattern>example.com/img/(.*\.(jpg|png).*)</Pattern>
+        <Replace>example.com/#1/STON/composite/watermark1</Replace>
+    </URLRewrite>
+    // Pattern : example.com/img/image.jpg?date=20140326
+    // Replace : example.com/image.jpg?date=20140326/STON/composite/watermark1
+
+    <URLRewrite>
+        <Pattern>example.com/preview/(.*)\.(mp3|mp4|m4a)$</Pattern>
+        <Replace><![CDATA[example.com/#1.#2?&end=30&boost=10&bandwidth=2000&ratio=100]]></Replace>
+    </URLRewrite>
+    // Pattern : example.com/preview/audio.m4a
+    // Replace : example.com/audio.m4a?end=30&boost=10&bandwidth=2000&ratio=100
+
+    <URLRewrite>
+        <Pattern>example.com/(.*)\.mp4\.m3u8$</Pattern>
+        <Replace>example.com/#1.mp4/mp4hls/index.m3u8</Replace>
+    </URLRewrite>
+    // Pattern : example.com/video.mp4.m3u8
+    // Replace : example.com/video.mp4/mp4hls/index.m3u8
+
+    <URLRewrite>
+        <Pattern>example.com/(.*)_(.*)_(.*)</Pattern>
+        <Replace>example.com/#0/#1/#2/#3</Replace>
+    </URLRewrite>
+    // Pattern : example.com/video.mp4_10_20
+    // Replace : example.com/example.com/video.mp4_10_20/video.mp4/10/20
+    
+패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 
+묶어주어야 올바르게 설정된다. 
+WM을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
