@@ -115,7 +115,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 
 
     http://127.0.0.1:10040/conf/upload
 
-다음과 같이 주소, Content-Length, Content-Type(="multipart/form-data")이 명확하게 선언되어 있어야 한다.
+다음과 같이 주소, Content-Length, Content-Type(="multipart/form-data")이 명확하게 선언되어 있어야 한다. ::
 
     POST /conf/upload
     Content-Length: 16455
