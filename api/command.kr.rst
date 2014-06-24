@@ -1,6 +1,6 @@
 ﻿.. _api_command:
 
-Command API
+/Command
 ******************
 
 /command 계열 API는 STON을 제어하는 역할을 한다.

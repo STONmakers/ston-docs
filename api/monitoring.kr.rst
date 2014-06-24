@@ -1,6 +1,6 @@
 ﻿.. _api_monitoring:
 
-Monitoring API
+/Monitoring
 ******************
 
 모니터링 API에 대해 설명한다.

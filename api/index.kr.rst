@@ -24,7 +24,7 @@ Contents:
    :maxdepth: 2
 
    conf.kr
-   comamand.kr
+   command.kr
    monitoring.kr   
    graph.kr
    

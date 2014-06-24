@@ -1,6 +1,6 @@
 ﻿.. _api_graph:
 
-Graph API
+/Graph
 ******************
 
 RRD 그래프를 제공받는다.
