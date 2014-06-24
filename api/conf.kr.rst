@@ -102,7 +102,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선한다.
 hash값 또는 id를 기준으로 원하는 시점의 설정을 다운로드 한다. 
 Content-Type은 "application/x-compressed"로 명시된다. 
 hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 설정이 존재하지 않는 경우 
-404 NOT FOUND로 응답한다.
+404 NOT FOUND로 응답한다. ::
 
     http://127.0.0.1:10040/conf/download?hash=...
     http://127.0.0.1:10040/conf/download?id=...
@@ -124,7 +124,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 
 업로드가 완료되면 압축을 해지한 뒤 즉시 반영시킨다.
 
 Multipart방식에서는 "confile"을 기본 이름으로 사용한다. 
-이 값은 ``<Manager>`` 의 ``UploadMultipartName`` 속성에서 설정할 수 있다.
+이 값은 ``<Manager>`` 의 ``UploadMultipartName`` 속성에서 설정할 수 있다. ::
 
     <form enctype="multipart/form-data" action="http://127.0.0.1:10040/conf/upload" method="POST">
         <input name="confile" type="file" />
