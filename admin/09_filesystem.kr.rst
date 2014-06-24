@@ -101,36 +101,34 @@ DocumentRoot가 /cachefs/example.com/로 설정되어 있어야 한다.
 가상호스트 별로 File System을 설정한다. 
 또는 기본 가상호스트를 통해 모든 가상호스트에 일괄설정 할 수 있다. ::
 
-    <Server>
-        <VHostDefault>
-            <Options>
-                <FileSystem Status="Active" DotDir="OFF">                    
-                    <FileStatus>200</FileStatus>
-                    <DirStatus>301, 302, 400, 401, 403</DirStatus>
-                    <Unlink>Purge</Unlink>
-                </FileSystem>
-            </Options>
-        </VHostDefault>
-    </Server>
+    <VHostDefault>
+        <Options>
+            <FileSystem Status="Active" DotDir="OFF">                    
+                <FileStatus>200</FileStatus>
+                <DirStatus>301, 302, 400, 401, 403</DirStatus>
+                <Unlink>Purge</Unlink>
+            </FileSystem>
+        </Options>
+    </VHostDefault>
     
--  `<FileSystem>`
+-  ``<FileSystem>``
 
-   `Status` 속성이 `Inactive` 라면 File System에서 접근할 수 없다. 
+   ``Status`` 속성이 ``Inactive`` 라면 File System에서 접근할 수 없다. 
    `Active` 로 설정해야 한다.
 
--  `<FileStatus>`
+-  ``<FileStatus>``
 
    파일로 인식할 원본서버 HTTP 응답코드를 설정한다. 
    일반적으로는 200만을 설정하지만 특별한 제약은 없다.
    
--  `<DirStatus>`
+-  ``<DirStatus>``
 
     디렉토리로 인식할 원본서버 HTTP 응답코드를 설정한다. 
     기본 값으로 302, 400, 401, 403등이 설정된다.
     
--  `<Unlink>`
+-  ``<Unlink>``
 
-   파일삭제 요청이 들어온 경우 동작방식을 설정다. ( ``Purge`` , ``Expire`` , ``HardPurge`` )
+   파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정다.
 
 원본서버마다 HTTP 응답코드가 다양하게 해석될 수 있다. 
 그러므로 각각의 HTTP 응답코드 해석방식을 설정해야 한다. 
@@ -215,7 +213,7 @@ File I/O 서비스가 이루어진다.
 다만 HTTP의 경우 처음 결정된 Range에서 순차적(Sequential)인 파일접근이 발생하기 
 때문에 파일 전송에 유리한 면이 있다. 
 반면 File I/O의 경우 파일 크기와 상관없이 아주 작은 1KB단위의 read접근이 매우 많이 발생할 수 있다. 
-성능의 극대화를 위해 STON은 Cache모듈에 Read ahead기법을 구현했으며, 
+성능의 극대화를 위해 STON은 Cache모듈에 `Readahead <http://en.wikipedia.org/wiki/Readahead>`_ 를 구현했으며, 
 이를 통해 File I/O 성능을 극대화시켰다. 
 
 파일닫기(fclose등) 함수가 호출되거나 프로세스가 종료되는 경우 파일 handle은 Kernel에 의해 반납된다. 
@@ -238,11 +236,13 @@ Kernel에서 다시 해당 파일에 접근한다면 expire된 상태이므로 �
 --------------------------
 HTTP의 경우 다음과 같이 URL을 이용하여 원본 파일을 동적으로 가공할 수 있다. :: 
     
-    http://www.example.com/video.mp4?start=0&end=60    // HTTP를 통해 /video.mp4의 0~60초 구간을 Trimming한다.
+    // HTTP를 통해 /video.mp4의 0~60초 구간을 Trimming한다.
+    http://www.example.com/video.mp4?start=0&end=60
     
-이와 같은 QueryString방식은 HTTP와 File System 모두 호출규격을 동일하게 사용할 수 있다.
+이와 같은 QueryString방식은 HTTP와 File System 모두 호출규격을 동일하게 사용할 수 있다. ::
 
-    /cachefs/www.example.com/video.mp4?start=0&end=60    // "/video.mp4의 0~60초 구간을 Trimming한" 로컬파일에 접근한다.
+    // "/video.mp4의 0~60초 구간을 Trimming한" 로컬파일에 접근한다.
+    /cachefs/www.example.com/video.mp4?start=0&end=60
     
 하지만 MP4HLS나 DIMS처럼 원본 URL뒤에 가공옵션을 디렉토리 형식으로 명시하는 방식은 
 File I/O에 문제가 있다. ::
@@ -253,7 +253,7 @@ File I/O에 문제가 있다. ::
 "파일속성 얻기" 에서 설명한 바와 같이 LINUX는 경로 각 부분의 속성을 매번 물어본다. 
 STON관점에서는 현재 물어보는 경로 뒤에 추가 경로가 있는지 알 수 없기 때문에 가공되지 않은 파일을 서비스하게 된다.
 
-이 문제를 극복하기 위해서 STON은 별도의 구분자로 ``<FileSystem>`` 의 ``Separator (기본: ^)`` 속성을 사용한다.
+이 문제를 극복하기 위해서 STON은 별도의 구분자로 ``<FileSystem>`` 의 ``Separator (기본: ^)`` 속성을 사용한다. ::
 
     /cachefs/image.winesoft.com/img.jpg^12AB^resize^500x500^
     /cachefs/www.winesoft.com/video.mp4^mp4hls^index.m3u8
