@@ -236,12 +236,12 @@ Kernel에서 다시 해당 파일에 접근한다면 expire된 상태이므로 �
 --------------------------
 HTTP의 경우 다음과 같이 URL을 이용하여 원본 파일을 동적으로 가공할 수 있다. :: 
     
-    // HTTP를 통해 /video.mp4의 0~60초 구간을 Trimming한다.
+    # HTTP를 통해 /video.mp4의 0~60초 구간을 Trimming한다.
     http://www.example.com/video.mp4?start=0&end=60
     
 이와 같은 QueryString방식은 HTTP와 File System 모두 호출규격을 동일하게 사용할 수 있다. ::
 
-    // "/video.mp4의 0~60초 구간을 Trimming한" 로컬파일에 접근한다.
+    # "/video.mp4의 0~60초 구간을 Trimming한" 로컬파일에 접근한다.
     /cachefs/www.example.com/video.mp4?start=0&end=60
     
 하지만 MP4HLS나 DIMS처럼 원본 URL뒤에 가공옵션을 디렉토리 형식으로 명시하는 방식은 
