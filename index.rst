@@ -13,6 +13,7 @@ Contents:
 
    business/index.kr
    admin/index.kr
+   api/index.kr
    request.kr
 
    
