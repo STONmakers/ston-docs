@@ -27,7 +27,7 @@ Contents:
    command.kr
    monitoring.kr   
    graph.kr
-   etc.kr
+   
    
    
 
