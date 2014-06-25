@@ -186,24 +186,3 @@ Clean-up을 수행한다.
 디스크를 서비스에 재투입한다. 
 재투입된 디스크의 모든 컨텐츠는 무효화된다.
 
-
-
-.. _api-cmd-vhostlist:
-   
-가상호스트 목록조회
-====================================
-
-가상호스트 목록을 조회한다. ::
-
-    http://127.0.0.1:10040/monitoring/vhostslist
-    
-결과는 JSON형식으로 제공된다. ::
-
-    {
-        "version": "2.0.0",
-        "method": "vhostslist",
-        "status": "OK",
-        "result": [ "www.example.com","www.winesoft.com", "site1.com" ] 
-    }
-   
-
