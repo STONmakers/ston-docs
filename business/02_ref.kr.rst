@@ -33,10 +33,10 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
   :align: center
   :width: 85%
 
+|
 
 2. 게임
 ------
-
 
 .. image:: img/ref/customers/game.png
   :align: center
@@ -54,6 +54,7 @@ STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 
   :align: center
   :width: 85%
 
+|
 
 3. 언론 / 커뮤니티
 -----------------
