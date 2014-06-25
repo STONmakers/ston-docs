@@ -29,7 +29,7 @@ Purge후 최초 접근 시점에 원본서버로부터 컨텐츠를 다시 캐�
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image.jpg
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image/bmp/
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image/*.bmp
-    http://127.0.0.1:10040/command/purge?url=www.site1.com/image1.jpg|/css/style.css|/script/script.js
+    http://127.0.0.1:10040/command/purge?url=www.site1.com/image1.jpg|/css/style.css|/script.js
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image1.jpg|www.site2.com/page/*.html
     
 결과는 JSON형식으로 제공된다. 
@@ -72,7 +72,7 @@ ExpireAfter
 
 타겟 컨텐츠의 TTL만료 시간을 현재(API호출시점)로부터 입력된 시간(초)만큼 뒤에 설정한다. 
 ExpireAfter로 만료시간을 앞당겨 컨텐츠를 더 빨리 갱신하거나, 
-반대로 만료시간을 늘려 원본서버 부하를 줄일 수 있다.
+반대로 만료시간을 늘려 원본서버 부하를 줄일 수 있다. ::
 
     http://127.0.0.1:10040/command/expireafter?sec=86400&url=...
 
@@ -173,7 +173,7 @@ Clean-up을 수행한다.
 ====================================
 
 서비스 중단없이 디스크를 교체한다. 
-디스크 파라미터는 `<Storage>` 에 설정된 `<Disk>` 값을 입력한다.
+디스크 파라미터는 `<Storage>` 에 설정된 `<Disk>` 값을 입력한다. ::
 
     http://127.0.0.1:10040/command/unmount?disk=...
     http://127.0.0.1:10040/command/umount?disk=...
