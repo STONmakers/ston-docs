@@ -8,7 +8,7 @@ API Reference
 ACL(Access Control List)에 의해 허가받지 않은 요청이 발생하면 해당 세션은 곧바로 
 종료된다.
 
-모든 API는 다음과 같이 콘솔에서는 커맨드로 수행이 가능하다. ::
+모든 API는 다음과 같이 콘솔에서 커맨드로 수행이 가능하다. ::
 
     ./stonapi help
     ./stonapi conf/reload
@@ -30,5 +30,4 @@ Contents:
    etc.kr
    
    
-   
-
+:_api_conf_show:`TEST TEST`
