@@ -80,7 +80,7 @@ ExpireAfter로 만료시간을 앞당겨 컨텐츠를 더 빨리 갱신하거나
 TTL만료 시간을 지정할 수 있다. 
 sec가 생략된다면 기본 값은 1일(86400초)로 설정되며 0을 입력할 경우 실패한다. 
 결과는 `Purge`_ / `Expire`_ 와 동일하지만 원본서버 장애여부와 상관없이 동작한다. 
-결과없는 응답에 대해서는 `<ResCodeNoCtrlTarget>` 로 HTTP 응답코드를 설정할 수 있다.
+결과없는 응답에 대해서는 ``<ResCodeNoCtrlTarget>`` 로 HTTP 응답코드를 설정할 수 있다.
 
 .. note::
    ExpireAfter는 캐싱되어있는 컨텐츠의 현재 만료시간만을 설정할 뿐 커스텀TTL이나 
@@ -102,7 +102,7 @@ HardPurge
 사라지지 않고 정상적으로 동작한다. 
 하지만 HardPurge는 컨텐츠의 완전한 삭제를 의미한다. 
 HardPurge는 가장 강력한 삭제방법이지만 삭제한 컨텐츠는 원본서버에 장애가 발생해도 되살릴 수 없다. 
-결과없는 응답에 대해서는 `<ResCodeNoCtrlTarget>` 로 HTTP 응답코드를 설정할 수 있다. ::
+결과없는 응답에 대해서는 ``<ResCodeNoCtrlTarget>`` 로 HTTP 응답코드를 설정할 수 있다. ::
 
     http://127.0.0.1:10040/command/hardpurge?url=...
     
