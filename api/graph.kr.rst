@@ -56,6 +56,16 @@ Peak Line은 이전 단위에서 가장 큰 수치를 핑크색으로 그린다.
       
       
       
+CPU 그래프
+---------------------
+::
+    /graph/cpu_*.png	
+    
+-  ``Main`` User+Kernel
+-  ``Sub`` Kernel
+      
+      
+      
 .. _api-graph-vhost:
 
 가상호스트 그래프
