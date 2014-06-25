@@ -1,10 +1,17 @@
 ﻿.. _ref:
 
 이용 및 고객사
-=======
+===============
+
+0. ISP 및 CDN사
+
+.. image:: img/ref/customers/isp_cdn.png
+  :align: center
+
+
 
 1. 쇼핑몰 
-------
+----------
 
 .. image:: img/ref/shopping.png
   :align: center
@@ -19,6 +26,9 @@ STON은 정밀한 TTL (Time-To-Live) 설정을 제공하여 컨텐츠 유효성 
 DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-the-fly로 가공하여 전송할 수 있다. 
 (리사이즈, 크롭, 포맷변경, 조합 등) 또한 원본 장애시에도 설정에 따라 고객에게 상품페이지를 원활하게 전달한다.
 
+.. image:: img/ref/customers/shopping.png
+  :align: center
+
 2. 게임
 ------
 
@@ -31,6 +41,9 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 고사양화로 클라이언트 파일 용량은 계속 증가하여 수십기가에 이르기도 한다.
 STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 전송한다.
 그리고 파일을 이어 받고자 할 때, 정확한 부분전송으로 효율성을 높이고 전송시간을 단축시킨다.
+
+.. image:: img/ref/customers/game.png
+  :align: center
 
 3. 언론 / 커뮤니티
 -----------------
@@ -49,6 +62,9 @@ STON은 초고속 응답속도로 캐싱효율을 배가시키는 효과를 일�
 STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 설정에 따라
 자동가공하여 전송하는 기능을 제공하고 있다. 
 
+.. image:: img/ref/customers/news.png
+  :align: center
+
 4. 동영상 서비스
 -------------
 
@@ -62,6 +78,8 @@ STON은 DIMS (Dynamic Image Management Service) 를 제공하여 이미지를 �
 STON은 HLS (HTTP Live Streaming)을 지원하여, 헤더제어를 이용한 원활한 Pseudo-Streaming, 
 대역폭 조절로 다양한 Bitrate 재생과, 사용자가 원하는 구간추출재생 등의 기능을 제공하고 있다.
 
+.. image:: img/ref/customers/media.png
+  :align: center
 |
 
 Customers/Partners
