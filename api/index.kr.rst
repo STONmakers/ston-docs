@@ -19,7 +19,7 @@ HTTP API는 &를 QueryString의 구분자로 인식하지만 Linux 콘솔에서�
 그러므로 &가 들어가는 명령어를 호출할 때는 \&로 입려하시거나 반드시 괄호(" /...&... ")로 
 
 
-QQ :upload:`설정파일 확인 <./conf.kr>` QQ
+QQ :ref:`api-conf-upload` QQ
 
 호출 URL을 묶어야 한다.
 

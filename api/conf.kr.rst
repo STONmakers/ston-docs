@@ -1,4 +1,4 @@
-﻿.. _api_conf:
+﻿.. _api-conf:
 
 /Conf
 ******************
@@ -8,7 +8,7 @@
 .. toctree::
    :maxdepth: 2
 
-.. _show:
+.. _api-conf-show:
 
 설정파일 확인
 ====================================
@@ -28,7 +28,7 @@ txt파일들은 가상호스트(vhost)를 명확하게 지정해주어야 한다
     http://127.0.0.1:10040/conf/postbody.txt?vhost=www.site1.com
 
 
-.. _reload:
+.. _api-conf-reload:
 
 설정 Reload
 ====================================
@@ -41,7 +41,7 @@ txt파일들은 가상호스트(vhost)를 명확하게 지정해주어야 한다
 일부 설정은 반드시 재시작해야 반영된다.
 
 
-.. _list:
+.. _api-conf-list:
 
 설정 목록
 ====================================
@@ -90,7 +90,7 @@ txt파일들은 가상호스트(vhost)를 명확하게 지정해주어야 한다
 -  ``hash`` 설정파일을 SHA-1으로 hash한 값
 
 
-.. _restore:
+.. _api-conf-restore:
 
 설정 Restore
 ====================================
@@ -103,7 +103,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선한다.
     http://127.0.0.1:10040/conf/restore?id=...
 
 
-.. _download:
+.. _api-conf-download:
     
 설정 다운로드
 ====================================
@@ -116,7 +116,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 
     http://127.0.0.1:10040/conf/download?hash=...
     http://127.0.0.1:10040/conf/download?id=...
 
-.. _upload:
+.. _api-conf-upload:
 
 설정 업로드
 ====================================
