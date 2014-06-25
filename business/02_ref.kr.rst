@@ -1,22 +1,22 @@
 ﻿.. _ref:
 
-이용 및 고객사
-===============
+고객사/도입서비스
+====================
 
-0. ISP 및 CDN사
+0. ISP/CDN사
 ---------------
 
 .. image:: img/ref/customers/isp_cdn.png
   :align: center
 
-
+|
 
 1. 쇼핑몰 
 ----------
 
-.. image:: img/ref/shopping.png
+.. image:: img/ref/customers/shopping.png
   :align: center
-  :width: 85%
+
 |
 
 고객은 구매결정에 이르기까지 썸네일, 전면배치 사진, 상세 사진 등 다양한 이미지를 보게 된다.
@@ -27,17 +27,20 @@ STON은 정밀한 TTL (Time-To-Live) 설정을 제공하여 컨텐츠 유효성 
 DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-the-fly로 가공하여 전송할 수 있다. 
 (리사이즈, 크롭, 포맷변경, 조합 등) 또한 원본 장애시에도 설정에 따라 고객에게 상품페이지를 원활하게 전달한다.
 
-**Powered by STON**
+|
 
-.. image:: img/ref/customers/shopping.png
+.. image:: img/ref/shopping.png
   :align: center
+  :width: 85%
+
 
 2. 게임
 ------
 
-.. image:: img/ref/game.png
+
+.. image:: img/ref/customers/game.png
   :align: center
-  :width: 85%
+
 |
 
 온라인 게임은 클라이언트 파일을 빠르고 결함없이 배포해야 한다. 
@@ -45,10 +48,12 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 전송한다.
 그리고 파일을 이어 받고자 할 때, 정확한 부분전송으로 효율성을 높이고 전송시간을 단축시킨다.
 
-**Powered by STON**
+|
 
-.. image:: img/ref/customers/game.png
+.. image:: img/ref/game.png
   :align: center
+  :width: 85%
+
 
 3. 언론 / 커뮤니티
 -----------------
