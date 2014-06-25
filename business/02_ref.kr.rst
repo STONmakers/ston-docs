@@ -27,12 +27,11 @@ STON은 정밀한 TTL (Time-To-Live) 설정을 제공하여 컨텐츠 유효성 
 DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-the-fly로 가공하여 전송할 수 있다. 
 (리사이즈, 크롭, 포맷변경, 조합 등) 또한 원본 장애시에도 설정에 따라 고객에게 상품페이지를 원활하게 전달한다.
 
-|
-
 .. image:: img/ref/shopping.png
   :align: center
   :width: 85%
 
+|
 |
 
 2. 게임
