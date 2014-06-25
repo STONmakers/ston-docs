@@ -47,12 +47,11 @@ DIMS (Dynamic Image Management Service) 설정에 따라 상품 이미지를 On-
 STON은 서버/네트워크 자원활용을 극한까지 끌어올려 빠르게 전송한다.
 그리고 파일을 이어 받고자 할 때, 정확한 부분전송으로 효율성을 높이고 전송시간을 단축시킨다.
 
-|
-
 .. image:: img/ref/game.png
   :align: center
   :width: 85%
 
+|
 |
 
 3. 언론 / 커뮤니티
