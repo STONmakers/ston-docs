@@ -477,15 +477,15 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
   
 위 표에서 각 필드의 ...에는 (e.g. “%h %U %r %b) 아무것도 명시하지 않거나, 
 기록 조건을 명시할 수 있다(조건을 만족하지 않으면 - 로 기록). 
-조건은 HTTP 상태코드 목록으로 설정하거나 !로 NOT 조건을 설정할 수 있다. ::
+조건은 HTTP 상태코드 목록으로 설정하거나 !로 NOT 조건을 설정할 수 있다. 
+
+다음 예제는 400(Bad Request) 오류 또는 501(Not Implemented) 오류 일 때만 User-agent를 기록한다. ::
 
     "%400,501{User-agent}i" 
   
-400(Bad Request) 오류 또는 501(Not Implemented) 오류 일 때만 User-agent를 기록한다. ::
+다음 예제는 정상적인 상태가 아닌 모든 요청에 대해 Referer를 로그에 남긴다. ::
   
     "%!200,304,302{Referer}i"
-
-정상적인 상태가 아닌 모든 요청에 대해 Referer를 로그에 남긴다.
 
 
 
@@ -495,7 +495,7 @@ Origin 로그
 ---------------------
 
 원본서버의 모든 HTTP 트랜잭션을 기록한다. 
-기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. 
+기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. ::
 
     <Log>
         <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
@@ -523,27 +523,27 @@ Origin 로그
 -  ``date`` HTTP 트랜잭션이 완료된 날짜
 -  ``time`` HTTP 트랜잭션이 완료된 시간
 -  ``cs-sid`` 세션의 고유ID. 같은 세션을 통해 처리된(재사용된) HTTP 트랜잭션은 같은 값을 가집니다.
--  ``cs-tcount`` 트랜잭션 카운트. 이 HTTP 트랜잭션이 현재 세션에서 몇 번째로 처리된 트랜잭션인지 기록합니다. 같은 cs-sid값을 가지는 트랜잭션이라면 이 값은 중복될 수 없습니다.
+-  ``cs-tcount`` 트랜잭션 카운트. 이 HTTP 트랜잭션이 현재 세션에서 몇 번째로 처리된 트랜잭션인지 기록합니다. 같은 ``cs-sid`` 값을 가지는 트랜잭션이라면 이 값은 중복될 수 없다.
 -  ``c-ip`` STON의 IP
--  ``cs-method`` STON이 원본서버에게 보낸 HTTP Method
+-  ``cs-method`` 원본서버에게 보낸 HTTP Method
 -  ``s-domain`` 원본서버 도메인
--  ``cs-uri`` STON이 원본서버에게 보낸 URI
+-  ``cs-uri`` 원본서버에게 보낸 URI
 -  ``s-ip`` 원본서버 IP
 -  ``sc-status`` 원본서버 HTTP 응답코드
--  ``cs-range`` STON이 원본서버에게 보낸 Range요청 값
+-  ``cs-range`` 원본서버에게 보낸 Range요청 값
 -  ``sc-sock-error`` 소켓 에러코드(1=전송실패, 2=전송지연, 3=연결종료)
 -  ``sc-http-error`` 원본서버가 4xx 또는 5xx응답을 줬을 때 응답코드를 기록
 -  ``sc-content-length`` 원본서버가 보낸 Content Length
--  ``cs-requestsize (단위: Bytes)`` STON이 원본서버로 보낸 HTTP 요청 헤더 크기
--  ``sc-responsesize (단위: Bytes)`` 원본서버가 STON으로 보낸 HTTP 응답 헤더 크기
--  ``sc-bytes (단위: Bytes)`` STON이 수신한 컨텐츠 크기(헤더 제외)
--  ``time-taken (단위: ms)`` HTTP 트랜잭션이 완료될 때까지 소요된 전체시간. 세션 재사용이 아니라면 소켓 접속시간까지 포함합니다.
+-  ``cs-requestsize (단위: Bytes)`` 원본서버로 보낸 HTTP 요청 헤더 크기
+-  ``sc-responsesize (단위: Bytes)`` 원본서버가 응답한 HTTP 헤더 크기
+-  ``sc-bytes (단위: Bytes)`` 수신한 컨텐츠 크기(헤더 제외)
+-  ``time-taken (단위: ms)`` HTTP 트랜잭션이 완료될 때까지 소요된 전체시간. 세션 재사용이 아니라면 소켓 접속시간까지 포함한다.
 -  ``time-dns (단위: ms)`` DNS쿼리에 소요된 시간
 -  ``time-connect (단위: ms)`` 원본서버와 소켓 Established까지 소요된 시간
 -  ``time-firstbyte (단위: ms)`` 요청을 보내고 응답이 올때까지 소요된 시간
 -  ``time-complete (단위: ms)`` 첫 응답부터 완료될 때까지 소요된 시간
--  ``cs-reqinfo`` 부가 정보. "+"문자로 구분됩니다. 바이패스한 통신이라면 "Bypass", Private바이패스라면 "PrivateBypass"가 명시됩니다.
--  ``cs-acceptencoding`` 원본서버에 압축된 컨텐츠를 요청하면 "gzip+deflate"가 명시됩니다.
+-  ``cs-reqinfo`` 부가 정보. "+"문자로 구분한다. 바이패스한 통신이라면 "Bypass", Private바이패스라면 "PrivateBypass"로 기록된다.
+-  ``cs-acceptencoding`` 원본서버에 압축된 컨텐츠를 요청하면 "gzip+deflate"로 기록된다.
 -  ``sc-cachecontrol`` 원본서버가 보낸 cache-control헤더
 -  ``s-port`` 원본서버 포트
 -  ``sc-contentencoding`` 원본서버가 보낸 Content-Encoding헤더
@@ -556,7 +556,7 @@ Origin 로그
 Monitoring 로그
 ---------------------
 
-5분 평균 통계를 기록한다.
+5분 평균 통계를 기록한다. ::
 
     <Log>
         <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
@@ -571,7 +571,7 @@ Monitoring 로그
 FileSystem 로그
 ---------------------
 
-모든 File I/O 접근의 트랜잭션을 기록한다.
+모든 File I/O 접근의 트랜잭션을 기록한다. ::
 
     <Log>
         <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
@@ -595,7 +595,7 @@ File I/O 트랜잭션이 종료될 때 기록된다.
    -  ``READ`` 파일을 열고 READ 하였음. 파일이 닫힐 때 로그 기록
    
 -  ``cs-path`` 접근 경로
--  ``sc-status`` 응답코드. 정상적인 서비스(200)를 제외한 처리 실패코드는 다음과 같습니다.
+-  ``sc-status`` 응답코드. 정상적인 서비스(200)를 제외한 처리 실패코드는 다음과 같다.
 
    -  ``200`` 정상 서비스
    -  ``301`` 바이패스 필요
