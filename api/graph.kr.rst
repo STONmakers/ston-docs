@@ -196,9 +196,7 @@ TCP소켓 그래프
 
     /graph/tcpsocket_*.png
     
--  .. figure:: img/graph_tcpsocket_detail.png
-
-
+.. figure:: img/graph_tcpsocket_detail.png
 
 
       
@@ -215,5 +213,232 @@ vhost파라미터를 이용하여 특정 가상호스트를 지정할 수 있으
     
 아래 표에서 *는 타입(dash, day, week, month, year) 중 한 가지를 의미한다.
 
-   .. figure:: img/graph_vhost.png
-      :align: center
+
+
+히트율 그래프
+---------------------
+::
+
+    /graph/vhost/hitratio_*.png
+    
+-  ``Main`` Request Hit Ratio
+-  ``Sub`` Byte Hit Ratio
+
+
+
+컨텐츠개수 그래프
+---------------------
+::
+
+    /graph/vhost/filecount_*.png
+    
+.. figure:: img/graph_filecount_detail.png
+
+
+
+콘텐츠 메모리 그래프
+---------------------
+::
+
+    /graph/vhost/mem_*.png
+    
+-  ``Main`` 메모리에 적재된 콘텐츠 데이터량
+
+
+
+삭제대기 그래프
+---------------------
+::
+
+    /graph/vhost/wf2d_*.png
+    
+-  ``Main`` 삭제 대기중인 파일개수
+
+
+
+클라이언트 바이패스 그래프
+---------------------
+::
+
+    /graph/vhost/client_httpreq_bypass_*.png
+    
+-  ``Main`` 바이패스된 클라이언트 HTTP요청
+
+
+
+클라이언트 요청차단 그래프
+---------------------
+::
+
+    /graph/vhost/client_httpreq_denied_*.png
+    
+-  ``Main`` 차단된 클라이언트 요청
+
+
+
+클라이언트 세션 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_session_*.png
+    
+-  ``Main`` 전체 클라이언트 세션
+-  ``Sub`` 전송 진행 중인 클라이언트 세션
+
+
+
+클라이언트 트래픽 그래프
+---------------------
+::
+
+    /graph/vhost/client_traffic_*.png
+    
+-  ``Main`` Inbound
+-  ``Sub`` Outbound
+
+
+
+클라이언트 응답 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_*.png
+    
+-  ``Main`` 클라이언트 HTTP 응답회수
+-  ``Sub`` 클라이언트 HTTP 요청회수
+
+
+
+클라이언트 상세응답 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_detail_*.png
+    
+.. figure:: img/graph_rescode_detail.png
+
+
+
+클라이언트 트랜잭션 완료 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_complete_*.png
+    
+-  ``Main`` 완료된 클라이언트 HTTP응답회수
+-  ``Sub`` 클라이언트 HTTP 요청회수
+
+
+
+클라이언트 응답시간 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_time1_*.png
+    
+-  ``Main`` 클라이언트 요청에 대한 HTTP 응답시간
+
+
+
+클라이언트 완료시간 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_time2_*.png
+    
+-  ``Main`` 클라이언트 요청에 대한 HTTP 트랜잭션 완료시간
+
+
+
+클라이언트 캐싱응답 그래프
+---------------------
+::
+
+    /graph/vhost/client_http_res_hit_*.png
+    
+.. figure:: img/graph_filehit.png
+
+
+
+클라이언트 SSL트래픽 그래프
+---------------------
+::
+
+    /graph/vhost/client_traffic_ssl_*.png
+    
+-  ``Main`` Inbound
+-  ``Sub`` Outbound
+
+
+
+원본서버 세션 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_session_*.png
+    
+-  ``Main`` 전체 원본 세션
+-  ``Sub`` 전송 진행 중인 원본 세션
+
+
+
+원본서버 트래픽 그래프
+---------------------
+::
+
+    /graph/vhost/origin_traffic_*.png
+    
+-  ``Main`` Inbound
+-  ``Sub`` Outbound
+
+
+
+원본서버 응답 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_res_*.png
+    
+-  ``Main`` 원본 HTTP 응답회수
+-  ``Sub`` 원본 HTTP 요청회수
+
+
+
+원본서버 상세응답 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_res_detail_*.png
+    
+.. figure:: img/graph_rescode_detail.png
+
+
+
+원본서버 트랜잭션 완료 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_res_complete_*.png
+    
+-  ``Main`` 완료된 원본서버 HTTP응답회수
+-  ``Sub`` 원본서버 HTTP 요청회수
+
+
+
+원본서버 응답시간 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_res_time1_*.png
+    
+-  ``Main`` 원본서버에 보낸 요청에 대한  HTTP 응답시간
+
+
+
+원본서버 완료시간 그래프
+---------------------
+::
+
+    /graph/vhost/origin_http_res_time2_*.png
+    
+-  ``Main`` 원본서버에 보낸 요청에 대한 HTTP 트랜잭션 완료시간
