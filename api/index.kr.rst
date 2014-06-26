@@ -17,10 +17,6 @@ ACL(Access Control List)에 의해 허가받지 않은 요청이 발생하면 �
     
 HTTP API는 &를 QueryString의 구분자로 인식하지만 Linux 콘솔에서는 다른 의미를 가진다. 
 그러므로 &가 들어가는 명령어를 호출할 때는 \&로 입려하시거나 반드시 괄호(" /...&... ")로 
-
-
-QQ :ref:`api-conf-upload` QQ
-
 호출 URL을 묶어야 한다.
 
 Contents:
