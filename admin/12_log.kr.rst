@@ -221,3 +221,121 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
     Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: #2013 .03.12 14:09:24 [example.com] 192.168.0.14:102 excluded from service
     Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: #2013 .03.12 14:09:24 [example.com] Origin server list:
     
+
+
+가상호스트 로그
+====================================
+
+가상호스트별로 로그는 별도로 기록된다. 
+로그가 ``OFF`` 로 설정되어 있어도 로컬파일에만 써지지 않을 뿐이므로 
+:ref:`api-monitoring-logtrace` 는 정상동작한다. ::
+
+    <VHostDefault>
+        <Log Dir="/cache_log">
+            ... (생략) ...
+        </Log>
+    </VHostDefault>
+
+-  ``<Log>`` ``Dir`` 속성으로 로그가 기록될 디렉토리를 설정한다. 
+   로그는 설정한 디렉토리 하위의 가상호스트 디렉토리에 생성된다.
+   
+
+
+.. admin-log-recorddns:
+
+RecordDNS 로그
+---------------------
+
+Domain Resolving결과가 변경될 때마다 Info로그에 기록한다. ::
+
+    <Log>
+        <RecordDNS>ON</RecordDNS>
+    </Log>
+   
+-  ``<RecordDNS>``
+
+   - ``ON (기본)`` 로그를 기록한다.
+   
+   - ``OFF`` 로그를 기록하지 않는다.
+   
+::
+
+    2013-02-21 21:37:08 [INFO] [example.com] DNS "foobar.com" updated (OLD[0]: , NEW[2]: 202.131.30.12, 220.95.233.172)
+    2013-02-21 21:47:18 [INFO] [example.com] DNS "foobar.com" updated (OLD[2]: 202.131.30.12, 220.95.233.172, NEW[3]: 202.131.30.12, 220.95.233.172, 220.95.233.173)
+
+
+
+.. admin-log-access:
+
+Access 로그
+---------------------
+
+모든 클라이언트의 HTTP 트랜잭션을 기록한다. 
+로그 기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. ::
+
+    <Log>
+        <Access Type="time" Unit="1440" Retention="10" XFF="on" Form="ston" Local="Off">ON</Access>
+    </Log>
+    
+-  ``XFF``
+
+   - ``OFF (기본)`` 클라이언트 IP를 기록한다.
+   - ``ON`` 클라이언트가 보낸 X-Forwarded-For헤더 값을 기록한다. 없다면 ``OFF`` 와 같다.
+
+-  ``Form``
+   
+   - ``ston (기본)`` W3C표준 + 확장필드
+   - ``apache`` Apache 형식
+   - ``iis`` IIS 형식
+
+-  ``Local``
+
+   - ``OFF (기본)`` 로컬통신(Loopback)은 기록하지 않는다.
+   - ``ON`` 로컬통신(Loopback)도 기록한다.
+  
+::
+
+    #Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-bytes time-taken cs-referer sc-resinfo cs-range sc-cachehit cs-acceptencoding session-id
+    2012.06.27 16:52:24 220.134.10.5 GET /web/h.gif - 80 - 61.50.7.9 Chrome/19.0.1084.56 200 98141 5 - Bypass+gzip+SSL3 - TCP_HIT gzip+deflate 7
+    2012.06.27 16:52:26 220.134.10.5 GET /favicon.ico - 80 - 61.50.7.9 Chrome/19.0.1084.56 200 949 2 - - - TCP_HIT gzip+deflate 35
+    2012.06.27 17:00:06 220.168.0.13 GET /setup.Eexe - 80 - 61.168.0.102  Mozilla/5.0+(Windows+NT+6.1;+WOW64)+AppleWebKit/536.11+(KHTML,+like+Gecko)+Chrome/20.0.1132.57+Safari/536.11 206 20971800 7008 - - 398458880-419430399 TCP_HIT - 41
+
+모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+
+-  ``date`` HTTP 트랜잭션이 완료된 날짜
+-  ``time`` HTTP 트랜잭션이 완료된 시간
+-  ``s-ip`` 서버 IP
+-  ``cs-method`` 클라이언트가 보낸 HTTP Method
+-  ``cs-uri-stem`` 클라이언트가 보낸 URL중 QueryString을 제외한 부분
+-  ``cs-uri-query`` 클라이언트가 보낸 URL중 QueryString
+-  ``s-port`` 서버 포트
+-  ``cs-username`` 클라이언트 username
+-  ``c-ip`` 클라이언트 IP`` XFF설정이 "ON"이라면 X-Forwarded-For헤더 값을 기록합니다.
+-  ``cs(User-Agent)`` 클라이언트가 보낸 HTTP User-Agent
+-  ``sc-status`` 서버 응답코드.
+-  ``sc-bytes`` 서버가 보낸 Bytes (헤더 + 컨텐츠)
+-  ``time-taken`` HTTP트랜잭션이 완료될 때까지 소요된 전체시간(밀리세컨드)
+-  ``cs-referer`` 클라이언트가 보낸 HTTP Referer
+-  ``sc-resinfo`` 부가 정보. "+"문자로 구분된다. 
+   인코딩된 컨텐츠를 서비스했다면 인코딩 옵션(gzip 또는 defalte)이 명시된다. 
+   보안 통신이라면 보안방식(SSL3 또는 TLS1)이 명시된다. 
+   바이패스한 통신이라면 "Bypass"가 명시된다.
+   
+-  ``cs-range`` 클라이언트가 보낸 Range 헤더를 기록한다.
+-  ``sc-cachehit`` 캐시 HIT결과.
+-  ``cs-acceptencoding`` 클라이언트가 보낸 Accept-Encoding헤더.
+-  ``session-id`` HTTP 클라이언트 세션 ID (unsigned int64)
+
+Access로그는 전송 성공/실패 여부에 상관없이 모든 HTTP 트랜잭션을 기록한다. 
+HTTP 트랜잭션은 클라이언트가 HTTP요청을 보낼 때 시작된다. 
+STON이 클라이언트에게 응답을 보내기 전에 HTTP연결이 종료된다면 HTTP 트랜잭션 역시 
+종료된 것으로 간주한다. 
+로그에는 ``sc-status`` 와 ``sc-bytes`` 가 0으로 기록된다. 
+주로 STON이 원본서버로부터 응답을 받기 전에 클라이언트가 연결을 종료하는 경우 이런 
+로그가 기록된다.
+  
+  
+  
+  <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
+  <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
+  <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
