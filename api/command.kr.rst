@@ -8,6 +8,53 @@
 .. toctree::
    :maxdepth: 2
 
+
+
+Command 관련설정
+====================================
+
+일부 설정을 통해 API동작을 제어할 수 있다.
+
+::
+
+    <Options>
+        <Purge2Expire>NONE</Purge2Expire>
+        <RootPurgeExpire>ON</RootPurgeExpire>
+        <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
+    </Options>
+
+-  ``<Purge2Expire> (기본: NONE)``
+
+   `Purge` 요청을 설정에 따라 `Expire` 로 처리한다.
+   예를 들어 루트 디렉토리(/)를 `Purge` 하는 경우 의도하지 않게 많은 컨텐츠가 
+   삭제되어 원본에 과도한 부하를 발생시킬 수 있다.
+   이런 경우 `Expire` 로 처리하도록 설정하면 과도한 원본부하를 방지할 수 있다.
+   
+   - ``NONE`` `Expire` 로 처리하지 않는다.
+   - ``ROOT`` 도메인 루트 디렉토리(/) `Purge` 를 `Expire` 로 처리한다.
+   - ``DIR`` 모든 디렉토리 `Purge` 를 `Expire` 로 처리한다.
+   - ``PATTERN`` 모든 패턴 `Purge` 를 `Expire` 로 처리한다.
+   - ``MULTIPLE`` 모든 디렉토리와 패턴 `Purge` 를 `Expire` 로 처리한다.
+   - ``ALL`` 모든 `Purge` 를 `Expire` 로 처리한다.
+
+-  ``<RootPurgeExpire> (기본: ON)``
+   
+   루트(/) 디렉토리에 대한 의도하지 않은 `Purge` / `Expire` 는 과도한 원본서버 
+   부하를 발생시킬 수 있다. 
+   이 설정을 통하여 루트 디렉토리에 대한 `Purge` / `Expire` 를 차단할 수 있다. 
+   이 설정은 ``<Purge2Expire>`` 보다 우선한다.
+   
+   - ``ON`` `Purge` / `Expire` 를 허용한다.
+   - ``PURGE`` `Purge` 만 허용한다.
+   - ``EXPIRE`` `Expire` 만 허용한다.
+   - ``OFF`` 모든 `Purge` / `Expire` 를 금지한다.
+
+-  ``<ResCodeNoCtrlTarget> (기본: 200)``
+
+   `Purge` , `Expire` , `HardPurge` , `ExpireAfter` 의 대상객체가 없을 때의 
+   HTTP 응답코드를 설정한다.
+
+
 .. _api-cmd-purge:
 
 Purge
