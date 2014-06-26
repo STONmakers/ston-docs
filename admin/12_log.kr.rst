@@ -735,7 +735,7 @@ FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. :
         <FileSystem Ftp="backup2">ON</FileSystem>
     </Log>
     
--  ``Ftp`` 사용할 `admin-log-ftpclient`
+-  ``Ftp`` 사용할 `admin-log-ftpclient`_
 
 ftp://{FTP서버 주소}/{가상호스트이름}/{롤링된 로그 이름} 으로 로그를 업로드 한다. 
 예를 들어 ftp.dummy.com서버에 가상호스트 example.com의 롤링된 로그(access_20140424_0000.log)를 
