@@ -106,12 +106,32 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
 전역로그는 전역설정(server.xml)에 설정한다. ::
 
     <Cache>
-        <InfoLog Type="size" Unit="1" Retention="5" SysLog="OFF">ON</InfoLog>
-        <DenyLog Type="size" Unit="1" Retention="5" SysLog="OFF">ON</DenyLog>
-        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF" SysLog="OFF">ON</OriginErrorLog>      
+        <InfoLog Type="size" Unit="1" Retention="5">ON</InfoLog>
+        <DenyLog Type="size" Unit="1" Retention="5">ON</DenyLog>
+        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>      
     </Cache>
 
+-  ``<InfoLog> (1MB X 최대 5)``
+   
+   STON의 동작과 설정변경에 대해 기록한다.
 
+-  ``<DenyLog> (1MB X 최대 5)``
+
+   `access-control-serviceaccess`_ 에 의해 접근차단된 IP를 기록한다. ::
+   
+      #Fields: date time c-ip deny
+      2012.11.15 07:06:10 1.1.1.1 AP
+      2012.11.15 07:06:26 2.2.2.2 GIN
+      2012.11.15 07:06:30 3.3.3.3 3.3.3.1-255
+      
+   모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+   
+   - ``date`` 날짜
+   - ``time`` 시간
+   - ``c-ip`` 클라이언트 IP
+   - ``deny`` 차단조건
+
+-  ``<OriginErrorLog>``
 
 
 
