@@ -41,7 +41,8 @@
 설치로그
 ******************
 
-STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다. ::
+STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다. 
+이 로그는 별도의 설정이 없다. ::
 
     #DownloadURL: http://foobar.com/ston/ston.2.0.0.rhel.2.6.32.x64.tar.gz
     #DownloadTime: 13 sec
