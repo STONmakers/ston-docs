@@ -627,11 +627,11 @@ File I/O 트랜잭션이 종료될 때 기록된다.
 
    .. note::
    
-      session-id는 Client(HTTP 또는 File I/O) Context가 생성될 때 할당된다. 
+      ``session-id`` 는 Client(HTTP 또는 File I/O) Context가 생성될 때 할당된다. 
       일반적인 파일 처리 과정인 Open -> Read -> Close에서는 Open시점에 Client Context가 
       생성되며 Close시점에 파괴된다. 
       반면 getattr함수는 원자성(Atomic)함수이므로 매번 Client Context가 생성/파괴되어 
       항상 새로운 session-id를 할당 받는다.
-  
+
   
   
