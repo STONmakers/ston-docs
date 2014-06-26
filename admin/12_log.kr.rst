@@ -731,7 +731,7 @@ FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. :
     <Log>
         <Access Ftp="backup1, backup2">ON</Access>
         <Origin Ftp="backup_org">ON</Origin>
-        <Monitoring Ftp="backup2">ON</Monitoring>
+        <Monitoring Ftp="backup1">ON</Monitoring>
         <FileSystem Ftp="backup2">ON</FileSystem>
     </Log>
     
