@@ -51,9 +51,6 @@ Peak Line은 이전 단위에서 가장 큰 수치를 핑크색으로 그린다.
 전역자원 그래프는 시스템 상태 또는 STON과 관련된 자원들에 대해 서비스한다. 
 아래 표에서 *는 타입(dash, day, week, month, year) 중 한 가지를 의미한다.
 
-   .. figure:: img/graph_global.png
-      :align: center
-      
       
       
 CPU 그래프
@@ -62,10 +59,148 @@ CPU 그래프
 
     /graph/cpu_*.png	
     
--  ``Main`` User+Kernel
+-  ``Main`` Kernel + User
 -  ``Sub`` Kernel
-      
-      
+
+
+
+STON CPU 그래프
+---------------------
+::
+
+    /graph/stoncpu_*.png
+    
+-  ``Main`` Kernel + User
+-  ``Sub`` Kernel
+
+
+
+메모리 그래프
+---------------------
+::
+
+    /graph/mem_*.png
+    
+-  ``Main`` 전체 사용량
+-  ``Sub`` STON 사용량
+
+
+
+IO Wait 그래프
+---------------------
+::
+
+    /graph/iowait_*.png
+    
+-  ``Main`` IO Wait
+
+
+
+Load Average 그래프
+---------------------
+::
+
+    /graph/loadavg_*.png
+    
+-  ``Main`` Load Average
+
+
+
+서버소켓 이벤트 그래프 (클라이언트 -> STON)
+---------------------
+::
+
+    /graph/ssockevent_*.png
+    
+-  ``Main`` Accepted
+-  ``Sub`` Closed
+
+
+
+서버소켓 사용량 그래프 (클라이언트 -> STON)
+---------------------
+::
+
+    /graph/ssockusage_*.png
+    
+-  ``Main`` 전체
+-  ``Sub`` Established
+
+
+
+클라이언트소켓 이벤트 그래프 (STON -> 원본서버)
+---------------------
+::
+
+    /graph/csockevent_*.png
+    
+-  ``Main`` Connected
+-  ``Sub`` Closed
+
+
+
+클라이언트소켓 사용량 그래프 (STON -> 원본서버)
+---------------------
+::
+
+    /graph/csockusage_*.png
+    
+-  ``Main`` 전체
+-  ``Sub`` Established
+
+
+
+차단된 IP접근 그래프
+---------------------
+::
+
+    /graph/acldenied_*.png
+    
+-  ``Main`` 차단된 클라이언트
+
+
+
+이벤트 큐 그래프
+---------------------
+::
+
+    /graph/eq_*.png
+    
+-  ``Main`` 이벤트 큐 길이
+
+
+
+쓰기대기 그래프
+---------------------
+::
+
+    /graph/wf2w_*.png
+    
+-  ``Main`` 쓰기 대기중인 파일개수
+
+
+
+URL 전처리 성공 그래프
+---------------------
+::
+
+    /graph/urlrewrite_*.png
+    
+-  ``Main`` 전처리된 URL 회수
+
+
+
+TCP소켓 그래프
+---------------------
+::
+
+    /graph/tcpsocket_*.png
+    
+-  .. figure:: img/graph_tcpsocket_detail.png
+
+
+
+
       
 .. _api-graph-vhost:
 
