@@ -99,6 +99,8 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
     Installation successfully complete
 
 
+.. admin-log-global:
+
 
 전역로그
 ====================================
@@ -167,18 +169,12 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
       
    잘못된 HTTP통신의 경우는 다음과 같다.
    
-   - ``ClosedWithoutResponse`` 원본 서버에 의한 연결 종료(HTTP 응답을 받지 못했음)
-   - ``ClosedWhenDownloading`` 원본 서버에 의한 연결 종료(Content Length만큼 다운로드하지 못했음)
-   - ``NotPartialResponseOnRangeRequest`` Range Request를 했으나 Response Code가 206이 아닌 경우
-   - ``DifferentContentLengthOnRangeRequest`` 요청한 Range와 Content Length가 다른 경우
-   - ``PartialResponseOnNormalRequest `` Range Request가 아닌데 Response Code가 206인 경우
+   - ``ClosedWithoutResponse`` 원본서버에 의한 연결종료. HTTP 응답을 받지 못했다.
+   - ``ClosedWhenDownloading`` 원본서버에 의한 연결종료. Content-Length 만큼 다운로드하지 못했다.
+   - ``NotPartialResponseOnRangeRequest`` Range요청을 했으나 응답코드가 206이 아니다.
+   - ``DifferentContentLengthOnRangeRequest`` 요청한 Range와 Content-Length가 다르다.
+   - ``PartialResponseOnNormalRequest `` Range요청이 아닌데 응답코드가 206이다.
 
-
-install.log
----------------------
-
-
-    
 
 
 .. admin-log-install:
