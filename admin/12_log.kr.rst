@@ -287,6 +287,7 @@ Access 로그
    - ``ston (기본)`` W3C표준 + 확장필드
    - ``apache`` Apache 형식
    - ``iis`` IIS 형식
+   - ``custom`` `admin-log-access-custom`
 
 -  ``Local``
 
@@ -333,8 +334,69 @@ STON이 클라이언트에게 응답을 보내기 전에 HTTP연결이 종료된
 로그에는 ``sc-status`` 와 ``sc-bytes`` 가 0으로 기록된다. 
 주로 STON이 원본서버로부터 응답을 받기 전에 클라이언트가 연결을 종료하는 경우 이런 
 로그가 기록된다.
+
+
+
+.. _admin-log-access-custom:
+
+Access 로그 (사용자정의)
+---------------------
+
+Access 로그형식을 사용자정의 로그로 설정한다. ::
+
+    <Log>
+        <Access Form="custom">ON</Access>
+        <AccessFormat>%a %A %b id=%{userid}C %f %h %H "%{user-agent}i" %m %P "%r" %s %t %T %X %I %O %R %e %S %K</AccessFormat>
+    </Log>
   
+-  ``<Access>`` 의 ``Form`` 속성을 ``custom`` 으로 설정한다.
+
+-  ``<AccessFormat>`` 사용자정의 로그 형식.
+
+위 예제의 경우 다음과 같이 Access로그가 기록된다. (#Fields는 기록하지 않는다.) ::
+
+    192.168.0.88 192.168.0.12 163276 id=winesoft; image.jpg ston.winesoft.co.kr HTTP "STON" GET 80 "GET /ston/image.jpg?type=png HTTP/1.1" 200 2014-04-03 21:21:54 1 C 204 163276 1 2571978 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 63276 id=winesoft; vod.mp4 ston.winesoft.co.kr HTTP "STON" POST 80 "GET /ston/vod.mp4?start=10 HTTP/1.1" 200 2014-04-03 21:21:54 12 C 304 363276 2 2571979 TCP_REFRESH_HIT HTTP/1.1
+    192.168.0.88 192.168.0.12 3634276 id=ston; news.html ston.winesoft.co.kr HTTPS "STON" GET 443 "GET /news.html HTTP/1.1" 200 2014-04-03 21:21:54 30 X 156 2632576 1 2571980 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 6332476 id=winesoft; style.css ston.winesoft.co.kr HTTP "STON" HEAD 80 "GET /style.css HTTP/1.1" 200 2014-04-03 21:21:54 10 X 234 653276 2 2571981 TCP_REFRESH_HIT HTTP/1.1
+    192.168.0.88 192.168.0.12 6276 id=ston; ui.js ston.winesoft.co.kr HTTP "STON" GET 80 "GET /ui.js HTTP/1.1" 200 2014-04-03 21:21:54 1 X 233 63276 1 2571982 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 626 id=winesoft; hls.m4u8 ston.winesoft.co.kr HTTP "STON" GET 80 "GET /hls.m4u8 HTTP/1.1" 200 2014-04-03 21:21:54 2 X 124 6312333276 2 2571983 TCP_REFRESH_HIT HTTP/1.1
   
+`Apache로그 형식 <https://httpd.apache.org/docs/2.2/ko/mod/mod_log_config.html>`_ 을 
+기반으로 개발되었으며 일부 확장필드가 있다. 
+각 필드의 구분자에는 제한이 없지만 Space를 사용할 경우, User-Agent처럼 Space가 포함될 
+수 있는 필드는 따옴표("...")로 묶어서 설정한다.
+
+-  ``%...a`` 클라이언트 IP ::
+
+      192.168.0.66
+      
+-  ``%...A`` 서버IP 주소 (예제: 192.168.0.14)
+-  ``%...b`` HTTP헤더를 제외한 전송 바이트수 (예제: 1024)
+-  ``%...{foobar}C`` 서버가 수신한 요청의 Foobar 쿠키의 내용  (예제: %{id=}c 로 입력하면 Cookie 에서 id=에 해당하는 값을 기록)
+-  ``%...D`` 요청을 처리하는데 걸린 시간(MS)  (예제: 3000)
+-  ``%...f`` 파일명	 (예제: /mp4/iu.mp4 라면 iu.mp4가 기록)
+-  ``%...h`` HostName (예제: example.com)
+-  ``%...H`` 요청 프로토콜 (예제: http 또는 https)
+-  ``%...{foobar}i`` 서버가 수신한 요청에서 foobar: 헤더의 내용	(예제: %{User-Agent}i 로 입력 할 경우 User-Agent의 값이 기록
+-  ``%...m`` 요청 Method	GET, POST, HEAD
+-  ``%...P`` Server PORT	80
+-  ``%...q`` QueryString	Id=10&value=20
+-  ``%...r`` 요청의 첫번째 줄(Request Line)	GET /img.jpg HTTP/1.1
+-  ``%...s`` 응답코드	200
+-  ``%...t`` STON 기본 시간형식	2014-01-01 15:27:02
+-  ``%...{format}t`` Format에 정의된 날짜 형식	%{%Y-$m-%d %H:%M:%S}T 로 입력하면 06:12:23으로 기록된다.
+-  ``%...T`` TimeTaken(초단위)	10
+-  ``%...U`` ShortURI	/img/img.jpg
+-  ``%...X`` 트랜잭션이 완료되었을 때의 상태
+                X = 응답이 완료되기 전에 종료
+                C = 응답이 완료 되었음	C
+-  ``%...I`` 요청헤더를 포함한 수신바이트	2048
+-  ``%...O`` 응답헤더를 포함한 송신바이트	2048
+-  ``%...R`` 응답시간(MS)	2
+-  ``%...e`` Session-ID	1
+-  ``%...S`` 캐싱 HIT 결과	TCP_HIT
+-  ``%...K`` 요청 HTTP 버전	HTTP/1.1
   
   <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
   <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
