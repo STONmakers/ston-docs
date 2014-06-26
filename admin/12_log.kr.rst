@@ -39,7 +39,7 @@
 .. admin-log-install:
 
 설치로그
-******************
+====================================
 
 STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다. 
 이 로그는 별도의 설정이 없다. ::
@@ -111,11 +111,11 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
         <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>      
     </Cache>
 
--  ``<InfoLog> (1MB X 최대 5)``
+-  ``<InfoLog> (기본: ON, Type: size, Unit: 1)``
    
    STON의 동작과 설정변경에 대해 기록한다.
 
--  ``<DenyLog> (1MB X 최대 5)``
+-  ``<DenyLog> (기본: ON, Type: size, Unit: 1)``
 
    `access-control-serviceaccess` 에 의해 접근차단된 IP를 기록한다. ::
    
@@ -130,9 +130,48 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
    - ``time`` 시간
    - ``c-ip`` 클라이언트 IP
    - ``deny`` 차단조건
+   
 
--  ``<OriginErrorLog>``
+-  ``<OriginErrorLog> (기본: OFF, Type: size, Unit: 5, Warning: OFF)``
 
+   모든 가상호스트의 원본서버에서 발생한 장애만을 기록한다. 
+   장애는 접속장애와 전송장애를 의미하며 원본서버 배제/복구 결과가 기록된다. ::
+   
+      #Fields: date time vhostname level s-domain s-ip cs-method cs-uri time-taken sc-error sc-resinfo
+      2012.11.15 07:06:10 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
+      2012.11.15 07:06:26 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
+      2012.11.15 07:06:30 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
+      #2012.11.15 07:06:30 [example.com] 192.168.0.13 excluded from service
+      #2012.11.15 07:06:31 [example.com] Origin server list: 192.168.0.14
+      #2012.11.15 07:11:11 [example.com] 192.168.0.13 recovered back in service
+      #2012.11.15 07:11:12 [example.com] Origin server list: 192.168.0.13
+   
+   모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+   
+   - ``date`` 장애발생 날짜
+   - ``time`` 장애발생 시간
+   - ``vhostname`` [가상호스트]
+   - ``level`` [장애레벨(Error 또는 Warning)]
+   - ``s-domain`` 원본서버 도메인
+   - ``s-ip`` 원본서버 IP
+   - ``cs-method`` STON이 원본서버에게 보낸 HTTP Method
+   - ``cs-uri`` STON이 원본서버에게 보낸 URI
+   - ``time-taken`` 장애가 발생 할때 까지 소요된 시간
+   - ``sc-error`` 장애의 종류
+   - ``sc-resinfo`` 장애발생시 서버 응답 정보(","문자로 구분)
+   
+   ``Warning`` 속성이 ``ON`` 이라면 다음과 잘못된 HTTP통신이 발생한 경우에 기록한다. ::
+   
+      2012.11.15 07:09:03 [example.com] [WARNING] 10.10.10.10 121.189.63.219 GET /716439_SM.jpg 20110 PartialResponseOnNormalRequest Res=206,Len=2635
+      2012.11.15 07:09:03 [example.com] [WARNING] 10.10.10.10 121.189.63.219 GET /716439_SM.jpg 20110 ClosedWithoutResponse -
+      
+   잘못된 HTTP통신의 경우는 다음과 같다.
+   
+   - ``ClosedWithoutResponse`` 원본 서버에 의한 연결 종료(HTTP 응답을 받지 못했음)
+   - ``ClosedWhenDownloading`` 원본 서버에 의한 연결 종료(Content Length만큼 다운로드하지 못했음)
+   - ``NotPartialResponseOnRangeRequest`` Range Request를 했으나 Response Code가 206이 아닌 경우
+   - ``DifferentContentLengthOnRangeRequest`` 요청한 Range와 Content Length가 다른 경우
+   - ``PartialResponseOnNormalRequest `` Range Request가 아닌데 Response Code가 206인 경우
 
 
 install.log
