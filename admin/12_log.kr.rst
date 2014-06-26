@@ -472,8 +472,21 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       HTTP/1.1
   
+설정한 필드의 값이 존재하지 않으면 - 로 표기한다. 
+형식이 잘못되었다면 STON 기본 포맷(Form="ston")으로 동작한다.
   
+위 표에서 각 필드의 ...에는 (e.g. “%h %U %r %b) 아무것도 명시하지 않거나, 
+기록 조건을 명시할 수 있다(조건을 만족하지 않으면 - 로 기록). 
+조건은 HTTP 상태코드 목록으로 설정하거나 !로 NOT 조건을 설정할 수 있다. 
+
+- "%400,501{User-agent}i" 
   
+  400(Bad Request) 오류 또는 501(Not Implemented) 오류 일 때만 User-agent를 기록
+  
+- "%!200,304,302{Referer}i"
+
+  정상적인 상태가 아닌 모든 요청에 대해 Referer를 로그에 남긴다.
+
 ::
 
   <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
