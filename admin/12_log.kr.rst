@@ -477,18 +477,161 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
   
 위 표에서 각 필드의 ...에는 (e.g. “%h %U %r %b) 아무것도 명시하지 않거나, 
 기록 조건을 명시할 수 있다(조건을 만족하지 않으면 - 로 기록). 
-조건은 HTTP 상태코드 목록으로 설정하거나 !로 NOT 조건을 설정할 수 있다. 
+조건은 HTTP 상태코드 목록으로 설정하거나 !로 NOT 조건을 설정할 수 있다. ::
 
-- "%400,501{User-agent}i" 
+    "%400,501{User-agent}i" 
   
-  400(Bad Request) 오류 또는 501(Not Implemented) 오류 일 때만 User-agent를 기록
+400(Bad Request) 오류 또는 501(Not Implemented) 오류 일 때만 User-agent를 기록한다. ::
   
-- "%!200,304,302{Referer}i"
+    "%!200,304,302{Referer}i"
 
-  정상적인 상태가 아닌 모든 요청에 대해 Referer를 로그에 남긴다.
+정상적인 상태가 아닌 모든 요청에 대해 Referer를 로그에 남긴다.
 
+
+
+.. admin-log-origin:
+
+Origin 로그
+---------------------
+
+원본서버의 모든 HTTP 트랜잭션을 기록한다. 
+기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. 
+
+    <Log>
+        <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
+    </Log>
+    
 ::
 
-  <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
-  <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
-  <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
+    #Fields: date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port sc-contentencoding session-id
+    2012.06.27 17:40:00 357 899 192.168.0.13 GET i.example.com /t/2.gif 115.71.9.136 200 - - - 3874 197 271 3874 20 0 0 17 3 - gzip+deflate - 80 gzip 7
+    2012.06.27 17:40:00 357 900 192.168.0.13 GET i.example.com /ex1.gif 115.71.9.136 200 - - - 5673 223 272 5673 24 0 0 21 3 - - - 80 - 8
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9  4 Bypass - - 80 - 7
+    #[ERROR:01] 2012.06.27 17:40:01 220.73.216.5 220.73.216.5 GET /web/nmb/img/main/v1/h1.gif 1824 Connect-Timeout - 11
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB1.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - max-age=3600 80 - 12
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB2.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - no-cache 80 - 35
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB3.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - - 80 - 35
+
+원본서버에 장애가 발생했다면 #[ERROR:xx]로 시작하는 에러 로그가 기록된다. 
+모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+
+.. figure:: img/time_taken.jpg
+   :align: center
+   
+   원본 시간측정 구간
+
+-  ``date`` HTTP 트랜잭션이 완료된 날짜
+-  ``time`` HTTP 트랜잭션이 완료된 시간
+-  ``cs-sid`` 세션의 고유ID. 같은 세션을 통해 처리된(재사용된) HTTP 트랜잭션은 같은 값을 가집니다.
+-  ``cs-tcount`` 트랜잭션 카운트. 이 HTTP 트랜잭션이 현재 세션에서 몇 번째로 처리된 트랜잭션인지 기록합니다. 같은 cs-sid값을 가지는 트랜잭션이라면 이 값은 중복될 수 없습니다.
+-  ``c-ip`` STON의 IP
+-  ``cs-method`` STON이 원본서버에게 보낸 HTTP Method
+-  ``s-domain`` 원본서버 도메인
+-  ``cs-uri`` STON이 원본서버에게 보낸 URI
+-  ``s-ip`` 원본서버 IP
+-  ``sc-status`` 원본서버 HTTP 응답코드
+-  ``cs-range`` STON이 원본서버에게 보낸 Range요청 값
+-  ``sc-sock-error`` 소켓 에러코드(1=전송실패, 2=전송지연, 3=연결종료)
+-  ``sc-http-error`` 원본서버가 4xx 또는 5xx응답을 줬을 때 응답코드를 기록
+-  ``sc-content-length`` 원본서버가 보낸 Content Length
+-  ``cs-requestsize (단위: Bytes)`` STON이 원본서버로 보낸 HTTP 요청 헤더 크기
+-  ``sc-responsesize (단위: Bytes)`` 원본서버가 STON으로 보낸 HTTP 응답 헤더 크기
+-  ``sc-bytes (단위: Bytes)`` STON이 수신한 컨텐츠 크기(헤더 제외)
+-  ``time-taken (단위: ms)`` HTTP 트랜잭션이 완료될 때까지 소요된 전체시간. 세션 재사용이 아니라면 소켓 접속시간까지 포함합니다.
+-  ``time-dns (단위: ms)`` DNS쿼리에 소요된 시간
+-  ``time-connect (단위: ms)`` 원본서버와 소켓 Established까지 소요된 시간
+-  ``time-firstbyte (단위: ms)`` 요청을 보내고 응답이 올때까지 소요된 시간
+-  ``time-complete (단위: ms)`` 첫 응답부터 완료될 때까지 소요된 시간
+-  ``cs-reqinfo`` 부가 정보. "+"문자로 구분됩니다. 바이패스한 통신이라면 "Bypass", Private바이패스라면 "PrivateBypass"가 명시됩니다.
+-  ``cs-acceptencoding`` 원본서버에 압축된 컨텐츠를 요청하면 "gzip+deflate"가 명시됩니다.
+-  ``sc-cachecontrol`` 원본서버가 보낸 cache-control헤더
+-  ``s-port`` 원본서버 포트
+-  ``sc-contentencoding`` 원본서버가 보낸 Content-Encoding헤더
+-  ``session-id`` 원본서버 요청을 발생시킨 HTTP 클라이언트 세션 ID (unsigned int64)
+
+
+
+.. admin-log-monitoring:
+
+Monitoring 로그
+---------------------
+
+5분 평균 통계를 기록한다.
+
+    <Log>
+        <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
+    </Log>
+  
+-  ``Form`` 로그형식을 지정한다. ( ``json`` 또는 ``xml`` )
+
+
+
+.. admin-log-filesystem:
+
+FileSystem 로그
+---------------------
+
+모든 File I/O 접근의 트랜잭션을 기록한다.
+
+    <Log>
+        <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
+    </Log>
+  
+File I/O 트랜잭션이 종료될 때 기록된다. 
+트랜잭션 종료 시점은 cs-method의 형태에 따라 달라진다. ::
+
+    #Fields: date time cs-method cs-path sc-status sc-bytes response-time time-taken sc-cachehit attr session-id
+    2012.06.27 16:52:24 ATTR /t 200 0 100 100 TCP_HIT FOLDER 1
+    2012.06.27 16:52:24 ATTR /t/2.gif 200 0 100 100 TCP_HIT FILE 1
+    2012.06.27 16:52:24 OPEN /file.txt 200 0 100 2000 TCP_HIT FILE 2
+    2012.06.27 16:52:24 READ /file.txt 200 1024768 100 2000 TCP_HIT FILE 2
+    
+-  ``date`` File I/O 트랜잭션이 완료된 날짜
+-  ``time`` File I/O 트랜잭션이 완료된 시간
+-  ``cs-method`` File I/O 접근 형태. 다음 3가지 중 하나를 가진다.
+
+   -  ``ATTR`` getattr함수 호출. 함수가 리턴될 때 로그 기록
+   -  ``OPEN`` 파일은 열었지만 READ 하지 않음. 파일이 닫힐 때 로그 기록
+   -  ``READ`` 파일을 열고 READ 하였음. 파일이 닫힐 때 로그 기록
+   
+-  ``cs-path`` 접근 경로
+-  ``sc-status`` 응답코드. 정상적인 서비스(200)를 제외한 처리 실패코드는 다음과 같습니다.
+
+   -  ``200`` 정상 서비스
+   -  ``301`` 바이패스 필요
+   -  ``302`` 서비스 거부
+   -  ``303`` Redirect 필요
+   -  ``400`` 잘못된 요청
+   -  ``401`` 가상호스트를 찾지 못했음
+   -  ``402`` 원본으로부터 초기화 실패
+   -  ``500`` 객체 초기화 실패
+   -  ``501`` 객체 Open실패
+   -  ``502`` 저장경로 생성실패
+   -  ``503`` 메모리 초기화 실패
+   -  ``504`` Emergency 상태
+   -  ``600`` 파일 서비스 대기 중 Timeout
+   -  ``601`` 파일 데이터 서비스 대기 중 Timeout
+   -  ``602`` 파일 서비스 대기 중 파일초기화 실패
+   -  ``603`` 파일 데이터 서비스 대기 중 데이터 초기화 실패
+   -  ``701`` 잘못된 Offset
+   -  ``702`` 파일의 특정 영역을 로딩 실패
+   -  ``703`` Not enough memory
+   -  ``704`` 원본세션 생성 실패
+   
+-  ``sc-bytes`` Read된 크기
+-  ``response-time`` 함수 호출 ~ 서비스객체를 연결하는데 소요된 시간
+-  ``time-taken`` 함수 호출 ~ File I/O Transaction이 완료되는데 소요된 시간.
+-  ``sc-cachehit`` 캐시 HIT결과.
+-  ``attr`` FILE 또는 FOLDER
+-  ``session-id`` File I/O 세션 ID (unsigned int64)
+
+   .. note::
+   
+      session-id는 Client(HTTP 또는 File I/O) Context가 생성될 때 할당된다. 
+      일반적인 파일 처리 과정인 Open -> Read -> Close에서는 Open시점에 Client Context가 
+      생성되며 Close시점에 파괴된다. 
+      반면 getattr함수는 원자성(Atomic)함수이므로 매번 Client Context가 생성/파괴되어 
+      항상 새로운 session-id를 할당 받는다.
+  
+  
+  
