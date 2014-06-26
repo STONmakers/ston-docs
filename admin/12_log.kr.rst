@@ -371,33 +371,111 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       192.168.0.66
       
--  ``%...A`` 서버IP 주소 (예제: 192.168.0.14)
--  ``%...b`` HTTP헤더를 제외한 전송 바이트수 (예제: 1024)
--  ``%...{foobar}C`` 서버가 수신한 요청의 Foobar 쿠키의 내용  (예제: %{id=}c 로 입력하면 Cookie 에서 id=에 해당하는 값을 기록)
--  ``%...D`` 요청을 처리하는데 걸린 시간(MS)  (예제: 3000)
--  ``%...f`` 파일명	 (예제: /mp4/iu.mp4 라면 iu.mp4가 기록)
--  ``%...h`` HostName (예제: example.com)
--  ``%...H`` 요청 프로토콜 (예제: http 또는 https)
--  ``%...{foobar}i`` 서버가 수신한 요청에서 foobar: 헤더의 내용	(예제: %{User-Agent}i 로 입력 할 경우 User-Agent의 값이 기록
--  ``%...m`` 요청 Method	GET, POST, HEAD
--  ``%...P`` Server PORT	80
--  ``%...q`` QueryString	Id=10&value=20
--  ``%...r`` 요청의 첫번째 줄(Request Line)	GET /img.jpg HTTP/1.1
--  ``%...s`` 응답코드	200
--  ``%...t`` STON 기본 시간형식	2014-01-01 15:27:02
--  ``%...{format}t`` Format에 정의된 날짜 형식	%{%Y-$m-%d %H:%M:%S}T 로 입력하면 06:12:23으로 기록된다.
--  ``%...T`` TimeTaken(초단위)	10
--  ``%...U`` ShortURI	/img/img.jpg
+-  ``%...A`` 서버IP 주소 :: 
+
+      192.168.0.14
+      
+-  ``%...b`` HTTP헤더를 제외한 전송 바이트수 ::
+
+      1024
+      
+-  ``%...{foobar}C`` 서버가 수신한 요청의 Foobar 쿠키의 내용  ::
+
+      %{id=}c 로 입력하면 Cookie 에서 id=에 해당하는 값을 기록
+      
+-  ``%...D`` 요청을 처리하는데 걸린 시간(MS) ::
+
+      3000
+      
+-  ``%...f`` 파일명 ::
+
+      /mp4/iu.mp4 라면 iu.mp4를 기록
+      
+-  ``%...h`` HostName ::
+
+      example.com
+      
+-  ``%...H`` 요청 프로토콜 ::
+
+      http 또는 https
+      
+-  ``%...{foobar}i`` 서버가 수신한 요청에서 foobar: 헤더의 내용 ::
+
+      %{User-Agent}i 로 입력 할 경우 User-Agent의 값을 기록
+      
+-  ``%...m`` 요청 Method ::
+
+      GET 또는 POST 또는 HEAD
+      
+-  ``%...P`` Server PORT ::
+
+      80
+      
+-  ``%...q`` QueryString ::
+
+      Id=10&value=20
+      
+-  ``%...r`` 요청의 첫번째 줄(Request Line) ::
+
+      GET /img.jpg HTTP/1.1
+      
+-  ``%...s`` 응답코드 ::
+
+      200
+      
+-  ``%...t`` STON 기본 시간형식	::
+
+      2014-01-01 15:27:02
+
+-  ``%...{format}t`` Format에 정의된 날짜 형식 ::
+
+      %{%Y-$m-%d %H:%M:%S}T 로 입력하면 06:12:23으로 기록.
+
+-  ``%...T`` TimeTaken(초단위) ::
+
+      10
+
+-  ``%...U`` ShortURI ::
+
+      /img/img.jpg
+
 -  ``%...X`` 트랜잭션이 완료되었을 때의 상태
-                X = 응답이 완료되기 전에 종료
-                C = 응답이 완료 되었음	C
--  ``%...I`` 요청헤더를 포함한 수신바이트	2048
--  ``%...O`` 응답헤더를 포함한 송신바이트	2048
--  ``%...R`` 응답시간(MS)	2
--  ``%...e`` Session-ID	1
--  ``%...S`` 캐싱 HIT 결과	TCP_HIT
--  ``%...K`` 요청 HTTP 버전	HTTP/1.1
+   
+   - ``X`` 응답이 완료되기 전에 종료
+   - ``C`` 응답이 완료 되었음
+   
+   ::
+   
+      C
+    
+-  ``%...I`` 요청헤더를 포함한 수신바이트 ::
+    
+      2048
+    
+-  ``%...O`` 응답헤더를 포함한 송신바이트 ::
+      
+      2048
+      
+-  ``%...R`` 응답시간(MS) ::
+
+      2
+      
+-  ``%...e`` Session-ID ::
+
+      1
+      
+-  ``%...S`` 캐싱 HIT 결과 ::
+
+      TCP_HIT
+      
+-  ``%...K`` 요청 HTTP 버전	::
+
+      HTTP/1.1
   
+  
+  
+::
+
   <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
   <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
   <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
