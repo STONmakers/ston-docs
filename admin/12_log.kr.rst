@@ -173,13 +173,51 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
    - ``ClosedWhenDownloading`` 원본서버에 의한 연결종료. Content-Length 만큼 다운로드하지 못했다.
    - ``NotPartialResponseOnRangeRequest`` Range요청을 했으나 응답코드가 206이 아니다.
    - ``DifferentContentLengthOnRangeRequest`` 요청한 Range와 Content-Length가 다르다.
-   - ``PartialResponseOnNormalRequest `` Range요청이 아닌데 응답코드가 206이다.
+   - ``PartialResponseOnNormalRequest`` Range요청이 아닌데 응답코드가 206이다.
 
 
 
-.. admin-log-install:
+.. admin-log-syslog:
 
-install.log
+SysLog 전송
 ---------------------
 
-STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다. ::
+`syslog <http://en.wikipedia.org/wiki/Syslog>`_ 프로토콜을 사용하여 로그를 UDP로 실시간 포워딩한다. 
+모든 로그에 대하여 syslog로 전송되도록 설정할 수 있다. ::
+
+    <Cache>
+        <InfoLog SysLog="OFF">ON</InfoLog>
+        <DenyLog SysLog="OFF">ON</DenyLog>
+        <OriginErrorLog SysLog="OFF">ON</OriginErrorLog>
+    </Cache>
+    
+-  ``SysLog``
+
+   - ``OFF (기본)`` syslog를 사용하지 않는다.
+   
+   - ``ON`` 이 태그 하위에 설정된 ``<SysLog>`` 로 로그를 전송한다.
+   
+다음은 ``<OriginErrorLog>`` 가 기록될 때 syslog를 설정하는 예제이다. ::
+
+    <OriginErrorLog SysLog="ON">
+        <SysLog Priority="local3.info" Dest="192.168.0.1:514" />
+        <SysLog Priority="user.alert" Dest="192.168.0.2" />
+        <SysLog Priority="mail.debug" Dest="log.example.com" />
+    </OriginErrorLog>
+    
+1. ``<OriginErrorLog>`` 의 ``SysLog`` 속성을 ``ON`` 으로 설정한다.
+#. ``<OriginErrorLog>`` 의 하위에 ``<SysLog>`` 태그를 생성한다. n대의 서버로 동시에 전송가능하다.
+#. ``<SysLog>`` 의 ``Priority`` 속성을 설정한다. 
+   이 표현은 syslog의 `Facility Levels <http://en.wikipedia.org/wiki/Syslog#Facility_levels>`_ 과 
+   `Severity levels <http://en.wikipedia.org/wiki/Syslog#Severity_levels>`_ 의 조합으로 구성한다.
+#. ``<SysLog>`` 의 ``Dest`` 속성을 설정한다. syslog수신서버를 의미하며 수신포트가 514인 경우 생략가능하다.
+
+위 설정으로 기록된 sys로그 예제는 다음과 같다. 
+syslog의 tag는 STON/{로그명}으로 기록된다. ::
+
+    Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: 2013-03-12 14:09:20 [ERROR] [example.com] - 192.168.0.14 GET /1.gifd 1996 Connect-Timeout -
+    Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: 2013-03-12 14:09:22 [ERROR] [example.com] - 192.168.0.14 GET /favicon.ico 1995 Connect-Timeout -
+    Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: 2013-03-12 14:09:24 [ERROR] [example.com] - 192.168.0.14 GET /1.gifd22 2020 Connect-Timeout -
+    Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: #2013 .03.12 14:09:24 [example.com] 192.168.0.14:102 excluded from service
+    Mar 12 11:24:24 192.168.0.1 STON/ORIGINERROR: #2013 .03.12 14:09:24 [example.com] Origin server list:
+    
