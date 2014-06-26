@@ -117,7 +117,7 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
 
 -  ``<DenyLog> (기본: ON, Type: size, Unit: 1)``
 
-   `access-control-serviceaccess` 에 의해 접근차단된 IP를 기록한다. ::
+   :ref:`access-control-serviceaccess` 에 의해 접근차단된 IP를 기록한다. ::
    
       #Fields: date time c-ip deny
       2012.11.15 07:06:10 1.1.1.1 AP
