@@ -635,3 +635,108 @@ File I/O 트랜잭션이 종료될 때 기록된다.
 
   
   
+.. _admin-log-ftp:
+
+FTP와 로그
+====================================
+
+로그가 롤링될 때 지정된 FTP클라이언트를 통해 로그를 업로드 한다. 
+
+
+
+.. _admin-log-ftpclient:
+
+FTP 클라이언트
+---------------------
+
+FTP 클라이언트를 설정한다. 
+롤링된 로그를 실시간으로 FTP서버로 업로드한다.
+
+.. figure:: img/conf_ftpclient.png
+   :align: center
+   
+   FTP클라이언트 구조와 동작
+
+FTP 클라이언트는 위 그림과 같이 STON외부에 존재한다. 
+STON은 로컬에 존재하는 로그를 FTP클라이언트 큐에 입력할 뿐 FTP의 동작에는 관여하지 않는다. 
+FTP클라이언트는 자신의 설정에 따라 업로드를 진행한다.
+
+FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
+
+    <Server>
+        <Ftp Name="backup1">
+            <Mode>Passive</Mode>
+            <Address>ftp.winesoft.co.kr:21</Address>
+            <Account>
+            <ID>test</ID>
+            <Password>12345abc</Password>
+            </Account>
+            <ConnectTimeout>10</ConnectTimeout>
+            <TransferTimeout>600</TransferTimeout>
+            <TrafficCap>0</TrafficCap>
+        </Ftp>
+        
+        <Ftp Name="backup2">
+            <Mode>Active</Mode>
+            <Address>192.168.0.14:21</Address>
+            <Account>
+            <ID>test</ID>
+            <Password>qwerty</Password>
+            </Account>
+            <ConnectTimeout>3</ConnectTimeout>
+            <TransferTimeout>100</TransferTimeout>
+            <TrafficCap>10240</TrafficCap>
+        </Ftp>
+    </Server>
+
+-  ``<Ftp>`` FTP 클라이언트를 설정한다. ``Name`` 속성으로 고유의 이름을 설정한다.
+
+   - ``Mode (기본: Passive)`` 접속모드 ( ``Passive`` 또는 ``Active`` )
+   - ``Address`` FTP주소
+   - ``Account`` FTP 계정
+   - ``ConnectTimeout`` 연결대기 시간
+   - ``TransferTimeout`` 전송대기 시간
+   - ``TrafficCap (단위: KB)`` 0보다 큰 값으로 설정할 경우 전송 최대 대역폭을 설정한다.
+
+FTP클라이언트는 curl을 사용한다. 
+FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. ::
+
+    #Fields: date time local-path cs-url file-size time-taken sc-status sc-error-msg
+    2014-04-23 17:10:20 /ston_log/winesoft.co.kr/origin_20140423_080000.log ftp://ftp.winesoft.co.kr:21/winesoft.co.kr/origin_20140423_080000.log 381 10006 fail "curl: (7) couldn't connect to host"
+    2014-04-23 17:10:20 /ston_log/winesoft.co.kr/access_20140423_1700.log ftp://192.168.0.14:21/winesoft.co.kr/access_20140423_1700.log 260 60 success "-"
+    2014-04-23 17:11:00 /ston_log/winesoft.co.kr/origin_20140423_080000.log ftp://ftp.winesoft.co.kr:21/winesoft.co.kr/origin_20140423_080000.log 381 10008 fail "curl: (7) couldn't connect to host"
+    2014-04-23 17:11:00 /ston_log/winesoft.co.kr/filesystem_20140423_080000.log ftp://192.168.0.14:21/winesoft.co.kr/filesystem_20140423_080000.log 179 60 success "-"
+
+모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+
+-  ``date`` 날짜
+-  ``time`` 시간
+-  ``local-path`` 전송할 로그이 로컬경로
+-  ``cs-url`` 전송할 FTP주소
+-  ``file-size`` 전송 파일크기
+-  ``time-taken (단위: ms)`` 전송 소요시간
+-  ``sc-status`` 전송 성공/실패(success 또는 fail)
+-  ``sc-error-msg`` 전송 실패 시 curl 에러 메세지
+
+
+
+.. admin-log-ftptransfer:
+
+로그 FTP전송
+---------------------
+
+로그가 롤링될 때 지정된 `admin-log-ftpclient` 를 통해 업로드 한다. 
+콤마(,)로 구분하면 여러 FTP클라이언트를 동시에 사용할 수 있다. ::
+
+    <Log>
+        <Access Ftp="backup1, backup2">ON</Access>
+        <Origin Ftp="backup_org">ON</Origin>
+        <Monitoring Ftp="backup2">ON</Monitoring>
+        <FileSystem Ftp="backup2">ON</FileSystem>
+    </Log>
+    
+-  ``Ftp`` 사용할 `admin-log-ftpclient`
+
+ftp://{FTP서버 주소}/{가상호스트이름}/{롤링된 로그 이름} 으로 로그를 업로드 한다. 
+예를 들어 ftp.dummy.com서버에 가상호스트 example.com의 롤링된 로그(access_20140424_0000.log)를 
+업로드하는 주소는 ftp://ftp.dummy.com/example.com/access_20140424_0000.log가 된다.
