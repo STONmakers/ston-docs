@@ -199,18 +199,18 @@ meta (1.3.6.1.4.1.40001.1.1)
 
 메타정보를 제공한다.
 
-========= ============= ========= ===========================================
-OID       Name          Type      Description
-========= ============= ========= ===========================================
-meta.1    manufacture   String    "WineSOFT Inc."
-meta.2    software      String    "STON"
-meta.3    version       String    버전
-meta.4    hostname      String    호스트 이름
-meta.5    state         String    "Healthy" 또는 "Inactive" 또는 "Emergency"
-meta.6    uptime        Integer   실행시간 (초)
-meta.7    admin         String    <Admin> ... </Admin>
-meta.10   Conf          OID       Conf 확장
-========= ============= ========= ===========================================
+===== ============= ========= ===========================================
+OID   Name          Type      Description
+===== ============= ========= ===========================================
+.1    manufacture   String    "WineSOFT Inc."
+.2    software      String    "STON"
+.3    version       String    버전
+.4    hostname      String    호스트 이름
+.5    state         String    "Healthy" 또는 "Inactive" 또는 "Emergency"
+.6    uptime        Integer   실행시간 (초)
+.7    admin         String    <Admin> ... </Admin>
+.10   Conf          OID       Conf 확장
+===== ============= ========= ===========================================
 
 
 
@@ -224,17 +224,17 @@ meta.conf (1.3.6.1.4.1.40001.1.1.10)
 2인 경우는 이전 설정 값을 의미한다. 
 10 이라면 현재(1)로부터 9번째 이전의 설정을 의미한다.
 
-======================= ======= ======= =============================================================================================
-OID                     Name    Type    Description
-======================= ======= ======= =============================================================================================
-meta.conf.1.[confIndex] ID      Integer 설정 ID
-meta.conf.2.[confIndex] Time    Integer 설정시간 (Unix 시간)
-meta.conf.3.[confIndex] Type    Integer 설정형태 (0 = Unknown, 1 = STON 시작, 2 = /conf/reload, 3 = /conf/upload, 4 = /conf/restore)
-meta.conf.4.[confIndex] Size    Integer 설정파일 크기
-meta.conf.5.[confIndex] Hash    String  설정파일 Hash문자열
-meta.conf.6.[confIndex] Path    String  설정파일 저장경로
-meta.conf.7.[confIndex] Ver     String  설정할 때의 STON 버전
-======================= ======= ======= =============================================================================================
+============== ======= ======= =============================================================================================
+OID            Name    Type    Description
+============== ======= ======= =============================================================================================
+.1.[confIndex] ID      Integer 설정 ID
+.2.[confIndex] Time    Integer 설정시간 (Unix 시간)
+.3.[confIndex] Type    Integer 설정형태 (0 = Unknown, 1 = STON 시작, 2 = /conf/reload, 3 = /conf/upload, 4 = /conf/restore)
+.4.[confIndex] Size    Integer 설정파일 크기
+.5.[confIndex] Hash    String  설정파일 Hash문자열
+.6.[confIndex] Path    String  설정파일 저장경로
+.7.[confIndex] Ver     String  설정할 때의 STON 버전
+============== ======= ======= =============================================================================================
 
 
 
@@ -247,97 +247,299 @@ STON이 동작하는 시스템 정보를 제공한다.
 [sysMin]변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
 SNMPWalk에서 [sysMin]은 0으로 설정되며 현재 정보를 제공한다.
 
-=================== =================================== ======= ===============================================
-OID                 Name                                Type    Description
-=================== =================================== ======= ===============================================
-system.1.[sysMin]   cpuTotal                            Integer 전체 CPU 사용률 (100%)
-system.2.[sysMin]                                               전체 CPU 사용률 (10000%)
-system.3.[sysMin]   cpuKernel                           Integer	CPU(Kernel) 사용률 (100%)
-system.4.[sysMin]                                               CPU(Kernel) 사용률 (10000%)
-system.5.[sysMin]   cpuUser                             Integer CPU(User) 사용률 (100%)
-system.6.[sysMin]                                               CPU(User) 사용률 (10000%)
-system.7.[sysMin]   cpuIdle                             Integer CPU(Idle) 사용률 (100%)
-system.8.[sysMin]                                               CPU(Idle) 사용률 (10000%)
-system.9            memTotal                            Integer 시스템 전체 메모리 (KB)
-system.10.[sysMin]  memUse                              Integer 시스템 사용 메모리 (KB)
-system.11.[sysMin]  memFree                             Integer 시스템 여유 메모리 (KB)
-system.12.[sysMin]  memSTON                             Integer STON 사용 메모리 (KB)
-system.13.[sysMin]  memUseRatio                         Integer 시스템 메모리 사용률 (100%)
-system.14.[sysMin]                                              시스템 메모리 사용률 (10000%)
-system.15.[sysMin]  memSTONRatio                        Integer STON 메모리 사용률 (100%)
-system.16.[sysMin]                                              STON 메모리 사용률 (10000%)
-system.17           diskCount                           Integer disk개수
-system.18.1         diskInfo                            OID     diskInfo확장
-system.19.1         diskPerf                            OID     diskPerf확장
-system.20.[sysMin]  cpuProcKernel                       Integer STON이 사용하는 CPU(Kernel) 사용률 (100%)
-system.21.[sysMin]                                              STON이 사용하는 CPU(Kernel) 사용률 (10000%)
-system.22.[sysMin]  cpuProcUser                         Integer STON이 사용하는 CPU(User) 사용률 (100%)
-system.23.[sysMin]                                              STON이 사용하는 CPU(User) 사용률 (10000%)
-system.24.[sysMin]  sysLoadAverage                      Integer System Load Average 1분 평균 (0.01)
-system.25.[sysMin]                                              System Load Average 5분 평균 (0.01)
-system.26.[sysMin]                                              System Load Average 15분 평균 (0.01)
-system.27.[sysMin]  cpuNice                             Integer CPU(Nice) (100%)
-system.28.[sysMin]                                              CPU(Nice) (10000%)
-system.29.[sysMin]  cpuIOWait                           Integer CPU(IOWait) (100%)
-system.30.[sysMin]                                              CPU(IOWait) (10000%)
-system.31.[sysMin]  cpuIRQ                              Integer CPU(IRQ) (100%)
-system.32.[sysMin]                                              CPU(IRQ) (10000%)
-system.33.[sysMin]  cpuSoftIRQ                          Integer CPU(SoftIRQ) (100%)
-system.34.[sysMin]                                              CPU(SoftIRQ) (10000%)
-system.35.[sysMin]  cpuSteal                            Integer CPU(Steal) (100%)
-system.36.[sysMin]  CPU(Steal)                          Integer (10000%)
-system.40.[sysMin]  TCPSocket.Established.[globalMin]   Integer Established상태의 TCP 연결개수
-system.41.[sysMin]  TCPSocket.Timewait.[globalMin]      Integer TIME_WAIT 상태의 TCP 연결개수
-system.42.[sysMin]  TCPSocket.Orphan.[globalMin]        Integer 아직 file handle에 attach되지 않은 TCP 연결
-system.43.[sysMin]  TCPSocket.Alloc.[globalMin]         Integer 할당된 TCP 연결
-system.44.[sysMin]  TCPSocket.Mem.[globalMin]           Integer undocumented
-=================== =================================== ======= ===============================================
+============= =================================== ======= ===============================================
+OID           Name                                Type    Description
+============= =================================== ======= ===============================================
+.1.[sysMin]   cpuTotal                            Integer 전체 CPU 사용률 (100%)
+.2.[sysMin]                                               전체 CPU 사용률 (10000%)
+.3.[sysMin]   cpuKernel                           Integer	CPU(Kernel) 사용률 (100%)
+.4.[sysMin]                                               CPU(Kernel) 사용률 (10000%)
+.5.[sysMin]   cpuUser                             Integer CPU(User) 사용률 (100%)
+.6.[sysMin]                                               CPU(User) 사용률 (10000%)
+.7.[sysMin]   cpuIdle                             Integer CPU(Idle) 사용률 (100%)
+.8.[sysMin]                                               CPU(Idle) 사용률 (10000%)
+.9            memTotal                            Integer 시스템 전체 메모리 (KB)
+.10.[sysMin]  memUse                              Integer 시스템 사용 메모리 (KB)
+.11.[sysMin]  memFree                             Integer 시스템 여유 메모리 (KB)
+.12.[sysMin]  memSTON                             Integer STON 사용 메모리 (KB)
+.13.[sysMin]  memUseRatio                         Integer 시스템 메모리 사용률 (100%)
+.14.[sysMin]                                              시스템 메모리 사용률 (10000%)
+.15.[sysMin]  memSTONRatio                        Integer STON 메모리 사용률 (100%)
+.16.[sysMin]                                              STON 메모리 사용률 (10000%)
+.17           diskCount                           Integer disk개수
+.18.1         diskInfo                            OID     diskInfo확장
+.19.1         diskPerf                            OID     diskPerf확장
+.20.[sysMin]  cpuProcKernel                       Integer STON이 사용하는 CPU(Kernel) 사용률 (100%)
+.21.[sysMin]                                              STON이 사용하는 CPU(Kernel) 사용률 (10000%)
+.22.[sysMin]  cpuProcUser                         Integer STON이 사용하는 CPU(User) 사용률 (100%)
+.23.[sysMin]                                              STON이 사용하는 CPU(User) 사용률 (10000%)
+.24.[sysMin]  sysLoadAverage                      Integer  Load Average 1분 평균 (0.01)
+.25.[sysMin]                                               Load Average 5분 평균 (0.01)
+.26.[sysMin]                                               Load Average 15분 평균 (0.01)
+.27.[sysMin]  cpuNice                             Integer CPU(Nice) (100%)
+.28.[sysMin]                                              CPU(Nice) (10000%)
+.29.[sysMin]  cpuIOWait                           Integer CPU(IOWait) (100%)
+.30.[sysMin]                                              CPU(IOWait) (10000%)
+.31.[sysMin]  cpuIRQ                              Integer CPU(IRQ) (100%)
+.32.[sysMin]                                              CPU(IRQ) (10000%)
+.33.[sysMin]  cpuSoftIRQ                          Integer CPU(SoftIRQ) (100%)
+.34.[sysMin]                                              CPU(SoftIRQ) (10000%)
+.35.[sysMin]  cpuSteal                            Integer CPU(Steal) (100%)
+.36.[sysMin]  CPU(Steal)                          Integer (10000%)
+.40.[sysMin]  TCPSocket.Established.[globalMin]   Integer Established상태의 TCP 연결개수
+.41.[sysMin]  TCPSocket.Timewait.[globalMin]      Integer TIME_WAIT 상태의 TCP 연결개수
+.42.[sysMin]  TCPSocket.Orphan.[globalMin]        Integer 아직 file handle에 attach되지 않은 TCP 연결
+.43.[sysMin]  TCPSocket.Alloc.[globalMin]         Integer 할당된 TCP 연결
+.44.[sysMin]  TCPSocket.Mem.[globalMin]           Integer undocumented
+============= =================================== ======= ===============================================
 
 
 
 .. _snmp-meta-system-diskinfo:
                                     
 system.diskInfo (1.3.6.1.4.1.40001.1.2.18.1)   
-====================================             
+---------------------
 
 디스크 정보를 제공한다.
 
-================================ ================== =========== =========================================
-OID                              Name               Type        Description
-================================ ================== =========== =========================================
-system.diskInfo.2.[diskIndex]    diskInfoPath       String      디스크 경로                                 
-system.diskInfo.3.[diskIndex]    diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
-system.diskInfo.4.[diskIndex]    diskInfoUseSize    Integer     디스크 사용량 (MB)                          
-system.diskInfo.5.[diskIndex]    diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
-system.diskInfo.6.[diskIndex]    diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
-system.diskInfo.7.[diskIndex]                                   디스크 사용률 (10000%)                                              
-system.diskInfo.8.[diskIndex]    diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
-================================ ================== =========== =========================================
+================= ================== =========== =========================================
+OID               Name               Type        Description
+================= ================== =========== =========================================
+.2.[diskIndex]    diskInfoPath       String      디스크 경로                                 
+.3.[diskIndex]    diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
+.4.[diskIndex]    diskInfoUseSize    Integer     디스크 사용량 (MB)                          
+.5.[diskIndex]    diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
+.6.[diskIndex]    diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
+.7.[diskIndex]                                   디스크 사용률 (10000%)                                              
+.8.[diskIndex]    diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
+================= ================== =========== =========================================
 
 
 
 .. _snmp-meta-system-diskperf:
                                     
 system.diskPerf (1.3.6.1.4.1.40001.1.2.19.1)
-====================================             
+---------------------
 
 디스크 성능상태를 제공한다.
 
-=========================================== =========================== ========== ===============================
-OID                                         Name                        Type       Description
-=========================================== =========================== ========== ===============================
-system.diskPerf.2.[diskMin].[diskIndex]     diskPerfReadCount           Integer    읽기 성공 횟수
-system.diskPerf.3.[diskMin].[diskIndex]     diskPerfReadMergedCount     Integer    읽기가 병합된 횟수
-system.diskPerf.4.[diskMin].[diskIndex]     diskPerfReadSectorsCount    Integer    읽은 섹터 수
-system.diskPerf.5.[diskMin].[diskIndex]     diskPerfReadTime            Integer    읽기 소요시간(ms)
-system.diskPerf.6.[diskMin].[diskIndex]     diskPerfWriteCount          Integer    쓰기 성공 횟수
-system.diskPerf.7.[diskMin].[diskIndex]     diskPerfWriteMergedCount    Integer    쓰기가 병합된 횟수
-system.diskPerf.8.[diskMin].[diskIndex]     diskPerfWriteSectorsCount   Integer    써진 섹터 수
-system.diskPerf.9.[diskMin].[diskIndex]     diskPerfWriteTime           Integer    쓰기 소요시간(ms)
-system.diskPerf.10.[diskMin].[diskIndex]    diskPerfIOProgressCount     Integer    진행 중인 IO개수
-system.diskPerf.11.[diskMin].[diskIndex]    diskPerfIOTime              Integer    IO 소요시간(ms)
-system.diskPerf.12.[diskMin].[diskIndex]    diskPerfIOTimeWeighted      Integer    IO 소요시간(ms, 가중치 적용)
-=========================================== =========================== ========== ===============================
+============================ =========================== ========== ===============================
+OID                          Name                        Type       Description
+============================ =========================== ========== ===============================
+.2.[diskMin].[diskIndex]     diskPerfReadCount           Integer    읽기 성공 횟수
+.3.[diskMin].[diskIndex]     diskPerfReadMergedCount     Integer    읽기가 병합된 횟수
+.4.[diskMin].[diskIndex]     diskPerfReadSectorsCount    Integer    읽은 섹터 수
+.5.[diskMin].[diskIndex]     diskPerfReadTime            Integer    읽기 소요시간(ms)
+.6.[diskMin].[diskIndex]     diskPerfWriteCount          Integer    쓰기 성공 횟수
+.7.[diskMin].[diskIndex]     diskPerfWriteMergedCount    Integer    쓰기가 병합된 횟수
+.8.[diskMin].[diskIndex]     diskPerfWriteSectorsCount   Integer    써진 섹터 수
+.9.[diskMin].[diskIndex]     diskPerfWriteTime           Integer    쓰기 소요시간(ms)
+.10.[diskMin].[diskIndex]    diskPerfIOProgressCount     Integer    진행 중인 IO개수
+.11.[diskMin].[diskIndex]    diskPerfIOTime              Integer    IO 소요시간(ms)
+.12.[diskMin].[diskIndex]    diskPerfIOTimeWeighted      Integer    IO 소요시간(ms, 가중치 적용)
+============================ =========================== ========== ===============================
 
 
-    
+
+.. _snmp-global:
+
+global (1.3.6.1.4.1.40001.1.3)
+====================================
+
+STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이벤트 등)를 제공한다. 
+
+-  ServerSocket
+   
+   클라이언트 ~ STON구간. STON이 클라이언트의 요청을 처리할 용도로 사용하는 소켓
+   
+-  ClientSocket
+
+   STON ~ 원본서버구간. STON이 원본서버로 요청을 보내는 용도로 사용하는 소켓
+
+===== ===================================== ========== ==================================================   
+OID   Name                                  Type       Description
+===== ===================================== ========== ==================================================
+.5    EQ.[Min]                              Integer    STON Framework에서 아직 처리되지 않은 Event개수
+.6    RQ.[Min]                              Integer    최근 서비스된 컨텐츠 참조 큐에 저장된 Event 개수
+.7    waitingFiles2Write.[Min]              Integer    쓰기대기 중인 파일개수
+.10   ServerSocket.Total.[Min]              Integer    전체 서버소켓 수
+.11   ServerSocket.Established.[Min]        Integer    연결된 상태의 서버소켓 수
+.12   ServerSocket.Accepted.[Min]           Integer    새롭게 연결된 서버소켓 수
+.13   ServerSocket.Closed.[Min]             Integer    연결이 종료된 서버소켓 수
+.20   ClientSocket.Total.[Min]              Integer    전체 클라이언트소켓 수
+.21   ClientSocket.Established.[globalMin]  Integer    연결된 상태의 클라이언트소켓 수
+.22   ClientSocket.Accepted.[globalMin]     Integer    새롭게 연결된 클라이언트소켓 수
+.23   ClientSocket.Closed.[globalMin]       Integer    연결이 종료된 클라이언트소켓 수
+.30   ServiceAccess.Allow.[globalMin]       Integer    ServiceAccess에 의해 허가(Allow)된 소켓 수
+.31   ServiceAccess.Deny.[globalMin]        Integer    ServiceAccess에 의해 거부(Deny)된 소켓 수
+===== ===================================== ========== ==================================================
+
+
+
+.. _snmp-cache:
+
+cache (1.3.6.1.4.1.40001.1.4)
+====================================
+
+캐시 서비스의 통계는 가상호스트별로 상세하게 수집/제공된다.
+
+====== ============== ========= ============================================================
+OID    Name           Type      Description
+====== ============== ========= ============================================================
+.1     host           OID       호스트 (확장)
+.2     vhostCount     Integer   가상호스트 개수
+.3.1   vhost          OID       가상호스트별 통계
+.4     vhostIndexMax  Integer   [vhostIndex] 최대 값. SNMPWalk는 이 수치를 기준으로 동작한다.
+.10    viewCount      Integer   View 개수
+.11.1  view           OID       View별 통계
+.12    viewIndexMax   Integer   [viewIndex] 최대 값. SNMPWalk는 이 수치를 기준으로 동작한다.
+====== ============== ========= ============================================================
+
+
+
+.. _snmp-cache-host:
+
+cache.host (1.3.6.1.4.1.40001.1.4.1)
+---------------------
+
+호스트(=모든 가상호스트)의 정보를 제공한다.
+
+===== ========= =========== =========================
+OID   Name      Type        Description
+===== ========= =========== =========================
+.2    name      String      호스트 이름
+.3    status    String      "Healthy" 또는 "Inactive"
+.4    uptime    Integer     STON 실행시간 (초)
+.10   contents  OID         컨텐츠 정보 (확장)
+.11   traffic   OID         통계 (확장)
+===== ========= =========== =========================
+
+
+
+.. _snmp-cache-host-contents:
+
+cache.host.contents (1.3.6.1.4.1.40001.1.4.1.10)
+---------------------
+
+호스트(=모든 가상호스트)가 서비스하는 컨텐츠 통계를 제공한다.
+
+====== ================ ========== ============================
+OID    Name             Type       Description
+====== ================ ========== ============================
+.1     memory           Integer    메모리 캐싱 크기(KB)
+.2     filesTotalCount  Integer    서비스 중인 파일개수
+.3     filesTotalSize   Integer    서비스 중인 전체 파일량(MB)
+.10    filesCountU4KB   Integer    4KB미만 파일개수
+.11    filesCountU16KB  Integer    16KB미만 파일개수
+.12    filesCountU32KB  Integer    32KB미만 파일개수
+.13    filesCountU64KB  Integer    64KB미만 파일개수
+.14    filesCountU128KB Integer    128KB미만 파일개수
+.15    filesCountU256KB Integer    256KB미만 파일개수
+.16    filesCountU1MB   Integer    1MB미만 파일개수
+.17    filesCountU10MB  Integer    10MB미만 파일개수
+.18    filesCountU100MB Integer    100MB미만 파일개수
+.19    filesCountU512MB Integer    512MB미만 파일개수
+.20    filesCountU1GB   Integer    1GB미만 파일개수
+.21    filesCountU4GB   Integer    4GB미만 파일개수
+.22    filesCountO4GB   Integer    4GB이상 파일개수
+====== ================ ========== ============================
+
+
+
+.. _snmp-cache-host-traffic:
+
+cache.host.traffic (1.3.6.1.4.1.40001.1.4.1.11)
+---------------------
+
+호스트(=모든 가상호스트)의 캐시 서비스와 트래픽 통계를 제공한다. 
+traffic의 모든 통계는 최대 60분까지의 평균으로 제공한다. 
+min은 '분'을 의미하며 최대 60까지의 값을 가진다. 
+min이 생략되거나 0이라면 실시간정보를 제공한다.
+
+=============== =============== ======= ==============================
+OID             Name            Type    Description
+=============== =============== ======= ==============================
+.1.[vhostMin]   requestHitRatio Integer Request Hit Ratio(100%)
+.2.[vhostMin]                           Request Hit Ratio(10000%)
+.3.[vhostMin]   bytesHitRatio   Integer Bytes Hit Ratio(100%)
+.4.[vhostMin]                           Bytes Hit Ratio(10000%)
+.10             origin          OID     원본 트래픽 정보 (확장)
+.11             client          OID     클라이언트 트래픽 정보 (확장)
+=============== =============== ======= ==============================
+
+
+
+.. _snmp-cache-host-traffic-origin:
+
+cache.host.traffic.origin (1.3.6.1.4.1.40001.1.4.1.11.10)
+---------------------
+
+원본서버 트래픽 통계를 제공한다. 
+원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분한다.
+
+==================== =================================== ========== ===================================================================
+OID                  Name                                Type       Description
+==================== =================================== ========== ===================================================================
+.1.[vhostMin]        inbound                             Integer    원본서버로부터 받는 평균 트래픽(Bytes)
+.2.[vhostMin]        outbound                            Integer    원본서버로 보내는 평균 트래픽(Bytes)
+.3.[vhostMin]        sessionAverage                      Integer    전체 원본서버 평균 세션수
+.4.[vhostMin]        activesessionAverage                Integer    전체 원본서버 세션수 중 전송 중인 평균 세션수
+.10                  http                                OID        원본서버 HTTP 트래픽 정보
+.10.1.[vhostMin]     http.inbound                        Integer    원본서버로부터 받는 평균 HTTP 트래픽(Bytes)
+.10.2.[vhostMin]     http.outbound                       Integer    원본서버로 보내는 평균 HTTP 트래픽(Bytes)
+.10.3.[vhostMin]     http.sessionAverage                 Integer    원본서버 평균 HTTP세션 수
+.10.4.[vhostMin]     http.reqHeaderSize                  Integer    원본서버로 보내는 평균 HTTP Header 트래픽(Bytes)
+.10.5.[vhostMin]     http.reqBodySize                    Integer    원본서버로 보내는 평균 HTTP Body 트래픽(Bytes)
+.10.6.[vhostMin]     http.resHeaderSize                  Integer    원본서버로부터 받는 평균 HTTP Header트래픽(Bytes)
+.10.7.[vhostMin]     http.resBodySize                    Integer    원본서버로부터 받는 평균 HTTP Body트래픽(Bytes)
+.10.8.[vhostMin]     http.reqAverage                     Integer    원본서버로 보낸 평균 HTTP요청 개수
+.10.9.[vhostMin]     http.reqCount                       Integer    원본서버로 보낸 HTTP요청 개수
+.10.10.[vhostMin]    http.resTotalAverage                Integer    원본서버가 보낸 전체 평균 HTTP응답 개수
+.10.11.[vhostMin]    http.resTotalCompleteAverage        Integer    원본서버로부터 성공한 평균 HTTP트랜잭션 개수
+.10.12.[vhostMin]    http.resTotalTimeRes                Integer    원본서버로부터 응답 헤더를 받을때까지 평균 소요시간(0.01ms)
+.10.13.[vhostMin]    http.resTotalTimeComplete           Integer    원본서버로부터 응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.14.[vhostMin]    http.resTotalCount                  Integer    원본서버가 보낸 전체 HTTP응답 개수
+.10.15.[vhostMin]    http.resTotalCompleteCount          Integer    원본서버로부터 성공한 HTTP트랜잭션 개수
+.10.20.[vhostMin]    http.res2xxAverage                  Integer    원본서버가 보낸 평균 2xx응답 개수
+.10.21.[vhostMin]    http.res2xxCompleteAverage          Integer    원본서버로부터 성공한 평균 2xx 트랜잭션 개수
+.10.22.[vhostMin]    http.res2xxTimeRes                  Integer    원본서버로부터 2xx응답 헤더를 받을때까지 평균 소요시간(0.01ms)
+.10.23.[vhostMin]    http.res2xxTimeComplete             Integer    원본서버로부터 2xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.24.[vhostMin]    http.res2xxCount                    Integer    원본서버가 보낸 2xx응답 개수
+.10.25.[vhostMin]    http.res2xxCompleteCount            Integer    원본서버로부터 성공한 2xx 트랜잭션 개수
+.10.30.[vhostMin]    http.res3xxAverage                  Integer    원본서버가 보낸 평균 3xx응답 개수
+.10.31.[vhostMin]    http.res3xxCompleteAverage          Integer    원본서버로부터 성공한 평균 3xx 트랜잭션 개수
+.10.32.[vhostMin]    http.res3xxTimeRes                  Integer    원본서버로부터 3xx응답 헤더를 받을때까지 평균 소요시간(0.01ms)
+.10.33.[vhostMin]    http.res3xxTimeComplete             Integer    원본서버로부터 3xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.34.[vhostMin]    http.res3xxCount                    Integer    원본서버가 보낸 3xx응답 개수
+.10.35.[vhostMin]    http.res3xxCompleteCount            Integer    원본서버로부터 성공한 3xx 트랜잭션 개수
+.10.40.[vhostMin]    http.res4xxAverage                  Integer    원본서버가 보낸 평균 4xx응답 개수
+.10.41.[vhostMin]    http.res4xxCompleteAverage          Integer    원본서버로부터 성공한 평균 4xx 트랜잭션 개수
+.10.42.[vhostMin]    http.res4xxTimeRes                  Integer    원본서버로부터 4xx응답 헤더를 받을때까지 평균 소요시간(0.01ms)
+.10.43.[vhostMin]    http.res4xxTimeComplete             Integer    원본서버로부터 4xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.44.[vhostMin]    http.res4xxCount                    Integer    원본서버가 보낸 4xx응답 개수
+.10.45.[vhostMin]    http.res4xxCompleteCount            Integer    원본서버로부터 성공한 4xx 트랜잭션 개수
+.10.50.[vhostMin]    http.res5xxAverage                  Integer    원본서버가 보낸 평균 5xx응답 개수
+.10.51.[vhostMin]    http.res5xxCompleteAverage          Integer    원본서버로부터 성공한 평균 5xx 트랜잭션 개수
+.10.52.[vhostMin]    http.res5xxTimeRes                  Integer    원본서버로부터 5xx응답 헤더를 받을때까지 평균 소요시간(0.01ms)
+.10.53.[vhostMin]    http.res5xxTimeComplete             Integer    원본서버로부터 5xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.54.[vhostMin]    http.res5xxCount                    Integer    원본서버가 보낸 5xx응답 개수
+.10.55.[vhostMin]    http.res5xxCompleteCount            Integer    원본서버로부터 성공한 5xx 트랜잭션 개수
+.10.60.[vhostMin]    http.connectTimeoutAverage          Integer    평균 원본서버 접속실패 횟수
+.10.61.[vhostMin]    http.receiveTimeoutAverage          Integer    평균 원본서버 전송실패 횟수
+.10.62.[vhostMin]    http.connectAverage                 Integer    평균 원본서버 접속성공 횟수
+.10.63.[vhostMin]    http.dnsQueryTime                   Integer    원본서버 접속 시 평균 DNS쿼리 소요시간
+.10.64.[vhostMin]    http.connectTime                    Integer    원본서버 평균 접속 소요시간(0.01ms)
+.10.65.[vhostMin]    http.connectTimeoutCount            Integer    원본서버 접속실패 횟수
+.10.66.[vhostMin]    http.receiveTimeoutCount            Integer    원본서버 전송실패 횟수
+.10.67.[vhostMin]    http.connectCount                   Integer    원본서버 접속성공 횟수
+.10.68.[vhostMin]    http.closeAverage                   Integer    전송 중 원본서버에서 먼저 소켓을 종료한 평균 횟수
+.10.69.[vhostMin]    http.closeCount                     Integer    전송 중 원본서버에서 먼저 소켓을 종료한 횟수
+.11                  portbypass                          OID        Port바이패스 원본서버 트래픽 정보
+.11.1.[vhostMin]     portbypass.inbound                  Integer    Port바이패스를 통해 원본서버로부터 받는 평균 트래픽(Bytes)
+.11.2.[vhostMin]     portbypass.outbound                 Integer    Port바이패스를 통해 원본서버로 보내는 평균 트래픽(Bytes)
+.11.3.[vhostMin]     portbypass.sessionAverage           Integer    Port바이패스 중인 평균 원본서버 세션 수
+.11.4.[vhostMin]     portbypass.closedAverage            Integer    Port바이패스 중 원본서버가 연결을 종료한 평균 횟수
+.11.5.[vhostMin]     portbypass.connectTimeoutAverage    Integer    Port바이패스 원본서버 평균 접속실패 횟수
+.11.6.[vhostMin]     portbypass.closedCount              Integer    Port바이패스 중 원본서버가 연결을 종료한 횟수
+.11.7.[vhostMin]     portbypass.connectTimeoutCount      Integer    Port바이패스 원본서버 접속실패 횟수
+==================== =================================== ========== ===================================================================
