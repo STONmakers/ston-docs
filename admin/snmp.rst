@@ -6,18 +6,79 @@ SNMP
 STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시스템 상태정보를 제공한다. 
 가상호스트별로 실시간 통계와 최대 60분까지 "분" 단위의 평균 통계를 제공한다. 
 
+- STON은 자체적으로 SNMP를 구현한다. 
+- snmpd를 별도로 실행할 필요가 없다.
+- SNMP v1과 v2c를 지원한다.
+- Community를 등록하는 절차는 없다. Public을 사용한다.
+
 .. toctree::
    :maxdepth: 2
 
 
 
-.. _snmp-conf:
+.. _snmp-var:
 
-SNMP 설정
+SNMP 변수
 ====================================
 
-전역설정(serve
+설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다. 
+예를 들어 디스크는 여러개가 존재할 수 있다. 
+이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다. 
+이런 변수를 [diskIndex]로 명시한다. 
 
+-  [diskIndex]
+
+   Storage에 설정된 디스크를 의미한다. ::
+   
+      <Storage>
+         <Disk>/cache1</Disk>
+         <Disk>/cache2</Disk>
+         <Disk>/cache3</Disk>
+      </Storage>
+      
+   위와 같이 3개의 디스크가 설정된 환경에서 /cache1의 
+   [diskIndex]는 1, /cache3의 [diskIndex]는 3을 가진다. 
+   예를 들어 /cache1의 전체용량에 해당하는 OID는 
+   system.diskInfo.diskInfoTotalSize.1 
+   (1.3.6.1.4.1.40001.1.2.18.1.3.1이 된다. 
+   1은 첫번째 Disk를 의미한다.
+   
+-  [vhostIndex]
+
+   가상호스트가 로딩될 때 자동으로 부여된다. ::
+   
+   <Vhosts>
+       <Vhost Status="Active" Name="kim.com"> ... </Vhost>
+       <Vhost Status="Active" Name="lee.com"> ... </Vhost>
+       <Vhost Status="Active" Name="park.com" StaticIndex="10300"> ... </Vhost>
+   </Vhosts>
+   
+   최초 위와 같이 3개의 가상호스트가 로딩되면 1부터 순차적으로 [vhostIndex]가 부여된다. 
+   이후 가상호스트는 [vhostIndex]를 기억하며, 가상호스트가 삭제되더라도 [vhostIndex]는 변하지 않는다. 
+   가상호스트의 삭제와 추가가 동시에 발생할 경우 삭제가 먼저 동작하며, 
+   신규 추가된 가상호스트는 비어있는 [vhostIndex]를 부여 받는다.
+   
+   .. figure:: img/snmp_vhostindex.png
+      :align: center
+      
+      [vhostIndex]의 동작방식
+
+-  [diskMin], [vhostMin]
+
+   시간(분)을 의미한다. 
+   5는 5분의 평균을 의미하며 60은 60분의 평균을 의미한다. 
+   이 값은 1(분)부터 60(분)까지 범위를 가지며 0은 실시간(1초) 데이터를 의미한다.
+   
+SNMP에서는 동적으로 변동될 수 있는 항목에 대하여 Table구조를 사용한다. 
+예를 들어 "디스크 전체크기"는 디스크의 개수에 따라 제공하는 데이터 개수가 
+달라지기 때문에 Table구조를 사용하여 표현해야 한다. 
+STON은 모든 가상호스트에 대하여 "분"단위 통계를 제공한다. 
+그러므로 [vhostMin].[vhostIndex]라는 다소 난해한 표현을 제공한다. 
+
+이 표현은 가상호스트별로 원하는 분단위 통계를 볼 수 있다는 장점을 가지고 있지만 
+변수가 2개이므로 Table구조로 표현하기 어렵다는 단점이 있다. 
+이런 문제를 극복하기 위하여 [vhostMin]의 기본값을 설정하여 
+SNMPWalk가 동작할 수 있도록 한다.
 
 
 .. _snmp-conf:
@@ -47,7 +108,7 @@ SNMP 설정
     접속한 소켓이 허가된 IP가 아니면 응답을 주지 않는다.
     
 
-가상호스트/View 정보
+가상호스트/View
 ---------------------
 
 SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 설정한다. ::
@@ -83,7 +144,7 @@ SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 
 
 
 
-Community 설정
+Community
 ---------------------
 
 Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한다. ::
@@ -115,7 +176,7 @@ OID를 허용/차단할 경우 하위 모든 OID에 대해 같은 규칙이 적�
 기타
 ---------------------
 
-::
+기타 변수를 설정한다. ::
 
     <SNMP GlobalMin="5" DiskMin="5" ConfCount="10" />
     
