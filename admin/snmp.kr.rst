@@ -543,3 +543,153 @@ OID                  Name                                Type       Description
 .11.6.[vhostMin]     portbypass.closedCount              Integer    Port바이패스 중 원본서버가 연결을 종료한 횟수
 .11.7.[vhostMin]     portbypass.connectTimeoutCount      Integer    Port바이패스 원본서버 접속실패 횟수
 ==================== =================================== ========== ===================================================================
+
+
+
+.. _snmp-cache-host-traffic-client:
+
+cache.host.traffic.client (1.3.6.1.4.1.40001.1.4.1.11.11)
+---------------------
+
+클라이언트 트래픽 통계를 제공한다. 
+클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다. 
+SNMP에서는 디렉토리별 통계를 제공하지 않는다. 
+설령 디렉토리 통계가 설정되어 있다고 하더라도 합산되어 제공한다.
+
+==================== ========================================== ========== =============================================================
+OID                  Name                                       Type       Description
+==================== ========================================== ========== =============================================================
+.1.[vhostMin]        inbound                                    Integer    클라이언트로부터 받는 평균 트래픽(Bytes)
+.2.[vhostMin]        outbound                                   Integer    클라이언트로 보내는 평균 트래픽(Bytes)
+.3.[vhostMin]        sessionAverage                             Integer    전체 클라이언트 평균 세션수
+.4.[vhostMin]        activesessionAverage                       Integer    전체 클라이언트 중 전송 중인 평균 세션수
+.10                  http                                       OID        클라이언트 HTTP 트래픽 정보
+.10.1.[vhostMin]     http.inbound                               Integer    클라이언트로부터 받는 평균 HTTP 트래픽(Bytes)
+.10.2.[vhostMin]     http.outbound                              Integer    클라이언트로 보내는 평균 HTTP 트래픽(Bytes)
+.10.3.[vhostMin]     http.sessionAverage                        Integer    클라이언트 평균 HTTP세션 수
+.10.4.[vhostMin]     http.reqHeaderSize                         Integer    클라이언트로부터 받는 평균 HTTP Header 트래픽(Bytes)
+.10.5.[vhostMin]     http.reqBodySize                           Integer    클라이언트로부터 받는 평균 HTTP Body 트래픽(Bytes)
+.10.6.[vhostMin]     http.resHeaderSize                         Integer    클라이언트로 보내는 평균 HTTP Header트래픽(Bytes)
+.10.7.[vhostMin]     http.resBodySize                           Integer    클라이언트로 보내는 평균 HTTP Body트래픽(Bytes)
+.10.8.[vhostMin]     http.reqAverage                            Integer    클라이언트로부터 받은 평균 HTTP요청 개수
+.10.9.[vhostMin]     http.reqCount                              Integer    클라이언트로부터 받은 HTTP요청 개수
+.10.10.[vhostMin]    http.resTotalAverage                       Integer    클라이언트로 보낸 평균 전체응답 개수
+.10.11.[vhostMin]    http.resTotalCompleteAverage               Integer    클라이언트가 완료한 평균 HTTP 트랜잭션 개수
+.10.12.[vhostMin]    http.resTotalTimeRes                       Integer    클라이언트 응답 평균 소요시간(0.01ms)
+.10.13.[vhostMin]    http.resTotalTimeComplete                  Integer    클라이언트 HTTP Transaction 평균 완료시간(0.01ms)
+.10.14.[vhostMin]    http.resTotalCount                         Integer    클라이언트로 보낸 전체응답 개수
+.10.15.[vhostMin]    http.resTotalCompleteCount                 Integer    클라이언트가 완료한 HTTP 트랜잭션 개수
+.10.20.[vhostMin]    http.res2xxAverage                         Integer    클라이언트로 보낸 평균 2xx응답 개수
+.10.21.[vhostMin]    http.res2xxCompleteAverage                 Integer    클라이언트가 완료한 평균 2xx트랜잭션 개수
+.10.22.[vhostMin]    http.res2xxTimeRes                         Integer    클라이언트 2xx응답 평균 소요시간(0.01ms)
+.10.23.[vhostMin]    http.res2xxTimeComplete                    Integer    클라이언트 2xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.24.[vhostMin]    http.res2xxCount                           Integer    클라이언트로 보낸 2xx응답 개수
+.10.25.[vhostMin]    http.res2xxCompleteCount                   Integer    클라이언트가 완료한 2xx트랜잭션 개수
+.10.30.[vhostMin]    http.res3xxAverage                         Integer    클라이언트로 보낸 평균 3xx응답 개수
+.10.31.[vhostMin]    http.res3xxCompleteAverage                 Integer    클라이언트가 완료한 평균 3xx트랜잭션 개수
+.10.32.[vhostMin]    http.res3xxTimeRes                         Integer    클라이언트 3xx응답 평균 소요시간(0.01ms)
+.10.33.[vhostMin]    http.res3xxTimeComplete                    Integer    클라이언트 3xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.34.[vhostMin]    http.res3xxCount                           Integer    클라이언트로 보낸 3xx응답 개수
+.10.35.[vhostMin]    http.res3xxCompleteCount                   Integer    클라이언트가 완료한 3xx트랜잭션 개수
+.10.40.[vhostMin]    http.res4xxAverage                         Integer    클라이언트로 보낸 평균 4xx응답 개수
+.10.41.[vhostMin]    http.res4xxCompleteAverage                 Integer    클라이언트가 완료한 평균 4xx트랜잭션 개수
+.10.42.[vhostMin]    http.res4xxTimeRes                         Integer    클라이언트 4xx응답 평균 소요시간(0.01ms)
+.10.43.[vhostMin]    http.res4xxTimeComplete                    Integer    클라이언트 4xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.44.[vhostMin]    http.res4xxCount                           Integer    클라이언트로 보낸 4xx응답 개수
+.10.45.[vhostMin]    http.res4xxCompleteCount                   Integer    클라이언트가 완료한 4xx트랜잭션 개수
+.10.50.[vhostMin]    http.res5xxAverage                         Integer    클라이언트로 보낸 평균 5xx응답 개수
+.10.51.[vhostMin]    http.res5xxCompleteAverage                 Integer    클라이언트가 완료한 평균 5xx트랜잭션 개수
+.10.52.[vhostMin]    http.res5xxTimeRes                         Integer    클라이언트 5xx응답 평균 소요시간(0.01ms)
+.10.53.[vhostMin]    http.res5xxTimeComplete                    Integer    클라이언트 5xx응답 HTTP Transaction 평균 완료시간(0.01ms)
+.10.54.[vhostMin]    http.res5xxCount                           Integer    클라이언트로 보낸 5xx응답 개수
+.10.55.[vhostMin]    http.res5xxCompleteCount                   Integer    클라이언트가 완료한 5xx트랜잭션 개수
+.10.60.[vhostMin]    http.reqDeniedAverage                      Integer    차단된 요청 평균
+.10.61.[vhostMin]    http.reqDeniedCount                        Integer    차단된 요청 개수
+.11                  portbypass                                 OID        Port바이패스 클라이언트 트래픽 정보
+.11.1.[vhostMin]     portbypass.inbound                         Integer    Port바이패스를 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
+.11.2.[vhostMin]     portbypass.outbound                        Integer    Port바이패스를 통해 클라이언트로 보내는 평균 트래픽(Bytes)
+.11.3.[vhostMin]     portbypass.sessionAverage                  Integer    Port바이패스 중인 클라이언트 평균 세션 수
+.11.4.[vhostMin]     portbypass.closedAverage                   Integer    Port바이패스 중 클라이언트가 연결을 종료한 평균 횟수
+.11.5.[vhostMin]     portbypass.closedCount                     Integer    Port바이패스 중 클라이언트가 연결을 종료한 횟수
+.12                  ssl                                        OID        SSL 클라이언트 트래픽 정보
+.12.2.[vhostMin]     ssl.inbound                                Integer    SSL을 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
+.12.3.[vhostMin]     ssl.outbound                               Integer    SSL을 통해 클라이언트로 보내는 평균 트래픽(Bytes)
+.13                  requestHitAverage                          OID        평균 캐시 HIT결과
+.13.1.[vhostMin]     requestHitAverage.TCP_HIT                  Integer    TCP_HIT
+.13.2.[vhostMin]     requestHitAverage.TCP_IMS_HIT              Integer    TCP_IMS_HIT
+.13.3.[vhostMin]     requestHitAverage.TCP_REFRESH_HIT          Integer    TCP_REFRESH_HIT
+.13.4.[vhostMin]     requestHitAverage.TCP_REF_FAIL_HIT         Integer    TCP_REF_FAIL_HIT
+.13.5.[vhostMin]     requestHitAverage.TCP_NEGATIVE_HIT         Integer    TCP_NEGATIVE_HIT
+.13.6.[vhostMin]     requestHitAverage.TCP_MISS                 Integer    TCP_MISS
+.13.7.[vhostMin]     requestHitAverage.TCP_REFRESH_MISS         Integer    TCP_REFRESH_MISS
+.13.8.[vhostMin]     requestHitAverage.TCP_CLIENT_REFRESH_MISS  Integer    TCP_CLIENT_REFRESH_MISS
+.13.9.[vhostMin]     requestHitAverage.TCP_DENIED               Integer    TCP_DENIED
+.13.10.[vhostMin]    requestHitAverage.TCP_ERROR                Integer    TCP_ERROR
+.13.11.[vhostMin]    requestHitAverage.TCP_REDIRECT_HIT         Integer    TCP_REDIRECT_HIT
+.14                  requestHitCount                            OID        캐시 HIT결과 개수
+.14.1.[vhostMin]     requestHitCount.TCP_HIT                    Integer    TCP_HIT
+.14.2.[vhostMin]     requestHitCount.TCP_IMS_HIT                Integer    TCP_IMS_HIT
+.14.3.[vhostMin]     requestHitCount.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT
+.14.4.[vhostMin]     requestHitCount.TCP_REF_FAIL_HIT           Integer    TCP_REF_FAIL_HIT
+.14.5.[vhostMin]     requestHitCount.TCP_NEGATIVE_HIT           Integer    TCP_NEGATIVE_HIT
+.14.6.[vhostMin]     requestHitCount.TCP_MISS                   Integer    TCP_MISS
+.14.7.[vhostMin]     requestHitCount.TCP_REFRESH_MISS           Integer    TCP_REFRESH_MISS
+.14.8.[vhostMin]     requestHitCount.TCP_CLIENT_REFRESH_MISS    Integer    TCP_CLIENT_REFRESH_MISS
+.14.9.[vhostMin]     requestHitCount.TCP_DENIED                 Integer    TCP_DENIED
+.14.10.[vhostMin]    requestHitCount.TCP_ERROR                  Integer    TCP_ERROR
+.14.11.[vhostMin]    requestHitCount.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT
+==================== ========================================== ========== =============================================================
+
+
+
+.. _snmp-cache-host-traffic-filesystem:
+
+cache.host.traffic.filesystem (1.3.6.1.4.1.40001.1.4.1.11.20)
+---------------------
+
+Host의 File I/O 통계를 제공한다.
+
+================== ============================================ ========== =============================================
+OID                Name                                         Type       Description                                  
+================== ============================================ ========== =============================================
+.1.[vhostMin]      requestHitRatio                              Integer    Request Hit Ratio(100%)                      
+.2.[vhostMin]                                                              Request Hit Ratio(10000%)                    
+.3.[vhostMin]      byteHitRatio                                 Integer    Byte Hit Ratio(100%)                         
+.4.[vhostMin]                                                              Byte Hit Ratio(10000%)                       
+.5.[vhostMin]      outbound                                     Integer    File I/O로 보내는 평균 트래픽 (Bytes)                 
+.6.[vhostMin]      session                                      Integer    File I/O를 진행 중인 평균 Thread개수                  
+.7                 requestHitAverage                            OID        평균 캐시 HIT결과                                  
+.7.1.[vhostMin]    requestHitAverage.TCP_HIT                    Integer    TCP_HIT                                      
+.7.2.[vhostMin]    requestHitAverage.TCP_IMS_HIT                Integer    TCP_IMS_HIT                                  
+.7.3.[vhostMin]    requestHitAverage.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT                              
+.7.4.[vhostMin]    requestHitAverage.TCP_REF_FAIL_HIT           Integer    TCP_REF_FAIL_HIT                             
+.7.5.[vhostMin]    requestHitAverage.TCP_NEGATIVE_HIT           Integer    TCP_NEGATIVE_HIT                             
+.7.6.[vhostMin]    requestHitAverage.TCP_MISS                   Integer    TCP_MISS                                     
+.7.7.[vhostMin]    requestHitAverage.TCP_REFRESH_MISS           Integer    TCP_REFRESH_MISS                             
+.7.8.[vhostMin]    requestHitAverage.TCP_CLIENT_REFRESH_MISS    Integer    TCP_CLIENT_REFRESH_MISS                      
+.7.9.[vhostMin]    requestHitAverage.TCP_DENIED                 Integer    TCP_DENIED                                   
+.7.10.[vhostMin]   requestHitAverage.TCP_ERROR                  Integer    TCP_ERROR                                    
+.7.11.[vhostMin]   requestHitAverage.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT                             
+.8                 requestHitCount                              OID        캐시 HIT결과 개수                                  
+.8.1.[vhostMin]    requestHitCount.TCP_HIT                      Integer    TCP_HIT                                      
+.8.2.[vhostMin]    requestHitCount.TCP_IMS_HIT                  Integer    TCP_IMS_HIT                                  
+.8.3.[vhostMin]    requestHitCount.TCP_REFRESH_HIT              Integer    TCP_REFRESH_HIT                              
+.8.4.[vhostMin]    requestHitCount.TCP_REF_FAIL_HIT             Integer    TCP_REF_FAIL_HIT                             
+.8.5.[vhostMin]    requestHitCount.TCP_NEGATIVE_HIT             Integer    TCP_NEGATIVE_HIT                             
+.8.6.[vhostMin]    requestHitCount.TCP_MISS                     Integer    TCP_MISS                                     
+.8.7.[vhostMin]    requestHitCount.TCP_REFRESH_MISS             Integer    TCP_REFRESH_MISS                             
+.8.8.[vhostMin]    requestHitCount.TCP_CLIENT_REFRESH_MISS      Integer    TCP_CLIENT_REFRESH_MISS                      
+.8.9.[vhostMin]    requestHitCount.TCP_DENIED                   Integer    TCP_DENIED                                   
+.8.10.[vhostMin]   requestHitCount.TCP_ERROR                    Integer    TCP_ERROR                                    
+.8.11.[vhostMin]   requestHitCount.TCP_REDIRECT_HIT             Integer    TCP_REDIRECT_HIT                             
+.10.[vhostMin]     getattr.filecount                            Integer    (getattr함수 호출) FILE로 응답한 회수                  
+.11.[vhostMin]     getattr.dircount                             Integer    (getattr함수 호출) DIR로 응답한 회수                   
+.12.[vhostMin]     getattr.failcount                            Integer    (getattr함수 호출) 실패로 응답한 회수                    
+.13.[vhostMin]     getattr.timeres                              Integer    (getattr함수 호출) 반응시간 (0.01ms)                 
+.14.[vhostMin]     open.count                                   Integer    open함수 호출 회수                                 
+.15.[vhostMin]     open.timeres                                 Integer    open함수 반응시간 (0.01ms)                         
+.16.[vhostMin]     read.count                                   Integer    read함수 호출 회수                                 
+.17.[vhostMin]     read.timeres                                 Integer    read함수 반응시간 (0.01ms)                         
+.18.[vhostMin]     read.buffersize                              Integer    read함수에서 요청된 버퍼 크기 (Bytes)                   
+.19.[vhostMin]     read.bufferfilled                            Integer    read함수에서 요청된 버퍼에 채운 크기 (Bytes)               
+================== ============================================ ========== =============================================
