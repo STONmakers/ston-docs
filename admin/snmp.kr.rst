@@ -243,7 +243,7 @@ meta.conf.7.[confIndex] Ver     String  설정할 때의 STON 버전
 system (1.3.6.1.4.1.40001.1.2)
 ====================================
 
-STON이 동작하는 시스템 정보를 제공한다. 
+STON이 동작하는 시스템 정보를 제공한다.
 [sysMin]변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
 SNMPWalk에서 [sysMin]은 0으로 설정되며 현재 정보를 제공한다.
 
@@ -292,3 +292,52 @@ system.42.[sysMin]  TCPSocket.Orphan.[globalMin]        Integer 아직 file hand
 system.43.[sysMin]  TCPSocket.Alloc.[globalMin]         Integer 할당된 TCP 연결
 system.44.[sysMin]  TCPSocket.Mem.[globalMin]           Integer undocumented
 =================== =================================== ======= ===============================================
+
+
+
+.. _snmp-meta-system-diskinfo:
+                                    
+system.diskInfo (1.3.6.1.4.1.40001.1.2.18.1)   
+====================================             
+
+디스크 정보를 제공한다.
+
+================================ ================== =========== =========================================
+OID                              Name               Type        Description
+================================ ================== =========== =========================================
+system.diskInfo.2.[diskIndex]    diskInfoPath       String      디스크 경로                                 
+system.diskInfo.3.[diskIndex]    diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
+system.diskInfo.4.[diskIndex]    diskInfoUseSize    Integer     디스크 사용량 (MB)                          
+system.diskInfo.5.[diskIndex]    diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
+system.diskInfo.6.[diskIndex]    diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
+system.diskInfo.7.[diskIndex]                                   디스크 사용률 (10000%)                                              
+system.diskInfo.8.[diskIndex]    diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
+================================ ================== =========== =========================================
+
+
+
+.. _snmp-meta-system-diskperf:
+                                    
+system.diskPerf (1.3.6.1.4.1.40001.1.2.19.1)
+====================================             
+
+디스크 성능상태를 제공한다.
+
+=========================================== =========================== ========== ===============================
+OID                                         Name                        Type       Description
+=========================================== =========================== ========== ===============================
+system.diskPerf.2.[diskMin].[diskIndex]     diskPerfReadCount           Integer    읽기 성공 횟수
+system.diskPerf.3.[diskMin].[diskIndex]     diskPerfReadMergedCount     Integer    읽기가 병합된 횟수
+system.diskPerf.4.[diskMin].[diskIndex]     diskPerfReadSectorsCount    Integer    읽은 섹터 수
+system.diskPerf.5.[diskMin].[diskIndex]     diskPerfReadTime            Integer    읽기 소요시간(ms)
+system.diskPerf.6.[diskMin].[diskIndex]     diskPerfWriteCount          Integer    쓰기 성공 횟수
+system.diskPerf.7.[diskMin].[diskIndex]     diskPerfWriteMergedCount    Integer    쓰기가 병합된 횟수
+system.diskPerf.8.[diskMin].[diskIndex]     diskPerfWriteSectorsCount   Integer    써진 섹터 수
+system.diskPerf.9.[diskMin].[diskIndex]     diskPerfWriteTime           Integer    쓰기 소요시간(ms)
+system.diskPerf.10.[diskMin].[diskIndex]    diskPerfIOProgressCount     Integer    진행 중인 IO개수
+system.diskPerf.11.[diskMin].[diskIndex]    diskPerfIOTime              Integer    IO 소요시간(ms)
+system.diskPerf.12.[diskMin].[diskIndex]    diskPerfIOTimeWeighted      Integer    IO 소요시간(ms, 가중치 적용)
+=========================================== =========================== ========== ===============================
+
+
+    
