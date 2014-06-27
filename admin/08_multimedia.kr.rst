@@ -130,7 +130,7 @@ lighttpd의 `Mod-H264-Streaming-Testing-Version2 <http://h264.code-shop.com/trac
 모두 **start** 를 QueryString으로 사용하고 있다.
 
 
-HTTP Live Streaming
+HLS (HTTP Live Streaming)
 -----------------------
 
 MP4파일을 HLS(HTTP Live Streaming)로 서비스한다. 
