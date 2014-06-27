@@ -222,16 +222,19 @@ meta.conf (1.3.6.1.4.1.40001.1.1.10)
 2인 경우는 이전 설정 값을 의미한다. 
 10 이라면 현재(1)로부터 9번째 이전의 설정을 의미한다.
 
-OID	Name	Type	Description
-meta.conf.1.[confIndex]	ID	Integer	설정 ID
-meta.conf.2.[confIndex]	Time	Integer	설정시간 (Unix 시간)
-meta.conf.3.[confIndex]	Type	Integer	설정형태
-                                0 = Unknown
-                                1 = STON 시작
-                                2 = /conf/reload
-                                3 = /conf/upload
-                                4 = /conf/restore
-meta.conf.4.[confIndex]	Size	Integer	설정파일 크기
-meta.conf.5.[confIndex]	Hash	String	설정파일 Hash문자열
-meta.conf.6.[confIndex]	Path	String	설정파일 저장경로
-meta.conf.7.[confIndex]	Ver     String	설정할 때의 STON 버전
+======================= ======= ======= =======================
+OID                     Name    Type    Description
+======================= ======= ======= =======================
+meta.conf.1.[confIndex] ID      Integer 설정 ID
+meta.conf.2.[confIndex] Time    Integer 설정시간 (Unix 시간)
+meta.conf.3.[confIndex] Type    Integer 설정형태
+                                        0 = Unknown
+                                        1 = STON 시작
+                                        2 = /conf/reload
+                                        3 = /conf/upload
+                                        4 = /conf/restore
+meta.conf.4.[confIndex] Size    Integer 설정파일 크기
+meta.conf.5.[confIndex] Hash    String  설정파일 Hash문자열
+meta.conf.6.[confIndex] Path    String  설정파일 저장경로
+meta.conf.7.[confIndex] Ver     String  설정할 때의 STON 버전
+======================= ======= ======= =======================
