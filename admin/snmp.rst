@@ -192,3 +192,22 @@ OID를 허용/차단할 경우 하위 모든 OID에 대해 같은 규칙이 적�
 
 
 
+.. _snmp-conf:
+
+Meta
+====================================
+
+메타정보를 제공한다.
+
+======= =========== ======= ===========================================
+OID     Name	    Type	Description
+======= =========== ======= ===========================================
+meta.1	manufacture	String	"WineSOFT Inc."
+meta.2	software	String	"STON"
+meta.3	version	    String	버전
+meta.4	hostname	String	호스트 이름
+meta.5	state	    String	"Healthy" 또는 "Inactive" 또는 "Emergency"
+meta.6	uptime	    Integer	실행시간 (초)
+meta.7	admin	    String	전역설정의 <Admin> ... </Admin>
+meta.10 Conf	    -	    Conf 확장
+======= =========== ======= ===========================================
