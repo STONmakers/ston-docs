@@ -24,9 +24,9 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
 설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다. 
 예를 들어 디스크는 여러개가 존재할 수 있다. 
 이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다. 
-이런 변수를 `` ``[diskIndex]`` `` 로 명시한다. 
+이런 변수를 ``[diskIndex]`` 로 명시한다. 
 
--  `` ``[diskIndex]`` `` 
+-  ``[diskIndex]``
 
    Storage에 설정된 디스크를 의미한다. ::
    
@@ -37,7 +37,7 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
       </Storage>
       
    위와 같이 3개의 디스크가 설정된 환경에서 /cache1의 
-   `` ``[diskIndex]`` `` 는 1, /cache3의 `` ``[diskIndex]`` `` 는 3을 가진다. 
+   ``[diskIndex]`` 는 1, /cache3의 ``[diskIndex]`` 는 3을 가진다. 
    예를 들어 /cache1의 전체용량에 해당하는 OID는 
    system.diskInfo.diskInfoTotalSize.1 
    (1.3.6.1.4.1.40001.1.2.18.1.3.1이 된다. 
@@ -305,13 +305,13 @@ system.diskInfo (1.3.6.1.4.1.40001.1.2.18.1)
 ======================= ================== =========== =========================================
 OID                     Name               Type        Description
 ======================= ================== =========== =========================================
-.2. `` ``[diskIndex]`` ``     diskInfoPath       String      디스크 경로                                 
-.3. `` ``[diskIndex]`` ``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
-.4. `` ``[diskIndex]`` ``     diskInfoUseSize    Integer     디스크 사용량 (MB)                          
-.5. `` ``[diskIndex]`` ``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
-.6. `` ``[diskIndex]`` ``     diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
-.7. `` ``[diskIndex]`` ``                                    디스크 사용률 (10000%)                                              
-.8. `` ``[diskIndex]`` ``     diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
+.2. ``[diskIndex]``     diskInfoPath       String      디스크 경로                                 
+.3. ``[diskIndex]``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
+.4. ``[diskIndex]``     diskInfoUseSize    Integer     디스크 사용량 (MB)                          
+.5. ``[diskIndex]``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
+.6. ``[diskIndex]``     diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
+.7. ``[diskIndex]``                                    디스크 사용률 (10000%)                                              
+.8. ``[diskIndex]``     diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
 ======================= ================== =========== =========================================
 
 
