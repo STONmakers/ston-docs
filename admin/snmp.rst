@@ -47,11 +47,11 @@ SNMP 변수
 
    가상호스트가 로딩될 때 자동으로 부여된다. ::
    
-   <Vhosts>
-      <Vhost Status="Active" Name="kim.com"> ... </Vhost>
-      <Vhost Status="Active" Name="lee.com"> ... </Vhost>
-      <Vhost Status="Active" Name="park.com" StaticIndex="10300"> ... </Vhost>
-   </Vhosts>
+      <Vhosts>
+         <Vhost Status="Active" Name="kim.com"> ... </Vhost>
+         <Vhost Status="Active" Name="lee.com"> ... </Vhost>
+         <Vhost Status="Active" Name="park.com" StaticIndex="10300"> ... </Vhost>
+      </Vhosts>
    
    최초 위와 같이 3개의 가상호스트가 로딩되면 1부터 순차적으로 [vhostIndex]가 부여된다. 
    이후 가상호스트는 [vhostIndex]를 기억하며, 가상호스트가 삭제되더라도 [vhostIndex]는 변하지 않는다. 
