@@ -209,7 +209,7 @@ meta.4    hostname      String    호스트 이름
 meta.5    state         String    "Healthy" 또는 "Inactive" 또는 "Emergency"
 meta.6    uptime        Integer   실행시간 (초)
 meta.7    admin         String    <Admin> ... </Admin>
-meta.10   Conf          +         Conf 확장
+meta.10   Conf          OID       Conf 확장
 ========= ============= ========= ===========================================
 
 
@@ -251,39 +251,39 @@ SNMPWalk에서 [sysMin]은 0으로 설정되며 현재 정보를 제공한다.
 OID                 Name                                Type    Description
 =================== =================================== ======= ===============================================
 system.1.[sysMin]   cpuTotal                            Integer 전체 CPU 사용률 (100%)
-system.2.[sysMin]                                       Integer 전체 CPU 사용률 (10000%)
+system.2.[sysMin]                                               전체 CPU 사용률 (10000%)
 system.3.[sysMin]   cpuKernel                           Integer	CPU(Kernel) 사용률 (100%)
-system.4.[sysMin]                                       Integer	CPU(Kernel) 사용률 (10000%)
+system.4.[sysMin]                                               CPU(Kernel) 사용률 (10000%)
 system.5.[sysMin]   cpuUser                             Integer CPU(User) 사용률 (100%)
-system.6.[sysMin]                                       Integer CPU(User) 사용률 (10000%)
+system.6.[sysMin]                                               CPU(User) 사용률 (10000%)
 system.7.[sysMin]   cpuIdle                             Integer CPU(Idle) 사용률 (100%)
-system.8.[sysMin]                                       Integer CPU(Idle) 사용률 (10000%)
+system.8.[sysMin]                                               CPU(Idle) 사용률 (10000%)
 system.9            memTotal                            Integer 시스템 전체 메모리 (KB)
 system.10.[sysMin]  memUse                              Integer 시스템 사용 메모리 (KB)
 system.11.[sysMin]  memFree                             Integer 시스템 여유 메모리 (KB)
 system.12.[sysMin]  memSTON                             Integer STON 사용 메모리 (KB)
 system.13.[sysMin]  memUseRatio                         Integer 시스템 메모리 사용률 (100%)
-system.14.[sysMin]                                      Integer 시스템 메모리 사용률 (10000%)
+system.14.[sysMin]                                              시스템 메모리 사용률 (10000%)
 system.15.[sysMin]  memSTONRatio                        Integer STON 메모리 사용률 (100%)
-system.16.[sysMin]                                      Integer STON 메모리 사용률 (10000%)
+system.16.[sysMin]                                              STON 메모리 사용률 (10000%)
 system.17           diskCount                           Integer disk개수
-system.18.1         diskInfo                            -       diskInfo확장
-system.19.1         diskPerf                            -       diskPerf확장
+system.18.1         diskInfo                            OID     diskInfo확장
+system.19.1         diskPerf                            OID     diskPerf확장
 system.20.[sysMin]  cpuProcKernel                       Integer STON이 사용하는 CPU(Kernel) 사용률 (100%)
-system.21.[sysMin]                                      Integer STON이 사용하는 CPU(Kernel) 사용률 (10000%)
+system.21.[sysMin]                                              STON이 사용하는 CPU(Kernel) 사용률 (10000%)
 system.22.[sysMin]  cpuProcUser                         Integer STON이 사용하는 CPU(User) 사용률 (100%)
-system.23.[sysMin]                                      Integer STON이 사용하는 CPU(User) 사용률 (10000%)
+system.23.[sysMin]                                              STON이 사용하는 CPU(User) 사용률 (10000%)
 system.24.[sysMin]  sysLoadAverage                      Integer System Load Average 1분 평균 (0.01)
-system.25.[sysMin]                                      Integer System Load Average 5분 평균 (0.01)
-system.26.[sysMin]                                      Integer System Load Average 15분 평균 (0.01)
+system.25.[sysMin]                                              System Load Average 5분 평균 (0.01)
+system.26.[sysMin]                                              System Load Average 15분 평균 (0.01)
 system.27.[sysMin]  cpuNice                             Integer CPU(Nice) (100%)
-system.28.[sysMin]                                      Integer CPU(Nice) (10000%)
+system.28.[sysMin]                                              CPU(Nice) (10000%)
 system.29.[sysMin]  cpuIOWait                           Integer CPU(IOWait) (100%)
-system.30.[sysMin]                                      Integer CPU(IOWait) (10000%)
+system.30.[sysMin]                                              CPU(IOWait) (10000%)
 system.31.[sysMin]  cpuIRQ                              Integer CPU(IRQ) (100%)
-system.32.[sysMin]                                      Integer CPU(IRQ) (10000%)
+system.32.[sysMin]                                              CPU(IRQ) (10000%)
 system.33.[sysMin]  cpuSoftIRQ                          Integer CPU(SoftIRQ) (100%)
-system.34.[sysMin]                                      Integer CPU(SoftIRQ) (10000%)
+system.34.[sysMin]                                              CPU(SoftIRQ) (10000%)
 system.35.[sysMin]  cpuSteal                            Integer CPU(Steal) (100%)
 system.36.[sysMin]  CPU(Steal)                          Integer (10000%)
 system.40.[sysMin]  TCPSocket.Established.[globalMin]   Integer Established상태의 TCP 연결개수
