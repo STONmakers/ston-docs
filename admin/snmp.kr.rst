@@ -202,11 +202,11 @@ meta
 ========= ============= ========= ===========================================
 OID       Name	        Type	  Description
 ========= ============= ========= ===========================================
-meta.1    manufacture   String	  "WineSOFT Inc."
-meta.2	  software	    String	  "STON"
+meta.1    manufacture   String	  WineSOFT Inc.
+meta.2	  software	    String	  STON
 meta.3	  version	    String	  버전
 meta.4	  hostname	    String	  호스트 이름
-meta.5	  state	        String	  "Healthy" 또는 "Inactive" 또는 "Emergency"
+meta.5	  state	        String	  Healthy 또는 Inactive 또는 Emergency
 meta.6	  uptime	    Integer	  실행시간 (초)
 meta.7	  admin	        String	  전역설정의 <Admin> ... </Admin>
 meta.10   Conf	        +	      Conf 확장
