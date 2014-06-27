@@ -24,6 +24,7 @@ Contents:
    09_filesystem.kr
    10_adv_topics.kr
    11_monitoring_stats.kr
+   snmp.kr
    12_log.kr
    13_wm.kr
 
