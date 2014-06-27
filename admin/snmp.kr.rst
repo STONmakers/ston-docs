@@ -24,9 +24,9 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
 설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다. 
 예를 들어 디스크는 여러개가 존재할 수 있다. 
 이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다. 
-이런 변수를 ``[diskIndex]`` 로 명시한다. 
+이런 변수를 `` ``[diskIndex]`` `` 로 명시한다. 
 
--  ``[diskIndex]`` 
+-  `` ``[diskIndex]`` `` 
 
    Storage에 설정된 디스크를 의미한다. ::
    
@@ -37,7 +37,7 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
       </Storage>
       
    위와 같이 3개의 디스크가 설정된 환경에서 /cache1의 
-   ``[diskIndex]`` 는 1, /cache3의 ``[diskIndex]`` 는 3을 가진다. 
+   `` ``[diskIndex]`` `` 는 1, /cache3의 `` ``[diskIndex]`` `` 는 3을 가진다. 
    예를 들어 /cache1의 전체용량에 해당하는 OID는 
    system.diskInfo.diskInfoTotalSize.1 
    (1.3.6.1.4.1.40001.1.2.18.1.3.1이 된다. 
@@ -224,9 +224,9 @@ meta.conf (1.3.6.1.4.1.40001.1.1.10)
 2인 경우는 이전 설정 값을 의미한다. 
 10 이라면 현재(1)로부터 9번째 이전의 설정을 의미한다.
 
-============== ======= ======= =============================================================================================
-OID            Name    Type    Description
-============== ======= ======= =============================================================================================
+==================== ======= ======= =============================================================================================
+OID                  Name    Type    Description
+==================== ======= ======= =============================================================================================
 .1. ``[confIndex]``  ID      Integer 설정 ID
 .2. ``[confIndex]``  Time    Integer 설정시간 (Unix 시간)
 .3. ``[confIndex]``  Type    Integer 설정형태 (0 = Unknown, 1 = STON 시작, 2 = /conf/reload, 3 = /conf/upload, 4 = /conf/restore)
@@ -234,7 +234,7 @@ OID            Name    Type    Description
 .5. ``[confIndex]``  Hash    String  설정파일 Hash문자열
 .6. ``[confIndex]``  Path    String  설정파일 저장경로
 .7. ``[confIndex]``  Ver     String  설정할 때의 STON 버전
-============== ======= ======= =============================================================================================
+==================== ======= ======= =============================================================================================
 
 
 
@@ -247,51 +247,51 @@ STON이 동작하는 시스템 정보를 제공한다.
  ``[sysMin]`` 변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
 SNMPWalk에서  ``[sysMin]`` 은 0으로 설정되며 현재 정보를 제공한다.
 
-============= =================================== ======= ===============================================
-OID           Name                                Type    Description
-============= =================================== ======= ===============================================
-.1. ``[sysMin]``    cpuTotal                            Integer 전체 CPU 사용률 (100%)
-.2. ``[sysMin]``                                                전체 CPU 사용률 (10000%)
-.3. ``[sysMin]``    cpuKernel                           Integer	CPU(Kernel) 사용률 (100%)
-.4. ``[sysMin]``                                                CPU(Kernel) 사용률 (10000%)
-.5. ``[sysMin]``    cpuUser                             Integer CPU(User) 사용률 (100%)
-.6. ``[sysMin]``                                                CPU(User) 사용률 (10000%)
-.7. ``[sysMin]``    cpuIdle                             Integer CPU(Idle) 사용률 (100%)
-.8. ``[sysMin]``                                                CPU(Idle) 사용률 (10000%)
-.9            memTotal                            Integer 시스템 전체 메모리 (KB)
-.10. ``[sysMin]``   memUse                              Integer 시스템 사용 메모리 (KB)
-.11. ``[sysMin]``   memFree                             Integer 시스템 여유 메모리 (KB)
-.12. ``[sysMin]``   memSTON                             Integer STON 사용 메모리 (KB)
-.13. ``[sysMin]``   memUseRatio                         Integer 시스템 메모리 사용률 (100%)
-.14. ``[sysMin]``                                               시스템 메모리 사용률 (10000%)
-.15. ``[sysMin]``   memSTONRatio                        Integer STON 메모리 사용률 (100%)
-.16. ``[sysMin]``                                               STON 메모리 사용률 (10000%)
-.17           diskCount                           Integer disk개수
-.18.1         diskInfo                            OID     diskInfo확장
-.19.1         diskPerf                            OID     diskPerf확장
-.20. ``[sysMin]``   cpuProcKernel                       Integer STON이 사용하는 CPU(Kernel) 사용률 (100%)
-.21. ``[sysMin]``                                               STON이 사용하는 CPU(Kernel) 사용률 (10000%)
-.22. ``[sysMin]``   cpuProcUser                         Integer STON이 사용하는 CPU(User) 사용률 (100%)
-.23. ``[sysMin]``                                               STON이 사용하는 CPU(User) 사용률 (10000%)
-.24. ``[sysMin]``   sysLoadAverage                      Integer  Load Average 1분 평균 (0.01)
-.25. ``[sysMin]``                                                Load Average 5분 평균 (0.01)
-.26. ``[sysMin]``                                                Load Average 15분 평균 (0.01)
-.27. ``[sysMin]``   cpuNice                             Integer CPU(Nice) (100%)
-.28. ``[sysMin]``                                               CPU(Nice) (10000%)
-.29. ``[sysMin]``   cpuIOWait                           Integer CPU(IOWait) (100%)
-.30. ``[sysMin]``                                               CPU(IOWait) (10000%)
-.31. ``[sysMin]``   cpuIRQ                              Integer CPU(IRQ) (100%)
-.32. ``[sysMin]``                                               CPU(IRQ) (10000%)
-.33. ``[sysMin]``   cpuSoftIRQ                          Integer CPU(SoftIRQ) (100%)
-.34. ``[sysMin]``                                               CPU(SoftIRQ) (10000%)
-.35. ``[sysMin]``   cpuSteal                            Integer CPU(Steal) (100%)
-.36. ``[sysMin]``   CPU(Steal)                          Integer (10000%)
+=================== ========================================= ======= ===============================================
+OID                 Name                                      Type    Description
+=================== ========================================= ======= ===============================================
+.1. ``[sysMin]``    cpuTotal                                  Integer 전체 CPU 사용률 (100%)
+.2. ``[sysMin]``                                                      전체 CPU 사용률 (10000%)
+.3. ``[sysMin]``    cpuKernel                                 Integer	CPU(Kernel) 사용률 (100%)
+.4. ``[sysMin]``                                                      CPU(Kernel) 사용률 (10000%)
+.5. ``[sysMin]``    cpuUser                                   Integer CPU(User) 사용률 (100%)
+.6. ``[sysMin]``                                                      CPU(User) 사용률 (10000%)
+.7. ``[sysMin]``    cpuIdle                                   Integer CPU(Idle) 사용률 (100%)
+.8. ``[sysMin]``                                                      CPU(Idle) 사용률 (10000%)
+.9                  memTotal                                  Integer 시스템 전체 메모리 (KB)
+.10. ``[sysMin]``   memUse                                    Integer 시스템 사용 메모리 (KB)
+.11. ``[sysMin]``   memFree                                   Integer 시스템 여유 메모리 (KB)
+.12. ``[sysMin]``   memSTON                                   Integer STON 사용 메모리 (KB)
+.13. ``[sysMin]``   memUseRatio                               Integer 시스템 메모리 사용률 (100%)
+.14. ``[sysMin]``                                                     시스템 메모리 사용률 (10000%)
+.15. ``[sysMin]``   memSTONRatio                              Integer STON 메모리 사용률 (100%)
+.16. ``[sysMin]``                                                     STON 메모리 사용률 (10000%)
+.17                 diskCount                                 Integer disk개수
+.18.1               diskInfo                                  OID     diskInfo확장
+.19.1               diskPerf                                  OID     diskPerf확장
+.20. ``[sysMin]``   cpuProcKernel                             Integer STON이 사용하는 CPU(Kernel) 사용률 (100%)
+.21. ``[sysMin]``                                                     STON이 사용하는 CPU(Kernel) 사용률 (10000%)
+.22. ``[sysMin]``   cpuProcUser                               Integer STON이 사용하는 CPU(User) 사용률 (100%)
+.23. ``[sysMin]``                                                     STON이 사용하는 CPU(User) 사용률 (10000%)
+.24. ``[sysMin]``   sysLoadAverage                            Integer Load Average 1분 평균 (0.01)
+.25. ``[sysMin]``                                                     Load Average 5분 평균 (0.01)
+.26. ``[sysMin]``                                                     Load Average 15분 평균 (0.01)
+.27. ``[sysMin]``   cpuNice                                   Integer CPU(Nice) (100%)
+.28. ``[sysMin]``                                                     CPU(Nice) (10000%)
+.29. ``[sysMin]``   cpuIOWait                                 Integer CPU(IOWait) (100%)
+.30. ``[sysMin]``                                                     CPU(IOWait) (10000%)
+.31. ``[sysMin]``   cpuIRQ                                    Integer CPU(IRQ) (100%)
+.32. ``[sysMin]``                                                     CPU(IRQ) (10000%)
+.33. ``[sysMin]``   cpuSoftIRQ                                Integer CPU(SoftIRQ) (100%)
+.34. ``[sysMin]``                                                     CPU(SoftIRQ) (10000%)
+.35. ``[sysMin]``   cpuSteal                                  Integer CPU(Steal) (100%)
+.36. ``[sysMin]``   CPU(Steal)                                Integer (10000%)
 .40. ``[sysMin]``   TCPSocket.Established. ``[globalMin]``    Integer Established상태의 TCP 연결개수
 .41. ``[sysMin]``   TCPSocket.Timewait. ``[globalMin]``       Integer TIME_WAIT 상태의 TCP 연결개수
 .42. ``[sysMin]``   TCPSocket.Orphan. ``[globalMin]``         Integer 아직 file handle에 attach되지 않은 TCP 연결
 .43. ``[sysMin]``   TCPSocket.Alloc. ``[globalMin]``          Integer 할당된 TCP 연결
 .44. ``[sysMin]``   TCPSocket.Mem. ``[globalMin]``            Integer undocumented
-============= =================================== ======= ===============================================
+=================== ========================================= ======= ===============================================
 
 
 
@@ -305,13 +305,13 @@ system.diskInfo (1.3.6.1.4.1.40001.1.2.18.1)
 ======================= ================== =========== =========================================
 OID                     Name               Type        Description
 ======================= ================== =========== =========================================
-.2. ``[diskIndex]``     diskInfoPath       String      디스크 경로                                 
-.3. ``[diskIndex]``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
-.4. ``[diskIndex]``     diskInfoUseSize    Integer     디스크 사용량 (MB)                          
-.5. ``[diskIndex]``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
-.6. ``[diskIndex]``     diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
-.7. ``[diskIndex]``                                    디스크 사용률 (10000%)                                              
-.8. ``[diskIndex]``     diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
+.2. `` ``[diskIndex]`` ``     diskInfoPath       String      디스크 경로                                 
+.3. `` ``[diskIndex]`` ``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
+.4. `` ``[diskIndex]`` ``     diskInfoUseSize    Integer     디스크 사용량 (MB)                          
+.5. `` ``[diskIndex]`` ``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
+.6. `` ``[diskIndex]`` ``     diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
+.7. `` ``[diskIndex]`` ``                                    디스크 사용률 (10000%)                                              
+.8. `` ``[diskIndex]`` ``     diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
 ======================= ================== =========== =========================================
 
 
@@ -323,21 +323,21 @@ system.diskPerf (1.3.6.1.4.1.40001.1.2.19.1)
 
 디스크 성능상태를 제공한다.
 
-============================ =========================== ========== ===============================
-OID                          Name                        Type       Description
-============================ =========================== ========== ===============================
-.2. ``[diskMin]`` .[diskIndex]     diskPerfReadCount           Integer    읽기 성공 횟수
-.3. ``[diskMin]`` .[diskIndex]     diskPerfReadMergedCount     Integer    읽기가 병합된 횟수
-.4. ``[diskMin]`` .[diskIndex]     diskPerfReadSectorsCount    Integer    읽은 섹터 수
-.5. ``[diskMin]`` .[diskIndex]     diskPerfReadTime            Integer    읽기 소요시간(ms)
-.6. ``[diskMin]`` .[diskIndex]     diskPerfWriteCount          Integer    쓰기 성공 횟수
-.7. ``[diskMin]`` .[diskIndex]     diskPerfWriteMergedCount    Integer    쓰기가 병합된 횟수
-.8. ``[diskMin]`` .[diskIndex]     diskPerfWriteSectorsCount   Integer    써진 섹터 수
-.9. ``[diskMin]`` .[diskIndex]     diskPerfWriteTime           Integer    쓰기 소요시간(ms)
-.10. ``[diskMin]`` .[diskIndex]    diskPerfIOProgressCount     Integer    진행 중인 IO개수
-.11. ``[diskMin]`` .[diskIndex]    diskPerfIOTime              Integer    IO 소요시간(ms)
-.12. ``[diskMin]`` .[diskIndex]    diskPerfIOTimeWeighted      Integer    IO 소요시간(ms, 가중치 적용)
-============================ =========================== ========== ===============================
+======================================== =========================== ========== ===============================
+OID                                      Name                        Type       Description
+======================================== =========================== ========== ===============================
+.2. ``[diskMin]`` . ``[diskIndex]``      diskPerfReadCount           Integer    읽기 성공 횟수
+.3. ``[diskMin]`` . ``[diskIndex]``      diskPerfReadMergedCount     Integer    읽기가 병합된 횟수
+.4. ``[diskMin]`` . ``[diskIndex]``      diskPerfReadSectorsCount    Integer    읽은 섹터 수
+.5. ``[diskMin]`` . ``[diskIndex]``      diskPerfReadTime            Integer    읽기 소요시간(ms)
+.6. ``[diskMin]`` . ``[diskIndex]``      diskPerfWriteCount          Integer    쓰기 성공 횟수
+.7. ``[diskMin]`` . ``[diskIndex]``      diskPerfWriteMergedCount    Integer    쓰기가 병합된 횟수
+.8. ``[diskMin]`` . ``[diskIndex]``      diskPerfWriteSectorsCount   Integer    써진 섹터 수
+.9. ``[diskMin]`` . ``[diskIndex]``      diskPerfWriteTime           Integer    쓰기 소요시간(ms)
+.10. ``[diskMin]`` . ``[diskIndex]``     diskPerfIOProgressCount     Integer    진행 중인 IO개수
+.11. ``[diskMin]`` . ``[diskIndex]``     diskPerfIOTime              Integer    IO 소요시간(ms)
+.12. ``[diskMin]`` . ``[diskIndex]``     diskPerfIOTimeWeighted      Integer    IO 소요시간(ms, 가중치 적용)
+======================================== =========================== ========== ===============================
 
 
 
@@ -356,23 +356,23 @@ STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이�
 
    STON ~ 원본서버구간. STON이 원본서버로 요청을 보내는 용도로 사용하는 소켓
 
-===== ===================================== ========== ==================================================   
-OID   Name                                  Type       Description
-===== ===================================== ========== ==================================================
-.5    EQ.[Min]                              Integer    STON Framework에서 아직 처리되지 않은 Event개수
-.6    RQ.[Min]                              Integer    최근 서비스된 컨텐츠 참조 큐에 저장된 Event 개수
-.7    waitingFiles2Write.[Min]              Integer    쓰기대기 중인 파일개수
-.10   ServerSocket.Total.[Min]              Integer    전체 서버소켓 수
-.11   ServerSocket.Established.[Min]        Integer    연결된 상태의 서버소켓 수
-.12   ServerSocket.Accepted.[Min]           Integer    새롭게 연결된 서버소켓 수
-.13   ServerSocket.Closed.[Min]             Integer    연결이 종료된 서버소켓 수
-.20   ClientSocket.Total.[Min]              Integer    전체 클라이언트소켓 수
+===== =========================================== ========== ==================================================
+OID   Name                                        Type       Description
+===== =========================================== ========== ==================================================
+.5    EQ. ``[globalMin]``                         Integer    STON Framework에서 아직 처리되지 않은 Event개수
+.6    RQ. ``[globalMin]``                         Integer    최근 서비스된 컨텐츠 참조 큐에 저장된 Event 개수
+.7    waitingFiles2Write. ``[globalMin]``         Integer    쓰기대기 중인 파일개수
+.10   ServerSocket.Total. ``[globalMin]``         Integer    전체 서버소켓 수
+.11   ServerSocket.Established. ``[globalMin]``   Integer    연결된 상태의 서버소켓 수
+.12   ServerSocket.Accepted. ``[globalMin]``      Integer    새롭게 연결된 서버소켓 수
+.13   ServerSocket.Closed. ``[globalMin]``        Integer    연결이 종료된 서버소켓 수
+.20   ClientSocket.Total. ``[globalMin]``         Integer    전체 클라이언트소켓 수
 .21   ClientSocket.Established. ``[globalMin]``   Integer    연결된 상태의 클라이언트소켓 수
 .22   ClientSocket.Accepted. ``[globalMin]``      Integer    새롭게 연결된 클라이언트소켓 수
 .23   ClientSocket.Closed. ``[globalMin]``        Integer    연결이 종료된 클라이언트소켓 수
 .30   ServiceAccess.Allow. ``[globalMin]``        Integer    ServiceAccess에 의해 허가(Allow)된 소켓 수
 .31   ServiceAccess.Deny. ``[globalMin]``         Integer    ServiceAccess에 의해 거부(Deny)된 소켓 수
-===== ===================================== ========== ==================================================
+===== =========================================== ========== ==================================================
 
 
 
@@ -456,16 +456,16 @@ traffic의 모든 통계는 최대 60분까지의 평균으로 제공한다.
 min은 '분'을 의미하며 최대 60까지의 값을 가진다. 
 min이 생략되거나 0이라면 실시간정보를 제공한다.
 
-=============== =============== ======= ==============================
-OID             Name            Type    Description
-=============== =============== ======= ==============================
+===================== =============== ======= ==============================
+OID                   Name            Type    Description
+===================== =============== ======= ==============================
 .1. ``[vhostMin]``    requestHitRatio Integer Request Hit Ratio(100%)
 .2. ``[vhostMin]``                            Request Hit Ratio(10000%)
 .3. ``[vhostMin]``    bytesHitRatio   Integer Bytes Hit Ratio(100%)
 .4. ``[vhostMin]``                            Bytes Hit Ratio(10000%)
-.10             origin          OID     원본 트래픽 정보 (확장)
-.11             client          OID     클라이언트 트래픽 정보 (확장)
-=============== =============== ======= ==============================
+.10                   origin          OID     원본 트래픽 정보 (확장)
+.11                   client          OID     클라이언트 트래픽 정보 (확장)
+===================== =============== ======= ==============================
 
 
 
@@ -477,14 +477,14 @@ cache.host.traffic.origin (1.3.6.1.4.1.40001.1.4.1.11.10)
 원본서버 트래픽 통계를 제공한다. 
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분한다.
 
-==================== =================================== ========== ===================================================================
-OID                  Name                                Type       Description
-==================== =================================== ========== ===================================================================
+========================== =================================== ========== ===================================================================
+OID                        Name                                Type       Description
+========================== =================================== ========== ===================================================================
 .1. ``[vhostMin]``         inbound                             Integer    원본서버로부터 받는 평균 트래픽(Bytes)
 .2. ``[vhostMin]``         outbound                            Integer    원본서버로 보내는 평균 트래픽(Bytes)
 .3. ``[vhostMin]``         sessionAverage                      Integer    전체 원본서버 평균 세션수
 .4. ``[vhostMin]``         activesessionAverage                Integer    전체 원본서버 세션수 중 전송 중인 평균 세션수
-.10                  http                                OID        원본서버 HTTP 트래픽 정보
+.10                        http                                OID        원본서버 HTTP 트래픽 정보
 .10.1. ``[vhostMin]``      http.inbound                        Integer    원본서버로부터 받는 평균 HTTP 트래픽(Bytes)
 .10.2. ``[vhostMin]``      http.outbound                       Integer    원본서버로 보내는 평균 HTTP 트래픽(Bytes)
 .10.3. ``[vhostMin]``      http.sessionAverage                 Integer    원본서버 평균 HTTP세션 수
@@ -534,7 +534,7 @@ OID                  Name                                Type       Description
 .10.67. ``[vhostMin]``     http.connectCount                   Integer    원본서버 접속성공 횟수
 .10.68. ``[vhostMin]``     http.closeAverage                   Integer    전송 중 원본서버에서 먼저 소켓을 종료한 평균 횟수
 .10.69. ``[vhostMin]``     http.closeCount                     Integer    전송 중 원본서버에서 먼저 소켓을 종료한 횟수
-.11                  portbypass                          OID        Port바이패스 원본서버 트래픽 정보
+.11                        portbypass                          OID        Port바이패스 원본서버 트래픽 정보
 .11.1. ``[vhostMin]``      portbypass.inbound                  Integer    Port바이패스를 통해 원본서버로부터 받는 평균 트래픽(Bytes)
 .11.2. ``[vhostMin]``      portbypass.outbound                 Integer    Port바이패스를 통해 원본서버로 보내는 평균 트래픽(Bytes)
 .11.3. ``[vhostMin]``      portbypass.sessionAverage           Integer    Port바이패스 중인 평균 원본서버 세션 수
@@ -542,7 +542,7 @@ OID                  Name                                Type       Description
 .11.5. ``[vhostMin]``      portbypass.connectTimeoutAverage    Integer    Port바이패스 원본서버 평균 접속실패 횟수
 .11.6. ``[vhostMin]``      portbypass.closedCount              Integer    Port바이패스 중 원본서버가 연결을 종료한 횟수
 .11.7. ``[vhostMin]``      portbypass.connectTimeoutCount      Integer    Port바이패스 원본서버 접속실패 횟수
-==================== =================================== ========== ===================================================================
+========================== =================================== ========== ===================================================================
 
 
 
@@ -556,14 +556,14 @@ cache.host.traffic.client (1.3.6.1.4.1.40001.1.4.1.11.11)
 SNMP에서는 디렉토리별 통계를 제공하지 않는다. 
 설령 디렉토리 통계가 설정되어 있다고 하더라도 합산되어 제공한다.
 
-==================== ========================================== ========== =============================================================
-OID                  Name                                       Type       Description
-==================== ========================================== ========== =============================================================
+========================== ========================================== ========== =============================================================
+OID                        Name                                       Type       Description
+========================== ========================================== ========== =============================================================
 .1. ``[vhostMin]``         inbound                                    Integer    클라이언트로부터 받는 평균 트래픽(Bytes)
 .2. ``[vhostMin]``         outbound                                   Integer    클라이언트로 보내는 평균 트래픽(Bytes)
 .3. ``[vhostMin]``         sessionAverage                             Integer    전체 클라이언트 평균 세션수
 .4. ``[vhostMin]``         activesessionAverage                       Integer    전체 클라이언트 중 전송 중인 평균 세션수
-.10                  http                                       OID        클라이언트 HTTP 트래픽 정보
+.10                        http                                       OID        클라이언트 HTTP 트래픽 정보
 .10.1. ``[vhostMin]``      http.inbound                               Integer    클라이언트로부터 받는 평균 HTTP 트래픽(Bytes)
 .10.2. ``[vhostMin]``      http.outbound                              Integer    클라이언트로 보내는 평균 HTTP 트래픽(Bytes)
 .10.3. ``[vhostMin]``      http.sessionAverage                        Integer    클라이언트 평균 HTTP세션 수
@@ -605,16 +605,16 @@ OID                  Name                                       Type       Descr
 .10.55. ``[vhostMin]``     http.res5xxCompleteCount                   Integer    클라이언트가 완료한 5xx트랜잭션 개수
 .10.60. ``[vhostMin]``     http.reqDeniedAverage                      Integer    차단된 요청 평균
 .10.61. ``[vhostMin]``     http.reqDeniedCount                        Integer    차단된 요청 개수
-.11                  portbypass                                 OID        Port바이패스 클라이언트 트래픽 정보
+.11                        portbypass                                 OID        Port바이패스 클라이언트 트래픽 정보
 .11.1. ``[vhostMin]``      portbypass.inbound                         Integer    Port바이패스를 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
 .11.2. ``[vhostMin]``      portbypass.outbound                        Integer    Port바이패스를 통해 클라이언트로 보내는 평균 트래픽(Bytes)
 .11.3. ``[vhostMin]``      portbypass.sessionAverage                  Integer    Port바이패스 중인 클라이언트 평균 세션 수
 .11.4. ``[vhostMin]``      portbypass.closedAverage                   Integer    Port바이패스 중 클라이언트가 연결을 종료한 평균 횟수
 .11.5. ``[vhostMin]``      portbypass.closedCount                     Integer    Port바이패스 중 클라이언트가 연결을 종료한 횟수
-.12                  ssl                                        OID        SSL 클라이언트 트래픽 정보
+.12                        ssl                                        OID        SSL 클라이언트 트래픽 정보
 .12.2. ``[vhostMin]``      ssl.inbound                                Integer    SSL을 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
 .12.3. ``[vhostMin]``      ssl.outbound                               Integer    SSL을 통해 클라이언트로 보내는 평균 트래픽(Bytes)
-.13                  requestHitAverage                          OID        평균 캐시 HIT결과
+.13                        requestHitAverage                          OID        평균 캐시 HIT결과
 .13.1. ``[vhostMin]``      requestHitAverage.TCP_HIT                  Integer    TCP_HIT
 .13.2. ``[vhostMin]``      requestHitAverage.TCP_IMS_HIT              Integer    TCP_IMS_HIT
 .13.3. ``[vhostMin]``      requestHitAverage.TCP_REFRESH_HIT          Integer    TCP_REFRESH_HIT
@@ -626,7 +626,7 @@ OID                  Name                                       Type       Descr
 .13.9. ``[vhostMin]``      requestHitAverage.TCP_DENIED               Integer    TCP_DENIED
 .13.10. ``[vhostMin]``     requestHitAverage.TCP_ERROR                Integer    TCP_ERROR
 .13.11. ``[vhostMin]``     requestHitAverage.TCP_REDIRECT_HIT         Integer    TCP_REDIRECT_HIT
-.14                  requestHitCount                            OID        캐시 HIT결과 개수
+.14                        requestHitCount                            OID        캐시 HIT결과 개수
 .14.1. ``[vhostMin]``      requestHitCount.TCP_HIT                    Integer    TCP_HIT
 .14.2. ``[vhostMin]``      requestHitCount.TCP_IMS_HIT                Integer    TCP_IMS_HIT
 .14.3. ``[vhostMin]``      requestHitCount.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT
@@ -638,7 +638,7 @@ OID                  Name                                       Type       Descr
 .14.9. ``[vhostMin]``      requestHitCount.TCP_DENIED                 Integer    TCP_DENIED
 .14.10. ``[vhostMin]``     requestHitCount.TCP_ERROR                  Integer    TCP_ERROR
 .14.11. ``[vhostMin]``     requestHitCount.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT
-==================== ========================================== ========== =============================================================
+========================== ========================================== ========== =============================================================
 
 
 
@@ -649,16 +649,16 @@ cache.host.traffic.filesystem (1.3.6.1.4.1.40001.1.4.1.11.20)
 
 Host의 File I/O 통계를 제공한다.
 
-================== ============================================ ========== =============================================
-OID                Name                                         Type       Description                                  
-================== ============================================ ========== =============================================
+======================== ============================================ ========== =============================================
+OID                      Name                                         Type       Description                                  
+======================== ============================================ ========== =============================================
 .1. ``[vhostMin]``       requestHitRatio                              Integer    Request Hit Ratio(100%)                      
 .2. ``[vhostMin]``                                                               Request Hit Ratio(10000%)                    
 .3. ``[vhostMin]``       byteHitRatio                                 Integer    Byte Hit Ratio(100%)                         
 .4. ``[vhostMin]``                                                               Byte Hit Ratio(10000%)                       
 .5. ``[vhostMin]``       outbound                                     Integer    File I/O로 보내는 평균 트래픽 (Bytes)                 
 .6. ``[vhostMin]``       session                                      Integer    File I/O를 진행 중인 평균 Thread개수                  
-.7                 requestHitAverage                            OID        평균 캐시 HIT결과                                  
+.7                       requestHitAverage                            OID        평균 캐시 HIT결과                                  
 .7.1. ``[vhostMin]``     requestHitAverage.TCP_HIT                    Integer    TCP_HIT                                      
 .7.2. ``[vhostMin]``     requestHitAverage.TCP_IMS_HIT                Integer    TCP_IMS_HIT                                  
 .7.3. ``[vhostMin]``     requestHitAverage.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT                              
@@ -670,7 +670,7 @@ OID                Name                                         Type       Descr
 .7.9. ``[vhostMin]``     requestHitAverage.TCP_DENIED                 Integer    TCP_DENIED                                   
 .7.10. ``[vhostMin]``    requestHitAverage.TCP_ERROR                  Integer    TCP_ERROR                                    
 .7.11. ``[vhostMin]``    requestHitAverage.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT                             
-.8                 requestHitCount                              OID        캐시 HIT결과 개수                                  
+.8                       requestHitCount                              OID        캐시 HIT결과 개수                                  
 .8.1. ``[vhostMin]``     requestHitCount.TCP_HIT                      Integer    TCP_HIT                                      
 .8.2. ``[vhostMin]``     requestHitCount.TCP_IMS_HIT                  Integer    TCP_IMS_HIT                                  
 .8.3. ``[vhostMin]``     requestHitCount.TCP_REFRESH_HIT              Integer    TCP_REFRESH_HIT                              
@@ -692,7 +692,7 @@ OID                Name                                         Type       Descr
 .17. ``[vhostMin]``      read.timeres                                 Integer    read함수 반응시간 (0.01ms)                         
 .18. ``[vhostMin]``      read.buffersize                              Integer    read함수에서 요청된 버퍼 크기 (Bytes)                   
 .19. ``[vhostMin]``      read.bufferfilled                            Integer    read함수에서 요청된 버퍼에 채운 크기 (Bytes)               
-================== ============================================ ========== =============================================
+======================== ============================================ ========== =============================================
 
 
 
@@ -703,15 +703,15 @@ cache.vhost (1.3.6.1.4.1.40001.1.4.3.1)
 
 가상호스트의 정보를 제공한다.  ``[vhostIndex]`` 는 1부터 가상호스트 개수의 범위를 가진다.
 
-================== ========= ========== ============================================
-OID                Name      Type       Description
-================== ========= ========== ============================================
-.2. ``[vhostIndex]``     name      String     가상호스트 이름
-.3. ``[vhostIndex]``     status    String     "Healthy" 또는 "Inactive" 또는 "Emergency"
-.4. ``[vhostIndex]``     uptime    Integer    가상호스트 실행시간 (초)
-.10                contents  OID        컨텐츠 정보 (확장)
-.11                traffic   OID        통계 (확장)
-================== ========= ========== ============================================
+======================= ========= ========== ============================================
+OID                     Name      Type       Description
+======================= ========= ========== ============================================
+.2. ``[vhostIndex]``    name      String     가상호스트 이름
+.3. ``[vhostIndex]``    status    String     "Healthy" 또는 "Inactive" 또는 "Emergency"
+.4. ``[vhostIndex]``    uptime    Integer    가상호스트 실행시간 (초)
+.10                     contents  OID        컨텐츠 정보 (확장)
+.11                     traffic   OID        통계 (확장)
+======================= ========= ========== ============================================
 
 
 
@@ -722,9 +722,9 @@ cache.vhost.contents (1.3.6.1.4.1.40001.1.4.3.1.10)
 
 가상호스트가 서비스하는 컨텐츠 통계를 제공한다.
 
-=================== =================== ========== =============================
-OID                 Name                Type       Description
-=================== =================== ========== =============================
+========================= =================== ========== =============================
+OID                       Name                Type       Description
+========================= =================== ========== =============================
 .1. ``[vhostIndex]``      memory              Integer    메모리 캐싱 크기(KB)
 .2. ``[vhostIndex]``      filesTotalCount     Integer    서비스 중인 파일개수
 .3. ``[vhostIndex]``      filesTotalSize      Integer    서비스 중인 전체 파일량(MB)
@@ -741,7 +741,7 @@ OID                 Name                Type       Description
 .20. ``[vhostIndex]``     filesCountU1GB      Integer    1GB미만 파일개수
 .21. ``[vhostIndex]``     filesCountU4GB      Integer    4GB미만 파일개수
 .22. ``[vhostIndex]``     filesCountO4GB      Integer    4GB이상 파일개수
-=================== =================== ========== =============================
+========================= =================== ========== =============================
 
 
 
@@ -755,16 +755,16 @@ traffic의 모든 통계는 최대 60분까지의 평균으로 제공된다.
 min은 '분'을 의미하며 최대 60까지의 값을 가진다. 
 min이 생략되거나 0이라면 실시간정보를 제공한다.
 
-============================= ================= =========== ==============================
-OID                           Name              Type        Description
-============================= ================= =========== ==============================
+========================================= ================= =========== ==============================
+OID                                       Name              Type        Description
+========================================= ================= =========== ==============================
 .1. ``[vhostMin]`` . ``[vhostIndex]``     requestHitRatio   Integer     Request Hit Ratio(100%)
 .2. ``[vhostMin]`` . ``[vhostIndex]``                                   Request Hit Ratio(10000%)
 .3. ``[vhostMin]`` . ``[vhostIndex]``     bytesHitRatio     Integer     Bytes Hit Ratio(100%)
 .4. ``[vhostMin]`` . ``[vhostIndex]``                                   Bytes Hit Ratio(10000%)
-.10                           origin            OID         원본 트래픽 정보 (확장)
-.11                           client            OID         클라이언트 트래픽 정보 (확장)
-============================= ================= =========== ==============================
+.10                                       origin            OID         원본 트래픽 정보 (확장)
+.11                                       client            OID         클라이언트 트래픽 정보 (확장)
+========================================= ================= =========== ==============================
 
 
 
@@ -776,14 +776,14 @@ cache.vhost.traffic.origin (1.3.6.1.4.1.40001.1.4.3.1.11.10)
 원본서버 트래픽 통계를 제공한다. 
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분된다.
 
-================================= ===================================== ========== =================================================================
-OID                               Name                                  Type       Description
-================================= ===================================== ========== =================================================================
+============================================= ===================================== ========== =================================================================
+OID                                           Name                                  Type       Description
+============================================= ===================================== ========== =================================================================
 .1. ``[vhostMin]`` . ``[vhostIndex]``         inbound                               Integer    원본서버로부터 받는 평균 트래픽(Bytes)
 .2. ``[vhostMin]`` . ``[vhostIndex]``         outbound                              Integer    원본서버로 보내는 평균 트래픽(Bytes)
 .3. ``[vhostMin]`` . ``[vhostIndex]``         sessionAverage                        Integer    전체 원본서버 평균 세션수
 .4. ``[vhostMin]`` . ``[vhostIndex]``         activesessionAverage                  Integer    전체 원본서버 세션수 중 전송 중인 평균 세션수
-.10                               http                                  OID        원본서버 HTTP 트래픽 정보
+.10                                           http                                  OID        원본서버 HTTP 트래픽 정보
 .10.1. ``[vhostMin]`` . ``[vhostIndex]``      http.inbound                          Integer    원본서버로부터 받는 평균 HTTP 트래픽(Bytes)
 .10.2. ``[vhostMin]`` . ``[vhostIndex]``      http.outbound                         Integer    원본서버로 보내는 평균 HTTP 트래픽(Bytes)
 .10.3. ``[vhostMin]`` . ``[vhostIndex]``      http.sessionAverage                   Integer    원본서버 평균 HTTP세션 수
@@ -833,7 +833,7 @@ OID                               Name                                  Type    
 .10.67. ``[vhostMin]`` . ``[vhostIndex]``     http.connectCount                     Integer    원본서버 접속성공 횟수
 .10.68. ``[vhostMin]`` . ``[vhostIndex]``     http.closeAverage                     Integer    전송 중 원본서버에서 먼저 소켓을 종료한 평균 횟수
 .10.69. ``[vhostMin]`` . ``[vhostIndex]``     http.closeCount                       Integer    전송 중 원본서버에서 먼저 소켓을 종료한 횟수
-.11                               portbypass                            OID        Port바이패스 원본서버 트래픽 정보
+.11                                           portbypass                            OID        Port바이패스 원본서버 트래픽 정보
 .11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                    Integer    Port바이패스를 통해 원본서버로부터 받는 평균 트래픽(Bytes)
 .11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                   Integer    Port바이패스를 통해 원본서버로 보내는 평균 트래픽(Bytes)
 .11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage             Integer    Port바이패스 중인 평균 원본서버 세션 수
@@ -841,7 +841,7 @@ OID                               Name                                  Type    
 .11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutAverage      Integer    Port바이패스 원본서버 평균 접속실패 횟수
 .11.6. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                Integer    Port바이패스 중 원본서버가 연결을 종료한 횟수
 .11.7. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutCount        Integer    Port바이패스 원본서버 접속실패 횟수
-================================= ===================================== ========== =================================================================
+============================================= ===================================== ========== =================================================================
 
 
 
@@ -855,14 +855,14 @@ cache.vhost.traffic.client (1.3.6.1.4.1.40001.1.4.3.1.11.11)
 SNMP에서는 디렉토리별 통계를 제공하지 않는다. 
 설령 디렉토리 통계가 설정되어 있다고 하더라도 합산되어 제공한다.
 
-================================= ========================================= ========== ==============================================================
-OID                               Name                                      Type       Description
-================================= ========================================= ========== ==============================================================
+============================================= ========================================= ========== ==============================================================
+OID                                           Name                                      Type       Description
+============================================= ========================================= ========== ==============================================================
 .1. ``[vhostMin]`` . ``[vhostIndex]``         inbound                                   Integer    클라이언트로부터 받는 평균 트래픽(Bytes)
 .2. ``[vhostMin]`` . ``[vhostIndex]``         outbound                                  Integer    클라이언트로 보내는 평균 트래픽(Bytes)
 .3. ``[vhostMin]`` . ``[vhostIndex]``         sessionAverage                            Integer    전체 클라이언트 평균 세션수
 .4. ``[vhostMin]`` . ``[vhostIndex]``         activesessionAverage                      Integer    전체 클라이언트 중 전송 중인 평균 세션수
-.10                               http                                      OID        클라이언트 HTTP 트래픽 정보
+.10                                           http                                      OID        클라이언트 HTTP 트래픽 정보
 .10.1. ``[vhostMin]`` . ``[vhostIndex]``      http.inbound                              Integer    클라이언트로부터 받는 평균 HTTP 트래픽(Bytes)
 .10.2. ``[vhostMin]`` . ``[vhostIndex]``      http.outbound                             Integer    클라이언트로 보내는 평균 HTTP 트래픽(Bytes)
 .10.3. ``[vhostMin]`` . ``[vhostIndex]``      http.sessionAverage                       Integer    클라이언트 평균 HTTP세션 수
@@ -904,16 +904,16 @@ OID                               Name                                      Type
 .10.55. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCompleteCount                  Integer    클라이언트가 완료한 5xx트랜잭션 개수
 .10.60. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedAverage                     Integer    차단된 요청 평균
 .10.61. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedCount                       Integer    차단된 요청 개수
-.11                               portbypass                                OID        Port바이패스 클라이언트 트래픽 정보
+.11                                           portbypass                                OID        Port바이패스 클라이언트 트래픽 정보
 .11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                        Integer    Port바이패스를 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
 .11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                       Integer    Port바이패스를 통해 클라이언트로 보내는 평균 트래픽(Bytes)
 .11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage                 Integer    Port바이패스 중인 클라이언트 평균 세션 수
 .11.4. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedAverage                  Integer    Port바이패스 중 클라이언트가 연결을 종료한 평균 횟수
 .11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                    Integer    Port바이패스 중 클라이언트가 연결을 종료한 횟수
-.12                               ssl                                       OID        SSL 클라이언트 트래픽 정보
+.12                                           ssl                                       OID        SSL 클라이언트 트래픽 정보
 .12.2. ``[vhostMin]`` . ``[vhostIndex]``      ssl.inbound                               Integer    SSL을 통해 클라이언트로부터 받는 평균 트래픽(Bytes)
 .12.3. ``[vhostMin]`` . ``[vhostIndex]``      ssl.outbound                              Integer    SSL을 통해 클라이언트로 보내는 평균 트래픽(Bytes)
-.13                               requestHitAverage                         OID        평균 캐시 HIT결과
+.13                                           requestHitAverage                         OID        평균 캐시 HIT결과
 .13.1. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_HIT                 Integer    TCP_HIT
 .13.2. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_IMS_HIT             Integer    TCP_IMS_HIT
 .13.3. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_REFRESH_HIT         Integer    TCP_REFRESH_HIT
@@ -925,7 +925,7 @@ OID                               Name                                      Type
 .13.9. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_DENIED              Integer    TCP_DENIED
 .13.10. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_ERROR               Integer    TCP_ERROR
 .13.11. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_REDIRECT_HIT        Integer    TCP_REDIRECT_HIT
-.14                               requestHitCount                           OID        캐시 HIT결과 개수
+.14                                           requestHitCount                           OID        캐시 HIT결과 개수
 .14.1. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_HIT                   Integer    TCP_HIT
 .14.2. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_IMS_HIT               Integer    TCP_IMS_HIT
 .14.3. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_REFRESH_HIT           Integer    TCP_REFRESH_HIT
@@ -937,7 +937,7 @@ OID                               Name                                      Type
 .14.9. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_DENIED                Integer    TCP_DENIED
 .14.10. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_ERROR                 Integer    TCP_ERROR
 .14.11. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_REDIRECT_HIT          Integer    TCP_REDIRECT_HIT
-================================= ========================================= ========== ==============================================================
+============================================= ========================================= ========== ==============================================================
 
 
 
@@ -948,16 +948,16 @@ cache.vhost.traffic.filesystem (1.3.6.1.4.1.40001.1.4.3.1.11.20)
 
 가상호스트의 File I/O 통계를 제공한다.
 
-=============================== =========================================== ========== ==============================================
-OID                             Name                                        Type       Description
-=============================== =========================================== ========== ==============================================
+=========================================== =========================================== ========== ==============================================
+OID                                         Name                                        Type       Description
+=========================================== =========================================== ========== ==============================================
 .1. ``[vhostMin]`` . ``[vhostIndex]``       requestHitRatio                             Integer    Request Hit Ratio(100%)
 .2. ``[vhostMin]`` . ``[vhostIndex]``                                                              Request Hit Ratio(10000%)
 .3. ``[vhostMin]`` . ``[vhostIndex]``       byteHitRatio                                Integer    Byte Hit Ratio(100%)
 .4. ``[vhostMin]`` . ``[vhostIndex]``                                                              Byte Hit Ratio(10000%)
 .5. ``[vhostMin]`` . ``[vhostIndex]``       outbound                                    Integer    File I/O로 보내는 평균 트래픽 (Bytes)
 .6. ``[vhostMin]`` . ``[vhostIndex]``       session                                     Integer    File I/O를 진행 중인 평균 Thread개수
-.7                              requestHitAverage                           OID        평균 캐시 HIT결과
+.7                                          requestHitAverage                           OID        평균 캐시 HIT결과
 .7.1. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_HIT                   Integer    TCP_HIT
 .7.2. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_IMS_HIT               Integer    TCP_IMS_HIT
 .7.3. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_REFRESH_HIT           Integer    TCP_REFRESH_HIT
@@ -969,7 +969,7 @@ OID                             Name                                        Type
 .7.9. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_DENIED                Integer    TCP_DENIED
 .7.10. ``[vhostMin]`` . ``[vhostIndex]``    requestHitAverage.TCP_ERROR                 Integer    TCP_ERROR
 .7.11. ``[vhostMin]`` . ``[vhostIndex]``    requestHitAverage.TCP_REDIRECT_HIT          Integer    TCP_REDIRECT_HIT
-.8                              requestHitCount                             OID        캐시 HIT결과 개수
+.8                                          requestHitCount                             OID        캐시 HIT결과 개수
 .8.1. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_HIT                     Integer    TCP_HIT
 .8.2. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_IMS_HIT                 Integer    TCP_IMS_HIT
 .8.3. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_REFRESH_HIT             Integer    TCP_REFRESH_HIT
@@ -991,7 +991,7 @@ OID                             Name                                        Type
 .17. ``[vhostMin]`` . ``[vhostIndex]``      read.timeres                                Integer    read함수 반응시간 (0.01ms)
 .18. ``[vhostMin]`` . ``[vhostIndex]``      read.buffersize                             Integer    read함수에서 요청된 버퍼 크기 (Bytes)
 .19. ``[vhostMin]`` . ``[vhostIndex]``      read.bufferfilled                           Integer    read함수에서 요청된 버퍼에 채운 크기 (Bytes)
-=============================== =========================================== ========== ==============================================
+=========================================== =========================================== ========== ==============================================
 
 
 
@@ -1001,7 +1001,7 @@ cache.view (1.3.6.1.4.1.40001.1.4.11.1)
 ====================================
 
 가상호스트 통계와 동일한 정보를 제공한다. 
-[viewIndex]는 1부터 View개수의 범위를 가진다.
+``[viewIndex]`` 는 1부터 View개수의 범위를 가진다.
 
 - 1.3.6.1.4.1.40001.1.4.3 - 가상호스트 통계
 
