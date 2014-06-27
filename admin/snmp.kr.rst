@@ -348,11 +348,11 @@ global (1.3.6.1.4.1.40001.1.3)
 
 STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이벤트 등)를 제공한다. 
 
--  ServerSocket
+-  **ServerSocket**
    
    클라이언트 ~ STON구간. STON이 클라이언트의 요청을 처리할 용도로 사용하는 소켓
    
--  ClientSocket
+-  **ClientSocket**
 
    STON ~ 원본서버구간. STON이 원본서버로 요청을 보내는 용도로 사용하는 소켓
 
