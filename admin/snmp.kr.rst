@@ -202,14 +202,14 @@ meta
 ========= ============= ========= ===========================================
 OID       Name	        Type	  Description
 ========= ============= ========= ===========================================
-meta.1    manufacture   String	  WineSOFT Inc.
-meta.2	  software	    String	  STON
-meta.3	  version	    String	  Version
-meta.4	  hostname	    String	  Host name
-meta.5	  state	        String	  Healthy o Inactive o Emergency
-meta.6	  uptime	    Integer	  s
-meta.7	  admin	        String	  <Admin> ... </Admin>
-meta.10   Conf	        +	      Conf x
+meta.1    manufacture   String	  "WineSOFT Inc."
+meta.2	  software      String	  "STON"
+meta.3	  version       String	  버전
+meta.4	  hostname      String	  호스트 이름
+meta.5	  state         String	  "Healthy" 또는 "Inactive" 또는 "Emergency"
+meta.6	  uptime        Integer	  실행시간 (초)
+meta.7	  admin         String	  <Admin> ... </Admin>
+meta.10   Conf          +	      Conf 확장
 ========= ============= ========= ===========================================
 
 
