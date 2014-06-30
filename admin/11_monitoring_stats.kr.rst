@@ -265,9 +265,8 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
 
    5분 통계에서만 제공되는 항목.
    
-   -  ``HttpCountSum`` 5분간 발생한 HTTP 트랜잭션의 총 개수
-   
-   -  ``HttpRequestHitSum`` 5분간 발생한 캐시 HIT 결과
+   -  ``HttpCountSum`` HTTP 트랜잭션의 총 개수   
+   -  ``HttpRequestHitSum`` 캐시 HIT 결과
    
    
 System 통계
@@ -532,6 +531,13 @@ System 통계
 -  ``ClientTraffic`` 클라이언트 트래픽 통계
 -  ``UrlBypass`` URL매칭 또는 ``<BypassNoCacheRequest>`` 를 통해 원본서버로 바이패스되는 HTTP트래픽 통계
 
+.. note::
+
+   5분 통계에서만 제공되는 항목.
+   
+   -  ``ClientHttpReqBypassSum`` 바이패스되는 HTTP요청의 총 개수   
+   -  ``ClientHttpReqDeniedSum`` Deny되는 HTTP요청의 총 개수
+
 
 가상호스트-디스크 통계
 ---------------------
@@ -708,6 +714,18 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
    -  ``Count`` 접속횟수
    -  ``AvgDNSQueryTime (단위: 0.01ms)`` 평균 DNS쿼리 시간
    -  ``AvgConnTime (단위: 0.01ms)`` 평균 접속시간 (TCP SYN전송 ~ TCP SYN ACK수신)
+   
+.. note::
+
+   5분 통계에서만 제공되는 항목.
+   
+   -  ``HttpReqCountSum`` HTTP요청의 총 회수
+   -  ``CountSum`` HTTP응답의 총 회수
+   -  ``CompletedSum`` 완료된 HTTP 트랜잭션의 총 회수
+   -  ``ConnectTimeoutSum`` 원본서버 접속실패 총 회수
+   -  ``ReceiveTimeoutSum`` 원본서버 전송지연 총 회수
+   -  ``CloseSum`` 원본서버에서 먼저 연결을 종료한 총 회수
+      
    
 
 가상호스트-포트바이패스 통계
@@ -939,7 +957,121 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
    -  ``Open`` open함수 호출회수와 응답시간
    -  ``Read`` read함수 호출회수와 응답시간, 요청크기(BufferSize)와 응답크기(BufferFilled)
    -  ``RequestHit`` (File I/O 접근) 캐싱 HIT결과
+
+
+.. note::
+
+   5분 통계에서만 제공되는 항목.
    
+   -  ``HttpReqCountSum`` HTTP요청의 총 회수
+   -  ``CountSum`` HTTP응답의 총 회수
+   -  ``CompletedSum`` 완료된 HTTP 트랜잭션의 총 회수
+   -  ``RequestHitSum`` 캐시 HIT 결과
+   
+
+View
+====================================
+
+View는 가상호스트들을 하나로 묶어 통계를 추출하는 방식이다. 
+Database에서 여러 Table을 마치 하나인 것처럼 다루는 View에서 따온 개념이다. 
+구성은 다음과 같이 아주 간단하다. ::
+
+   <Vhosts>
+     <Vhost> ... </Vhost>
+     <Vhost> ... </Vhost>
+     ... (생략) ... 
+     <View Name="SK">
+       <Vhost>...</Vhost>
+       <Vhost>...</Vhost>
+     </View>
+     <View Name="KT">
+       <Vhost>...</Vhost>
+       <Vhost>...</Vhost>
+       <Vhost>...</Vhost>
+     </View>
+     <View Name="LG">
+       <Vhost>...</Vhost>
+       <Vhost>...</Vhost>
+     </View>
+   </Vhosts>
+   
+존재하지 않는 가상호스트로 View를 구성해도 상관없다. 
+View가 제공하는 통계는 다음과 같다. ::
+
+-  Realtime XML/JSON
+-  SNMP - cache(1.3.6.1.4.1.40001.1.4).10 ~ 12
+
+이해를 돕기 위해 View가 필요한 예를 들어보자. 
+류헌진, 서장혼, 박지송은 각각 자신이 좋아하는 스포츠 커뮤니티 사이트를 운영하고 있다. ::
+
+   <Vhosts>
+     <Vhost Name="baseball.com"> ... </Vhost>
+     <Vhost Name="basketball.com"> ... </Vhost>
+     <Vhost Name="football.com"> ... </Vhost>
+   </Vhosts>
+   
+평소 친분이 있던 셋은 의기투합하여 스포츠 종합 커뮤니티 서비스를 오픈하기로 결정했다. 
+도메인도 서비스를 모두 아우를 수 있는 sports.com으로 정했다. 
+개발/운영팀이 해결해야하는 미션은 다음과 같다.
+
+- 통합 서비스는 sports.com으로 한다.
+- 기존 사용자를 위해 기존 도메인과 서비스는 그대로 유지한다.
+- 개발팀은 통합한다. 운영팀은 통합한다.
+- 대문(첫 페이지)만 신규 개발한다. 링크를 통해 기존 서비스를 이용한다.
+- 예산이 없다. 사람이 없다. 시간이 없다. 정신이 없다.
+- 이미 모든 구매절차가 끝났다.
+
+이 모든 요구사항을 처리하는 현실적인 방법으로 개발팀은 다음과 같이 1번째 디렉토리에 
+기존 도메인을 명시하는 규칙을 사용하기로 결정했다. ::
+
+   # 기존 서비스
+   http://baseball.com/standing/list.html
+   http://basketball.com/stats/2014/view.html
+   http://football.com/player/messi.php
+
+   # 통합 서비스
+   http://sports.com/baseball/standing/list.html
+   http://sports.com/basketball/stats/2014/view.html
+   http://sports.com/football/player/messi.php
+   
+URL 전처리를 사용하면 간단히 설정할 수 있다. ::
+
+   <Vhosts>
+     <Vhost Name="baseball.com"> ... </Vhost>
+     <Vhost Name="basketball.com"> ... </Vhost>
+     <Vhost Name="football.com"> ... </Vhost>
+     <URLRewrite>
+       <Pattern>sports.com/(.*)/(.*)</Pattern>
+       <Replace>#1.com/#2</Replace>
+     </URLRewrite>  
+   </Vhosts>
+   
+통합된 운영팀에서는 이제 각각의 서비스 뿐만 아니라 통합된 서비스(트래픽, 세션, 응답코드 등)에 
+대해서도 모니터링해야 한다. 
+대부분 SNMP에 익숙한 관리자들이며 통합된 지표를 얻기 위해 다음과 같이 View를 구성한다.
+
+.. figure:: img/view1.png
+   :align: center
+
+::
+
+   <Vhosts>
+     <Vhost Name="baseball.com"> ... </Vhost>
+     <Vhost Name="basketball.com"> ... </Vhost>
+     <Vhost Name="football.com"> ... </Vhost>
+     <URLRewrite>
+       <Pattern>sports.com/(.*)/(.*)</Pattern>
+       <Replace>#1.com/#2</Replace>
+     </URLRewrite>
+     <View Name="sports.com">
+       <Vhost>baseball.com</Vhost>
+       <Vhost>basketball.com</Vhost>
+       <Vhost>football.com</Vhost>
+     </View>  
+   </Vhosts>
+   
+이상의 예에서 알 수 있듯이 URL Rewrite와 View의 조합은 기존 사이트를 하나로 묶어 서비스할 때 효과적이다.
+
 
 View 통계
 ----------------------------
