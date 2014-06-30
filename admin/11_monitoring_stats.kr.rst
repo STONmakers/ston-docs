@@ -241,3 +241,9 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
       
    원본서버가 훨씬 빠른 속도를 가지고 있거나 클라이언트 세션이 금방 끊어진다면 음수가 된다.
    
+-  ``FileSystem`` 독립적인 FileSystem 통계로 다른 통계 수치에 취합되지 않는다.
+
+   - ``RequestHitRatio (단위: 0.01%, 평균)`` File I/O를 통한 Hit율
+   - ``ByteHitRatio (단위: 0.01%, 평균)`` 원본서버 대비 File I/O 전송률
+   - ``Outbound (단위: Bytes, 평균)`` File I/O로 서비스한 데이터 크기
+   - ``Session (평균)`` File I/O 진행 중인 Thread 수
