@@ -95,189 +95,98 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
 호스트(종합) 통계
 ---------------------
 
-Host통계는 가장 상위 개념의 통계로 서비스하는 모든 가상호스트의 통계를 종합하여 제공한다. 
+호스트 통계는 가장 상위 개념의 통계로 서비스하는 모든 가상호스트의 통계를 종합한다. 
+같은 데이터를 JSON과 XML형식으로 제공한다. ::
 
-다음은 JSON 통계이다. ::
-
-   {                                               <Host                                    
-     "Host":                                         Version="0.9.6.2"                       
-     {                                               Name="localhost"                       
-       "Version":"0.9.6.2",                          State="Healthy"                        
-       "Name":"localhost",                           Uptime="155986"                        
-       "State":"Healthy",                            OriginSession="32"                     
-       "Uptime":155996,                              OriginActiveSession="20"               
-       "OriginSession":33,                           OriginInbound="1140741"                
-       "OriginActiveSession":20,                     OriginOutbound="10059"                 
-       "OriginInbound":688177,                       OriginReqCount="42"                    
-       "OriginOutbound":14184,                       OriginResTotalCount="42"               
-       "OriginReqCount":62,                          OriginResTotalTimeRes="5071"           
-       "OriginResTotalCount":62,                     OriginResTotalTimeComplete="10288"     
-       "OriginResTotalTimeRes":2375,                 OriginRes2xxCount="19"                 
-       "OriginResTotalTimeComplete":2509,            OriginRes2xxTimeRes="9989"             
-       "OriginRes2xxCount":54,                       OriginRes2xxTimeComplete="21521"       
-       "OriginRes2xxTimeRes":2327,                   OriginRes3xxCount="23"                 
-       "OriginRes2xxTimeComplete":2481,              OriginRes3xxTimeRes="1008"             
-       "OriginRes3xxCount":8,                        OriginRes3xxTimeComplete="1008"        
-       "OriginRes3xxTimeRes":2700,                   OriginRes4xxCount="0"                  
-       "OriginRes3xxTimeComplete":2700,              OriginRes4xxTimeRes="0"                
-       "OriginRes4xxCount":0,                        OriginRes4xxTimeComplete="0"           
-       "OriginRes4xxTimeRes":0,                      OriginRes5xxCount="0"                  
-       "OriginRes4xxTimeComplete":0,                 OriginRes5xxTimeRes="0"                
-       "OriginRes5xxCount":0,                        OriginRes5xxTimeComplete="0"           
-       "OriginRes5xxTimeRes":0,                      ClientSession="165"                    
-       "OriginRes5xxTimeComplete":0,                 ClientActiveSession="80"               
-       "ClientSession":155,                          ClientInbound="14792"                  
-       "ClientActiveSession":80                      ClientOutbound="1981700"               
-       "ClientInbound":35748,                        ClientReqCount="64"                    
-       "ClientOutbound":972906,                      ClientResTotalCount="64"               
-       "ClientReqCount":152,                         ClientResTotalTimeRes="5535"           
-       "ClientResTotalCount":152,                    ClientResTotalTimeComplete="6840"      
-       "ClientResTotalTimeRes":1411,                 ClientRes2xxCount="44"                 
-       "ClientResTotalTimeComplete":1479,            ClientRes2xxTimeRes="8050"             
-       "ClientRes2xxCount":93,                       ClientRes2xxTimeComplete="9943"        
-       "ClientRes2xxTimeRes":2305,                   ClientRes3xxCount="20"                 
-       "ClientRes2xxTimeComplete":2409,              ClientRes3xxTimeRes="5"                
-       "ClientRes3xxCount":59,                       ClientRes3xxTimeComplete="15"          
-       "ClientRes3xxTimeRes":3,                      ClientRes4xxCount="0"                  
-       "ClientRes3xxTimeComplete":13,                ClientRes4xxTimeRes="0"                
-       "ClientRes4xxCount":0,                        ClientRes4xxTimeComplete="0"           
-       "ClientRes4xxTimeRes":0,                      ClientRes5xxCount="0"                  
-       "ClientRes4xxTimeComplete":0,                 ClientRes5xxTimeRes="0"                
-       "ClientRes5xxCount":0,                        ClientRes5xxTimeComplete="0"           
-       "ClientRes5xxTimeRes":0,                      RequestHitRatio="6923"                 
-       "ClientRes5xxTimeComplete":0,                 ByteHitRatio="4243">                   
-       "RequestHitRatio":6387,                       <HttpCountSum                          
-       "ByteHitRatio":2926,                            OriginReqCount="0"                   
-       "HttpCountSum" :                                OriginResTotalCount="0"              
-       {                                               OriginRes2xxCount="0"                
-         "OriginReqCount" : 0,                         OriginRes3xxCount="0"                
-         "OriginResTotalCount" : 0,                    OriginRes4xxCount="0"                
-         "OriginRes2xxCount" : 0,                      OriginRes5xxCount="0"                
-         "OriginRes3xxCount" : 0,                      ClientReqCount="0"                   
-         "OriginRes4xxCount" : 0,                      ClientResTotalCount="0"              
-         "OriginRes5xxCount" : 0,                      ClientRes2xxCount="0"                
-         "ClientReqCount" : 0,                         ClientRes3xxCount="0"                
-         "ClientResTotalCount" : 0,                    ClientRes4xxCount="0"                
-         "ClientRes2xxCount" : 0,                      ClientRes5xxCount="0"/>              
-         "ClientRes3xxCount" : 0,                    <HttpRequestHitSum                     
-         "ClientRes4xxCount" : 0,                      TCP_NONE="0"                         
-         "ClientRes5xxCount" : 0                       TCP_HIT="0"                          
-       },                                              TCP_IMS_HIT="0"                      
-       "HttpRequestHitSum" :                           TCP_REFRESH_HIT="0"                  
-       {                                               TCP_REF_FAIL_HIT="0"                 
-         "TCP_NONE" : 0,                               TCP_NEGATIVE_HIT="0"                 
-         "TCP_HIT" : 0,                                TCP_REDIRECT_HIT="0"                 
-         "TCP_IMS_HIT" : 0,                            TCP_MISS="0"                         
-         "TCP_REFRESH_HIT" : 0,                        TCP_REFRESH_MISS="0"                 
-         "TCP_REF_FAIL_HIT" : 0,                       TCP_CLIENT_REFRESH_MISS="0"          
-         "TCP_NEGATIVE_HIT" : 0,                       TCP_DENIED="0"                       
-         "TCP_REDIRECT_HIT" : 0,                       TCP_ERROR="0"/>                      
-         "TCP_MISS" : 0,                             <FileSystem>                           
-         "TCP_REFRESH_MISS" : 0,                       <RequestHitRatio>0</RequestHitRatio> 
-         "TCP_CLIENT_REFRESH_MISS" : 0,                <ByteHitRatio>0</ByteHitRatio>       
-         "TCP_DENIED" : 0,                             <Outbound>0</Outbound>               
-         "TCP_ERROR" : 0                               <Session>0</Session>                 
-       },                                            </FileSystem>                          
-       "FileSystem":                                 <System> ... </System>                 
-       {                                             <VirtualHost> ... </VirtualHost>       
-         "RequestHitRatio":0,                        <VirtualHost> ... </VirtualHost>       
-         "ByteHitRatio":0,                           <VirtualHost> ... </VirtualHost>       
-         "Outbound":0,                               <View> ... </View>                     
-         "Session":0                                 <View> ... </View>                     
-       },                                          </Host>                                  
-       "System":{ ... },                                                                    
+   {                                            <Host                                    
+     "Host":                                      Version="0.9.6.2"                       
+     {                                            Name="localhost"                       
+       "Version":"0.9.6.2",                       State="Healthy"                        
+       "Name":"localhost",                        Uptime="155986"                        
+       "State":"Healthy",                         OriginSession="32"                     
+       "Uptime":155996,                           OriginActiveSession="20"               
+       "OriginSession":33,                        OriginInbound="1140741"                
+       "OriginActiveSession":20,                  OriginOutbound="10059"                 
+       "OriginInbound":688177,                    OriginReqCount="42"                    
+       "OriginOutbound":14184,                    OriginResTotalCount="42"               
+       "OriginReqCount":62,                       OriginResTotalTimeRes="5071"           
+       "OriginResTotalCount":62,                  OriginResTotalTimeComplete="10288"     
+       "OriginResTotalTimeRes":2375,              OriginRes2xxCount="19"                 
+       "OriginResTotalTimeComplete":2509,         OriginRes2xxTimeRes="9989"             
+       "OriginRes2xxCount":54,                    OriginRes2xxTimeComplete="21521"       
+       "OriginRes2xxTimeRes":2327,                OriginRes3xxCount="23"                 
+       "OriginRes2xxTimeComplete":2481,           OriginRes3xxTimeRes="1008"             
+       "OriginRes3xxCount":8,                     OriginRes3xxTimeComplete="1008"        
+       "OriginRes3xxTimeRes":2700,                OriginRes4xxCount="0"                  
+       "OriginRes3xxTimeComplete":2700,           OriginRes4xxTimeRes="0"                
+       "OriginRes4xxCount":0,                     OriginRes4xxTimeComplete="0"           
+       "OriginRes4xxTimeRes":0,                   OriginRes5xxCount="0"                  
+       "OriginRes4xxTimeComplete":0,              OriginRes5xxTimeRes="0"                
+       "OriginRes5xxCount":0,                     OriginRes5xxTimeComplete="0"           
+       "OriginRes5xxTimeRes":0,                   ClientSession="165"                    
+       "OriginRes5xxTimeComplete":0,              ClientActiveSession="80"               
+       "ClientSession":155,                       ClientInbound="14792"                  
+       "ClientActiveSession":80                   ClientOutbound="1981700"               
+       "ClientInbound":35748,                     ClientReqCount="64"                    
+       "ClientOutbound":972906,                   ClientResTotalCount="64"               
+       "ClientReqCount":152,                      ClientResTotalTimeRes="5535"           
+       "ClientResTotalCount":152,                 ClientResTotalTimeComplete="6840"      
+       "ClientResTotalTimeRes":1411,              ClientRes2xxCount="44"                 
+       "ClientResTotalTimeComplete":1479,         ClientRes2xxTimeRes="8050"             
+       "ClientRes2xxCount":93,                    ClientRes2xxTimeComplete="9943"        
+       "ClientRes2xxTimeRes":2305,                ClientRes3xxCount="20"                 
+       "ClientRes2xxTimeComplete":2409,           ClientRes3xxTimeRes="5"                
+       "ClientRes3xxCount":59,                    ClientRes3xxTimeComplete="15"          
+       "ClientRes3xxTimeRes":3,                   ClientRes4xxCount="0"                  
+       "ClientRes3xxTimeComplete":13,             ClientRes4xxTimeRes="0"                
+       "ClientRes4xxCount":0,                     ClientRes4xxTimeComplete="0"           
+       "ClientRes4xxTimeRes":0,                   ClientRes5xxCount="0"                  
+       "ClientRes4xxTimeComplete":0,              ClientRes5xxTimeRes="0"                
+       "ClientRes5xxCount":0,                     ClientRes5xxTimeComplete="0"           
+       "ClientRes5xxTimeRes":0,                   RequestHitRatio="6923"                 
+       "ClientRes5xxTimeComplete":0,              ByteHitRatio="4243">                   
+       "RequestHitRatio":6387,                    <HttpCountSum                          
+       "ByteHitRatio":2926,                         OriginReqCount="0"                   
+       "HttpCountSum" :                             OriginResTotalCount="0"              
+       {                                            OriginRes2xxCount="0"                
+         "OriginReqCount" : 0,                      OriginRes3xxCount="0"                
+         "OriginResTotalCount" : 0,                 OriginRes4xxCount="0"                
+         "OriginRes2xxCount" : 0,                   OriginRes5xxCount="0"                
+         "OriginRes3xxCount" : 0,                   ClientReqCount="0"                   
+         "OriginRes4xxCount" : 0,                   ClientResTotalCount="0"              
+         "OriginRes5xxCount" : 0,                   ClientRes2xxCount="0"                
+         "ClientReqCount" : 0,                      ClientRes3xxCount="0"                
+         "ClientResTotalCount" : 0,                 ClientRes4xxCount="0"                
+         "ClientRes2xxCount" : 0,                   ClientRes5xxCount="0"/>              
+         "ClientRes3xxCount" : 0,                 <HttpRequestHitSum                     
+         "ClientRes4xxCount" : 0,                   TCP_NONE="0"                         
+         "ClientRes5xxCount" : 0                    TCP_HIT="0"                          
+       },                                           TCP_IMS_HIT="0"                      
+       "HttpRequestHitSum" :                        TCP_REFRESH_HIT="0"                  
+       {                                            TCP_REF_FAIL_HIT="0"                 
+         "TCP_NONE" : 0,                            TCP_NEGATIVE_HIT="0"                 
+         "TCP_HIT" : 0,                             TCP_REDIRECT_HIT="0"                 
+         "TCP_IMS_HIT" : 0,                         TCP_MISS="0"                         
+         "TCP_REFRESH_HIT" : 0,                     TCP_REFRESH_MISS="0"                 
+         "TCP_REF_FAIL_HIT" : 0,                    TCP_CLIENT_REFRESH_MISS="0"          
+         "TCP_NEGATIVE_HIT" : 0,                    TCP_DENIED="0"                       
+         "TCP_REDIRECT_HIT" : 0,                    TCP_ERROR="0"/>                      
+         "TCP_MISS" : 0,                          <FileSystem>                           
+         "TCP_REFRESH_MISS" : 0,                    <RequestHitRatio>0</RequestHitRatio> 
+         "TCP_CLIENT_REFRESH_MISS" : 0,             <ByteHitRatio>0</ByteHitRatio>       
+         "TCP_DENIED" : 0,                          <Outbound>0</Outbound>               
+         "TCP_ERROR" : 0                            <Session>0</Session>                 
+       },                                         </FileSystem>                          
+       "FileSystem":                              <System> ... </System>                 
+       {                                          <VirtualHost> ... </VirtualHost>       
+         "RequestHitRatio":0,                     <VirtualHost> ... </VirtualHost>       
+         "ByteHitRatio":0,                        <VirtualHost> ... </VirtualHost>       
+         "Outbound":0,                            <View> ... </View>                     
+         "Session":0                              <View> ... </View>                     
+       },                                       </Host>                                  
+       "System":{ ... },                                                                 
        "VirtualHost": [ ... ]
        "View": [ ... ]
      }
    }
    
-다음은 XML 통계이다. ::
-
-   <Host 
-     Version="0.9.6.2"
-     Name="localhost"
-     State="Healthy"
-     Uptime="155986"
-     OriginSession="32"
-     OriginActiveSession="20" 
-     OriginInbound="1140741"
-     OriginOutbound="10059"
-     OriginReqCount="42"
-     OriginResTotalCount="42"
-     OriginResTotalTimeRes="5071"
-     OriginResTotalTimeComplete="10288"
-     OriginRes2xxCount="19"
-     OriginRes2xxTimeRes="9989"
-     OriginRes2xxTimeComplete="21521"
-     OriginRes3xxCount="23"
-     OriginRes3xxTimeRes="1008"
-     OriginRes3xxTimeComplete="1008"
-     OriginRes4xxCount="0"
-     OriginRes4xxTimeRes="0"
-     OriginRes4xxTimeComplete="0"
-     OriginRes5xxCount="0"
-     OriginRes5xxTimeRes="0"
-     OriginRes5xxTimeComplete="0"
-     ClientSession="165"
-     ClientActiveSession="80"
-     ClientInbound="14792"
-     ClientOutbound="1981700"
-     ClientReqCount="64"
-     ClientResTotalCount="64"
-     ClientResTotalTimeRes="5535"
-     ClientResTotalTimeComplete="6840"
-     ClientRes2xxCount="44"
-     ClientRes2xxTimeRes="8050"
-     ClientRes2xxTimeComplete="9943"
-     ClientRes3xxCount="20"
-     ClientRes3xxTimeRes="5"
-     ClientRes3xxTimeComplete="15"
-     ClientRes4xxCount="0"
-     ClientRes4xxTimeRes="0"
-     ClientRes4xxTimeComplete="0"
-     ClientRes5xxCount="0"
-     ClientRes5xxTimeRes="0"
-     ClientRes5xxTimeComplete="0"
-     RequestHitRatio="6923"
-     ByteHitRatio="4243">
-     <HttpCountSum 
-       OriginReqCount="0" 
-       OriginResTotalCount="0" 
-       OriginRes2xxCount="0" 
-       OriginRes3xxCount="0" 
-       OriginRes4xxCount="0" 
-       OriginRes5xxCount="0" 
-       ClientReqCount="0" 
-       ClientResTotalCount="0" 
-       ClientRes2xxCount="0" 
-       ClientRes3xxCount="0" 
-       ClientRes4xxCount="0" 
-       ClientRes5xxCount="0"/>
-     <HttpRequestHitSum 
-       TCP_NONE="0" 
-       TCP_HIT="0" 
-       TCP_IMS_HIT="0" 
-       TCP_REFRESH_HIT="0" 
-       TCP_REF_FAIL_HIT="0" 
-       TCP_NEGATIVE_HIT="0" 
-       TCP_REDIRECT_HIT="0" 
-       TCP_MISS="0" 
-       TCP_REFRESH_MISS="0" 
-       TCP_CLIENT_REFRESH_MISS="0" 
-       TCP_DENIED="0" 
-       TCP_ERROR="0"/>
-     <FileSystem>
-       <RequestHitRatio>0</RequestHitRatio>
-       <ByteHitRatio>0</ByteHitRatio>
-       <Outbound>0</Outbound>
-       <Session>0</Session>
-     </FileSystem>
-     <System> ... </System>
-     <VirtualHost> ... </VirtualHost>
-     <VirtualHost> ... </VirtualHost>
-     <VirtualHost> ... </VirtualHost>
-     <View> ... </View>
-     <View> ... </View>
-   </Host>
-   
-aaa
