@@ -234,7 +234,20 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
 -  ``ClientRes5xxCount (평균)`` 클라이언트 5xx응답횟수
 -  ``ClientRes5xxTimeRes (단위: 0.01ms, 평균)`` 클라이언트 5xx응답시간
 -  ``ClientRes5xxTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 5xx 트랜잭션 완료시간
--  ``RequestHitRatio (단위: 0.01%, 평균)`` Hit율. 캐싱객체가 생성되어 있고 해당 객체가 초기화되어 있다면 Hit이다. 반대로 캐싱객체가 없거나 해당 객체가 원본서버로부터 초기화되지 않았다면 Hit로 치지 않는다. 응답코드와 Hit율은 관련이 없다.
+-  ``RequestHitRatio (단위: 0.01%, 평균)`` Hit율. 
+   캐싱객체가 생성되어 있고 해당 객체가 초기화되어 있다면 Hit이다. 
+   반대로 캐싱객체가 없거나 해당 객체가 원본서버로부터 초기화되지 않았다면 Hit로 치지 않는다. 
+   응답코드와 Hit율은 관련이 없다.
+   
+   .. figure:: img/stat_filesystem1.png
+      :align: center
+      
+      HTTP와 File I/O는 가상호스트를 공유한다.
+      
+   Apache를 통해 접근되는 File I/O의 RequestHitRatio는 0%이 된다.
+   하지만 HTTP Server의 경우 File I/O에 의해 캐싱된 파일을 접근하기 때문에 100%의 RequestHitRatio를 가진다. 
+   ByteHitRatio의 경우 원본 Inbound대비 Http outbound, File I/O outbound로 각각 계산된다.
+   
 -  ``ByteHitRatio (단위: 0.01%, 평균)`` 원본서버 대비 클라이언트 전송률. ::
 
       (클라이언트 Outbound - 원본서버 Inbound) / 클라이언트 Outbound
@@ -247,18 +260,7 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
    - ``ByteHitRatio (단위: 0.01%, 평균)`` 원본서버 대비 File I/O 전송률
    - ``Outbound (단위: Bytes, 평균)`` File I/O로 서비스한 데이터 크기
    - ``Session (평균)`` File I/O 진행 중인 Thread 수
-
--  **HitRatio의 이해**
-   
-   .. figure:: img/stat_filesystem1.png
-      :align: center
       
-      HTTP와 File I/O는 가상호스트를 공유한다.
-      
-   Apache를 통해 접근되는 File I/O의 RequestHitRatio는 0%이 된다.
-   하지만 HTTP Server의 경우 File I/O에 의해 캐싱된 파일을 접근하기 때문에 100%의 RequestHitRatio를 가진다. 
-   ByteHitRatio의 경우 원본 Inbound대비 Http outbound, File I/O outbound로 각각 계산된다.
-   
 .. note::
 
    5분 통계에서만 제공되는 항목.
