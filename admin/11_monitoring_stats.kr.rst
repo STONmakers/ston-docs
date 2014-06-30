@@ -9,6 +9,8 @@
 .. toctree::
    :maxdepth: 2
 
+
+
 통계수집
 ====================================
 
@@ -80,3 +82,202 @@
    - ``OFF (기본)`` 집계하지 않는다.
    
    - ``ON`` 집계한다.
+   
+
+
+실시간/5분 통계
+====================================
+
+STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라 실시간, 5분 평균으로 제공된다. 
+고객이 통계를 보다 쉽게 분석, 가공할 수 있도록 JSON과 XML 포맷으로 제공한다. 
+
+
+호스트(종합) 통계
+---------------------
+
+Host통계는 가장 상위 개념의 통계로 서비스하는 모든 가상호스트의 통계를 종합하여 제공한다. 
+
+다음은 JSON 통계이다. ::
+
+   {
+     "Host":
+     {
+       "Version":"0.9.6.2",
+       "Name":"localhost",
+       "State":"Healthy",
+       "Uptime":155996,
+       "OriginSession":33,
+       "OriginActiveSession":20,
+       "OriginInbound":688177,
+       "OriginOutbound":14184,
+       "OriginReqCount":62,
+       "OriginResTotalCount":62,
+       "OriginResTotalTimeRes":2375,
+       "OriginResTotalTimeComplete":2509,
+       "OriginRes2xxCount":54,
+       "OriginRes2xxTimeRes":2327,
+       "OriginRes2xxTimeComplete":2481,
+       "OriginRes3xxCount":8,
+       "OriginRes3xxTimeRes":2700,
+       "OriginRes3xxTimeComplete":2700,
+       "OriginRes4xxCount":0,
+       "OriginRes4xxTimeRes":0,
+       "OriginRes4xxTimeComplete":0,
+       "OriginRes5xxCount":0,
+       "OriginRes5xxTimeRes":0,
+       "OriginRes5xxTimeComplete":0,
+       "ClientSession":155,
+       "ClientActiveSession":80
+       "ClientInbound":35748,
+       "ClientOutbound":972906,
+       "ClientReqCount":152,
+       "ClientResTotalCount":152,
+       "ClientResTotalTimeRes":1411,
+       "ClientResTotalTimeComplete":1479,
+       "ClientRes2xxCount":93,
+       "ClientRes2xxTimeRes":2305,
+       "ClientRes2xxTimeComplete":2409,
+       "ClientRes3xxCount":59,
+       "ClientRes3xxTimeRes":3,
+       "ClientRes3xxTimeComplete":13,
+       "ClientRes4xxCount":0,
+       "ClientRes4xxTimeRes":0,
+       "ClientRes4xxTimeComplete":0,
+       "ClientRes5xxCount":0,
+       "ClientRes5xxTimeRes":0,
+       "ClientRes5xxTimeComplete":0,
+       "RequestHitRatio":6387,
+       "ByteHitRatio":2926,
+       "HttpCountSum" : 
+       {
+         "OriginReqCount" : 0, 
+         "OriginResTotalCount" : 0, 
+         "OriginRes2xxCount" : 0, 
+         "OriginRes3xxCount" : 0, 
+         "OriginRes4xxCount" : 0, 
+         "OriginRes5xxCount" : 0, 
+         "ClientReqCount" : 0, 
+         "ClientResTotalCount" : 0, 
+         "ClientRes2xxCount" : 0, 
+         "ClientRes3xxCount" : 0, 
+         "ClientRes4xxCount" : 0, 
+         "ClientRes5xxCount" : 0 
+       },
+       "HttpRequestHitSum" : 
+       {
+         "TCP_NONE" : 0, 
+         "TCP_HIT" : 0, 
+         "TCP_IMS_HIT" : 0, 
+         "TCP_REFRESH_HIT" : 0, 
+         "TCP_REF_FAIL_HIT" : 0, 
+         "TCP_NEGATIVE_HIT" : 0, 
+         "TCP_REDIRECT_HIT" : 0, 
+         "TCP_MISS" : 0, 
+         "TCP_REFRESH_MISS" : 0, 
+         "TCP_CLIENT_REFRESH_MISS" : 0, 
+         "TCP_DENIED" : 0, 
+         "TCP_ERROR" : 0
+       },
+       "FileSystem":
+       {
+         "RequestHitRatio":0,
+         "ByteHitRatio":0,
+         "Outbound":0,
+         "Session":0
+       },
+       "System":{ ... },
+       "VirtualHost": [ ... ]
+       "View": [ ... ]
+     }
+   }
+   
+다음은 XML 통계이다. ::
+
+   <Host 
+     Version="0.9.6.2"
+     Name="localhost"
+     State="Healthy"
+     Uptime="155986"
+     OriginSession="32"
+     OriginActiveSession="20" 
+     OriginInbound="1140741"
+     OriginOutbound="10059"
+     OriginReqCount="42"
+     OriginResTotalCount="42"
+     OriginResTotalTimeRes="5071"
+     OriginResTotalTimeComplete="10288"
+     OriginRes2xxCount="19"
+     OriginRes2xxTimeRes="9989"
+     OriginRes2xxTimeComplete="21521"
+     OriginRes3xxCount="23"
+     OriginRes3xxTimeRes="1008"
+     OriginRes3xxTimeComplete="1008"
+     OriginRes4xxCount="0"
+     OriginRes4xxTimeRes="0"
+     OriginRes4xxTimeComplete="0"
+     OriginRes5xxCount="0"
+     OriginRes5xxTimeRes="0"
+     OriginRes5xxTimeComplete="0"
+     ClientSession="165"
+     ClientActiveSession="80"
+     ClientInbound="14792"
+     ClientOutbound="1981700"
+     ClientReqCount="64"
+     ClientResTotalCount="64"
+     ClientResTotalTimeRes="5535"
+     ClientResTotalTimeComplete="6840"
+     ClientRes2xxCount="44"
+     ClientRes2xxTimeRes="8050"
+     ClientRes2xxTimeComplete="9943"
+     ClientRes3xxCount="20"
+     ClientRes3xxTimeRes="5"
+     ClientRes3xxTimeComplete="15"
+     ClientRes4xxCount="0"
+     ClientRes4xxTimeRes="0"
+     ClientRes4xxTimeComplete="0"
+     ClientRes5xxCount="0"
+     ClientRes5xxTimeRes="0"
+     ClientRes5xxTimeComplete="0"
+     RequestHitRatio="6923"
+     ByteHitRatio="4243">
+     <HttpCountSum 
+       OriginReqCount="0" 
+       OriginResTotalCount="0" 
+       OriginRes2xxCount="0" 
+       OriginRes3xxCount="0" 
+       OriginRes4xxCount="0" 
+       OriginRes5xxCount="0" 
+       ClientReqCount="0" 
+       ClientResTotalCount="0" 
+       ClientRes2xxCount="0" 
+       ClientRes3xxCount="0" 
+       ClientRes4xxCount="0" 
+       ClientRes5xxCount="0"/>
+     <HttpRequestHitSum 
+       TCP_NONE="0" 
+       TCP_HIT="0" 
+       TCP_IMS_HIT="0" 
+       TCP_REFRESH_HIT="0" 
+       TCP_REF_FAIL_HIT="0" 
+       TCP_NEGATIVE_HIT="0" 
+       TCP_REDIRECT_HIT="0" 
+       TCP_MISS="0" 
+       TCP_REFRESH_MISS="0" 
+       TCP_CLIENT_REFRESH_MISS="0" 
+       TCP_DENIED="0" 
+       TCP_ERROR="0"/>
+     <FileSystem>
+       <RequestHitRatio>0</RequestHitRatio>
+       <ByteHitRatio>0</ByteHitRatio>
+       <Outbound>0</Outbound>
+       <Session>0</Session>
+     </FileSystem>
+     <System> ... </System>
+     <VirtualHost> ... </VirtualHost>
+     <VirtualHost> ... </VirtualHost>
+     <VirtualHost> ... </VirtualHost>
+     <View> ... </View>
+     <View> ... </View>
+   </Host>
+   
+aaa
