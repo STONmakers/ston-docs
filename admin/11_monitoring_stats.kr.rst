@@ -250,11 +250,19 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
 
 -  **HitRatio의 이해**
    
-   HTTP와 File I/O는 가상호스트를 공유한다.
-   
    .. figure:: img/stat_filesystem1.png
       :align: center
       
-   위 그림의 경우 Apache를 통해 접근되는 File I/O의 RequestHitRatio는 0%이 된다.
+      HTTP와 File I/O는 가상호스트를 공유한다.
+      
+   Apache를 통해 접근되는 File I/O의 RequestHitRatio는 0%이 된다.
    하지만 HTTP Server의 경우 File I/O에 의해 캐싱된 파일을 접근하기 때문에 100%의 RequestHitRatio를 가진다. 
    ByteHitRatio의 경우 원본 Inbound대비 Http outbound, File I/O outbound로 각각 계산된다.
+   
+.. note::
+
+   5분 통계에서만 제공되는 항목.
+   
+   -  ``HttpCountSum`` 5분간 발생한 HTTP 트랜잭션의 총 개수
+   
+   -  ``HttpRequestHitSum`` 5분간 발생한 캐시 HIT 결과
