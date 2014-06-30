@@ -99,9 +99,9 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
 같은 데이터를 JSON과 XML형식으로 제공한다. ::
 
    {                                            <Host                                    
-     "Host":                                      Version="0.9.6.2"                       
+     "Host":                                      Version="2.0.0"                       
      {                                            Name="localhost"                       
-       "Version":"0.9.6.2",                       State="Healthy"                        
+       "Version":"2.0.0",                         State="Healthy"                        
        "Name":"localhost",                        Uptime="155986"                        
        "State":"Healthy",                         OriginSession="32"                     
        "Uptime":155996,                           OriginActiveSession="20"               
@@ -189,4 +189,55 @@ STON의 모든 통계는 가상호스트별로 따로 수집될 뿐만 아니라
        "View": [ ... ]
      }
    }
+   
+-  ``Version`` STON 버전
+-  ``Name`` 호스트이름. 설정하지 않았다면 시스템 이름을 보여준다.
+-  ``State`` 서비스 상태. (Healthy=정상 서비스, Inactive=라이센스 비활성화, Emergency)
+-  ``Uptime (단위: 초)`` 서비스 실행시간
+-  ``OriginSession`` 원본세션 수
+-  ``OriginActiveSession`` 전송 중인 원본세션 수
+-  ``OriginInbound (단위: Bytes, 평균)`` 원본서버부터 받은 양
+-  ``OriginReqCount (평균)`` 원본서버로 보낸 요청횟수
+-  ``OriginOutbound (단위: Bytes, 평균)`` 원본서버로 보낸 양
+-  ``OriginResTotalCount (평균)`` 원본서버 응답횟수
+-  ``OriginResTotalTimeRes (단위: 0.01ms, 평균)`` 원본서버 응답시간 (HTTP요청 전송 ~ HTTP응답 첫 수신)
+-  ``OriginResTotalTimeComplete (단위: 0.01ms, 평균)`` 원본서버 HTTP 트랜잭션 완료시간 (HTTP요청 전송 ~ HTTP응답 완료)
+-  ``OriginRes2xxCount (평균)`` 원본서버 2xx응답횟수
+-  ``OriginRes2xxTimeRes (단위: 0.01ms, 평균)`` 원본서버 2xx응답시간
+-  ``OriginRes2xxTimeComplete (단위: 0.01ms, 평균)`` 원본서버 2xx 트랜잭션 완료시간
+-  ``OriginRes3xxCount (평균)`` 원본서버 3xx응답횟수
+-  ``OriginRes3xxTimeRes (단위: 0.01ms, 평균)`` 원본서버 3xx응답시간
+-  ``OriginRes3xxTimeComplete (단위: 0.01ms, 평균)`` 원본서버 3xx 트랜잭션 완료시간
+-  ``OriginRes4xxCount (평균)`` 원본서버 4xx응답횟수
+-  ``OriginRes4xxTimeRes (단위: 0.01ms, 평균)`` 원본서버 4xx응답시간
+-  ``OriginRes4xxTimeComplete (단위: 0.01ms, 평균)`` 원본서버 4xx 트랜잭션 완료시간
+-  ``OriginRes5xxCount (평균)`` 원본서버 5xx응답횟수
+-  ``OriginRes5xxTimeRes (단위: 0.01ms, 평균)`` 원본서버 5xx응답시간
+-  ``OriginRes5xxTimeComplete (단위: 0.01ms, 평균)`` 원본서버 5xx 트랜잭션 완료시간
+-  ``ClientSession`` 클라이언트 세션 수
+-  ``ClientActiveSession`` 전송 중인 클라이언트 세션 수
+-  ``ClientInbound (단위: Bytes, 평균)`` 클라이언트로부터 받은 양
+-  ``ClientOutbound (단위: Bytes, 평균)`` 클라이언트로에게 보낸 양
+-  ``ClientReqCount (평균)`` 클라이언트로 받은 요청횟수
+-  ``ClientResTotalCount (평균)`` 클라이언트 응답횟수
+-  ``ClientResTotalTimeRes (단위: 0.01ms, 평균)`` 클라이언트 응답시간 (HTTP요청 수신 ~ HTTP응답 전송)
+-  ``ClientResTotalTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 HTTP 트랜잭션 완료시간 (HTTP요청 수신 ~ HTTP응답 완료)
+-  ``ClientRes2xxCount (평균)`` 클라이언트 2xx응답횟수
+-  ``ClientRes2xxTimeRes (단위: 0.01ms, 평균)`` 클라이언트 2xx응답시간
+-  ``ClientRes2xxTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 2xx 트랜잭션 완료시간
+-  ``ClientRes3xxCount (평균)`` 클라이언트 3xx응답횟수
+-  ``ClientRes3xxTimeRes (단위: 0.01ms, 평균)`` 클라이언트 3xx응답시간
+-  ``ClientRes3xxTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 3xx 트랜잭션 완료시간
+-  ``ClientRes4xxCount (평균)`` 클라이언트 4xx응답횟수
+-  ``ClientRes4xxTimeRes (단위: 0.01ms, 평균)`` 클라이언트 4xx응답시간
+-  ``ClientRes4xxTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 4xx 트랜잭션 완료시간
+-  ``ClientRes5xxCount (평균)`` 클라이언트 5xx응답횟수
+-  ``ClientRes5xxTimeRes (단위: 0.01ms, 평균)`` 클라이언트 5xx응답시간
+-  ``ClientRes5xxTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 5xx 트랜잭션 완료시간
+-  ``RequestHitRatio (단위: 0.01%, 평균)`` Hit율. 캐싱객체가 생성되어 있고 해당 객체가 초기화되어 있다면 Hit이다. 반대로 캐싱객체가 없거나 해당 객체가 원본서버로부터 초기화되지 않았다면 Hit로 치지 않는다. 응답코드와 Hit율은 관련이 없다.
+-  ``ByteHitRatio (단위: 0.01%, 평균)`` 원본서버 대비 클라이언트 전송률. ::
+
+      (클라이언트 Outbound - 원본서버 Inbound) / 클라이언트 Outbound
+      
+   원본서버가 훨씬 빠른 속도를 가지고 있거나 클라이언트 세션이 금방 끊어진다면 음수가 된다.
    
