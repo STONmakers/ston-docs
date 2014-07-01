@@ -3,43 +3,43 @@
 STON 소개
 ******************
 
-.. Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
+STON은 인터넷 서비스를 쉽게 확장하기(Easy Scale Out) 위해 개발된 Edge서버이다. 
+예전에는 개발과 운영을 따로 규정지었지만 이제 `DevOps <http://en.wikipedia.org/wiki/DevOps>`_ 의 시대이다.
+운영없이는 서비스 또한 없다.
+하지만 그 동안 운영의 주체인 관리자들에게 걸맞는 솔루션이 없었다.
 
-   http://www.apache.org/licenses/LICENSE-2.0
+STON은 상용솔루션이다.
+"상용"의 가장 큰 의미는 장애에 대한 대처와 재발방지이다.
+분명 관리자/개발자들이 책임져야하는 OpenSource와는 그 궤를 달리한다.
+STON의 개발목표는 국내외 수 많은 서비스를 통해 검증된 신뢰를 모든 고객에게 전파하는 것이다.
 
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.
 
-Web proxy caching enables you to store copies of frequently-accessed web
-objects (such as documents, images, and articles) and then serve this
-information to users on demand. It improves performance and frees up
-Internet bandwidth for other tasks.
 
 .. toctree::
    :maxdepth: 2
 
-Understanding HTTP Web Proxy Caching
+
+Service & Risk
 ====================================
 
-Internet users direct their requests to web servers all over the
-Internet. A caching server must act as a **web proxy server** so it can
-serve those requests. After a web proxy server receives requests for web
-objects, it either serves the requests or forwards them to the **origin
-server** (the web server that contains the original copy of the
-requested information). The Traffic Server proxy supports **explicit
-proxy caching**, in which the user's client software must be configured
-to send requests directly to the Traffic Server proxy. The following
-overview illustrates how Traffic Server serves a request.
+서비스는 시작되는 순간부터 수많은 위험에 노출된다. 
+점점 많은 사용자와 콘텐츠를 확보할수록 위험과 비용은 예측할 수 없을 만큼 커진다. 
+장애는 언제든 발생할 수 있다. 
+서비스가 멈추는 순간 사용자는 등을 돌릴 것이며 떨어진 신뢰는 쉽게 회복할 수 없다. 
+
+특히나 요즘엔 서비스가 전파되는 시간이 점차 짧아지고 있다. 
+이제 누구도 섣불리 미래를 예측할 수 없다. 
+Risk를 천천히 다가오지 않으며 대비할 시간은 항상 없다. 
+
+하지만 서비스 성공을 위해 반드시 극복해야만한다. 
+그러기 위해 우리 앞에 놓인 Risk가 무엇인지 정확하게 규정해야 한다.
+
+
+Reverse-Proxy Cache
+====================================
+
+시장에는 Apache Traffic Server, Squid, Varnish등 Open-Source기반의 Cache서버가 존재한다.
+그럼에도 불구하여 
 
 1. Traffic Server receives a client request for a web object.
 
