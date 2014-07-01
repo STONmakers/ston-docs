@@ -294,7 +294,7 @@ WM이 느리거나 그래프가 나오지 않는 문제
 ======================================== =================== ======= ============================
 Name                                     Last Modified       Size    Description
 ======================================== =================== ======= ============================
-tcl-rrdtool-1.4.7-1.el5.rf.i386.rpm	     06-Apr-2012 16:57   36K     RHEL5 and CentOS-5 x86 32bit
+tcl-rrdtool-1.4.7-1.el5.rf.i386.rpm      06-Apr-2012 16:57   36K     RHEL5 and CentOS-5 x86 32bit
 tcl-rrdtool-1.4.7-1.el5.rf.x86_64.rpm	 06-Apr-2012 16:57   37K     RHEL5 and CentOS-5 x86 64bit
 tcl-rrdtool-1.4.7-1.el6.rfx.i686.rpm     06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 32bit
 tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 64bit
