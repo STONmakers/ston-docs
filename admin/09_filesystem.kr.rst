@@ -270,3 +270,80 @@ STON 내부에서는 ``Separator`` 를 slash(/)로 변경하여 HTTP와 동일�
    :align: center
       
    극도로 최적화된 접근
+
+
+
+Wowza 연동방법
+====================================
+
+File System을 이용해 손쉽게 Wowza를 연동할 수 있다. 
+STON이 Mount된 경로를 Wowza의 파일경로로 설정하는 것으로 모든 설정이 완료된다.
+
+**1. [STON - 전역설정] 파일시스템 설정 ON**
+
+  전역설정(server.xml)에 다음과 같이 ``<FileSystem>`` 을 ``ON`` 으로 설정한다. 
+  (예제에서는 Mount경로를 "/cachefs"로 설정한다.) ::
+  
+     <Cache>
+        <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">ON</FileSystem>
+     </Cache>
+     
+  또는 WM의 전역설정 - 파일시스템에서 다음과 같이 파일 시스템을 "사용한다"로 설정한다.
+  
+  .. figure:: img/faq_wowza1.png
+     :align: center
+
+     설정 후 반드시 STON을 재시작해야 Mount된다.
+     
+**2. [STON - 가상호스트] 파일시스템 접근허가 & 응답코드 설정**
+
+  가상호스트의 파일시스템 접근을 Active시킨다. 
+  원본서버 응답코드에 따른 파일/디렉토리 결정도 설정한다. 
+  여기서는 가상호스트 기본 설정(server.xml)을 예로 설명하지만 
+  각각의 가상호스트(vhosts.xml)에서 개별적으로 설정할 수 있다. ::
+  
+     <VHostDefault>
+       <Options>
+         <FileSystem Status="Active" DotDir="OFF">
+           <FileStatus>200</FileStatus>
+           <DirStatus>301, 302, 400, 401, 403</DirStatus>
+         </FileSystem>
+       </Options>
+     <VHostDefault>
+     
+  또는 WM의 가상호스트 - 파일시스템에서 다음과 같이 접근을 "허가한다"로 설정한다.
+  
+  .. figure:: img/faq_wowza2.png
+     :align: center
+
+     응답코드를 설정한다.
+     
+     
+**3. [Wowza] Storage 경로 설정**
+
+  Wowza설치경로 /Conf/Application.xml 파일을 다음과 같이 STON이 Mount된 경로를 바라보도록 편집한다. ::
+
+     <Streams>
+       <StreamType>default</StreamType>
+       <StorageDir>/cachefs/example.com</StorageDir>
+       <KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
+     </Streams>
+     
+**4. [Wowza] VOD 경로설정**
+
+  Wowza설치경로 /Conf/vod/Application.xml 파일을 다음과 같이 STON이 Mount된 경로를 바라보도록 편집한다. ::
+  
+     <Streams>
+       <StreamType>default</StreamType>
+       <StorageDir>/cachefs/example.com</StorageDir>
+       <KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
+     </Streams>
+     
+**5. 플레이어 테스트**
+
+  Wowza 테스트 플레이어로 로컬에 존재하지 않는(=STON이 캐싱해야 하는) 영상을 RTMP로 재생한다. ::
+  
+  .. figure:: img/faq_wowza3.png
+     :align: center
+
+     테스트엔 적절한 영상이 필요합니다.
