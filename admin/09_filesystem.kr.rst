@@ -341,7 +341,7 @@ STON이 Mount된 경로를 Wowza의 파일경로로 설정하는 것으로 모�
      
 **5. 플레이어 테스트**
 
-  Wowza 테스트 플레이어로 로컬에 존재하지 않는(=STON이 캐싱해야 하는) 영상을 RTMP로 재생한다. ::
+  Wowza 테스트 플레이어로 로컬에 존재하지 않는(=STON이 캐싱해야 하는) 영상을 RTMP로 재생한다.
   
   .. figure:: img/faq_wowza3.png
      :align: center
