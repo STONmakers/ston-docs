@@ -214,11 +214,11 @@ STON 실행
 
 3. STON을 실행한다.  ::
 
-		[root@localhost ~]# service ston start
+      [root@localhost ~]# service ston start
 
-    STON을 중지하고 싶다면 stop 명령을 사용한다.  ::
+   STON을 중지하고 싶다면 stop 명령을 사용한다.  ::
 
-		[root@localhost ~]# service ston stop
+      [root@localhost ~]# service ston stop
 
 
 가상호스트 동작확인
