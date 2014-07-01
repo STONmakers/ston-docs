@@ -283,3 +283,17 @@ WM이 느리거나 그래프가 나오지 않는 문제
         libgraphicsmagick3 libgraphicsmagick++3 libgraphicsmagick1-dev libgraphics-magick-perl libgraphicsmagick++1-dev
       Use 'apt-get autoremove' to remove them.
       0 upgraded, 0 newly installed, 0 to remove and 102 not upgraded.
+      
+      
+**2. RRD 수동설치**
+
+   만약 rrdtool이 yum을 이용해서 설치가 되지 않는다면, 
+   아래 페이지에서 OS 버전에 맞는 패키지를 다운로드 하여 수동으로 설치한다.
+   `http://pkgs.repoforge.org/rrdtool/ <http://pkgs.repoforge.org/rrdtool/>`_ 
+   
+   ======================================== =================== ================================
+   tcl-rrdtool-1.4.7-1.el5.rf.i386.rpm	    06-Apr-2012 16:57	36K	RHEL5 and CentOS-5 x86 32bit
+   tcl-rrdtool-1.4.7-1.el5.rf.x86_64.rpm	06-Apr-2012 16:57	37K	RHEL5 and CentOS-5 x86 64bit
+   tcl-rrdtool-1.4.7-1.el6.rfx.i686.rpm	    06-Apr-2012 16:57	35K	RHEL6 and CentOS-6 x86 32bit
+   tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	06-Apr-2012 16:57	35K	RHEL6 and CentOS-6 x86 64bit
+   ======================================== =================== ================================
