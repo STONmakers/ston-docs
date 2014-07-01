@@ -39,9 +39,9 @@ Web Cache는 정적 컨텐츠 전송에 집중하여 서비스의 속도를 크�
 2. STON Edge Server
 ==============
 
-.. image:: img/stonlogo.png
+.. image:: img/ston_edge_server.png
   :align: center
-  :width: 50%
+  :width: 70%
   
 |
 
