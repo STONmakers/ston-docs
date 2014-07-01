@@ -289,8 +289,7 @@ WM이 느리거나 그래프가 나오지 않는 문제
 
    만약 rrdtool이 yum을 이용해서 설치가 되지 않는다면, 
    아래 페이지에서 OS 버전에 맞는 패키지를 다운로드 하여 수동으로 설치한다.
-   `http://pkgs.repoforge.org/rrdtool/ <http://pkgs.repoforge.org/rrdtool/>`_ 
-   
+   `http://pkgs.repoforge.org/rrdtool/ <http://pkgs.repoforge.org/rrdtool/>`_
    ======================================== =================== ======= ============================
    Name                                     Last Modified       Size    Description
    ======================================== =================== ======= ============================
