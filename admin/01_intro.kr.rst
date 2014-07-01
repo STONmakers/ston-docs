@@ -271,7 +271,7 @@ A사가 사용하는 제품이 큰 장애상황을 견뎠다면 C사 역시 그 
 
 
 
-Edge의 정의
+Edge서버의 정의
 ==============================
 
 .. note::
@@ -284,10 +284,31 @@ CPU내부에도 여러 단계의 Cache가 존재하고 OS도 디스크에 저장
 단언컨데 Cache는 가장 효율적이며 검증된 방법이다.
 
 인터넷의 도래와 함께 네트워크 상에서 동작하는 Cache가 필요해졌다.
-이를 구현한 것을 Topology에 따라 Proxy, Reverse-Proxy로 구분하며 통칭 Web Cache라고 부른다.
+이를 구현한 것을 Topology에 따라 Proxy, Reverse-Proxy로 구분한다.
 대표적인 Open Source로 `Squid <http://www.squid-cache.org/>`_ 나 `ATS(Apache Traffic Server) <http://trafficserver.apache.org/>`_ 가 존재한다.
+인터넷 환경의 발달과 함께 Proxy는 거의 유명무실해졌다.
+주로 Reverse-Proxy를 사용하며 흔히 Web Cache라고 부른다.
 
+.. figure:: img/into_reverseproxy.png
+   :align: center
+      
+   Reverse-Proxy의 개념
 
+`CDN <http://en.wikipedia.org/wiki/Content_delivery_network>`_ 의 보편화와 
+모바일시대의 도래는 새로운 운영환경을 요구했다.
+특히나 빠른 서비스형태의 변화와 다양한 클라이언트 환경을 각 기업이 Follow-up하는 것은 매우 버거운 일이 아닐 수 없다.
+
+Edge서버의 대표적인 특징은 다음과 같다.
+
+-  원본을 대신하여 서비스를 대중에게 전달한다.
+
+-  대중으로부터 서비스를 보호한다.
+
+-  서비스가 핵심적인 역할만 수행할 수 있도록 보조한다.
+
+가수에게 마이크가 있다면 서비스엔 이제 Edge가 필요하다.
+**효과적으로 전달** 하려면 서비스 설계와 확장에 Edge의 개념이 필수적이다.
+Edge서버의 주요 특징과 개념에 대해 상세하게 알아보자.
 
 
 
