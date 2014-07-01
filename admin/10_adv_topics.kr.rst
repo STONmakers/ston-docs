@@ -159,3 +159,97 @@ Parent서버에 장애가 발생하면 Child들은 장애서버를 배제하고 
 Standby서버가 있다면 장애서버 위치에 Standby서버를 위치시켜 다른 Parent서버가 
 영향받지 않게 한다.
 
+
+
+Request hit ratio
+====================================
+
+Request hit ratio를 이해하기 위해 클라언트의 HTTP요청이 어떻게 처리되는지 이해해야 한다.
+캐시처리 결과는 Squid와 동일하게 TCP_*로 명명되며 각 표현마다 캐시서버가 처리한 방식을 의미한다.
+
+-  ``TCP_HIT`` 요청된 리소스(만료되지 않음)가 캐싱되어 있어 즉시 응답함.
+-  ``TCP_IMS_HIT`` IMS(If-Modified-Since)헤더와 함께 요청된 리소스가 만료되지 않은 상태로 캐싱되어 있어 304 NOT MODIFIED로 응답함. TTLExtensionBy4xx, TTLExtensionBy5xx설정에 해당하는 경우에도 이에 해당함.
+-  ``TCP_REFRESH_HIT`` 요청된 리소스가 만료되어 원본서버 확인(원본 미변경, 304 NOT MODIFIED) 후 응답함. 리소스 만료시간 연장됨.
+-  ``TCP_REF_FAIL_HIT`` TCP_REFRESH_HIT과정 중 원본서버에서 확인이 실패(접속실패, 전송지연)한 경우 만료된 컨텐츠로 응답함.
+-  ``TCP_NEGATIVE_HIT`` 요청된 리소스가 비정상적인 상태(원본서버 접속/전송 실패, 4xx응답, 5xx응답)로 캐싱되어 있고 해당상태를 응답함.
+-  ``TCP_REDIRECT_HIT`` 서비스 허용/거부/Redirect 조건에 의해 Redirect를 응답함.
+-  ``TCP_MISS`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버에서 가져온 결과를 응답함.
+-  ``TCP_REF_MISS`` 요청된 리소스가 만료되어 원본서버 확인(원본 변경, 200 OK) 후 응답함. 새로운 리소스가 캐싱됨.
+-  ``TCP_CLIENT_REFRESH_MISS`` 요청을 원본서버로 바이패스.
+-  ``TCP_ERROR`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버 장애(접속실패, 전송지연, 원본배제)로 인해 리소스를 캐싱하지 못함. 클라이언트에게 500 Internal Error로 응답함.
+-  ``TCP_DENIED`` 요청이 거부되었음.
+
+이상을 종합하여 Request hit ratio계산 공식은 다음과 같다. ::
+
+   TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT + TCP_REDIRECT_HIT
+   ------------------------------------------------------------------------------------------------
+                                            SUM(TCP_*)
+                                            
+
+Byte hit ratio
+====================================
+
+Byte hit ratio는 클라이언트에게 전송한 트래픽(Client Outbound)대비 원본서버로부터 
+전송받은 트래픽(Origin Inbound)의 비율을 나타낸다. 
+원본서버 트래픽이 클라이언트 트래픽보다 높은 경우 음수가 나올 수 있다. ::
+
+   Client Outbound - Origin Inbound
+   --------------------------------
+           Client Outbound
+           
+
+원본서버 장애상황 정책
+====================================
+
+STON을 사용하시는 고객이 언제든지 원본서버를 점검 할 수 있도록 하는 것이 개발팀의 목표이다. 
+원본서버의 장애가 감지되면 해당 서버는 자동으로 배제되어 복구모드로 전환된다. 
+장애서버가 재가동되었더라도 정상 서비스 상태를 확인해야만 다시 투입한다.
+
+
+만약 모든 원본서버의 장애를 감지한 경우 STON은 자동으로 현재 캐싱된 컨텐츠로 서비스를 진행한다. 
+TTL이 만료된 컨텐츠는 원본서버가 복구될 때까지 자동으로 연장된다. 
+심지어 Purge된 컨텐츠의 경우에도 원본서버에서 캐싱할 수 없다면 복구시켜 서비스에 문제가 없도록 동작한다. 
+최대한 클라이언트에게 장애상황을 노출해선 안된다는 것이 STON의 정책이다.
+완전 장애상황에서 신규 컨텐츠 요청이 들어오면 다음과 같은 에러 페이지와 이유가 명시된다.
+
+.. figure:: img/faq_stonerror.jpg
+   :align: center
+      
+   왠만하면 이런 화면은 보여주기 싫다.
+   
+   
+시간단위 표현과 범위
+====================================
+
+기준 시간이 "초"인 항목에 대하여 문자열로 시간표현이 가능하다. 
+다음은 지원되는 시간표현 목록과 환산된 초(sec) 다.
+
+=========================== =========================
+표현	                    환산
+=========================== =========================
+year(s)                     31536000 초 (=365 days)
+month(s)                    2592000 초 (=30 days)
+week(s)                     604800 초 (=7 days)
+day(s)                      86400 초 (=24 hours)
+hour(s)	                    3600 초 (=60 mins)
+minute(s), min(s)	        60 초
+second(s), sec(s), (생략)	1 초
+=========================== =========================
+
+다음과 같이 조합된 시간표현이 가능하다. ::
+
+    1year 3months 2weeks 4days 7hours 10mins 36secs
+    
+현재 지원대상은 다음과 같다.
+
+- Custom TTL의 시간표현
+- TTL의 Ratio를 제외한 모두
+- ClientKeepAliveSec
+- ConnectTimeout
+- ReceiveTimeout
+- BypassConnectTimeout
+- BypassReceiveTimeout
+- ReuseTimeout
+- Recovery의 Cycle속성
+- Bandwidth Throttling
+- DNSBackup

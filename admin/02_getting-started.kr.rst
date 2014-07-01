@@ -244,3 +244,42 @@ www.example.com 도메인을 설정한다. ::
 
    어떠한 경우에도 STON은 설정파일을 수정하지 않는다. 관리자는 서비스 반영을 원하는 
    시점에 분명하게 reload를 수행하여 설정을 반영해야 한다.
+
+
+
+WM이 느리거나 그래프가 나오지 않는 문제
+=======================================
+
+설치과정 중 RRD그래프는 동적으로 다운로드 받아서 설치된다. 
+제한된 네트워크에서 STON을 설치할 경우 RRD가 제대로 설치되지 않을 수 있다. 
+이로 인해 WM페이지가 느려지거나 그래프 API가 오동작할 수 있다. 
+이는 다음과 같이 수정할 수 있다.
+
+
+** 1. rrdtool 설치확인**
+
+   명령에 대해 다음과 같이 이미 설치되어 있다고 결과가 나오지 않으면 설치되지 않은 것이다. ::
+   
+      [root@localhost ston]# yum install rrdtool
+      Loaded plugins: fastestmirror, security
+      Loading mirror speeds from cached hostfile
+      * base: centos.mirror.cdnetworks.com
+      * elrepo: ftp.ne.jp
+      * epel: mirror.premi.st
+      * extras: centos.mirror.cdnetworks.com
+      * updates: centos.mirror.cdnetworks.com
+      Setting up Install Process
+      Package rrdtool-1.3.8-6.el6.x86_64 already installed and latest version
+      Nothing to do
+      
+   다음은 Ubuntu계열의 경우이다. ::
+
+      root@ubuntu:~# apt-get install rrdtool
+      Reading package lists... Done
+      Building dependency tree
+      Reading state information... Done
+      rrdtool is already the newest version.
+      The following packages were automatically installed and are no longer required:
+        libgraphicsmagick3 libgraphicsmagick++3 libgraphicsmagick1-dev libgraphics-magick-perl libgraphicsmagick++1-dev
+      Use 'apt-get autoremove' to remove them.
+      0 upgraded, 0 newly installed, 0 to remove and 102 not upgraded.
