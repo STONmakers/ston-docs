@@ -16,7 +16,7 @@ Edge Server는 서비스망의 최전방(Edge)에서 컨텐츠를 전달하는 �
 
 .. image:: img/service_edge.png
    :align: center
-   :width: 80%
+   :width: 70%
 
 다음과 같이 캐싱(caching)을 기본 메카니즘으로 동작한다.
 
