@@ -58,7 +58,7 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 - 가상호스트 ``<Keep-Alive>`` 설정
 
 
-** 1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
+1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우 ::
 
       GET / HTTP/1.1
       ...(생략)...
@@ -74,95 +74,92 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
    이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
-**2.**  ``<ConnectionHeader>`` **가** ``Close`` **로 설정된 경우** ::
+2. ``<ConnectionHeader>`` 가 ``Close`` 로 설정된 경우 ::
 
-   <Options>
-      <ConnectionHeader>Close</ConnectionHeader>
-   </Options>
+      <Options>
+         <ConnectionHeader>Close</ConnectionHeader>
+      </Options>
     
-클라이언트 HTTP요청과 상관없이 "Connection: Close"로 응답한다.
-Keep-Alive헤더는 명시되지 않는다. ::
+   클라이언트 HTTP요청과 상관없이 "Connection: Close"로 응답한다.
+   Keep-Alive헤더는 명시되지 않는다. ::
 
-    HTTP/1.1 200 OK
-    ...(생략)...
-    Connection: Close
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Close
+      
 
+3. ``<KeepAliveHeader>`` 가 ``OFF`` 로 설정된 경우 ::
 
-**3.**  ``<KeepAliveHeader>`` **가** ``OFF`` **로 설정된 경우** ::
-
-    <Options>
-        <ConnectionHeader>Keep-Alive</ConnectionHeader>
-        <KeepAliveHeader>OFF</KeepAliveHeader>
-    </Options>
+      <Options>
+         <ConnectionHeader>Keep-Alive</ConnectionHeader>
+         <KeepAliveHeader>OFF</KeepAliveHeader>
+      </Options>
     
-Keep-Alive헤더가 명시되지 않는다. HTTP 세션은 지속적으로 재사용가능하다. ::
+   Keep-Alive헤더가 명시되지 않는다. HTTP 세션은 지속적으로 재사용가능하다. ::
 
-   HTTP/1.1 200 OK
-   ...(생략)...
-   Connection: Keep-Alive
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Keep-Alive
 
 
-**4.**  ``<KeepAliveHeader>`` **가** ``ON`` **으로 설정된 경우** ::
+4. ``<KeepAliveHeader>`` 가 ``ON`` 으로 설정된 경우 ::
 
-   <Options>
-      <ConnectionHeader>Keep-Alive</ConnectionHeader>
-      <ClientKeepAliveSec>10</ClientKeepAliveSec>
-      <KeepAliveHeader>ON</KeepAliveHeader>
-   </Options>
+      <Options>
+         <ConnectionHeader>Keep-Alive</ConnectionHeader>
+         <ClientKeepAliveSec>10</ClientKeepAliveSec>
+         <KeepAliveHeader>ON</KeepAliveHeader>
+      </Options>
     
-Keep-Alive헤더가 명시된다.
-timeout값은 세션 Keep-Alive시간 설정을 사용한다. ::
+   Keep-Alive헤더가 명시된다.
+   timeout값은 세션 Keep-Alive시간 설정을 사용한다. ::
     
-    HTTP/1.1 200 OK
-    ...(생략)...
-    Connection: Keep-Alive
-    Keep-Alive: timeout=10
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Keep-Alive
+      Keep-Alive: timeout=10
 
 .. note::
 
-   ** ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계**
+   < ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계 >
     
-   ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 
-   보다 근본적인 문제와 관련이 있다. 
-   성능이나 자원적으로 가장 중요한 이슈는 
-   `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
-   HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 
-   Idle세션 정리는 훨씬 민감한 문제이다. 
+   ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 보다 근본적인 문제와 관련이 있다. 
+   성능이나 자원적으로 가장 중요한 이슈는 `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
+   HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 Idle세션 정리는 훨씬 민감한 문제이다. 
    이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
 
-**5.**  ``<KeepAliveHeader>`` **의** ``Max`` **속성이 설정된 경우** ::
+5. ``<KeepAliveHeader>`` 의 ``Max`` 속성이 설정된 경우 ::
 
-    <Options>
-       <ConnectionHeader>Keep-Alive</ConnectionHeader>
-       <ClientKeepAliveSec>10</ClientKeepAliveSec>
-       <KeepAliveHeader Max="50">ON</KeepAliveHeader>
-    </Options>
+      <Options>
+         <ConnectionHeader>Keep-Alive</ConnectionHeader>
+         <ClientKeepAliveSec>10</ClientKeepAliveSec>
+         <KeepAliveHeader Max="50">ON</KeepAliveHeader>
+      </Options>
     
-Keep-Alive헤더에 max값을 명시한다. 
-이 세션은 max회만큼 사용이 가능하며 HTTP 트랜잭션이 진행될때마다 1씩 감소된다. ::
+   Keep-Alive헤더에 max값을 명시한다. 
+   이 세션은 max회만큼 사용이 가능하며 HTTP 트랜잭션이 진행될때마다 1씩 감소된다. ::
     
-    HTTP/1.1 200 OK
-    ...(생략)...
-    Connection: Keep-Alive
-    Keep-Alive: timeout=10, max=50
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Keep-Alive
+      Keep-Alive: timeout=10, max=50
 
 
-**6. Keep-Alive의 max가 만료된 경우** ::
+6. Keep-Alive의 max가 만료된 경우 ::
 
-위의 설정대로 max가 설정되었다면 max는 점차 줄어 다음처럼 1까지 도달하게 된다. ::
+   위의 설정대로 max가 설정되었다면 max는 점차 줄어 다음처럼 1까지 도달하게 된다. ::
 
-    HTTP/1.1 200 OK
-    ...(생략)...
-    Connection: Keep-Alive
-    Keep-Alive: timeout=10, max=1
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Keep-Alive
+      Keep-Alive: timeout=10, max=1
     
-이 응답은 현재 세션으로 앞으로 1번 HTTP 트랜잭션진행이 가능하다는 의미이다. 
-이 세션으로 HTTP 요청이 한번 더 진행될 경우 다음과 같이 "Connection: Close"로 응답한다. ::
+   이 응답은 현재 세션으로 앞으로 1번 HTTP 트랜잭션진행이 가능하다는 의미이다. 
+   이 세션으로 HTTP 요청이 한번 더 진행될 경우 다음과 같이 "Connection: Close"로 응답한다. ::
     
-    HTTP/1.1 200 OK
-    ...(생략)...
-    Connection: Close    
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Close    
 
 
 
