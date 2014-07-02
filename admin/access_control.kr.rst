@@ -39,6 +39,8 @@ ACL(Access Control List)을 통해 서비스에 대한 클라이언트 접근을
 차단된 IP는 Deny로그에 기록된다.
 
 
+.. _access-control-geoip:
+
 GeoIP
 ---------------------
 

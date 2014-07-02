@@ -339,11 +339,11 @@ HTTP 요청/응답 헤더 변경
    $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
 
 -  **GeoIP**
-   $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다. 
+   $IP[...]로 표기하며 반드시 :ref:`access-control-geoip` 가 설정되어 있어야 한다.
    국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
      
 -  **Header**
-   $HEADER[Key : Value로 표기한다. 
+   $HEADER[Key : Value]로 표기한다. 
    Value는 명확한 표현과 패턴을 지원한다. 
    Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
     
