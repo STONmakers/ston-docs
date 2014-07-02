@@ -10,22 +10,22 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   01_intro.kr
-   02_getting-started.kr
-   03_environment.kr
-   04_caching_policy.kr
-   05_handling_http_requests.kr   
-   06_origin.kr
+   intro.kr
+   getting_started.kr
+   environment.kr
+   caching_policy.kr
+   handling_http_requests.kr   
+   origin.kr
    access_control.rst
-   07_bypass.kr   
-   08_multimedia.kr
-   bandwidth_control.rst
-   ssl.rst   
-   09_filesystem.kr
-   10_adv_topics.kr
-   11_monitoring_stats.kr
+   bypass.kr
+   multimedia.kr
+   bandwidth_control.kr
+   ssl.kr
+   filesystem.kr
+   adv_topics.kr
+   monitoring_stats.kr
    snmp.kr
-   12_log.kr
-   13_wm.kr
+   log.kr
+   wm.kr
 
 
