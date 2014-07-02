@@ -6,6 +6,11 @@
 INDEX
 ================================
 
+
+.. image:: business/img/ston_edge_server.png
+   :align: center
+   
+
 Contents:
 
 .. toctree::
