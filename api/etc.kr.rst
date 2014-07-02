@@ -1,4 +1,4 @@
-﻿.. _api_etc:
+﻿.. _api-etc:
 
 기타
 ******************
@@ -9,6 +9,8 @@
    :maxdepth: 2
 
 
+.. _api-etc-help:
+
 Help
 ====================================
 
@@ -16,6 +18,8 @@ API 목록을 확인한다. ::
 
     http://127.0.0.1:10040/help
 
+
+.. _api-etc-version:
 
 Version
 ====================================
@@ -25,7 +29,9 @@ Version
     http://127.0.0.1:10040/version
 
 
-HTTP Method 지원
+.. _api-etc-httpmethod:
+
+HTTP Method
 ====================================
 
 Purge, Expire, ExpireAfter, HardPurge의 경우 HTTP Method로 지원된다. 
@@ -37,6 +43,8 @@ Purge, Expire, ExpireAfter, HardPurge의 경우 HTTP Method로 지원된다.
 HTTP Method는 기본적으로 Manager포트와 서비스(80)포트에서 동작한다. 
 서비스포트로 요청되는 HTTP Method의 ACL은 Manager설정을 참고한다.
 
+
+.. _api-etc-post:
 
 POST 지원
 ====================================
