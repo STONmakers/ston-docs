@@ -1,6 +1,6 @@
 ﻿.. _wm:
 
-Web Management
+WM (Web Management)
 ******************
 
 Web Management(이하 WM)는 STON API를 사용하는 Web기반 관리 툴이다. 
