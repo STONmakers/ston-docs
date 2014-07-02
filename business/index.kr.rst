@@ -1,6 +1,6 @@
 ﻿.. _aboutston:
 
-What is STON Edge Server?
+What is STON?
 **********************
 
 
