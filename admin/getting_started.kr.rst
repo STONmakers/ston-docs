@@ -184,9 +184,20 @@ OS 구성
 실행하기
 ====================================
 
-기본 설치경로는 /usr/local/ston/ 이다. 최초 설치시 필수 설정파일인 server.xml과 
-vshost.xml이 존재하지 않는다. 설치경로의 server.xml.default와 vhosts.xml.default를 
-복사 또는 수정하여 설정하길 권장한다. *.default파일은 항상 최신패키지와 함께 배포된다.
+보통 기본경로에 STON을 설치한다. ::
+
+    /usr/local/ston/
+
+다음 파일 중 하나라도 존재하지 않거나 XML문법에 맞지 않을 경우 실행되지 않는다.
+
+- license.xml
+- server.xml
+- vhosts.xml
+
+최초 설치시 모든 XML파일이 존재하지 않는다. 
+배포받은 라이센스파일을 설치 경로에 복사한다.
+그리고 설치경로의 server.xml.default와 vhosts.xml.default를 복사 또는 수정하여 설정하길 바란다. 
+*.default파일은 항상 최신패키지와 함께 배포된다.
 
 
 .. _getting-started-samplevhost:
@@ -223,8 +234,8 @@ STON 실행
       
 .. note::
 
-   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에, 디스크가 설정되어 있지 않으면
-   구동되지 않는다. 자세한 내용은 다음 장에서 설명한다.
+   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면 구동되지 않는다. 
+   자세한 내용은 다음 장에서 설명한다.
 
 3. STON을 실행한다.  ::
 
@@ -255,7 +266,7 @@ www.example.com 도메인을 설정한다. ::
 
 설정 Reload
 -----------------------------------------------
-설정파일을 변경한 뒤에는 반드시 Reload를 호출해야 설정이 반영된다. ::
+설정파일을 변경한 뒤에는 반드시 :ref:`api-conf-reload` 를 호출해야 설정이 반영된다. ::
 
     ./stonapi conf/reload
 
@@ -272,13 +283,13 @@ WM이 느리거나 그래프가 나오지 않는 문제
 
 설치과정 중 RRD그래프는 동적으로 다운로드 받아서 설치된다. 
 제한된 네트워크에서 STON을 설치할 경우 RRD가 제대로 설치되지 않을 수 있다. 
-이로 인해 WM페이지가 느려지거나 그래프 API가 오동작할 수 있다. 
-이는 다음과 같이 수정할 수 있다.
+이로 인해 :ref:`wm` 이 매우 느리게 동작하거나 :ref:`api-graph` 가 동작하지 않게 된다.
+다음과 같이 수정한다.
 
 
 **1. rrdtool 설치확인**
 
-   명령에 대해 다음과 같이 이미 설치되어 있다고 결과가 나오지 않으면 설치되지 않은 것이다. ::
+   다음과 같이 설치여부를 확인한다. ::
    
       [root@localhost ston]# yum install rrdtool
       Loaded plugins: fastestmirror, security
@@ -308,8 +319,7 @@ WM이 느리거나 그래프가 나오지 않는 문제
 **2. RRD 수동설치**
 
    만약 rrdtool이 yum을 이용해서 설치가 되지 않는다면, 
-   아래 페이지에서 OS 버전에 맞는 패키지를 다운로드 하여 수동으로 설치한다.
-   `http://pkgs.repoforge.org/rrdtool/ <http://pkgs.repoforge.org/rrdtool/>`_
+   OS 버전에 맞는 패키지를 `다운로드 <http://pkgs.repoforge.org/rrdtool/>`_ 후 수동으로 설치한다.   
    
 ======================================== =================== ======= ============================
 Name                                     Last Modified       Size    Description
