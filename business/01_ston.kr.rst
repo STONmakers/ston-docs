@@ -20,16 +20,14 @@ Edge Server는 서비스망의 최전방(Edge)에서 컨텐츠를 전달하는 �
 
 기본 동작구조는 일반적으로 아래와 같다.
 
+.. image:: img/edge_server.png
+   :align: center
+   
 #. 클라이언트로부터 컨텐츠의 최초 요청을 받고
 #. 컨텐츠를 원본서버에서 가져와 저장하여 클라이언트에게 전송한다. 
 #. 컨텐츠 재요청을 받으면 2에서 가져왔던 컨텐츠를 전송한다. 
 
 환경과 용도에 따라 Web Cache, (Reverse) Proxy, Surrogate Server 등의 다양한 이름으로 불리기도 한다.
-
-
-   
-.. image:: img/edge_server.png
-   :align: center
 
 서비스 확장 때문에 원본 웹서버 자체를 Scale-Out 하면, 컨텐츠를 갱신마다 동기화 시켜야 하는 문제가 있다. 
 동일 컨텐츠를 수십수백대의 웹서버에 주입하면 리스크도 크고 관리도 어렵다. 
