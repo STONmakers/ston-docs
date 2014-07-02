@@ -85,7 +85,7 @@ STON은 퍼포먼스 최적화를 위해 C++로 개발되었으며, 64bit 아키
    :align: left
    :width: 15%
    
-도입에서 운영에 이르기까지, Web Cache를 가장 많이 접하는 담당자는 보통 운영자이다. (Administrator) 
+도입에서 운영에 이르기까지, Edge Server를 가장 많이 접하는 담당자는 보통 운영자이다. (Administrator) 
 STON은 기획단계부터 서비스 운영자 의 관점에 맞추어 설계되었다. 
 어려운 코딩을 할 필요도, 변경설정 적용을 위해 빌드를 다시 할 필요도 없다. 
 XML 설정파일 2개를 편집하는 것만으로 모든 설정이 가능하며, 
@@ -120,7 +120,7 @@ STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로�
 =========
 
 
-**"Cache as a Service"**
+**"Edge as a Service"**
 
 .. image:: img/comp.png
   :width: 95%
@@ -128,7 +128,7 @@ STON은 ASP와 같이 사용분에 대해서만 과금되는 소프트웨어로�
 
 |
 
-기존 시장의 Web Cache는 Squid, Apache Traffic Server와 같은 오픈소스 소프트웨어나, 
+기존 시장의 Edge Server 솔루션은 Squid, Apache Traffic Server와 같은 오픈소스 소프트웨어나, 
 이를 기반으로 하드웨어 장비에 탑재한 어플라이언스 형태가 주종을 이루고 있었다. 
 
 - 오픈소스는 입수비용이 없고 접근이 자유로우나, 오래된 기술이라 현재의 상황에 맞지 않거나 소스에 대한 충분한 이해없이 도입할 경우 성능저하, 치명적 문제를 해결하기 어려운 단점이 있다. 
@@ -200,10 +200,10 @@ STON은 기초부터 64bit 아키텍처를 기반으로 설계되었다. CPU자�
 
 
 
-7. Beyond Web Cache
+7. Beyond Edge Server
 ===================
 
-STON은 HTTP Cache로 시작하여
-지금은 클라이언트의 다양한 요건에 컨텐츠를 맞추어 빠르게 제공하는 변환 기능 (DIMS, Media관련)을 비롯하여 
-FUSE 파일시스템 제공까지 STON은 단순 Web Cache 의 범주를 뛰어넘기 시작했다.
-컨텐츠 원본을 그대로 운용하면서  손쉽고 유연하게 서비스를 확장하는 Utility Server를 지향하고 있다.
+STON은 HTTP Cache로 시작되여
+지금은 클라이언트의 다양한 요건에 컨텐츠를 맞추어 빠르게 제공하는 변환 기능 (DIMS, Media관련)을 비롯, 
+FUSE 파일시스템 제공까지 STON은 단순 Proxy 의 범주를 뛰어넘기 시작했다.
+컨텐츠 원본을 보존 운용하면서 손쉽고 유연하게 서비스를 확장하는 Utility Server를 지향하고 있다.
