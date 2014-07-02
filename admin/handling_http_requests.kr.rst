@@ -275,7 +275,19 @@ ETag 헤더
 HTTP 요청/응답 헤더 변경
 ---------------------
 
-클라이언트 HTTP요청과 STON의 HTTP응답을 특정 조건에 따라 변경할 수 있다. 
+클라이언트 HTTP요청과 STON의 HTTP응답을 특정 조건에 따라 변경할 수 있다. ::
+
+   <Options>
+      <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
+   </Options>
+    
+-  ``<ModifyHeader>``
+    
+   -  ``OFF (기본)`` 변경하지 않는다.
+   
+   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.
+   
+헤더 변경시점을 정확히 이해해야 올바르게 설정할 수 있다.
 
 -  **HTTP 요청헤더 변경시점**
 
@@ -286,19 +298,8 @@ HTTP 요청/응답 헤더 변경
 -  **HTTP 응답헤더 변경시점**
 
    클라이언트 응답 직전에 헤더를 변경한다. 
-   단, Content-Length는 변경할 수 없다.
-    
-::
+   단, Content-Length는 변경할 수 없다.   
 
-   <Options>
-      <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
-   </Options>
-    
--  ``<ModifyHeader>``
-    
-   -  ``OFF (기본)`` 변경하지 않는다.
-   
-   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.      
       
 헤더 변경조건은 /svc/{가상호스트 이름}/headers.txt에 설정한다. 
 헤더는 멀티로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 동시에 적용된다. 
