@@ -9,15 +9,15 @@
 1. Edge Server의 개념
 ============
 
-Edge Server는 서비스망의 최전방(Edge)에서 컨텐츠를 전달하는 서버이다.
+Edge Server는 서비스망에서 사용자와 만나는 외곽(Edge)에 위치하여 컨텐츠를 전달하는 서버이다.
 
 .. image:: img/service_edge.png
    :align: center
-   :width: 70%
+   :width: 90%
 
-다양한 통신과 연산의 부하가 걸리는 일반 웹서버와 연동하여, 컨텐츠 전송을 가속하는 역할을 한다.
+어플리케이션 레이어의 웹서버를 증설하는 비용과 노력보다 훨씬 쉽고 저렴한 비용으로 서비스를 확장할 수 있는 방법을 제공한다.
 
-전송효율을 높이기 위해 캐싱(caching)을 기본 메카니즘으로 동작한다.
+최종사용자에게 전달하는 속도를 가속하기 위해 캐싱(caching)을 기본 메카니즘으로 동작한다.
 
 .. image:: img/edge_server.png
    :align: center
