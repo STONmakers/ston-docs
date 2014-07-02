@@ -180,20 +180,19 @@ Caching서비스의 기반동작을 설정한다. ::
 
 관리자는 각각의 가상호스트를 독립적으로 설정할 수 있다. 
 하지만 가상호스트를 생성할 때마다 동일한 설정을 반복하는 것은 매우 소모적이다.
-모든 가상호스트는 <VHostDefault>의 설정을 상속받는다.
+모든 가상호스트는 ``<VHostDefault>`` 을 상속받는다.
 
    .. figure:: img/vhostdefault.png
       :align: center
    
-      모든 가상호스트는 <VHostDefault>설정을 상속받는다.
+      단일 상속이다.
 
 www.example.com의 경우 별도로 덮어쓰기(Overriding)한 값이 없으므로 A=1, B=2가 된다. 
 반면 img.example.com은 B=3으로 덮어쓰기했으므로 A=1, B=3이 된다. 
 관리자들은 보통 같은 서비스특성을 가지는 서비스를 한 서버에 같이 구성한다.
 그러므로 상속은 매우 효과적인 방법이다.
 
-<VHostDefault>는 기능별로 묶인 5개의 하위 태그(캐싱옵션<Options>, 원본옵션<OriginOptions>, 
-미디어<Media>, 통계<Stats>, 로그<Log>)를 가진다. 각 옵션에 대해서는 차차 설명한다. ::
+``<VHostDefault>`` 는 기능별로 묶인 5개의 하위 태그를 가진다. ::
 
     <VHostDefault>
         <Options> ... </Options>  
@@ -202,6 +201,8 @@ www.example.com의 경우 별도로 덮어쓰기(Overriding)한 값이 없으므
         <Stats> ... </Stats>  
         <Log> ... </Log>
     </VHostDefault>
+    
+예를 들어 :ref:`media` 기능은 ``<Media>`` 하위에 구성하는 식이다.
 
 
 .. _env-https:
@@ -209,7 +210,7 @@ www.example.com의 경우 별도로 덮어쓰기(Overriding)한 값이 없으므
 <Https>
 ------------------------------------------------
 
-HTTPS 서비스를 구성한다. 별도의 장에서 설명한다.
+:ref:`ssl` 에서 상세히 설명한다.
 
 
 
@@ -218,8 +219,9 @@ HTTPS 서비스를 구성한다. 별도의 장에서 설명한다.
 가상호스트 설정 (vhosts.xml)
 ====================================
 
-서비스할 가상호스트를 설정한다. 실행파일과 같은 경로에 존재하는 
-vhosts.xml파일을 가상호스트 파일로 인식한다. 여러개의 가상호스트를 설정한다. ::
+가상호스트를 설정한다. 
+실행파일과 같은 경로에 존재하는 vhosts.xml파일을 가상호스트 파일로 인식한다. 
+가상호스트 개수에 제한은 없다. ::
 
     <Vhosts>
         <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
@@ -232,89 +234,105 @@ vhosts.xml파일을 가상호스트 파일로 인식한다. 여러개의 가상�
     
 가상호스트 생성과 파괴
 ------------------------------------------------
-가상호스트는 vhosts.xml에 <Vhost>태그를 입력하는 것으로 생성된다. ::
 
-    <Vhost Status="Active" Name="ston.example.com">
+``<Vhosts>`` 하위에 ``<Vhost>`` 로 가상호스트를 설정한다. ::
+
+    <Vhost Status="Active" Name="www.example.com">
         <Origin>
-            <Address>123.123.123.123</Address>
+            <Address>10.10.10.10</Address>
         </Origin>
     </Vhost>
 
 -  ``<Vhost>`` 가상호스트를 설정한다.
     
-    - ``Status (기본: Active)`` Inactive인 경우 해당 가상호스트를 서비스하지 않는다. 캐싱된 콘텐츠는 유지된다.
-    - ``Name`` 가상호스트 이름. 반드시 입력되어야 하며 명시적이어야 한다.
+   - ``Status (기본: Active)`` Inactive인 경우 해당 가상호스트를 서비스하지 않는다. 캐싱된 콘텐츠는 유지된다.
+   - ``Name`` 가상호스트 이름. 중복될 수 없다.
     
-가상호스를 삭제하려면 해당 가상호스트의 <Vhost>태그를 삭제한다. 삭제된 가상호스트의 
-모든 콘텐츠는 삭제대상이 되며 가상호스트를 다시 추가하려도 콘텐츠는 되살아나지 않는다.
-그러므로 가상호스트를 신중하게 삭제하려면 일정시간 Status속성을 Inactive상태로 
-유지하여 혹시 있을지 모르는 재투입 상황에 대비할 수 있다.
+가상호스를 삭제하려면 ``<Vhost>`` 를 삭제한다. 
+삭제된 가상호스트의 모든 콘텐츠는 삭제대상이 된다. 
+다시 추가해도 콘텐츠는 되살아나지 않는다.
 
 
 .. _env-vhost-find:
     
 가상호스트 찾기
 ------------------------------------------------
+
 다음은 가장 간단한 형태의 HTTP요청이다. ::
 
     GET / HTTP/1.1
     Host: www.example.com
 
-일반적인 웹(캐시) 서버는 Host헤더의 값으로 가상호스트를 찾는다. 하나의 가상호스트를
-여러 이름으로 서비스하고 싶다면 <Alias>를 사용한다. ::
+일반적인 Web서버는 Host헤더로 가상호스트를 찾는다. 
+하나의 가상호스트를 여러 이름으로 서비스하고 싶다면 ``<Alias>`` 를 사용한다. ::
 
     <Vhost ...>
         <Alias>www2.example.com</Alias>
         <Alias>*.sub.example.com</Alias>
     </Vhost>
 
-Alias의 개수는 제한이 없다. 명확한 표현(www2.example.com)과 
-패턴표현(*.sub.example.com)을 지원한다. 패턴은 복잡한 정규표현식이 아닌 
-prefix에 * 표현을 하나만 붙일 수 있는 간단한 형식만을 지원한다.
+-  ``<Alias>``
+
+   가상호스트의 별명을 설정한다.
+   개수는 제한이 없다.
+   명확한 표현(www2.example.com)과 패턴표현(*.sub.example.com)을 지원한다.
+   패턴은 복잡한 정규표현식이 아닌 prefix에 * 표현을 하나만 붙일 수 있는 간단한 형식만을 지원한다.
+
 
 가상호스트 검색 순서는 다음과 같다.
 
-1. <Vhost>의 Name속성과 일치하는가?
-2. <Alias>의 명시적인 이름과 일치하는가?
-3. <Alias>의 패턴과 일치하는가?
+1. ``<Vhost>`` 의 ``Name`` 과 일치하는가?
+2. 명시적인 ``<Alias>`` 와 일치하는가?
+3. 패턴 ``<Alias>`` 를 만족하는가?
 
 
 .. _env-vhost-defaultvhost:    
     
 기본 가상호스트
 ------------------------------------------------
-기본 가상호스트를 설정할 수 있다. 클라이언트의 HTTP요청이 가상호스트를 찾지못한 
-경우 기본 가상호스트에 의해 처리된다. 반드시 <Vhost>의 Name속성과 똑같은 문자열로 설정한다. ::
+
+요청을 처리할 가상호스트를 찾지못한 경우 선택될 가상호스트를 지정할 수 있다. 
+요청을 처리하고 싶지 않다면 설정하지 않아도 된다. ::
 
     <Vhosts>
         <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
         <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
         <Default>www.example.com</Default>
     </Vhosts>
-    
-    
+
+-  ``<Default>``
+
+   기본 가상호스트 이름을 설정한다. 
+   반드시 ``<Vhost>`` 의 ``Name`` 속성과 똑같은 문자열로 설정해야 한다.
+
+
 .. _env-vhost-listen:
     
 서비스 주소
 ------------------------------------------------
-서비스 할 주소와 포트를 설정한다. ::
+서비스 주소를 설정한다. ::
 
     <Vhost ...>
         <Listen>*:80</Listen>
     </Vhost>
+    
+-  ``<Listen> (기본: *:80)``
 
-*:80 표현은 모든 IP의 80포트로 오는 요청을 처리한다는 의미이다. 예를 들어 
-특정 IP(1.1.1.1)의 90포트로 서비스하고 싶다면 다음과 같이 설정한다. ::
+   {IP}:{Port} 형식으로 서비스 주소를 설정한다.
+   *:80 표현은 모든 NIC로부터의 80포트로 오는 요청을 처리한다는 의미다.
+   예를 들어 특정 IP(1.1.1.1)의 90포트로 서비스하고 싶다면 다음과 같이 설정한다. ::
     
-    <Vhost ...>
-        <Listen>1.1.1.1:90</Listen>
-    </Vhost>
+       <Vhost ...>
+           <Listen>1.1.1.1:90</Listen>
+       </Vhost>
     
-서비스 포트를 열지 않으려면 다음과 같이 OFF로 설정한다. ::
+.. note:
+
+   서비스 포트를 열지 않으려면 ``OFF`` 로 설정한다. ::
     
-    <Vhost ...>
-        <Listen>OFF</Listen>
-    </Vhost>
+      <Vhost ...>
+         <Listen>OFF</Listen>
+      </Vhost>
     
 
 .. _env-vhost-activeorigin:

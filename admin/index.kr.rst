@@ -18,7 +18,7 @@ Contents:
    origin.kr
    access_control.rst
    bypass.kr
-   multimedia.kr
+   media.kr
    bandwidth_control.kr
    ssl.kr
    filesystem.kr
