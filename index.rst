@@ -3,13 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-INDEX
-================================
-
-
 .. image:: business/img/ston_edge_server.png
    :align: center
    
+INDEX
+================================
 
 Contents:
 
