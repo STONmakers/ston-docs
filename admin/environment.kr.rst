@@ -372,9 +372,10 @@ example.com/account/dir	       example.com
 example.com:8080/account/dir   example.com:8080
 ============================== ===================
 
-예를 들어 원본서버에 example.com/account/dir처럼 경로가 붙어있다면 
-요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 클라이언트가 /img.jpg를 요청하면 
-최종 주소는 example.com/account/dir/img.jpg가 된다.
+.. note:
+
+   원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 
+   클라이언트가 /img.jpg를 요청하면 최종 주소는 example.com/account/dir/img.jpg가 된다.
 
 
 .. _env-vhost-standbyorigin:
@@ -412,8 +413,9 @@ Standby 원본서버
 - 모든 GET요청은 STON이 응답하지만, 특정 IP대역에 대해서는 원본서버로 바이패스한다.
 - 특정 국가에 대해서는 전송속도를 제한한다.
 
-이와같은 예외조건은 .xml에 설정하지 않는다. 모든 가상호스트는 독립적인 예외조건을 가진다.
-예외조건은 ./svc/가상호스트/ 디렉토리 하위에 .txt파일형식으로 존재한다.
-관련된 설정을 설명할 때 예외조건도 함께 다룬다.
+이와같은 예외조건은 XML에 설정하지 않는다. 
+모든 가상호스트는 독립적인 예외조건을 가진다.
+예외조건은 ./svc/가상호스트/ 디렉토리 하위에 TXT로 존재한다.
+관련 기능에 대해 설명할 때 예외조건도 함께 다룬다.
 
 
