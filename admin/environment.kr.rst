@@ -83,7 +83,7 @@ XML형식의 텍스트파일이다. ::
     ``<Allow>`` 조건에 ``Role`` 속성을 명시적으로 선언하지 않을 경우 ``<Manager>`` 의 ``Role`` 속성이 적용된다.
     
     - ``Admin`` 모든 API호출이 가능하다.
-    - ``User`` ref:`api_monitoring` , ref:`api-graph` API만 호출할 수 있다.
+    - ``User`` :ref:`api_monitoring` , :ref:`api-graph` API만 호출할 수 있다.
     - ``Looker`` ref:`api-graph` API만 호출할 수 있다.
     
     접근권한 이외에 관리목적의 속성을 가진다.
