@@ -179,6 +179,7 @@ Load Average 그래프
 -  ``Main`` 쓰기 대기중인 파일개수
 
 
+.. _api-graph-urlrewrite:
 
 URL 전처리 성공 그래프
 ---------------------

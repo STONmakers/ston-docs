@@ -431,7 +431,7 @@ URL전처리가 설정되어 있다면 모든 클라이언 요청(HTTP 또는 Fi
 .. figure:: img/urlrewrite1.png
    :align: center
       
-   모든 요청은 URL Rewriter를 거친다.
+   URL Rewriter를 통과해야 가상호스트에 갈 수 있다.
    
 만약 URL Rewriter에 의해 접근하려는 Host이름이 변경되었다면 클라이언트 HTTP요청의 Host헤더가 변경된 것으로 간주한다.
 
@@ -470,7 +470,7 @@ URL 전처리는 가상호스트 설정(vhosts.xml)에 한다.
       일치된 패턴에 대해서는 #1, #2와 같이 사용할 수 있다. #0는 요청 URL전체를 의미한다. 
       패턴은 최대 9개(#9)까지 지정할 수 있다.
       
-처리량은 통계로 제공되며 Graph로도 확인할 수 있다. 
+처리량은 :ref:`monitoring_stats` 로 제공되며 :ref:`api-graph-urlrewrite` 로도 확인할 수 있다. 
 URL전처리는 STON의 다른 기능들과 결합하여 다음과 같이 간결한 표현이 가능하게 한다. ::
 
    <URLRewrite>
