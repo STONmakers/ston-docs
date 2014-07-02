@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'STON'
+project = 'STON Edge Server'
 copyright = '2014, WineSOFT Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -200,7 +200,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'STON.tex', 'STON Documentation',
-   'JAEHA AHN', 'manual'),
+   'WineSOFT Inc.', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
