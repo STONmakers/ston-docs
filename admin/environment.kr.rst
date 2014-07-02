@@ -86,7 +86,7 @@ XML형식의 텍스트파일이다. ::
     - ``User`` :ref:`api_monitoring` , :ref:`api-graph` API만 호출할 수 있다.
     - ``Looker`` ref:`api-graph` API만 호출할 수 있다.
     
-    접근권한 이외에 관리목적의 속성을 가진다.
+    기타 다음과 같은 자잘한 관리목적의 속성을 가진다.
     
     - ``HttpMethod``
     
