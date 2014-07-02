@@ -276,24 +276,23 @@ HTTP 요청/응답 헤더 변경
 ---------------------
 
 클라이언트 HTTP요청과 STON의 HTTP응답을 특정 조건에 따라 변경할 수 있다. 
-변경시점을 정확히 이해해야 한다.
 
-- **HTTP 요청헤더 변경시점**
+-  **HTTP 요청헤더 변경시점**
 
-    클라이언트 HTTP 요청을 최초로 인식하는 시점에 헤더를 변경한다. 
-    헤더가 변경되었다면 변경된 상태로 Cache 모듈에서 처리된다.
-    단, Host헤더와 URI는 변조할 수 없다.
+   클라이언트 HTTP 요청을 최초로 인식하는 시점에 헤더를 변경한다. 
+   헤더가 변경되었다면 변경된 상태로 Cache 모듈에서 처리된다.
+   단, Host헤더와 URI는 변조할 수 없다.
 
-- **HTTP 응답헤더 변경시점**
+-  **HTTP 응답헤더 변경시점**
 
-    클라이언트 응답 직전에 헤더를 변경한다. 
-    단, Content-Length는 변경할 수 없다.
+   클라이언트 응답 직전에 헤더를 변경한다. 
+   단, Content-Length는 변경할 수 없다.
     
 ::
 
-    <Options>
-        <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
-    </Options>
+   <Options>
+      <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
+   </Options>
     
 -  ``<ModifyHeader>``
     
@@ -302,57 +301,53 @@ HTTP 요청/응답 헤더 변경
    -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.      
       
 헤더 변경조건은 /svc/{가상호스트 이름}/headers.txt에 설정한다. 
-헤더는 복수로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 동시에 적용된다. 
+헤더는 멀티로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 동시에 적용된다. 
+
 최초 조건에만 변경을 원할 경우 ``FirstOnly`` 속성을 ``ON`` 으로 설정한다.
 서로 다른 조건이 같은 헤더를 변경하는 경우 Last-Win이 되거나 명시적으로 Append할 수 있다. ::
 
-    # /svc/www.example.com/headers.txt
-    # 구분자는 콤마(,)이다.
-    
-    # 요청변경
-    # {Match}, {$REQ}, {Action(set|unset|append)} 순서로 표기한다.
-    $IP[192.168.1.1], $REQ[SOAPAction], unset
-    $IP[192.168.2.1-255], $REQ[accept-encoding: gzip], set
-    $IP[192.168.3.0/24], $REQ[cache-control: no-cache], append
-    $IP[192.168.4.0/255.255.255.0], $REQ[x-custom-header], unset
-    $IP[AP], $REQ[X-Forwarded-For], unset
-    $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
-    $HEADER[via], $REQ[via], unset
-    $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
-    
-    # 응답변경
-    # {Match}, {$RES}, {Action(set|unset|append)}, {condition} 순서로 표기한다.
-    # {condition}은 특정 응답코드에 한하여 헤더를 변경할 수 있지만 필수는 아니다.
-    $IP[192.168.1.1], $RES[via: STON for CDN], set
-    $IP[192.168.2.1-255], $RES[X-Cache], unset, 200
-    $IP[192.168.3.0/24], $RES[cache-control: no-cache, private], append, 3xx
-    $IP[192.168.4.0/255.255.255.0], $RES[x-custom-header], unset
-    $HEADER[user-agent: *IE6*], $RES[vary], unset
-    $HEADER[x-custom-header], $RES[cache-control: no-cache, private], append, 5xx
-    $URL[/source/*], $RES[cache-control: no-cache], set, 404
-    /secure/*.dat, $RES[x-custom], unset, 200
+   # /svc/www.example.com/headers.txt
+   # 구분자는 콤마(,)이다.
+   
+   # 요청변경
+   # {Match}, {$REQ}, {Action(set|unset|append)} 순서로 표기한다.
+   $IP[192.168.1.1], $REQ[SOAPAction], unset
+   $IP[192.168.2.1-255], $REQ[accept-encoding: gzip], set
+   $IP[192.168.3.0/24], $REQ[cache-control: no-cache], append
+   $IP[192.168.4.0/255.255.255.0], $REQ[x-custom-header], unset
+   $IP[AP], $REQ[X-Forwarded-For], unset
+   $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
+   $HEADER[via], $REQ[via], unset
+   $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
+   
+   # 응답변경
+   # {Match}, {$RES}, {Action(set|unset|append)}, {condition} 순서로 표기한다.
+   # {condition}은 특정 응답코드에 한하여 헤더를 변경할 수 있지만 필수는 아니다.
+   $IP[192.168.1.1], $RES[via: STON for CDN], set
+   $IP[192.168.2.1-255], $RES[X-Cache], unset, 200
+   $IP[192.168.3.0/24], $RES[cache-control: no-cache, private], append, 3xx
+   $IP[192.168.4.0/255.255.255.0], $RES[x-custom-header], unset
+   $HEADER[user-agent: *IE6*], $RES[vary], unset
+   $HEADER[x-custom-header], $RES[cache-control: no-cache, private], append, 5xx
+   $URL[/source/*], $RES[cache-control: no-cache], set, 404
+   /secure/*.dat, $RES[x-custom], unset, 200
     
 {Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
 
-- **IP**
+-  **IP**
+   $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
 
-     $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
-
-- **GeoIP**
-
-     $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다. 
-     국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 
-     `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
+-  **GeoIP**
+   $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다. 
+   국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
      
-- **Header**
-
-    $HEADER[Key : Value로 표기합니다. 
-    Value는 명확한 표현과 패턴을 지원한다. 
-    Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
+-  **Header**
+   $HEADER[Key : Value로 표기한다. 
+   Value는 명확한 표현과 패턴을 지원한다. 
+   Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
     
-- **URL**
-
-    $URL[...]로 표기하며 생략이 가능합니다. 명확한 표현과 패턴을 인식합니다.
+-  **URL**
+   $URL[...]로 표기하며 생략이 가능하다. 명확한 표현과 패턴을 인식한다.
     
 {$REQ}와 {$RES}는 헤더변경 방법을 설정한다.
 일반적으로 ``set`` 과 ``append`` 의 경우 {Key: Value}로 설정하며, 
@@ -361,17 +356,14 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 
 {Action}은 ``set`` , ``unset`` , ``append`` 3가지로 설정이 가능하다.
 
-- ``set``  요청/응답 헤더에 설정되어 있는 Key와 Value를 헤더에 추가한다. 
-  이미 같은 Key가 존재한다면 이전 값을 덮어쓴다.    
+-  ``set``  요청/응답 헤더에 설정되어 있는 Key와 Value를 헤더에 추가한다. 
+   이미 같은 Key가 존재한다면 이전 값을 덮어쓴다.    
 
-- ``unset`` 요청/응답 헤더에 설정되어 있는 Key에 해당하는 헤더를 삭제한다.
+-  ``unset`` 요청/응답 헤더에 설정되어 있는 Key에 해당하는 헤더를 삭제한다.
 
-- ``append``  ``set`` 과 유사하나 해당 Key가 존재한다면 기존의 Value와 설정된 
-  Value사이에 Comma(,)로 구분하여 값을 결합한다.
-  
+-  ``append``  ``set`` 과 유사하나 해당 Key가 존재한다면 기존의 Value와 설정된 Value사이에 Comma(,)로 구분하여 값을 결합한다.
 
-{Condition}은 200이나 304같은 구체적인 응답 코드외에 2xx, 3xx, 4xx, 5xx처럼 
-응답코드 계열조건으로 설정한다. 
+{Condition}은 200이나 304같은 구체적인 응답 코드외에 2xx, 3xx, 4xx, 5xx처럼 응답코드 계열조건으로 설정한다. 
 {Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
 {Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
@@ -379,11 +371,11 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 원본 헤더
 ---------------------
 
-STON은 성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 최적화하여 인식한다. ::
+STON은 성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
 
-    <Options>
-         <OriginalHeader>OFF</OriginalHeader>
-    </Options>
+   <Options>
+      <OriginalHeader>OFF</OriginalHeader>
+   </Options>
     
 -  ``<OriginalHeader>``
 
@@ -398,18 +390,18 @@ Via 헤더
 
 클라이언트에게 보내는 HTTP응답에 Via 헤더 명시여부를 설정한다. ::
 
-    <Options>
-         <ViaHeader>ON</ViaHeader>
-    </Options>
+   <Options>
+      <ViaHeader>ON</ViaHeader>
+   </Options>
     
 -  ``<ViaHeader>``
     
-   -  ``ON (기본)`` Via헤더를 다음과 같이 명시한다.
-      ::
+   - ``ON (기본)`` Via헤더를 다음과 같이 명시한다.
+     ::
       
         Via: STON/2.0.0
    
-   -  ``OFF``  Via헤더를 생략한다.
+   - ``OFF``  Via헤더를 생략한다.
    
    
 Server 헤더
@@ -417,9 +409,9 @@ Server 헤더
  
 클라이언트에게 보내는 HTTP응답에 Server 헤더 명시여부를 설정한다. ::
 
-    <Options>
-        <ServerHeader>ON</ServerHeader>
-    </Options>
+   <Options>
+      <ServerHeader>ON</ServerHeader>
+   </Options>
     
 -  ``<ServerHeader>``
     
@@ -433,38 +425,35 @@ URL 전처리
 ====================================
 
 `정규표현식 <http://en.wikipedia.org/wiki/Regular_expression>`_ 을 사용하여 요청된 URL을 변경한다. 
-URL 전처리는 가상호스트 설정(vhosts.xml)에 한다. 
-대부분의 설정이 가상호스트에 종속되지만, URL전처리의 경우 클라이언트가 요청한 
-Host의 이름을 변경할 수 있으므로 가상호스트와 같은 레벨로 설정한다. ::
-
-    <Vhosts>
-        <Vhost ...> ... </Vhost>
-        <Vhost ...> ... </Vhost>
-        <URLRewrite ...> ... </URLRewrite>
-        <URLRewrite ...> ... </URLRewrite>
-    </Vhosts>
-    
-복수로 설정할 수 있으며 순차적으로 정규표현식 일치 여부를 비교한다. 
-URL전처리가 설정되어 있다면 모든 클라이언 요청(HTTP 또는 File I/O)은 
-반드시 URL Rewriter를 거친다.
+URL전처리가 설정되어 있다면 모든 클라이언 요청(HTTP 또는 File I/O)은 반드시 URL Rewriter를 거친다.
 
 .. figure:: img/urlrewrite1.png
    :align: center
       
    모든 요청은 URL Rewriter를 거친다.
    
-만약 URL Rewriter에 의해 접근하려는 Host이름이 변경되었다면 클라이언트 HTTP요청의 
-Host헤더가 변경된 것으로 간주한다.
+만약 URL Rewriter에 의해 접근하려는 Host이름이 변경되었다면 클라이언트 HTTP요청의 Host헤더가 변경된 것으로 간주한다.
 
-설정
+
+<URLRewrite>
 ---------------------
 
-::
+URL 전처리는 가상호스트 설정(vhosts.xml)에 한다. 
+대부분의 설정이 가상호스트에 종속되지만, URL전처리의 경우 클라이언트가 요청한 Host의 이름을 변경할 수 있으므로 가상호스트와 같은 레벨로 설정한다. ::
 
-    <URLRewrite AccessLog="Replace">
-        <Pattern>www.exmaple.com/([^/]+)/(.*)</Pattern>
-        <Replace>#1.exmaple.com/#2</Replace>
-    </URLRewrite>
+   <Vhosts>
+      <Vhost ...> ... </Vhost>
+      <Vhost ...> ... </Vhost>
+      <URLRewrite ...> ... </URLRewrite>
+      <URLRewrite ...> ... </URLRewrite>
+   </Vhosts>
+    
+멀티로 설정할 수 있으며 순차적으로 정규표현식 일치 여부를 비교한다. ::
+
+   <URLRewrite AccessLog="Replace">
+       <Pattern>www.exmaple.com/([^/]+)/(.*)</Pattern>
+       <Replace>#1.exmaple.com/#2</Replace>
+   </URLRewrite>
     
 -  ``<URLRewrite>``
 
@@ -473,57 +462,59 @@ Host헤더가 변경된 것으로 간주한다.
    ``Replace`` 인 경우 변환 후 URL(/logo.jpg)을, ``Pattern`` 인 경우 변환 전 
    URL(/baseball/logo.jpg)을 Access로그에 기록한다.
    
-   -  ``<Pattern>`` 매칭시킬 패턴을 설정한다. 한개의 패턴은 ( ) 괄호를 사용하여 표현된다.
+   -  ``<Pattern>`` 매칭시킬 패턴을 설정한다. 
+      한개의 패턴은 ( ) 괄호를 사용하여 표현된다.
    
-   -  ``<Replace>`` 변환형식을 설정한다. 일치된 패턴에 대해서는 #1, #2와 같이 
-      사용할 수 있다. #0는 요청 URL전체를 의미한다. 
+   -  ``<Replace>`` 변환형식을 설정한다. 
+      일치된 패턴에 대해서는 #1, #2와 같이 사용할 수 있다. #0는 요청 URL전체를 의미한다. 
       패턴은 최대 9개(#9)까지 지정할 수 있다.
       
 처리량은 통계로 제공되며 Graph로도 확인할 수 있다. 
 URL전처리는 STON의 다른 기능들과 결합하여 다음과 같이 간결한 표현이 가능하게 한다. ::
 
-    <URLRewrite>
-        <Pattern>example.com/([^/]+)/(.*)</Pattern>
-        <Replace>example.com/#1.php?id=#2</Replace>
-    </URLRewrite>
-    // Pattern : example.com/releasenotes/1.3.4
-    // Replace : example.com/releasenotes.php?id=1.3.4
+   <URLRewrite>
+       <Pattern>example.com/([^/]+)/(.*)</Pattern>
+       <Replace>example.com/#1.php?id=#2</Replace>
+   </URLRewrite>
+   // Pattern : example.com/releasenotes/1.3.4
+   // Replace : example.com/releasenotes.php?id=1.3.4
 
-    <URLRewrite>
-        <Pattern>example.com/download/(.*)</Pattern>
-        <Replace>download.example.com/#1</Replace>
-    </URLRewrite>
-    // Pattern : example.com/download/1.3.4
-    // Replace : download.example.com/1.3.4
+   <URLRewrite>
+       <Pattern>example.com/download/(.*)</Pattern>
+       <Replace>download.example.com/#1</Replace>
+   </URLRewrite>
+   // Pattern : example.com/download/1.3.4
+   // Replace : download.example.com/1.3.4
 
-    <URLRewrite>
-        <Pattern>example.com/img/(.*\.(jpg|png).*)</Pattern>
-        <Replace>example.com/#1/STON/composite/watermark1</Replace>
-    </URLRewrite>
-    // Pattern : example.com/img/image.jpg?date=20140326
-    // Replace : example.com/image.jpg?date=20140326/STON/composite/watermark1
+   <URLRewrite>
+       <Pattern>example.com/img/(.*\.(jpg|png).*)</Pattern>
+       <Replace>example.com/#1/STON/composite/watermark1</Replace>
+   </URLRewrite>
+   // Pattern : example.com/img/image.jpg?date=20140326
+   // Replace : example.com/image.jpg?date=20140326/STON/composite/watermark1
 
-    <URLRewrite>
-        <Pattern>example.com/preview/(.*)\.(mp3|mp4|m4a)$</Pattern>
-        <Replace><![CDATA[example.com/#1.#2?&end=30&boost=10&bandwidth=2000&ratio=100]]></Replace>
-    </URLRewrite>
-    // Pattern : example.com/preview/audio.m4a
-    // Replace : example.com/audio.m4a?end=30&boost=10&bandwidth=2000&ratio=100
+   <URLRewrite>
+       <Pattern>example.com/preview/(.*)\.(mp3|mp4|m4a)$</Pattern>
+       <Replace><![CDATA[example.com/#1.#2?&end=30&boost=10&bandwidth=2000&ratio=100]]></Replace>
+   </URLRewrite>
+   // Pattern : example.com/preview/audio.m4a
+   // Replace : example.com/audio.m4a?end=30&boost=10&bandwidth=2000&ratio=100
 
-    <URLRewrite>
-        <Pattern>example.com/(.*)\.mp4\.m3u8$</Pattern>
-        <Replace>example.com/#1.mp4/mp4hls/index.m3u8</Replace>
-    </URLRewrite>
-    // Pattern : example.com/video.mp4.m3u8
-    // Replace : example.com/video.mp4/mp4hls/index.m3u8
+   <URLRewrite>
+       <Pattern>example.com/(.*)\.mp4\.m3u8$</Pattern>
+       <Replace>example.com/#1.mp4/mp4hls/index.m3u8</Replace>
+   </URLRewrite>
+   // Pattern : example.com/video.mp4.m3u8
+   // Replace : example.com/video.mp4/mp4hls/index.m3u8
 
-    <URLRewrite>
-        <Pattern>example.com/(.*)_(.*)_(.*)</Pattern>
-        <Replace>example.com/#0/#1/#2/#3</Replace>
-    </URLRewrite>
-    // Pattern : example.com/video.mp4_10_20
-    // Replace : example.com/example.com/video.mp4_10_20/video.mp4/10/20
+   <URLRewrite>
+       <Pattern>example.com/(.*)_(.*)_(.*)</Pattern>
+       <Replace>example.com/#0/#1/#2/#3</Replace>
+   </URLRewrite>
+   // Pattern : example.com/video.mp4_10_20
+   // Replace : example.com/example.com/video.mp4_10_20/video.mp4/10/20
     
-패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 
-묶어주어야 올바르게 설정된다. 
-WM을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
+.. note:
+
+   패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 묶어주어야 올바르게 설정된다. 
+   :ref:`wm` 을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
