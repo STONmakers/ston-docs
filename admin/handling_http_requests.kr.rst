@@ -275,7 +275,7 @@ ETag 헤더
 HTTP 요청/응답 헤더 변경
 ---------------------
 
-클라이언트 HTTP요청과 STON의 HTTP응답을 특정 조건에 따라 변경할 수 있다. ::
+클라이언트 HTTP요청과 응답을 특정 조건에 따라 변경한다. ::
 
    <Options>
       <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
