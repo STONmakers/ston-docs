@@ -515,7 +515,5 @@ URL전처리는 STON의 다른 기능들과 결합하여 다음과 같이 간결
    // Pattern : example.com/video.mp4_10_20
    // Replace : example.com/example.com/video.mp4_10_20/video.mp4/10/20
     
-.. note:
-
-   패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 묶어주어야 올바르게 설정된다. 
-   :ref:`wm` 을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
+패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 묶어주어야 올바르게 설정된다. 
+:ref:`wm` 을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
