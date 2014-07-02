@@ -118,14 +118,14 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
       Connection: Keep-Alive
       Keep-Alive: timeout=10
 
-.. note::
+   .. note::
 
-   < ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계 >
+      < ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계 >
     
-   ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 보다 근본적인 문제와 관련이 있다. 
-   성능이나 자원적으로 가장 중요한 이슈는 `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
-   HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 Idle세션 정리는 훨씬 민감한 문제이다. 
-   이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
+      ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 보다 근본적인 문제와 관련이 있다. 
+      성능이나 자원적으로 가장 중요한 이슈는 `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
+      HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 Idle세션 정리는 훨씬 민감한 문제이다. 
+      이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
 
 5. ``<KeepAliveHeader>`` 의 ``Max`` 속성이 설정된 경우 ::
@@ -174,9 +174,9 @@ Age 헤더
 Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며 
 `RFC2616 - 13.2.3 Age Calculations <http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.2.3>`_ 에 의하여 계산된다. ::
 
-    <Options>
-       <AgeHeader>OFF</AgeHeader>
-    </Options>
+   <Options>
+      <AgeHeader>OFF</AgeHeader>
+   </Options>
     
 -  ``<AgeHeader>``
     
@@ -190,9 +190,9 @@ Expires 헤더
 
 Expires헤더를 재설정한다. ::
 
-    <Options>
-       <RefreshExpiresHeader Base="Access">OFF</RefreshExpiresHeader>
-    </Options>
+   <Options>
+      <RefreshExpiresHeader Base="Access">OFF</RefreshExpiresHeader>
+   </Options>
     
 -  ``<RefreshExpiresHeader>``
     
@@ -202,9 +202,8 @@ Expires헤더를 재설정한다. ::
    -  ``ON``  Expires조건을 반영하여 Expires헤더를 명시한다.
       조건에 해당하지 않는 콘텐츠는 ``OFF`` 설정과 동일하게 동작한다.
    
-Expires조건은 Apache의 `mod_expires <http://httpd.apache.org/docs/2.2/mod/mod_expires.html>`_ 
-와 동일하게 동작한다. 특정 조건(URL이나 MIME Type)에 해당하는 콘텐츠의 
-Expires헤더와 Cache-Control 값을 설정할 수 있다. 
+Expires조건은 Apache의 `mod_expires <http://httpd.apache.org/docs/2.2/mod/mod_expires.html>`_ 와 동일하게 동작한다. 
+특정 조건(URL이나 MIME Type)에 해당하는 콘텐츠의 Expires헤더와 Cache-Control 값을 설정할 수 있다. 
 Cache-Control의 max-age값은 설정된 Expires시간에서 요청한 시간을 뺀 값이 된다. 
 
 Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
@@ -221,37 +220,35 @@ Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
    $MIME[application/octet-stream], 7 weeks, modification
    $MIME[image/gif], 3600, modification
 
-- **조건**
+-  **조건**
 
-    URL과 MIME Type 2가지로 설정이 가능하다. 
-    URL일 경우 $URL[...]로, MIME Type일 경우 $MIME[...]로 표기한다. 
-    패턴표현이 가능하며 $표현이 생략된 경우 URL로 인식한다.
+   URL과 MIME Type 2가지로 설정이 가능하다. 
+   URL일 경우 $URL[...]로, MIME Type일 경우 $MIME[...]로 표기한다. 
+   패턴표현이 가능하며 $표현이 생략된 경우 URL로 인식한다.
 
-- **시간**
+-  **시간**
 
-    Expires만료시간을 설정한다. 
-    시간단위 표현을 지원하며 단위를 명시하지 않을 경우 초로 계산된다.
+   Expires만료시간을 설정한다. 
+   시간단위 표현을 지원하며 단위를 명시하지 않을 경우 초로 계산된다.
 
-- **기준**
+-  **기준**
 
-    Expires만료시간의 기준시점을 설정한다. 
-    별도로 기준시점을 명시하지 않으면 Access가 기준시점으로 명시된다. 
-    Access는 현재 시간을 기준으로 한다. 
-    다음은 MIME Type이 image/gif인 파일에 대하여 접근시간으로부터 
-    1일 12시간 후로 Expires헤더 값을 설정하는 예제이다. ::
+   Expires만료시간의 기준시점을 설정한다. 
+   별도로 기준시점을 명시하지 않으면 Access가 기준시점으로 명시된다. 
+   Access는 현재 시간을 기준으로 한다. 
+   다음은 MIME Type이 image/gif인 파일에 대하여 접근시간으로부터 
+   1일 12시간 후로 Expires헤더 값을 설정하는 예제이다. ::
     
-        $MIME[image/gif], 1 day 12 hours, access
+      $MIME[image/gif], 1 day 12 hours, access
       
-    Modification은 원본서버에서 보낸 Last-Modified를 기준으로 한다. 
-    다음은 모든 jpg파일에 대하여 Last-Modified로부터 30분 뒤를 
-    Expires값으로 설정하는 예제이다. ::
+   Modification은 원본서버에서 보낸 Last-Modified를 기준으로 한다. 
+   다음은 모든 jpg파일에 대하여 Last-Modified로부터 30분 뒤를 
+   Expires값으로 설정하는 예제이다. ::
     
-        *.jpg, 30min, modification
+      *.jpg, 30min, modification
         
-    Modification의 경우 계산된 Expires값이 현재시간보다 과거의 시간일 경우 
-    현재시간을 명시한다. 
-    만약 원본서버에서 Last-Modified헤더를 제공하지 않는다면 Expires헤더를 
-    보내지 않는다.
+   Modification의 경우 계산된 Expires값이 현재시간보다 과거의 시간일 경우 현재시간을 명시한다.
+   만약 원본서버에서 Last-Modified헤더를 제공하지 않는다면 Expires헤더를 보내지 않는다.
 
 
 ETag 헤더
@@ -259,9 +256,9 @@ ETag 헤더
 
 클라이언트에게 보내는 HTTP응답에 ETag 헤더 명시여부를 설정한다. ::
 
-    <Options>
-        <ETagHeader>ON</ETagHeader>
-    </Options>
+   <Options>
+      <ETagHeader>ON</ETagHeader>
+   </Options>
     
 -  ``<ETagHeader>``
     
