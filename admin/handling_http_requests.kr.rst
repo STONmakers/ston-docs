@@ -1,10 +1,13 @@
 ﻿.. _handling_http_requests:
 
-HTTP 클라이언트
+HTTP 요청처리
 ******************
 
-HTTP 클라이언트와 STON사이의 HTTP 통신에 대해 설정한다.
-URL전처리를 사용하면 정규표현식으로 URL을 변경할 수 있다.
+이번 장에서는 HTTP 클라이언트 세션과 요청을 처리하는 방식에 대해 설명한다.
+서비스의 핵심기능으로 보기엔 어려운 내용들이 많으니 암기할 필요는 없다.
+일부 HTTP에 대한 이해가 없다면 어려울 수 있는 부분이 있으니 이럴 때는 기본설정을 사용할 것을 권장한다.
+전체적으로 기본 설정을 그대로 사용해도 서비스에는 전혀 지장이 없는 내용들이다.
+
 
 .. toctree::
    :maxdepth: 2
@@ -13,12 +16,10 @@ URL전처리를 사용하면 정규표현식으로 URL을 변경할 수 있다.
 HTTP 세션
 ====================================
 
-HTTP클라이언트가 서버(STON)에 접속하면 HTTP세션이 생성된다.
+HTTP 클라이언트가 서버(STON)에 접속하면 HTTP 세션이 생성된다.
 클라이언트는 HTTP 세션을 통해 서버에 저장된 여러 콘텐츠를 서비스 받는다. 
 요청부터 응답까지를 하나의 **HTTP 트랜잭션** 이라고 부른다.
-HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
-
-다음은 HTTP세션과 관련된 설정이다. ::
+HTTP 세션은 여러 HTTP 트랜잭션을 순차적으로 처리한다. ::
 
    <Options>
       <ConnectionHeader>keep-alive</ConnectionHeader>
@@ -26,32 +27,30 @@ HTTP세션은 여러 HTTP트랜잭션을 순차적으로 처리한다.
       <KeepAliveHeader Max="0">ON</KeepAliveHeader>
    </Options>
     
--  ``<ConnectionHeader> (기본: keep-alive)``
-    
+-  ``<ConnectionHeader> (기본: keep-alive)``    
    클라이언트에게 보내는 HTTP응답의 Connection헤더( ``keep-alive`` 또는 ``close`` )를 설정한다.
     
 
 -  ``<ClientKeepAliveSec> (기본: 10초)``
-
    클라이언트 세션과 아무런 통신이 없는 상태로 설정된 시간이 경과하면 세션을 종료한다. 
    시간을 너무 길게 설정하면 통신을 하지 않는 세션이 지나치게 많아진다.
-   너무 많은 세션은 성능저하의 원인이 된다.
+   너무 많은 세션을 유지하는 것만으로도 시스템엔 부하가 된다.
 
 -  ``<KeepAliveHeader>``
 
     - ``ON (기본)`` HTTP응답에 Keep-Alive헤더를 명시한다.
-      ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 
-      값으로 max가 명시된다.
+      ``Max (기본: 0)`` 를 0보다 크게 설정하면 Keep-Alive헤더의 값으로 ``Max`` 값이 명시된다.
       이후 HTTP 트랜잭션이 발생할때마다 1씩 차감된다.
    
    - ``OFF`` HTTP응답에 Keep-Alive헤더를 생략한다.
 
-HTTP세션 유지정책
+
+HTTP 세션 유지정책
 ---------------------
 
-STON은 Apache의 정책을 준수한다. 
-여기서는 판단 우선순위에 따라 기술한다. 
-HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
+STON은 가급적 Apache의 정책을 따른다.
+특히 세션유지 정책은 HTTP헤더 값에 따른 변수가 많다.
+HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 - 클라이언트 HTTP요청에 명시된 Connection헤더 ("ep-Alive" 또는 "Close")
 - 가상호스트 ``<Connection>`` 설정
@@ -59,20 +58,20 @@ HTTP세션 유지정책에 영향을 주는 요소는 다음과 같다.
 - 가상호스트 ``<Keep-Alive>`` 설정
 
 
-**1. 클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
+1. **클라이언트 HTTP요청에 "Connection: Close"로 명시되어 있는 경우** ::
 
-   GET / HTTP/1.1
-   ...(생략)...
-   Connection: Close
+      GET / HTTP/1.1
+      ...(생략)...
+      Connection: Close
     
-이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
-"Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
+   이같은 HTTP요청에 대해서는 가상호스트 설정여부와 상관없이 
+   "Connection: Close"로 응답한다. Keep-Alive헤더는 명시되지 않습니다. ::
    
-   HTTP/1.1 200 OK
-   ...(생략)...
-   Connection: Close
+      HTTP/1.1 200 OK
+      ...(생략)...
+      Connection: Close
 
-이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
+   이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.
    
 
 **2.**  ``<ConnectionHeader>`` **가** ``Close`` **로 설정된 경우** ::
@@ -96,7 +95,7 @@ Keep-Alive헤더는 명시되지 않는다. ::
         <KeepAliveHeader>OFF</KeepAliveHeader>
     </Options>
     
-Keep-Alive헤더가 명시되지 않는다. HTTP세션은 지속적으로 재사용가능하다. ::
+Keep-Alive헤더가 명시되지 않는다. HTTP 세션은 지속적으로 재사용가능하다. ::
 
    HTTP/1.1 200 OK
    ...(생략)...
