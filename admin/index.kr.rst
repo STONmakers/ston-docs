@@ -20,7 +20,7 @@ Contents:
    bypass.kr
    media.kr
    bandwidth_control.kr
-   ssl.kr
+   https.kr
    filesystem.kr
    adv_topics.kr
    monitoring_stats.kr
