@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'STON 완벽 가이드'
+project = u'STON 완벽 가이드'
 copyright = '2014, WineSOFT Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
