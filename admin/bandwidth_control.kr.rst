@@ -33,7 +33,7 @@ Bandwidth 조절
 ``Session`` 은 다음과 같이 동작한다.
 
 1. ``Session`` 이 설정되어 있더라도 모든 클라이언트 Bandwidth의 합은 ``<TrafficCap>`` 을 넘을 수 없다.
-2. `bandwidth-control-bt`_ 를 설정해도 클라이언트 세션별 최대 속도는 ``Session`` 을 넘을 수 없다.
+2. `Bandwidth Throttling`_ 를 설정해도 클라이언트 세션별 최대 속도는 ``Session`` 을 넘을 수 없다.
 
 
 .. _bandwidth-control-bt:
