@@ -113,7 +113,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 -----------------------
 
 로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
-`bypass-getpost`_ 의 속성으로 바이패스를 고정시킬 수 있다. ::
+`bypass-getpost`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
 
    <Options>
       <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
@@ -124,6 +124,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 
    - ``ON (기본)`` 클라이언트 요청이 항상 같은 서버로 바이패스되는 것을 보장한다. 
      단, 같은 소켓임을 보장하지는 않는다. 
+     
      바이패스해야 하는 원본서버와 연결된 모든 소켓이 끊어지는 상황이 발생할 수도 있다. 
      하지만 이런 경우에도 해당 서버로 새로운 소켓연결을 요청한다.
      
@@ -132,15 +133,14 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
       
         항상 같은서버로 바이패스된다.
      
-     바이패스하던 원본서버가 장애로 배제되거나 DNS에서 빠질 경우 새로운 서버로 
-     바이패스된다.
+     바이패스하던 원본서버가 장애로 배제되거나 DNS에서 빠질 경우 새로운 서버로 바이패스된다.
    
    - ``OFF`` 클라이언트의 요청이 어느 서버로 바이패스되는지 보장할 수 없다.
    
      .. figure:: img/private_bypass1.jpg
         :align: center
       
-        어디로 갈지 모른다.
+        :ref:`origin-balancemode`_ 에 의해 따른다.
         
 
 
@@ -152,14 +152,14 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 .. figure:: img/private_bypass2.jpg
    :align: center
       
-   항상 같은서버로 바이패스된다.
+   클라이언트가 원본세션을 소유한다.
 
-::        
+`bypass-getpost`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
 
-     <Options>
-        <BypassPostRequest Private="OFF">...</BypassPostRequest>
-        <BypassGetRequest Private="OFF">...</BypassGetRequest>
-    </Options>
+   <Options>
+      <BypassPostRequest Private="OFF">...</BypassPostRequest>
+      <BypassGetRequest Private="OFF">...</BypassGetRequest>
+   </Options>
     
 -  ``Private``
 
@@ -169,36 +169,31 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
         
    - ``OFF`` 전용세션을 사용하지 않는다.
 
-원본서버가 사용자의 로그인 정보를 세션에 기반하여 유지하는 경우처럼 클라이언트의 
-요청이 반드시 같은 소켓으로 처리되야 하는 경우가 유용하다.
+원본서버가 사용자의 로그인 정보를 세션에 기반하여 유지하는 경우처럼 클라이언트의 요청이 반드시 같은 소켓으로 처리되야 하는 경우 유용하다.
 
 .. note::
 
-   자칫 너무 많은 요청을 ``Private`` 으로 바이패스하는 경우 클라이언트 수 만큼 
-   원본서버에 연결되므로 엄청난 부하를 줄 수 있습니다. 
-   또한 이렇게 연결된 원본세션은 클라이언트가 소유하게 되므로 악의적인 공격상황에서 
-   위험을 초래할 수도 있다.
+   자칫 너무 많은 요청을 ``Private`` 으로 바이패스하는 경우 클라이언트 수 만큼 원본서버에 연결되어 엄청난 부하를 줄 수 있다. 
+   또한 이렇게 연결된 원본세션은 클라이언트가 소유하게 되므로 악의적인 공격상황에서 위험을 초래할 수도 있다.
    
 
 Timeout
 -----------------------
 
-바이패스는 일반적으로 원본서버에서 동적으로 처리한 결과를 응답하는 경우가 많다.
-이로 인해 처리 속도가 정적인 콘텐츠보다 느릴 가능성이 높다.
+바이패스는 원본서버에서 동적으로 처리한 결과를 응답하는 경우가 많다.
+이로 인해 처리 속도가 정적인 콘텐츠보다 느린 경우가 많다.
 바이패스 전용 Timeout을 설정하여 섣부른 장애판단이 되지 않도록 한다. ::
 
-    <OriginOptions>        
-        <BypassConnectTimeout>5</BypassConnectTimeout>
-        <BypassReceiveTimeout>300</BypassReceiveTimeout>
-    </OriginOptions>
+   <OriginOptions>        
+      <BypassConnectTimeout>5</BypassConnectTimeout>
+      <BypassReceiveTimeout>300</BypassReceiveTimeout>
+   </OriginOptions>
 
--  ``<BypassConnectTimeout> (기본: 5초)``
-   
+-  ``<BypassConnectTimeout> (기본: 5초)``   
    바이패스를 위해 n초 이내에 원본서버와 접속이 이루어지지 않는 경우 접속실패로 처리한다.
 
 
 -  ``<BypassReceiveTimeout> (기본: 5초)``
-
    바이패스 중 원본서버의 응답이 n초 없을 경우 전송실패로 처리한다.
    
    
@@ -206,15 +201,15 @@ Timeout
 HTTP 헤더
 -----------------------
 
-기존 원본서버 HTTP헤더 설정을 바이패스할 때도 적용할지 설정한다. ::
+:ref:`origin-httprequest`_ 설정의 바이패스 적용여부를 설정한다. ::
 
-    <OriginOptions>
-        <UserAgent Bypass="OFF">...</UserAgent>
-        <Host Bypass="ON"/>
-        <XFFClientIPOnly Bypass="ON">...</XFFClientIPOnly>
-    </OriginOptions>
+   <OriginOptions>
+      <UserAgent Bypass="OFF">...</UserAgent>
+      <Host Bypass="ON"/>
+      <XFFClientIPOnly Bypass="ON">...</XFFClientIPOnly>
+   </OriginOptions>
     
--  ``Bypass``
+-  ``Bypass`` 속성
 
    - ``ON`` 설정된 헤더를 명시한다.
         
@@ -227,15 +222,14 @@ Port 바이패스
 특정 TCP포트의 모든 패킷을 원본서버로 바이패스한다. 
 가상호스트 전용설정이다. ::
 
-    <Vhosts>
-        <Vhost Name="www.example">
-            <PortBypass>443</PortBypass>
-            <PortBypass Dest=”1935”>1935</PortBypass>
-        </Vhost>
-    </Vhosts>
+   <Vhosts>
+      <Vhost Name="www.example">
+         <PortBypass>443</PortBypass>
+         <PortBypass Dest=”1935”>1935</PortBypass>
+      </Vhost>
+   </Vhosts>
 
--  ``<PortBypass>``
-   
+-  ``<PortBypass>``   
    지정된 포트로 입력된 모든 패킷을 원본서버의 같은 포트로 바이패스한다.
    ``Dest`` 속성으로 원본서버 포트를 설정한다.
 
@@ -245,7 +239,6 @@ Port 바이패스
 .. note::
    
    구조적으로 Port 바이패스는 HTTP보다 하위 Layer인 TCP에서 이루어진다. 
-   특정 가상호스트 하위에 Port 바이패스를 설정하는 이유는 통계를 수집할 주체가
-   필요하기 때문이다.
+   특정 가상호스트 하위에 Port 바이패스를 설정하는 이유는 통계를 수집할 주체가 필요하기 때문이다.
    
 
