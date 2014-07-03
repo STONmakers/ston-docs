@@ -3,13 +3,19 @@
 File System
 ******************
 
-STON을 Linux VFS(Virtual File System)에 Mount한다. 
-Mount된 경로에 접근하는 모든 프로세스는 STON을 통해 파일이 로컬에 존재하는 것처럼 서비스한다.
+이 장에서는 STON을 로컬 디스크처럼 사용하는 방법에 대해 설명한다.
+STON은 `FUSE <http://fuse.sourceforge.net/>`_ 를 기반으로 Linux VFS(Virtual File System)에 Mount된다.
+Mount된 경로의 모든 파일은 접근되는 순간 Caching되지만 다른 프로세스는 이 사실을 알지 못한다.
 
 .. figure:: img/conf_fs1.png
    :align: center
       
-   `Fuse <http://upload.wikimedia.org/wikipedia/commons/0/08/FUSE_structure.svg>`_ 를 이용한다.
+   `Fuse <http://upload.wikimedia.org/wikipedia/commons/0/08/FUSE_structure.svg>`_ 구조
+   
+구조상 File I/O 함수 호출을 Linux Kernel이 STON에게 직접 전달하는 과정에 어떠한 요소(물리적 파일 I/O 또는 Socket통신 등)도 개입하지 않는다.
+이런 구조는 아주 높은 성능을 가능케 한다.
+STON의 메모리 Caching을 통해 물리적 디스크 접근보다 뛰어난 성능을 기대할 수 있다.
+
 
 .. toctree::
    :maxdepth: 2
@@ -29,22 +35,16 @@ Mount된 경로에 접근하는 모든 프로세스는 STON을 통해 파일이 
    
    -  ``ON`` STON을 ``Mount`` 속성의 경로에 Mount한다.
    
-File I/O 함수 호출을 Kernel이 STON에게 직접 전달하는 과정에 
-어떠한 요소(물리적 파일 I/O 또는 Socket통신 등)도 개입하지 않는다. 
-따라서 성능저하는 발생하지 않는다. 
-오히려 STON의 메모리 Caching을 통해 물리적 디스크 접근보다 뛰어난 성능을 기대할 수 있다.
-
+기존 HTTP 구조를 그대로 유지한 채 Cache 모듈에 접근하는 방식(File System)이 추가된 구조로 개발되었다. 
+그러므로 어느 쪽으로부터의 접근이든 Caching은 처음 한번만 이루어지며 HTTP 또는 File I/O로 서비스된다. 
+FileSystem은 Cache모듈에 접근하는 새로운 다리를 하나 더 놓은 것다. 
+   
 .. figure:: img/conf_fs2.png
    :align: center
       
    HTTP와 File I/O가 Cache모듈을 공유한다.
-   
-위 그림과 같이 기존 웹 서비스 구조를 그대로 유지한 채 Cache 모듈에 접근하는 
-방식(File System)이 추가된 구조로 개발되었다. 
-그러므로 어느 쪽으로부터의 접근이든 Caching은 처음 한번만 이루어지며 
-HTTP 또는 File I/O로 서비스된다. 
-FileSystem은 Cache모듈에 접근하는 새로운 다리를 하나 더 놓은 것다. 
-원본서버의 컨텐츠를 HTTP 뿐만 아니라 File I/O로 접근할 수 있게 된 것이다. 
+
+원본서버의 콘텐츠를 HTTP 뿐만 아니라 File I/O로 양쪽에서 접근할 수 있다.
 이를 활용하면 로컬파일에 기반한 솔루션들의 가용성을 더 높일 수 있다.
 
 .. figure:: img/conf_fs3.png
