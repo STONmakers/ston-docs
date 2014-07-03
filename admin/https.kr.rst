@@ -14,20 +14,8 @@ STON은 원본서버와 HTTPS로 통신하지 않는다.
 .. toctree::
    :maxdepth: 2
 
-설정
+서비스 구성
 ====================================
-
-지원하는 CipherSuites는 다음과 같다.
-
-- RSA_WITH_RC4_SHA
-
-- RSA_WITH_RC4_MD5
-
-- RSA_WITH_AES_128_CBC_SHA
-
-- RSA_WITH_AES_256_CBC_SHA
-
-- RSA_WITH_3DES_EDE_CBC_SHA
 
 별도의 IP 또는 포트를 지정하지 않는 경우 기본으로 바인딩되는 서비스 주소는 "*:443" 이다.
 전역설정(server.xml)에 설정한다. ::
@@ -72,8 +60,16 @@ STON은 원본서버와 HTTPS로 통신하지 않는다.
    인증서 포맷은 PEM(Privacy Enhanced Mail), 비대칭키 알고리즘은 RSA만 지원한다.
 
 
-CipherSuite 설정
---------------------------
+CipherSuite 선택
+====================================
+
+지원하는 CipherSuites는 다음과 같다.
+
+- RSA_WITH_RC4_SHA
+- RSA_WITH_RC4_MD5
+- RSA_WITH_AES_128_CBC_SHA
+- RSA_WITH_AES_256_CBC_SHA
+- RSA_WITH_3DES_EDE_CBC_SHA
 
 ``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
