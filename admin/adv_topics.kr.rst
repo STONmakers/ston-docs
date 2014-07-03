@@ -3,70 +3,105 @@
 고급주제
 ******************
 
-다루지 않았던 기능들에 대해 설명한다.
+이 장에서는 고급스럽지만 잡다한 주제에 관해 다룬다.
+일부 내용은 내부구조와 밀접한 관련이 있는 내용으로 고급 사용자들을 대상으로 한다.
 
 .. toctree::
    :maxdepth: 2
 
 
-
-Emergency 모드
+Request hit ratio
 ====================================
 
-STON은 모든 가상호스트가 MemoryBlock을 공유하면서 데이터를 관리하도록 설계되어 있다. 
-신규 메모리가 필요한 경우 참조되지 않는 오래된 MemoryBlock을 재사용하여 신규 메모리를 확보한다. 
-이 과정을 Memory-Swap이라고 부른다. 
-이런 구조를 통해 STON을 장기간 운영하여도 안정성을 확보할 수 있다.
+Request hit ratio를 이해하기 위해 클라언트의 HTTP요청이 어떻게 처리되는지 이해해야 한다.
+캐시처리 결과는 Squid와 동일하게 TCP_*로 명명되며 각 표현마다 캐시서버가 처리한 방식을 의미한다.
 
-.. figure:: img/faq_emergency1.png
+-  ``TCP_HIT`` 요청된 리소스(만료되지 않음)가 캐싱되어 있어 즉시 응답함.
+-  ``TCP_IMS_HIT`` IMS(If-Modified-Since)헤더와 함께 요청된 리소스가 만료되지 않은 상태로 캐싱되어 있어 304 NOT MODIFIED로 응답함. TTLExtensionBy4xx, TTLExtensionBy5xx설정에 해당하는 경우에도 이에 해당함.
+-  ``TCP_REFRESH_HIT`` 요청된 리소스가 만료되어 원본서버 확인(원본 미변경, 304 NOT MODIFIED) 후 응답함. 리소스 만료시간 연장됨.
+-  ``TCP_REF_FAIL_HIT`` TCP_REFRESH_HIT과정 중 원본서버에서 확인이 실패(접속실패, 전송지연)한 경우 만료된 컨텐츠로 응답함.
+-  ``TCP_NEGATIVE_HIT`` 요청된 리소스가 비정상적인 상태(원본서버 접속/전송 실패, 4xx응답, 5xx응답)로 캐싱되어 있고 해당상태를 응답함.
+-  ``TCP_REDIRECT_HIT`` 서비스 허용/거부/Redirect 조건에 의해 Redirect를 응답함.
+-  ``TCP_MISS`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버에서 가져온 결과를 응답함.
+-  ``TCP_REF_MISS`` 요청된 리소스가 만료되어 원본서버 확인(원본 변경, 200 OK) 후 응답함. 새로운 리소스가 캐싱됨.
+-  ``TCP_CLIENT_REFRESH_MISS`` 요청을 원본서버로 바이패스.
+-  ``TCP_ERROR`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버 장애(접속실패, 전송지연, 원본배제)로 인해 리소스를 캐싱하지 못함. 클라이언트에게 500 Internal Error로 응답함.
+-  ``TCP_DENIED`` 요청이 거부되었음.
+
+이상을 종합하여 Request hit ratio계산 공식은 다음과 같다. ::
+
+   TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT + TCP_REDIRECT_HIT
+   ------------------------------------------------------------------------------------------------
+                                            SUM(TCP_*)
+                                            
+
+Byte hit ratio
+====================================
+
+Byte hit ratio는 클라이언트에게 전송한 트래픽(Client Outbound)대비 원본서버로부터 전송받은 트래픽(Origin Inbound)의 비율을 나타낸다.
+원본서버 트래픽이 클라이언트 트래픽보다 높은 경우 음수가 나올 수 있다. ::
+
+   Client Outbound - Origin Inbound
+   --------------------------------
+           Client Outbound
+           
+
+원본서버 장애상황 정책
+====================================
+
+고객이 언제든지 원본서버를 점검 할 수 있도록 하는 것이 개발팀의 목표다.
+원본서버의 장애가 감지되면 해당 서버는 자동으로 배제되어 복구모드로 전환된다. 
+장애서버가 재가동되었더라도 정상 서비스 상태를 확인해야만 다시 투입한다.
+
+만약 모든 원본서버의 장애를 감지한 경우 현재 캐싱된 컨텐츠로 서비스를 진행한다. 
+TTL이 만료된 컨텐츠는 원본서버가 복구될 때까지 자동으로 연장된다. 
+심지어 Purge된 컨텐츠의 경우에도 원본서버에서 캐싱할 수 없다면 복구시켜 서비스에 문제가 없도록 동작한다. 
+최대한 클라이언트에게 장애상황을 노출해선 안된다는 정책이다.
+완전 장애상황에서 신규 컨텐츠 요청이 들어오면 다음과 같은 에러 페이지와 이유가 명시된다.
+
+.. figure:: img/faq_stonerror.jpg
    :align: center
       
-   콘텐츠 데이터는 MemoryBlock에 담겨 서비스된다.
-
-위 그림의 우측 상황처럼 모든 MemoryBlock이 사용 중이어서 재사용할 수 있는 MemoryBlock이 
-존재하지 않는 상황이 발생할 수 있다. 
-이때는 Memory-Swap이 불가능해진다. 
-예를 들어 모든 클라이언트가 서로 다른 데이터 영역을 아주 조금씩 다운로드 받거나 
-원본서버에서 서로 다른 데이터를 아주 조금씩 전송하는 상황이 동시에 발생하는 경우가 최악이다. 
-이런 경우 시스템으로부터 새로운 메모리를 할당받아 STON이 사용하는 것도 방법이다. 
-하지만 이런 상황이 지속될 경우 STON의 메모리 사용량이 높아진다. 
-메모리 사용량이 과도하게 높아질 경우 시스템 메모리스왑을 발생시키거나 최악의 경우 
-OS가 STON을 종료시키는 상황이 발생할 수 있다.
-
-.. note::
-
-   Emergency 모드란 메모리 부족상황이 발생할 경우 임시적으로 신규 MemoryBlock의 할당을 금지시키는 상황을 의미한다.
-
-이는 과다 메모리 사용으로부터 STON을 보호하기 위한 방법이며, 
-재사용가능한 MemoryBlock이 충분히 확보되면 자동 해지된다. ::
-
-    <Cache>
-        <EmergencyMode>OFF</EmergencyMode>
-    </Cache>
-    
--  ``<EmergencyMode>``
-
-   - ``OFF (기본)`` 사용하지 않는다.
+   왠만하면 이런 화면은 보여주기 싫다.
    
-   - ``ON`` 사용한다.
+   
+시간단위 표현과 범위
+====================================
 
-Emergency모드일 때 STON은 다음과 같이 동작합니다.
+기준 시간이 "초"인 항목에 대하여 문자열로 시간표현이 가능하다. 
+다음은 지원되는 시간표현 목록과 환산된 초(sec) 다.
 
-- 이미 로딩되어 있는 컨텐츠는 정상적으로 서비스된다.
-- 바이패스는 정상적으로 이루어진다.
-- 로딩되어 있지 않은 컨텐츠에 대해서는 503 service temporarily unavailable로 응답한다. TCP_ERROR상태가 증가한다.
-- Idle 클라이언트 소켓을 빠르게 정리한다.
-- 신규 컨텐츠를 캐싱할 수 없다.
-- TTL이 만료된 컨텐츠를 갱신하지 않는다.
-- SNMP의 cache.vhost.status와 XML/JSON통계의 Host.State 값이 "Emergency"로 제공된다.
-- Info로그에 Emergency모드로 전환/해제를 다음과 같이 기록한다. ::
+=========================== =========================
+표현	                    환산
+=========================== =========================
+year(s)                     31536000 초 (=365 days)
+month(s)                    2592000 초 (=30 days)
+week(s)                     604800 초 (=7 days)
+day(s)                      86400 초 (=24 hours)
+hour(s)	                    3600 초 (=60 mins)
+minute(s), min(s)	        60 초
+second(s), sec(s), (생략)	1 초
+=========================== =========================
 
-    2013-08-07 21:10:42 [WARNING] Emergency mode activated. (Memory overused: +100.23MB)
-    ...(생략)...
-    2013-08-07 21:10:43 [NOTICE] Emergency mode inactivated.
+다음과 같이 조합된 시간표현이 가능하다. ::
 
-
+    1year 3months 2weeks 4days 7hours 10mins 36secs
     
+현재 지원대상은 다음과 같다.
+
+- Custom TTL의 시간표현
+- TTL의 Ratio를 제외한 모두
+- ClientKeepAliveSec
+- ConnectTimeout
+- ReceiveTimeout
+- BypassConnectTimeout
+- BypassReceiveTimeout
+- ReuseTimeout
+- Recovery의 Cycle속성
+- Bandwidth Throttling
+- DNSBackup
+
+
 원본서버 분산
 ====================================
 
@@ -104,7 +139,7 @@ Emergency모드일 때 STON은 다음과 같이 동작합니다.
 또한 사용자들은 연결된 캐시서버에서 즉각적으로 서비스받지 못하고 다른 캐시서버로부터 
 데이터를 가져올 때까지 기다려야 하므로 서비스품질이 저하된다.
 
-STON이 제안하는 분산캐시는 3 Tier구조의 분산캐시이다. 
+우리가 제안하는 분산캐시는 3 Tier구조의 분산캐시이다. 
 
 우선 클라이언트와 직접 연결되는 Child(=Edge)서버부터 이야기를 시작해 보자. 
 HTTP는 한번 연결을 맺은 서버와 여러번의 HTTP 트랜잭션을 수행하는 특성을 가진다. 
@@ -160,96 +195,57 @@ Standby서버가 있다면 장애서버 위치에 Standby서버를 위치시켜 
 영향받지 않게 한다.
 
 
-
-Request hit ratio
+Emergency 모드
 ====================================
 
-Request hit ratio를 이해하기 위해 클라언트의 HTTP요청이 어떻게 처리되는지 이해해야 한다.
-캐시처리 결과는 Squid와 동일하게 TCP_*로 명명되며 각 표현마다 캐시서버가 처리한 방식을 의미한다.
+내부적으로 모든 가상호스트가 MemoryBlock을 공유하면서 데이터를 관리하도록 설계되어 있다. 
+신규 메모리가 필요한 경우 참조되지 않는 오래된 MemoryBlock을 재사용하여 신규 메모리를 확보한다. 
+이 과정을 Memory-Swap이라고 부른다. 
+이런 구조를 통해 장기간 운영하여도 안정성을 확보할 수 있다.
 
--  ``TCP_HIT`` 요청된 리소스(만료되지 않음)가 캐싱되어 있어 즉시 응답함.
--  ``TCP_IMS_HIT`` IMS(If-Modified-Since)헤더와 함께 요청된 리소스가 만료되지 않은 상태로 캐싱되어 있어 304 NOT MODIFIED로 응답함. TTLExtensionBy4xx, TTLExtensionBy5xx설정에 해당하는 경우에도 이에 해당함.
--  ``TCP_REFRESH_HIT`` 요청된 리소스가 만료되어 원본서버 확인(원본 미변경, 304 NOT MODIFIED) 후 응답함. 리소스 만료시간 연장됨.
--  ``TCP_REF_FAIL_HIT`` TCP_REFRESH_HIT과정 중 원본서버에서 확인이 실패(접속실패, 전송지연)한 경우 만료된 컨텐츠로 응답함.
--  ``TCP_NEGATIVE_HIT`` 요청된 리소스가 비정상적인 상태(원본서버 접속/전송 실패, 4xx응답, 5xx응답)로 캐싱되어 있고 해당상태를 응답함.
--  ``TCP_REDIRECT_HIT`` 서비스 허용/거부/Redirect 조건에 의해 Redirect를 응답함.
--  ``TCP_MISS`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버에서 가져온 결과를 응답함.
--  ``TCP_REF_MISS`` 요청된 리소스가 만료되어 원본서버 확인(원본 변경, 200 OK) 후 응답함. 새로운 리소스가 캐싱됨.
--  ``TCP_CLIENT_REFRESH_MISS`` 요청을 원본서버로 바이패스.
--  ``TCP_ERROR`` 요청된 리소스가 캐싱되어 있지 않음(=최초 요청). 원본서버 장애(접속실패, 전송지연, 원본배제)로 인해 리소스를 캐싱하지 못함. 클라이언트에게 500 Internal Error로 응답함.
--  ``TCP_DENIED`` 요청이 거부되었음.
-
-이상을 종합하여 Request hit ratio계산 공식은 다음과 같다. ::
-
-   TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT + TCP_REDIRECT_HIT
-   ------------------------------------------------------------------------------------------------
-                                            SUM(TCP_*)
-                                            
-
-Byte hit ratio
-====================================
-
-Byte hit ratio는 클라이언트에게 전송한 트래픽(Client Outbound)대비 원본서버로부터 
-전송받은 트래픽(Origin Inbound)의 비율을 나타낸다. 
-원본서버 트래픽이 클라이언트 트래픽보다 높은 경우 음수가 나올 수 있다. ::
-
-   Client Outbound - Origin Inbound
-   --------------------------------
-           Client Outbound
-           
-
-원본서버 장애상황 정책
-====================================
-
-STON을 사용하시는 고객이 언제든지 원본서버를 점검 할 수 있도록 하는 것이 개발팀의 목표이다. 
-원본서버의 장애가 감지되면 해당 서버는 자동으로 배제되어 복구모드로 전환된다. 
-장애서버가 재가동되었더라도 정상 서비스 상태를 확인해야만 다시 투입한다.
-
-
-만약 모든 원본서버의 장애를 감지한 경우 STON은 자동으로 현재 캐싱된 컨텐츠로 서비스를 진행한다. 
-TTL이 만료된 컨텐츠는 원본서버가 복구될 때까지 자동으로 연장된다. 
-심지어 Purge된 컨텐츠의 경우에도 원본서버에서 캐싱할 수 없다면 복구시켜 서비스에 문제가 없도록 동작한다. 
-최대한 클라이언트에게 장애상황을 노출해선 안된다는 것이 STON의 정책이다.
-완전 장애상황에서 신규 컨텐츠 요청이 들어오면 다음과 같은 에러 페이지와 이유가 명시된다.
-
-.. figure:: img/faq_stonerror.jpg
+.. figure:: img/faq_emergency1.png
    :align: center
       
-   왠만하면 이런 화면은 보여주기 싫다.
-   
-   
-시간단위 표현과 범위
-====================================
+   콘텐츠 데이터는 MemoryBlock에 담겨 서비스된다.
 
-기준 시간이 "초"인 항목에 대하여 문자열로 시간표현이 가능하다. 
-다음은 지원되는 시간표현 목록과 환산된 초(sec) 다.
+위 그림의 우측 상황처럼 모든 MemoryBlock이 사용 중이어서 재사용할 수 있는 MemoryBlock이 
+존재하지 않는 상황이 발생할 수 있다. 
+이때는 Memory-Swap이 불가능해진다. 
+예를 들어 모든 클라이언트가 서로 다른 데이터 영역을 아주 조금씩 다운로드 받거나 
+원본서버에서 서로 다른 데이터를 아주 조금씩 전송하는 상황이 동시에 발생하는 경우가 최악이다. 
+이런 경우 시스템으로부터 새로운 메모리를 할당받아 사용하는 것도 방법이다. 
+하지만 이런 상황이 지속될 경우 메모리 사용량이 높아진다. 
+메모리 사용량이 과도하게 높아질 경우 시스템 메모리스왑을 발생시키거나 최악의 경우 
+OS가 STON을 종료시키는 상황이 발생할 수 있다.
 
-=========================== =========================
-표현	                    환산
-=========================== =========================
-year(s)                     31536000 초 (=365 days)
-month(s)                    2592000 초 (=30 days)
-week(s)                     604800 초 (=7 days)
-day(s)                      86400 초 (=24 hours)
-hour(s)	                    3600 초 (=60 mins)
-minute(s), min(s)	        60 초
-second(s), sec(s), (생략)	1 초
-=========================== =========================
+.. note::
 
-다음과 같이 조합된 시간표현이 가능하다. ::
+   Emergency 모드란 메모리 부족상황이 발생할 경우 임시적으로 신규 MemoryBlock의 할당을 금지시키는 상황을 의미한다.
 
-    1year 3months 2weeks 4days 7hours 10mins 36secs
+이는 과다 메모리 사용으로부터 스스로를 보호하기 위한 방법이며, 
+재사용가능한 MemoryBlock이 충분히 확보되면 자동 해지된다. ::
+
+    <Cache>
+        <EmergencyMode>OFF</EmergencyMode>
+    </Cache>
     
-현재 지원대상은 다음과 같다.
+-  ``<EmergencyMode>``
 
-- Custom TTL의 시간표현
-- TTL의 Ratio를 제외한 모두
-- ClientKeepAliveSec
-- ConnectTimeout
-- ReceiveTimeout
-- BypassConnectTimeout
-- BypassReceiveTimeout
-- ReuseTimeout
-- Recovery의 Cycle속성
-- Bandwidth Throttling
-- DNSBackup
+   - ``OFF (기본)`` 사용하지 않는다.
+   
+   - ``ON`` 사용한다.
+
+Emergency모드일 때 STON은 다음과 같이 동작합니다.
+
+- 이미 로딩되어 있는 컨텐츠는 정상적으로 서비스된다.
+- 바이패스는 정상적으로 이루어진다.
+- 로딩되어 있지 않은 컨텐츠에 대해서는 503 service temporarily unavailable로 응답한다. TCP_ERROR상태가 증가한다.
+- Idle 클라이언트 소켓을 빠르게 정리한다.
+- 신규 컨텐츠를 캐싱할 수 없다.
+- TTL이 만료된 컨텐츠를 갱신하지 않는다.
+- SNMP의 cache.vhost.status와 XML/JSON통계의 Host.State 값이 "Emergency"로 제공된다.
+- Info로그에 Emergency모드로 전환/해제를 다음과 같이 기록한다. ::
+
+    2013-08-07 21:10:42 [WARNING] Emergency mode activated. (Memory overused: +100.23MB)
+    ...(생략)...
+    2013-08-07 21:10:43 [NOTICE] Emergency mode inactivated.
