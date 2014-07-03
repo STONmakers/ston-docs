@@ -68,12 +68,6 @@ STON 완벽 가이드
 =============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 0
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   admin/release.kr
