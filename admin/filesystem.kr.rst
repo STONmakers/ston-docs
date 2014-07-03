@@ -85,16 +85,14 @@ File System에서는 첫 번째 경로로 이 문제를 해결한다.
 
     /cachefs/example.com/ston.jpg
         
-가상호스트의 Alias도 그대로 이용할 수 있다. 
-예를 들어 example.com의 Alias로 *.example.com이 지정되어 있다면 다음 접근은 
-모두 같은 파일을 가리킨다. ::
+:ref:`env-vhost-find` 도 동일하게 동작한다.
+example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 접근은 모두 같은 파일을 가리킨다. ::
 
     /cachefs/example.com/ston.jpg
     /cachefs/img.example.com/ston.jpg
     /cachefs/example.example.com/ston.jpg
     
-Apache를 기준으로 설명하면 example.com을 서비스하기 위해서는 
-DocumentRoot가 /cachefs/example.com/로 설정되어 있어야 한다.
+예를들어 Apache에서 example.com을 연동하기 위해서는 DocumentRoot를 /cachefs/example.com/로 설정해야 한다.
 
 
 가상호스트 설정
@@ -102,41 +100,37 @@ DocumentRoot가 /cachefs/example.com/로 설정되어 있어야 한다.
 가상호스트 별로 File System을 설정한다. 
 또는 기본 가상호스트를 통해 모든 가상호스트에 일괄설정 할 수 있다. ::
 
-    <VHostDefault>
-        <Options>
-            <FileSystem Status="Active" DotDir="OFF">                    
-                <FileStatus>200</FileStatus>
-                <DirStatus>301, 302, 400, 401, 403</DirStatus>
-                <Unlink>Purge</Unlink>
-            </FileSystem>
-        </Options>
-    </VHostDefault>
+   <VHostDefault>
+      <Options>
+         <FileSystem Status="Active" DotDir="OFF">                    
+            <FileStatus>200</FileStatus>
+            <DirStatus>301, 302, 400, 401, 403</DirStatus>
+            <Unlink>Purge</Unlink>
+         </FileSystem>
+      </Options>
+   </VHostDefault>
     
 -  ``<FileSystem>``
-
    ``Status`` 속성이 ``Inactive`` 라면 File System에서 접근할 수 없다. 
    `Active` 로 설정해야 한다.
 
 -  ``<FileStatus>``
-
    파일로 인식할 원본서버 HTTP 응답코드를 설정한다. 
    일반적으로는 200만을 설정하지만 특별한 제약은 없다.
    
 -  ``<DirStatus>``
-
     디렉토리로 인식할 원본서버 HTTP 응답코드를 설정한다. 
     기본 값으로 302, 400, 401, 403등이 설정된다.
     
 -  ``<Unlink>``
-
-   파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정다.
+   파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정한다.
 
 원본서버마다 HTTP 응답코드가 다양하게 해석될 수 있다. 
 그러므로 각각의 HTTP 응답코드 해석방식을 설정해야 한다. 
-대부분의 경우 원본서버에 존재하는 파일의 경우 "200 OK"로 응답한다. 
-디렉토리 접근인 경우 "403 Forbidden"응답이나 "302 Found"로 다른 페이지로 Redirect시키기도 한다. 
-응답코드명을 comma(,)로 구분하여 설정하면 해당 HTTP 응답코드의 Body를 파일 또는 
-디렉토리로 인식한다. 
+
+대부분의 경우 원본서버에 존재하는 파일의 경우 **200 OK** 로 응답한다. 
+디렉토리 접근인 경우 **403 Forbidden** 응답이나 **302 Found** 로 다른 페이지로 Redirect시키기도 한다. 
+응답코드명을 comma(,)로 구분하여 설정하면 해당 HTTP 응답코드의 Body를 파일 또는 디렉토리로 인식한다. 
 설정되지 않은 응답코드에 대해서는 존재하지 않는 것으로 판단, File I/O가 실패한다.
 
 
@@ -148,7 +142,6 @@ DocumentRoot가 /cachefs/example.com/로 설정되어 있어야 한다.
 Kernel이 파일속성을 서비스하는 과정을 STON관점에서 보면 다음과 같다. 
 (/cachefs는 Mount경로이므로 Kernel이 생략한다.)
 
-
 .. figure:: img/conf_fs4.png
    :align: center
       
@@ -156,14 +149,11 @@ Kernel이 파일속성을 서비스하는 과정을 STON관점에서 보면 다�
 
 Linux의 경우 파일과 디렉토리를 별도로 구분하지 않는다. 
 그러므로 특정 파일속성을 얻는 과정이 생각보다 복잡하다. 
-위 그림에서도 알 수 있듯이 디렉토리가 깊으면 깊을수록 
-중간 과정의(=필요 없는) 가상호스트 검색과 파일 접근이 발생하여 성능이 저하된다. 
-특히 /one 또는 /one/two처럼 웹 서비스라면 접근되지도 않을 경로의 
-요청이 발생하여 원본서버 부하를 발생시킨다. 
-물론 Caching되면 TTL(Time To Live) 시간 동안 접근은 발생하지 않지만 
-아름답지 않은 것만은 분명한다.
+위 그림에서도 알 수 있듯이 디렉토리가 깊으면 깊을수록 중간 과정의(=필요 없는) 가상호스트 검색과 파일 접근이 발생하여 성능이 저하된다. 
+특히 /one 또는 /one/two처럼 웹 서비스라면 접근되지도 않을 경로의 요청이 발생하여 원본서버 부하를 발생시킨다. 
+물론 Caching되면 TTL(Time To Live) 시간 동안 접근은 발생하지 않지만 아름답지 않은 것만은 분명한다.
 
-이런 구조적 부하를 휴리스틱(Heuristic)하게 해결하기 위해 ``DotDir`` 속성을 추가하였다. 
+이런 구조적 부하를 휴리스틱(Heuristic)하게 해결하기 위해 ``DotDir`` 속성을 추가하였다.
 ``DotDir`` 은 dot(.)이 요청된 경로에 없으면 디렉토리(Dir)로 인식하는 기능이다. 
 앞서 설명한 그림은 ``DotDir`` 이 ``OFF`` 인 상태이다. 
 ``DotDir`` 이 ``ON`` 인 경우는 다음과 같이 동작한다.
@@ -174,15 +164,12 @@ Linux의 경우 파일과 디렉토리를 별도로 구분하지 않는다.
    전역 ``DotDir`` 활성화( ``ON`` )
 
 Kernel에서 호출되는 과정이나 회수에는 변함이 없다. 
-하지만 요청된 경로에 dot(.)이 없으면 가상호스트까지 가지 않고 즉시 디렉토리로 
-응답하기 때문에 꼭 필요한 부분에서만 가상호스트와 파일이 참조된다. 
-이 기능은 대부분의 프로그래머들이 파일에만 확장자를 부여하고 디렉토리에는 
-그렇지 않다는 것에 착안한 기능이다. 
+하지만 요청된 경로에 dot(.)이 없으면 가상호스트까지 가지 않고 즉시 디렉토리로 응답하기 때문에 꼭 필요한 부분에서만 가상호스트와 파일이 참조된다. 
+이 기능은 대부분의 프로그래머들이 파일에만 확장자를 부여하고 디렉토리에는 그렇지 않다는 것에 착안한 기능이다. 
 그러므로 사용하기 전에 디렉토리 구조에 대해 반드시 확인이 필요하다.
 
-``<FileSystem>`` 은 ``DotDir`` 속성은 전역이다. 
-쉽게 말해 모든 가상호스트가 디렉토리에 dot(.)을 사용하지 않는다면 전역 
-``DotDir`` 을 ``ON`` 으로 설정하시는 것이 아주 효과적이다. 
+``<FileSystem>`` 은 ``DotDir`` 속성은 전역이다.
+쉽게 말해 모든 가상호스트가 디렉토리에 dot(.)을 사용하지 않는다면 전역 ``DotDir`` 을 ``ON`` 으로 설정하시는 것이 아주 효과적이다. 
 물론 전역 ``DotDir`` 을 ``OFF`` 로 설정하고 가상호스트마다 별도로 설정할 수도 있다. 
 이 경우 다음 그림처럼 약간의 성능부하가 발생한다.
 
@@ -191,31 +178,29 @@ Kernel에서 호출되는 과정이나 회수에는 변함이 없다.
       
    가상호스트 ``DotDir`` 활성화( ``ON`` )
 
-가상호스트 검색은 발생하지만 파일참조는 dot(.)이 있는 상태에서만 발생한다. 
+가상호스트 검색은 발생하지만 파일참조는 dot(.)이 있는 상태에서만 발생한다.
 매우 빈번하게 호출되는 만큼 성능과 관련하여 반드시 이해할 것을 권장한다.
 
 
 파일읽기
 --------------------------
+
 파일속성을 얻는 과정은 복잡하지만 정작 파일 읽기는 간단하다. 
 먼저 파일을 Open한다. 
-STON의 모든 파일은 당연히 ReadOnly이다. 
-Write권한의 파일 접근은 실패한다. 
+모든 파일은 당연히 ReadOnly이다.
+Write권한의 파일 접근은 실패한다.
 최초 파일이 접근되는 경우 HTTP와 마찬가지로 원본서버에서 파일을 Caching한다. 
-파일을 요청한 프로세스가 기다리지 않도록 다운로드를 진행하면서 동시에 
-File I/O 서비스가 이루어진다.
+파일을 요청한 프로세스가 기다리지 않도록 다운로드를 진행하면서 동시에 File I/O 서비스가 이루어진다.
 
 .. figure:: img/conf_fs7.png
    :align: center
       
    파일 Open
 
-이후 동작은 HTTP 서비스와 동일하다. 
-다만 HTTP의 경우 처음 결정된 Range에서 순차적(Sequential)인 파일접근이 발생하기 
-때문에 파일 전송에 유리한 면이 있다. 
+이후 동작은 HTTP 서비스와 동일하다.
+다만 HTTP의 경우 처음 결정된 Range에서 순차적(Sequential)인 파일접근이 발생하기 때문에 파일 전송에 유리한 면이 있다.
 반면 File I/O의 경우 파일 크기와 상관없이 아주 작은 1KB단위의 read접근이 매우 많이 발생할 수 있다. 
-성능의 극대화를 위해 STON은 Cache모듈에 `Readahead <http://en.wikipedia.org/wiki/Readahead>`_ 를 구현했으며, 
-이를 통해 File I/O 성능을 극대화시켰다. 
+성능의 극대화를 위해 STON은 Cache모듈에 `Readahead <http://en.wikipedia.org/wiki/Readahead>`_ 를 구현했으며, 이를 통해 File I/O 성능을 극대화시켰다. 
 
 파일닫기(fclose등) 함수가 호출되거나 프로세스가 종료되는 경우 파일 handle은 Kernel에 의해 반납된다. 
 이는 HTTP 트랜잭션이 종료되는 것과 같다.
@@ -223,14 +208,11 @@ File I/O 서비스가 이루어진다.
 
 파일삭제
 --------------------------
-Caching된 파일은 STON에 의해 관리되지만 프로세스가 삭제요청을 보낼 수 있다. 
-STON은 명시적인 URL뿐만 아니라 디렉토리 Purge방법을 제공하고 있으므로 
-이런 요청에 쉽게 대응할 수 있다. 
+Caching된 파일은 STON에 의해 관리되지만 프로세스가 삭제요청을 보낼 수 있다.
+STON은 다양한 :ref:`api-cmd-purge` 방법을 제공하고 있으므로 이런 요청에 쉽게 대응할 수 있다. 
 
-예를 들어 ``<Unlink>`` 가 ``expire`` 로 설정되어 있는 경우 Kernel이 STON에 보낸 
-파일삭제 요청에 대해 해당 가상호스트의 파일을 expire하도록 동작한다.
-Kernel에서 다시 해당 파일에 접근한다면 expire된 상태이므로 원본서버에서 파일 
-변경여부를 확인한 뒤 변경되지 않았다면 해당 파일을 다시 서비스한다.
+예를 들어 ``<Unlink>`` 가 ``expire`` 로 설정되어 있는 경우 파일삭제 요청에 대해 해당 파일을 expire하도록 동작한다.
+Kernel에서 다시 해당 파일에 접근한다면 expire된 상태이므로 원본서버에서 변경여부를 확인한 뒤 변경되지 않았다면 해당 파일을 다시 서비스한다.
 
 
 파일확장
@@ -245,8 +227,7 @@ HTTP의 경우 다음과 같이 URL을 이용하여 원본 파일을 동적으�
     # "/video.mp4의 0~60초 구간을 Trimming한" 로컬파일에 접근한다.
     /cachefs/www.example.com/video.mp4?start=0&end=60
     
-하지만 MP4HLS나 DIMS처럼 원본 URL뒤에 가공옵션을 디렉토리 형식으로 명시하는 방식은 
-File I/O에 문제가 있다. ::
+하지만 MP4HLS나 DIMS처럼 원본 URL뒤에 가공옵션을 디렉토리 형식으로 명시하는 방식은 File I/O에 문제가 있다. ::
 
     /cachefs/image.winesoft.com/img.jpg/12AB/resize/500x500/
     /cachefs/www.winesoft.com/video.mp4/mp4hls/index.m3u8
