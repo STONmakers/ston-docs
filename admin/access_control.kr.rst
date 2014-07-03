@@ -43,7 +43,7 @@
 .. _access-control-geoip:
 
 GeoIP
----------------------
+====================================
 
 GeoIP를 사용하여 국가별로 접근을 차단할 수 있다. 
 `GeoIP Databases <http://dev.maxmind.com/geoip/legacy/downloadable/>`_ 중 
