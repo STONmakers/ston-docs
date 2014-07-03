@@ -113,7 +113,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 -----------------------
 
 로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
-`bypass-getpost`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
+`GET/POST 바이패스`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
 
    <Options>
       <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
