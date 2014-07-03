@@ -98,7 +98,7 @@ Trimming은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지
    완전한 형태의 파일이 제공된다.
 
 추출된 구간은 별도의 파일로 인식되기 때문에 200 OK로 응답된다. 
-그러므로 다음과 같이 Range헤더가 명시된 경우 추출된 파일로부터 Range를 계산하여 "206 Particial Content" 로 응답한다.
+그러므로 다음과 같이 Range헤더가 명시된 경우 추출된 파일로부터 Range를 계산하여 **206 Particial Content** 로 응답한다.
 
 .. figure:: img/conf_media_mp4trimming_range.png
    :align: center
