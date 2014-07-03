@@ -69,8 +69,8 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
 ====================================
 
 가상호스트별로 접근을 제어한다.
-`서버 접근제어`_ 와 다른점은 클라이언트 HTTP요청을 보낼 때 차단여부를 결정한다는 점이다. 
-왜냐하면 HTTP요청으로부터 가상호스트를 찾을 수 있기 때문이다. ::
+클라이언트가 HTTP요청을 보냈을 때 차단여부를 결정한다.
+왜냐하면 HTTP요청을 보내지 않는다면 가상호스트를 찾을 수 없기 때문이다. ::
 
    <Options>
       <AccessControl Default="Allow" DenialCode="401">OFF</AccessControl>
