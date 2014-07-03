@@ -1,4 +1,4 @@
-.. STON Edge Server documentation master file, created by
+ï»¿.. STON Edge Server documentation master file, created by
    sphinx-quickstart on Fri Jun 13 16:37:06 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -7,15 +7,15 @@
    :align: center
    
    
-STON ¿Ïº® °¡ÀÌµå
+STON ì™„ë²½ ê°€ì´ë“œ
 ==========================
 
-:ÀúÀÚ: STON °³¹ßÆÀ
+:ì €ì: STON ê°œë°œíŒ€
 
-:¹öÀü: 2.0.0, 2014³â 7¿ù 28ÀÏ
+:ë²„ì „: 2.0.0, 2014ë…„ 7ì›” 28ì¼
 
    
-1ºÎ. STON ±âº»: ¼³Á¤ ¹è¿ì±â
+1ë¶€. STON ê¸°ë³¸: ì„¤ì • ë°°ìš°ê¸°
 =============================
 
 .. toctree::
@@ -26,7 +26,7 @@ STON ¿Ïº® °¡ÀÌµå
    admin/environment.kr
    
    
-2ºÎ. HTTP ¼­ºñ½º±¸¼º
+2ë¶€. HTTP ì„œë¹„ìŠ¤êµ¬ì„±
 =============================
 
 .. toctree::
@@ -39,7 +39,7 @@ STON ¿Ïº® °¡ÀÌµå
    admin/bypass.kr
    
    
-3ºÎ. °í±ŞÁÖÁ¦
+3ë¶€. ê³ ê¸‰ì£¼ì œ
 =============================
 
 .. toctree::
@@ -52,7 +52,7 @@ STON ¿Ïº® °¡ÀÌµå
    admin/adv_topics.kr
    
    
-4ºÎ. °ü¸®/¿î¿µ
+4ë¶€. ê´€ë¦¬/ìš´ì˜
 =============================
 
 .. toctree::
@@ -64,7 +64,7 @@ STON ¿Ïº® °¡ÀÌµå
    admin/wm.kr
    
    
-5ºÎ. ºÎ·Ï
+5ë¶€. ë¶€ë¡
 =============================
 
 .. toctree::
