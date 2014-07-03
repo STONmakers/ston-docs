@@ -13,7 +13,7 @@
 
 바이패스는 아주 빠를뿐만 아니라 HTTP트랜잭션 단위로 동작한다.
 아무리 개인화된 사이트라고 해도 대부분은 메인 페이지(.html)만 동적으로 변경될 뿐 나머지 99%는 정적인 리소스로 구성된다.
-원본서버 동작에 맞출 수 있도록 :ref:`origin-httprequest`_ 의 바이패스 버전이 별도로 존재한다.
+원본서버 동작에 맞출 수 있도록 :ref:`origin-httprequest` 의 바이패스 버전이 별도로 존재한다.
 
 
 .. toctree::
@@ -77,7 +77,7 @@ GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 
    - ``ON`` GET요청을 원본서버로 바이패스한다.
 
-:ref:`_access-control-vhost_acl`_ 과 동일한 조건을 모두 지원한다.
+:ref:`access-control-vhost_acl` 과 동일한 조건을 모두 지원한다.
 바이패스 예외조건은 /svc/{가상호스트 이름}/bypass.txt 에 설정한다. ::
 
    # /svc/www.example.com/bypass.txt
@@ -140,7 +140,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
      .. figure:: img/private_bypass1.jpg
         :align: center
       
-        :ref:`origin-balancemode`_ 에 의해 따른다.
+        :ref:`origin-balancemode` 에 의해 따른다.
         
 
 
@@ -201,7 +201,7 @@ Timeout
 HTTP 헤더
 -----------------------
 
-:ref:`origin-httprequest`_ 설정의 바이패스 적용여부를 설정한다. ::
+:ref:`origin-httprequest` 설정의 바이패스 적용여부를 설정한다. ::
 
    <OriginOptions>
       <UserAgent Bypass="OFF">...</UserAgent>
