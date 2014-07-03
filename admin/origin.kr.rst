@@ -81,7 +81,7 @@ DNS 백업
 
 -  ``<BusySessionCount> (기본: 100개)``
    원본서버와 HTTP트랜잭션을 진행 중인 세션 수가 일정개수를 넘으면 과부하 상태로 판단한다.
-   과부하 상태에서 만료된 컨텐츠를 갱신하기 위해 원본서버로 접속하지 않도록 TTL을 :ref:`caching-policy-ttl-originbusy`_ 만큼 연장한다.
+   과부하 상태에서 만료된 컨텐츠를 갱신하기 위해 원본서버로 접속하지 않도록 TTL을 :ref:`caching-policy-ttl-originbusy` 만큼 연장한다.
    무조건 원본서버로 요청이 가도록 하려면 이 값을 아주 크게 설정하면 된다.
    
 
