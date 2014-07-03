@@ -24,21 +24,21 @@
 
 바이패스는 Caching정책보다 우선한다.
 
+
 No-Cache 요청 바이패스
 -----------------------
 
-클라이언트가 no-cache요청을 바이패스한다. ::
+클라이언트가 no-cache요청을 보냈다면 바이패스한다. ::
 
-    GET / HTTP/1.1
-    ...
-    cache-control: no-cache 또는 cache-control:max-age=0
-    pragma: no-cache
+   GET / HTTP/1.1
+   cache-control: no-cache 또는 cache-control:max-age=0
+   pragma: no-cache
     
 ::
 
-    <Options>
-         <BypassNoCacheRequest>OFF</BypassNoCacheRequest>
-    </Options>
+   <Options>
+      <BypassNoCacheRequest>OFF</BypassNoCacheRequest>
+   </Options>
     
 -  ``<BypassNoCacheRequest>``
 
@@ -49,18 +49,21 @@ No-Cache 요청 바이패스
 .. note::
 
     이 설정은 클라이언트 동작(아마도 ``ctrl`` + ``F5`` )에 의해 판단된다.
-    그러므로 대량의 바이패스가 원본에 부담을 줄 수 있다.
-   
+    그러므로 대량의 바이패스가 원본에 부담을 줄 가능성이 있다.
+    
+
+.. _bypass-getpost:    
  
 GET/POST 바이패스
 -----------------------    
 
-바이패스가 GET/POST요청의 기본동작이 되도록 설정할 수 있다. ::
+바이패스가 GET/POST요청의 기본동작이 되도록 설정할 수 있다. 
+GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 
-    <Options>
-        <BypassPostRequest>ON</BypassPostRequest>
-        <BypassGetRequest>OFF</BypassGetRequest>
-    </Options>
+   <Options>
+      <BypassPostRequest>ON</BypassPostRequest>
+      <BypassGetRequest>OFF</BypassGetRequest>
+   </Options>
     
 -  ``<BypassPostRequest>``
 
@@ -73,29 +76,31 @@ GET/POST 바이패스
    - ``OFF (기본)`` GET요청을 STON이 처리한다.
 
    - ``ON`` GET요청을 원본서버로 바이패스한다.
-   
-**가상호스트 ACL** 과 동일한 조건을 모두 지원한다.
+
+:ref:`_access-control-vhost_acl`_ 과 동일한 조건을 모두 지원한다.
 바이패스 예외조건은 /svc/{가상호스트 이름}/bypass.txt 에 설정한다. ::
 
-    # /svc/www.example.com/bypass.txt
-    $IP[192.168.2.1-255]
-    /index.html   
+   # /svc/www.example.com/bypass.txt
+   $IP[192.168.2.1-255]
+   /index.html   
     
 cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과 반대로 동작한다.
-예를 들어 기본조건이 바이패스라면 예외조건의 기본조건은 Caching이다.
-2번째 파라미터를 사용하면 보다 분명하게 조건을 설정할 수 있다. ::
+예를 들어 ``<BypassGetRequest>`` 이 ``ON`` 이라면 예외조건은 Caching목록이 된다.
+헷갈릴 여지가 많다면 2번째 파라미터를 사용하여 보다 분명하게 조건을 설정할 수 있다. ::
 
-    # /svc/www.winesoft.co.kr/bypass.txt
-    $HEADER[cookie: *ILLEGAL*], cache               // 항상 Caching처리
-    !HEADER[referer:]                               // 기본 설정에 따라 다름
-    !HEADER[referer] & !HEADER[user-agent], bypass  // 항상 바이패스
-    $URL[/source/public.zip]                        // 기본 설정에 따라 다름
+   # /svc/www.winesoft.co.kr/bypass.txt
+   
+   $HEADER[cookie: *ILLEGAL*], cache               // 항상 Caching처리
+   !HEADER[referer:]                               // 기본 설정에 따라 다름
+   !HEADER[referer] & !HEADER[user-agent], bypass  // 항상 바이패스
+   $URL[/source/public.zip]                        // 기본 설정에 따라 다름
 
 정리하면 우선순위는 다음과 같다.
 
 1. No-Cache 바이패스
 2. bypass.txt에 bypass라고 명시된 경우
 3. bypass.txt의 기본 설정
+    
 
 
 바이패스 동작
@@ -107,13 +112,14 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 원본서버 고정
 -----------------------
 
-같은 클라이언트가 항상 동일한 서버로 바이패스되도록 설정한다. ::
+로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
+`bypass-getpost`_ 의 속성으로 바이패스를 고정시킬 수 있다. ::
 
-     <Options>
-        <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
-        <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
-    </Options>
-    
+   <Options>
+      <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
+      <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
+   </Options>
+
 -  ``OriginAffinity``
 
    - ``ON (기본)`` 클라이언트 요청이 항상 같은 서버로 바이패스되는 것을 보장한다. 
@@ -135,6 +141,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
         :align: center
       
         어디로 갈지 모른다.
+        
 
 
 원본세션 고정

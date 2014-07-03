@@ -81,7 +81,10 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
      차단된 요청에 대해서는 ``DenialCode`` 속성에 설정된 응답코드로 응답한다.
      ``Default (기본: Allow)`` 속성이 ``Allow`` 라면 ACL은 거부목록이 된다. 
      반대로 ``Deny`` 라면 ACL은 허가목록이 된다.
-     
+
+
+.. _access-control-vhost_acl:
+
 가상호스트 ACL
 ---------------------
 
