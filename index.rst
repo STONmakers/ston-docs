@@ -67,4 +67,4 @@ STON 완벽 가이드
 .. toctree::
    :maxdepth: 0
 
-   admin/release.kr
+   admin/releasenote.kr

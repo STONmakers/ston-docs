@@ -84,7 +84,7 @@ SNMPWalk가 동작할 수 있도록 한다.
 
 .. _snmp-conf:
 
-SNMP 설정
+활성화
 ====================================
 
 전역설정(server.xml)을 통해 SNMP동작방식과 ACL을 설정한다. ::
@@ -111,7 +111,7 @@ SNMP 설정
     
 
 가상호스트/View 변수
----------------------
+====================================
 
 SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 설정한다. ::
 
@@ -165,7 +165,7 @@ SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 
 
 
 Community
----------------------
+====================================
 
 Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한다. ::
 
@@ -195,10 +195,14 @@ OID를 허용/차단할 경우 하위 모든 OID에 대해 같은 규칙이 적�
 
 .. _snmp-meta:
 
-meta (1.3.6.1.4.1.40001.1.1)
+meta
 ====================================
 
-메타정보를 제공한다.
+::
+
+   OID = 1.3.6.1.4.1.40001.1.1
+
+메타정보를 제공한다. 
 
 ===== ============= ========= ===========================================
 OID   Name          Type      Description
@@ -217,8 +221,12 @@ OID   Name          Type      Description
 
 .. _snmp-meta-conf:
 
-meta.conf (1.3.6.1.4.1.40001.1.1.10)
+meta.conf
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.1.10
 
  ``[confIndex]`` 는 ``<SNMP>`` 의 ``ConfCount`` 속성에서 설정한다.
  ``[confIndex]`` 가 1인 경우는 항상 현재 적용된 설정 값을, 
@@ -241,11 +249,15 @@ OID                  Name    Type    Description
 
 .. _snmp-meta-system:
 
-system (1.3.6.1.4.1.40001.1.2)
+system
 ====================================
 
+::
+
+   OID = 1.3.6.1.4.1.40001.1.2
+
 STON이 동작하는 시스템 정보를 제공한다.
- ``[sysMin]`` 변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
+``[sysMin]`` 변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
 SNMPWalk에서  ``[sysMin]`` 은 0으로 설정되며 현재 정보를 제공한다.
 
 =================== ========================================= ======= ===============================================
@@ -298,8 +310,12 @@ OID                 Name                                      Type    Descriptio
 
 .. _snmp-meta-system-diskinfo:
                                     
-system.diskInfo (1.3.6.1.4.1.40001.1.2.18.1)   
+system.diskInfo
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.2.18.1
 
 디스크 정보를 제공한다.
 
@@ -319,8 +335,12 @@ OID                     Name               Type        Description
 
 .. _snmp-meta-system-diskperf:
                                     
-system.diskPerf (1.3.6.1.4.1.40001.1.2.19.1)
+system.diskPerf
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.2.19.1
 
 디스크 성능상태를 제공한다.
 
@@ -344,8 +364,12 @@ OID                                      Name                        Type       
 
 .. _snmp-global:
 
-global (1.3.6.1.4.1.40001.1.3)
+global
 ====================================
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.3
 
 STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이벤트 등)를 제공한다. 
 
@@ -379,8 +403,12 @@ OID   Name                                        Type       Description
 
 .. _snmp-cache:
 
-cache (1.3.6.1.4.1.40001.1.4)
+cache
 ====================================
+
+::
+   
+    OID = 1.3.6.1.4.1.40001.1.4
 
 캐시 서비스의 통계는 가상호스트별로 상세하게 수집/제공된다.
 
@@ -400,8 +428,12 @@ OID    Name           Type      Description
 
 .. _snmp-cache-host:
 
-cache.host (1.3.6.1.4.1.40001.1.4.1)
+cache.host
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.1
 
 호스트(=모든 가상호스트)의 정보를 제공한다.
 
@@ -419,8 +451,12 @@ OID   Name      Type        Description
 
 .. _snmp-cache-host-contents:
 
-cache.host.contents (1.3.6.1.4.1.40001.1.4.1.10)
+cache.host.contents
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.1.10
 
 호스트(=모든 가상호스트)가 서비스하는 컨텐츠 통계를 제공한다.
 
@@ -449,8 +485,12 @@ OID    Name             Type       Description
 
 .. _snmp-cache-host-traffic:
 
-cache.host.traffic (1.3.6.1.4.1.40001.1.4.1.11)
+cache.host.traffic
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.1.11
 
 호스트(=모든 가상호스트)의 캐시 서비스와 트래픽 통계를 제공한다. 
 traffic의 모든 통계는 최대 60분까지의 평균으로 제공한다. 
@@ -472,8 +512,12 @@ OID                   Name            Type    Description
 
 .. _snmp-cache-host-traffic-origin:
 
-cache.host.traffic.origin (1.3.6.1.4.1.40001.1.4.1.11.10)
+cache.host.traffic.origin
 ---------------------
+
+::
+   
+    OID = 1.3.6.1.4.1.40001.1.4.1.11.10
 
 원본서버 트래픽 통계를 제공한다. 
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분한다.
@@ -549,8 +593,12 @@ OID                        Name                                Type       Descri
 
 .. _snmp-cache-host-traffic-client:
 
-cache.host.traffic.client (1.3.6.1.4.1.40001.1.4.1.11.11)
+cache.host.traffic.client
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.1.11.11
 
 클라이언트 트래픽 통계를 제공한다. 
 클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다. 
@@ -645,8 +693,12 @@ OID                        Name                                       Type      
 
 .. _snmp-cache-host-traffic-filesystem:
 
-cache.host.traffic.filesystem (1.3.6.1.4.1.40001.1.4.1.11.20)
+cache.host.traffic.filesystem
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.1.11.20
 
 Host의 File I/O 통계를 제공한다.
 
@@ -699,8 +751,12 @@ OID                      Name                                         Type      
 
 .. _snmp-cache-vhost:
 
-cache.vhost (1.3.6.1.4.1.40001.1.4.3.1)
+cache.vhost
 ====================================
+
+::
+  
+   OID = 1.3.6.1.4.1.40001.1.4.3.1
 
 가상호스트의 정보를 제공한다.  ``[vhostIndex]`` 는 1부터 가상호스트 개수의 범위를 가진다.
 
@@ -718,8 +774,12 @@ OID                     Name      Type       Description
 
 .. _snmp-cache-vhost-contents:
 
-cache.vhost.contents (1.3.6.1.4.1.40001.1.4.3.1.10)
+cache.vhost.contents
 ---------------------
+
+::
+   
+   OID = 1.3.6.1.4.1.40001.1.4.3.1.10
 
 가상호스트가 서비스하는 컨텐츠 통계를 제공한다.
 
@@ -748,8 +808,12 @@ OID                       Name                Type       Description
 
 .. _snmp-cache-vhost-traffic:
 
-cache.vhost.traffic (1.3.6.1.4.1.40001.1.4.3.1.11)
+cache.vhost.traffic
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.3.1.11
 
 가상호스트의 캐시 서비스와 트래픽 통계를 제공한다. 
 traffic의 모든 통계는 최대 60분까지의 평균으로 제공된다. 
@@ -771,8 +835,12 @@ OID                                       Name              Type        Descript
 
 .. _snmp-cache-vhost-traffic-origin:
 
-cache.vhost.traffic.origin (1.3.6.1.4.1.40001.1.4.3.1.11.10)
+cache.vhost.traffic.origin
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.3.1.11.10
 
 원본서버 트래픽 통계를 제공한다. 
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분된다.
@@ -848,8 +916,12 @@ OID                                           Name                              
 
 .. _snmp-cache-vhost-traffic-client:
 
-cache.vhost.traffic.client (1.3.6.1.4.1.40001.1.4.3.1.11.11)
+cache.vhost.traffic.client
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.3.1.11.11
 
 클라이언트 트래픽 통계를 제공한다. 
 클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다. 
@@ -944,8 +1016,12 @@ OID                                           Name                              
 
 .. _snmp-cache-vhost-traffic-filesystem:
 
-cache.vhost.traffic.filesystem (1.3.6.1.4.1.40001.1.4.3.1.11.20)
+cache.vhost.traffic.filesystem
 ---------------------
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.3.1.11.20
 
 가상호스트의 File I/O 통계를 제공한다.
 
@@ -998,8 +1074,12 @@ OID                                         Name                                
 
 .. _snmp-cache-view:
 
-cache.view (1.3.6.1.4.1.40001.1.4.11.1)
+cache.view
 ====================================
+
+::
+
+   OID = 1.3.6.1.4.1.40001.1.4.11.1
 
 가상호스트 통계와 동일한 정보를 제공한다. 
 ``[viewIndex]`` 는 1부터 View개수의 범위를 가진다.

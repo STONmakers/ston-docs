@@ -256,7 +256,7 @@ STON 내부에서는 ``Separator`` 를 slash(/)로 변경하여 HTTP와 동일�
 
 
 
-Wowza 연동방법
+Wowza 연동
 ====================================
 
 File System을 이용해 손쉽게 Wowza를 연동할 수 있다. 
