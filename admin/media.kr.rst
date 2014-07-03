@@ -53,6 +53,8 @@ MP4, M4A, MP3 등 다양한 Video/Audio 포맷을 지원한다.
    분석할 수 없거나 깨진 파일이라면 원본형태 그대로 서비스된다.
 
 
+.. _media-trimming:
+
 Trimming
 -----------------------
 
@@ -129,6 +131,8 @@ QueryString이 모두 인식되지만 ``StartParam`` 과 ``EndParam`` 은 제외
 lighttpd의 `Mod-H264-Streaming-Testing-Version2 <http://h264.code-shop.com/trac/wiki/Mod-H264-Streaming-Testing-Version2>`_ 에서도 
 모두 **start** 를 QueryString으로 사용하고 있다.
 
+
+.. _media-hls:
 
 HLS (HTTP Live Streaming)
 -----------------------

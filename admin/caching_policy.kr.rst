@@ -260,8 +260,10 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
    접속은 됐으나 데이터를 수신하지 못하는 경우 TTL을 설정한다.
    ``<ConnectTimeout>`` 과 의미적 동일하다.
 
+.. _caching-policy-ttl-originbusy:
+
 -  ``<OriginBusy> (기본: 3초)``
-   원본서버의 부하가 높다고 판단되면 만료된 콘텐츠의 TTL을 설정된 시간만큼 연장한다.
+   :ref:`origin-busysessioncount`_ 조건을 만족하면 원본서버 요청없이 만료된 콘텐츠의 TTL을 설정된 시간만큼 연장한다.
    이는 원본서버의 부하를 가중시키지 않기 위함이다.
    
 .. note::

@@ -372,7 +372,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 원본 헤더
 ---------------------
 
-STON은 성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
+성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
 
    <Options>
       <OriginalHeader>OFF</OriginalHeader>
@@ -471,7 +471,7 @@ URL 전처리는 가상호스트 설정(vhosts.xml)에 한다.
       패턴은 최대 9개(#9)까지 지정할 수 있다.
       
 처리량은 :ref:`monitoring_stats` 로 제공되며 :ref:`api-graph-urlrewrite` 로도 확인할 수 있다. 
-URL전처리는 STON의 다른 기능들과 결합하여 다음과 같이 간결한 표현이 가능하게 한다. ::
+URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과 결합하여 표현을 간결하게 만든다. ::
 
    <URLRewrite>
        <Pattern>example.com/([^/]+)/(.*)</Pattern>
