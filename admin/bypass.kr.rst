@@ -154,7 +154,7 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
       
    클라이언트가 원본세션을 소유한다.
 
-`bypass-getpost`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
+`GET/POST 바이패스`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
 
    <Options>
       <BypassPostRequest Private="OFF">...</BypassPostRequest>
