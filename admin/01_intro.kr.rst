@@ -1,6 +1,6 @@
 ﻿.. _intro:
 
-STON 소개
+1장. STON 소개
 ******************
 
 STON은 인터넷 서비스를 쉽게 확장하기(Easy Scale Out) 위해 개발된 Edge서버이다. 

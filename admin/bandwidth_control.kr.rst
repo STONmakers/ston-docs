@@ -1,6 +1,6 @@
 ﻿.. _bandwidth_control:
 
-Bandwidth 조절
+10장. Bandwidth 조절
 ******************
 
 이 장에서는 가상호스트별로 다양한 방식의 Bandwidth 제한(조절)방법에 대해 설명한다.

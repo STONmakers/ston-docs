@@ -1,6 +1,6 @@
 ﻿.. _wm:
 
-WM (Web Management)
+17장. WM (Web Management)
 ******************
 
 이 장에서는 Web Management(이하 WM)를 소개한다.
