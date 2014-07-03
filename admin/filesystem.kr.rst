@@ -6,12 +6,13 @@ File System
 이 장에서는 STON을 로컬 디스크처럼 사용하는 방법에 대해 설명한다.
 STON은 `FUSE <http://fuse.sourceforge.net/>`_ 를 기반으로 Linux VFS(Virtual File System)에 Mount된다.
 Mount된 경로의 모든 파일은 접근되는 순간 Caching되지만 다른 프로세스는 이 사실을 알지 못한다.
+**Caching기능이 탑재된 ReadOnly 디스크** 로 이해해도 좋다.
 
 .. figure:: img/conf_fs1.png
    :align: center
       
    `Fuse <http://upload.wikimedia.org/wikipedia/commons/0/08/FUSE_structure.svg>`_ 구조
-   
+
 구조상 File I/O 함수 호출을 Linux Kernel이 STON에게 직접 전달하는 과정에 어떠한 요소(물리적 파일 I/O 또는 Socket통신 등)도 개입하지 않는다.
 이런 구조는 아주 높은 성능을 가능케 한다.
 STON의 메모리 Caching을 통해 물리적 디스크 접근보다 뛰어난 성능을 기대할 수 있다.
