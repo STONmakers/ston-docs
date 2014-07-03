@@ -3,7 +3,9 @@
 SNMP
 ******************
 
-STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시스템 상태정보를 제공한다. 
+이 장에서는 SNMP(Simple Network Monitoring Protocol)에 대해 다룬다.
+:ref:`monitoring_stats` 의 모든 수치는 SNMP로도 제공된다.
+뿐만 아니라 더욱 세분화된 시간단위와 시스템 상태정보까지 제공한다.
 가상호스트별로 실시간 통계와 최대 60분까지 "분" 단위의 평균 통계를 제공한다. 
 
 - 별도의 패키지가 필요치 않다.
@@ -15,7 +17,6 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
    :maxdepth: 2
 
 
-
 .. _snmp-var:
 
 변수
@@ -24,7 +25,7 @@ STON은 자체 SNMP(Simple Network Monitoring Protocol)를 통해 통계와 시�
 설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다. 
 예를 들어 디스크는 여러개가 존재할 수 있다. 
 이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다. 
-이런 변수를 ``[diskIndex]`` 로 명시한다. 
+이런 변수를 ``[diskIndex]`` 로 명시한다.
 
 -  ``[diskIndex]``
 
