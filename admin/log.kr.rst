@@ -102,6 +102,8 @@ STON의 설치/업그레이드 시 모든 내용이 install.log에 기록된다.
 .. admin-log-global:
 
 
+.. _admin-log-global:
+
 전역로그
 ====================================
 
@@ -265,7 +267,7 @@ Domain Resolving결과가 변경될 때마다 Info로그에 기록한다. ::
 
 
 
-.. admin-log-access:
+.. _admin-log-access:
 
 Access 로그
 ---------------------
