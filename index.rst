@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: business/img/ston_edge_server.png
+.. image:: ston_edge_server.png
    :align: center
    
 STON 완벽 가이드
