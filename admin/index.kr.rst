@@ -16,7 +16,7 @@ Contents:
    caching_policy.kr
    handling_http_requests.kr   
    origin.kr
-   access_control.rst
+   access_control.kr
    bypass.kr
    media.kr
    bandwidth_control.kr
