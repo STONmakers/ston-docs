@@ -327,3 +327,27 @@ tcl-rrdtool-1.4.7-1.el5.rf.x86_64.rpm	 06-Apr-2012 16:57   37K     RHEL5 and Cen
 tcl-rrdtool-1.4.7-1.el6.rfx.i686.rpm     06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 32bit
 tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 64bit
 ======================================== =================== ======= ============================
+
+
+.. _api-etc-help:
+
+API 이해하기
+====================================
+
+HTTP기반의 API를 제공한다.
+API 호출권한은 :ref:`env-host` 의 영향을 받는다. 
+허가되지 않은 API 호출은 곧바로 연결을 종료한다.
+
+STON버전을 확인한다. ::
+
+   http://127.0.0.1:10040/version
+    
+같은 API를 Linux Shell에서 명령어로 수행한다. ::
+
+   ./stonapi version
+
+.. note:
+
+   HTTP API는 &를 QueryString의 구분자로 인식하지만 Linux 콘솔에서는 다른 의미를 가진다. 
+   &가 들어가는 명령어를 호출하는 경우 \&로 입려하거나 반드시 괄호(" /...&... ")로 호출하는 URL을 묶어야 한다.
+
