@@ -202,7 +202,7 @@ OS 구성
 
 HelloWorld
 ====================================
-vhost.xml 파일을 열어 다음과 같이 편집한다. ::
+vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
 
     <Vhosts>
         <Vhost Name="www.example.com">
