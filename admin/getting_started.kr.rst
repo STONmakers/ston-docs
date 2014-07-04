@@ -198,87 +198,6 @@ OS 구성
 *.default파일은 항상 최신패키지와 함께 배포된다.
 
 
-.. _env-vhost-activeorigin:
-
-원본서버
-============================================
-
-가상호스트는 원본서버를 대신해 콘텐츠를 서비스하는 것이 목적이다.
-서비스 형태에 맞게 다양한 원본서버는 다양하게 접근이 가능하다. ::
-
-    <Vhost ...>
-        <Origin>
-            <Address>1.1.1.1</Address>
-            <Address>1.1.1.2</Address>
-        </Origin>
-    </Vhost>
-
--  ``<Address>``
-   가상호스트가 콘텐츠를 복제 할 원본서버 주소.
-   개수제한은 없다.
-   주소가 2개 이상일 경우 Active/Active방식(Round-Robin)으로 선택된다. 
-   원본서버 주소 포트가 80인 경우 생략할 수 있다. 
-
-예를 들어 다른 포트(8080)로 서비스되는 경우 1.1.1.1:8080과 같이 포트번호를 
-명시해야 한다. 주소는 {IP|Domain}{Port}{Path}형식으로 8가지 형식이 가능하다.
-
-============================== ==========================
-Address                        Host헤더
-============================== ==========================
-1.1.1.1	                       가상호스트명
-1.1.1.1:8080	               가상호스트명:8080       
-1.1.1.1/account/dir	           가상호스트명            
-1.1.1.1:8080/account/dir       가상호스트명:8080       
-example.com	                   example.com             
-example.com:8080	           example.com:8080        
-example.com/account/dir	       example.com             
-example.com:8080/account/dir   example.com:8080
-============================== ==========================
-
-:ref:`origin-httprequest` 중 Host헤더를 별도로 설정하지 않는한 표의 Host헤더를 전송한다. ::
-
-    <Vhost Name="www.example.com">
-        <Origin>
-            <Address>origin.com:8888/account/dir</Address>            
-        </Origin>
-    </Vhost>
-
-예를 들어 위와같이 원본주소를 설정하면 원본으로 다음과 같이 HTTP 요청을 보낸다. ::
-
-   GET / HTTP/1.1
-   Host: origin.com:8888
-
-.. note:
-
-   원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 
-   클라이언트가 /img.jpg를 요청하면 최종 주소는 example.com/account/dir/img.jpg가 된다.
-
-
-.. _env-vhost-standbyorigin:
-
-보조 원본주소
-------------------------------------------------
-
-보조 원본서버를 설정한다.::
-
-    <Vhost ...>
-        <Origin>
-            <Address>1.1.1.1</Address>
-            <Address>1.1.1.2</Address>
-            <Address2>1.1.1.3</Address2>
-            <Address2>1.1.1.4</Address2>
-        </Origin>
-    </Vhost>
-    
--  ``<Address2>``
-
-   모든 ``<Address>`` 가 정상동작하고 있다면 ``<Address2>`` 는 서비스에 투입되지 않는다. 
-   Active서버에 장애가 감지되면 해당 서버를 대체하기 위해 투입되며 
-   Active서버가 복구되면 다시 Standby상태로 돌아간다. 
-   만약 Standby서버에 장애가 감지되면 해당 Standby서버가 복구되기 전까지 서비스에 투입되지 않는다.
-
-
-
 .. _getting-started-samplevhost:
 
 HelloWorld
@@ -394,6 +313,86 @@ tcl-rrdtool-1.4.7-1.el5.rf.x86_64.rpm	 06-Apr-2012 16:57   37K     RHEL5 and Cen
 tcl-rrdtool-1.4.7-1.el6.rfx.i686.rpm     06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 32bit
 tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and CentOS-6 x86 64bit
 ======================================== =================== ======= ============================
+
+
+.. _env-vhost-activeorigin:
+
+원본서버
+============================================
+
+가상호스트는 원본서버를 대신해 콘텐츠를 서비스하는 것이 목적이다.
+서비스 형태에 맞게 다양한 원본서버는 다양하게 접근이 가능하다. ::
+
+    <Vhost ...>
+        <Origin>
+            <Address>1.1.1.1</Address>
+            <Address>1.1.1.2</Address>
+        </Origin>
+    </Vhost>
+
+-  ``<Address>``
+   가상호스트가 콘텐츠를 복제 할 원본서버 주소.
+   개수제한은 없다.
+   주소가 2개 이상일 경우 Active/Active방식(Round-Robin)으로 선택된다. 
+   원본서버 주소 포트가 80인 경우 생략할 수 있다. 
+
+예를 들어 다른 포트(8080)로 서비스되는 경우 1.1.1.1:8080과 같이 포트번호를 
+명시해야 한다. 주소는 {IP|Domain}{Port}{Path}형식으로 8가지 형식이 가능하다.
+
+============================== ==========================
+Address                        Host헤더
+============================== ==========================
+1.1.1.1	                       가상호스트명
+1.1.1.1:8080	               가상호스트명:8080       
+1.1.1.1/account/dir	           가상호스트명            
+1.1.1.1:8080/account/dir       가상호스트명:8080       
+example.com	                   example.com             
+example.com:8080	           example.com:8080        
+example.com/account/dir	       example.com             
+example.com:8080/account/dir   example.com:8080
+============================== ==========================
+
+:ref:`origin-httprequest` 중 Host헤더를 별도로 설정하지 않는한 표의 Host헤더를 전송한다. ::
+
+    <Vhost Name="www.example.com">
+        <Origin>
+            <Address>origin.com:8888/account/dir</Address>            
+        </Origin>
+    </Vhost>
+
+예를 들어 위와같이 설정하면 원본으로 다음과 같이 요청한다. ::
+
+   GET / HTTP/1.1
+   Host: origin.com:8888
+
+.. note:
+
+   원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 
+   클라이언트가 /img.jpg를 요청하면 최종 주소는 example.com/account/dir/img.jpg가 된다.
+
+
+.. _env-vhost-standbyorigin:
+
+보조 원본주소
+------------------------------------------------
+
+보조 원본서버를 설정한다.::
+
+    <Vhost ...>
+        <Origin>
+            <Address>1.1.1.1</Address>
+            <Address>1.1.1.2</Address>
+            <Address2>1.1.1.3</Address2>
+            <Address2>1.1.1.4</Address2>
+        </Origin>
+    </Vhost>
+    
+-  ``<Address2>``
+
+   모든 ``<Address>`` 가 정상동작하고 있다면 ``<Address2>`` 는 서비스에 투입되지 않는다. 
+   Active서버에 장애가 감지되면 해당 서버를 대체하기 위해 투입되며 
+   Active서버가 복구되면 다시 Standby상태로 돌아간다. 
+   만약 Standby서버에 장애가 감지되면 해당 Standby서버가 복구되기 전까지 서비스에 투입되지 않는다.
 
 
 .. _api-etc-help:
