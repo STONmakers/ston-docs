@@ -260,20 +260,6 @@ www.example.com 도메인을 설정한다. ::
       :align: center
 
 
-.. _getting-started-confreload:
-
-설정 Reload
------------------------------------------------
-설정파일을 변경한 뒤에는 반드시 :ref:`api-conf-reload` 를 호출해야 설정이 반영된다. ::
-
-    ./stonapi conf/reload
-
-.. note::
-
-   어떠한 경우에도 STON은 설정파일을 수정하지 않는다. 관리자는 서비스 반영을 원하는 
-   시점에 분명하게 reload를 수행하여 설정을 반영해야 한다.
-
-
 .. _getting-started-rrderr:
 
 WM이 느리거나 그래프가 나오지 않는 문제
