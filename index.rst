@@ -30,6 +30,7 @@ STON 완벽 가이드
    :maxdepth: 2
    
    admin/caching_policy.kr
+   admin/caching_purge.kr
    admin/handling_http_requests.kr   
    admin/origin.kr
    admin/access_control.kr
