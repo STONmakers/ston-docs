@@ -22,167 +22,6 @@ HTTP의 여러 기능에 따라 같은 URL이라고 하더라도 콘텐츠가 �
    :maxdepth: 2
 
 
-Accept-Encoding 헤더
-====================================
-
-같은 URL에 대한 HTTP요청이라도 Accept-Encoding헤더의 존재 유무에 따라 다른 콘텐츠가 캐싱될 수 있다. 
-원본서버에 요청을 보내는 시점에 압축여부를 알 수 없다.
-응답을 받았다고해도 압축여부를 매번 비교할 수도 없다.
-
-   .. figure:: img/acceptencoding.png
-      :align: center
-
-      원본서버가 어떤 응답을 줄지 알 수 없다.
-
-::
-
-    <Options>
-        <AcceptEncoding>ON</AcceptEncoding>
-    </Options>
-
--  ``<AcceptEncoding>``
-
-   -  ``ON (기본)`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 인식한다.
-   
-   -  ``OFF`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 무시한다.
-    
-원본서버에서 압축을 지원하지 않거나, 압축이 필요없는 대용량 파일의 경우 ``OFF`` 로 설정하는 것이 바람직하다.
-
-
-.. _caching-policy-casesensitive:
-
-대소문자 구분
-====================================
-
-원본서버의 대소문자 구분여부를 능동적으로 알 수 없다.
-
-   .. figure:: img/casesensitive.png
-      :align: center
-
-      아마도 같은 콘텐츠이거나 404가 발생한다.
-   
-::
-
-    <Options>
-        <CaseSensitive>ON</CaseSensitive>
-    </Options>
-
--  ``<CaseSensitive>``
-
-   -  ``ON (기본)`` URL 대소문자를 구문한다. 
-   
-   -  ``OFF`` URL 대소문자를 구분하지 않는다. 모두 소문자로 처리된다.
-
-    
-.. _caching-policy-applyquerystring:
-    
-QueryString 구분
-====================================
-
-QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 QueryString을 인식하는 것은 불필요하다. 
-아무 의미없는 Random값이나 항상 변하는 시간 값이 매번 붙는다면 원본에 엄청난 부하가 발생할 수 있다.
-
-   .. figure:: img/querystring.png
-      :align: center
-
-      동적 콘텐츠가 아니라면 같은 콘텐츠일 가능성이 높다.
-   
-::
-
-    <Options>
-        <ApplyQueryString>ON</ApplyQueryString>
-    </Options>
-
--  ``<ApplyQueryString>``
-
-   -  ``ON (기본)`` QueryString을 인식한다. 예외조건에 만족하면 QueryString이 무시된다.
-   
-   -  ``OFF`` QueryString을 무시한다. 예외조건에 만족하면 QueryString을 인식한다.
-    
-QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설정한다. ::
-
-    # ./svc/www.example.com/querystring.txt
-    /private/personal.jsp?login=ok*
-    /image/ad.jpg
-
-예외조건이 ``<ApplyQueryString>`` 설정에 따라 의미가 달라짐에 주의한다. 
-명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
-
-
-Vary 헤더
-====================================
-
-Vary헤더를 인식하여 콘텐츠를 구분한다. 
-일반적으로 Vary헤더는 Cache서버의 성능을 급격히 떨어트리는 원흉이다. ::
-
-    <Options>
-        <VaryHeader />
-    </Options>
-    
--  ``<VaryHeader>``
-
-   원본서버가 응답한 Vary헤더 중 지원할 헤더목록을 설정한다.
-   구분자는 콤마(,)를 사용한다.
-
-예를 들어 원본서버가 다음과 같이 Vary헤더를 보냈다고 하더라도 ``<VaryHeader>`` 가 설정되어 있지 않다면 무시한다. ::
-
-    Vary: Accept-Encoding, Accept, User-Agent
-
-User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 하려면 다음과 같이 설정한다. ::
-
-    <Options>
-        <VaryHeader>Accept-Encoding, Accept</VaryHeader>
-    </Options>
-    
-원본서버가 보낸 모든 Vary헤더를 인식하게 하려면 다음과 같이 설정한다. ::
-
-    <Options>
-        <VaryHeader>*</VaryHeader>
-    </Options>
-
-
-POST 요청
-====================================
-
-POST 요청을 Caching하도록 설정한다. 
-POST 요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
-
-    <Options>
-        <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>
-    </Options>
-
--  ``<PostRequest>``
-
-   -  ``OFF (기본)`` POST요청이 오면 세션을 종료한다.
-   
-   -  ``ON`` POST요청을 Caching한다.
-   
-실제로 POST요청을 처리하는 대부분의 경우는 Body데이터를 Caching-Key로 사용한다.
-``BodySensitive`` 속성과 예외조건을 통해 정교한 설정이 가능하다.
-
--  ``BodySensitive``
-
-    -  ``ON (기본)`` Body데이터까지 Caching-Key로 인식한다.
-       최대 길이는 ``MaxContentLength (기본: 102400 Bytes)`` 속성으로 제한한다.
-       예외조건에 만족하면 Body데이터를 무시한다.
-    
-    -  ``OFF`` Body데이터는 무시한다. 
-       예외조건에 만족하면 Body데이터를 인식한다.
-   
-POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다. ::
-    
-    # /svc/www.example.com/postbody.txt
-    /bigsale/*.php?nocache=*
-    /goods/search.php
-    
-예외조건이 ``BodySensitive`` 설정에 따라 의미가 달라짐에 주의한다. 
-명확한 URL 또는 패턴(*만 허용한다.)으로 설정이 가능하다.
-  
-.. note::
-
-    ``MaxContentLength`` 속성을 너무 크게 설정할 경우 Caching-Key 관리에 많은 메모리가 필요하다.
-    가능한 작게 설정하는 것이 좋다.
-
 
 TTL (Time To Live)
 ====================================
@@ -441,3 +280,166 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
    -  ``ON`` TTL을 즉시 만료한다.
    
 만료된 콘텐츠는 `갱신정책`_ 에 따른다.
+
+
+Accept-Encoding 헤더
+====================================
+
+같은 URL에 대한 HTTP요청이라도 Accept-Encoding헤더의 존재 유무에 따라 다른 콘텐츠가 캐싱될 수 있다. 
+원본서버에 요청을 보내는 시점에 압축여부를 알 수 없다.
+응답을 받았다고해도 압축여부를 매번 비교할 수도 없다.
+
+   .. figure:: img/acceptencoding.png
+      :align: center
+
+      원본서버가 어떤 응답을 줄지 알 수 없다.
+
+::
+
+    <Options>
+        <AcceptEncoding>ON</AcceptEncoding>
+    </Options>
+
+-  ``<AcceptEncoding>``
+
+   -  ``ON (기본)`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 인식한다.
+   
+   -  ``OFF`` HTTP 클라이언트가 보내는 Accept-Encoding 헤더를 무시한다.
+    
+원본서버에서 압축을 지원하지 않거나, 압축이 필요없는 대용량 파일의 경우 ``OFF`` 로 설정하는 것이 바람직하다.
+
+
+.. _caching-policy-casesensitive:
+
+대소문자 구분
+====================================
+
+원본서버의 대소문자 구분여부를 능동적으로 알 수 없다.
+
+   .. figure:: img/casesensitive.png
+      :align: center
+
+      아마도 같은 콘텐츠이거나 404가 발생한다.
+   
+::
+
+    <Options>
+        <CaseSensitive>ON</CaseSensitive>
+    </Options>
+
+-  ``<CaseSensitive>``
+
+   -  ``ON (기본)`` URL 대소문자를 구문한다. 
+   
+   -  ``OFF`` URL 대소문자를 구분하지 않는다. 모두 소문자로 처리된다.
+
+    
+.. _caching-policy-applyquerystring:
+    
+QueryString 구분
+====================================
+
+QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 QueryString을 인식하는 것은 불필요하다. 
+아무 의미없는 Random값이나 항상 변하는 시간 값이 매번 붙는다면 원본에 엄청난 부하가 발생할 수 있다.
+
+   .. figure:: img/querystring.png
+      :align: center
+
+      동적 콘텐츠가 아니라면 같은 콘텐츠일 가능성이 높다.
+   
+::
+
+    <Options>
+        <ApplyQueryString>ON</ApplyQueryString>
+    </Options>
+
+-  ``<ApplyQueryString>``
+
+   -  ``ON (기본)`` QueryString을 인식한다. 예외조건에 만족하면 QueryString이 무시된다.
+   
+   -  ``OFF`` QueryString을 무시한다. 예외조건에 만족하면 QueryString을 인식한다.
+    
+QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설정한다. ::
+
+    # ./svc/www.example.com/querystring.txt
+    /private/personal.jsp?login=ok*
+    /image/ad.jpg
+
+예외조건이 ``<ApplyQueryString>`` 설정에 따라 의미가 달라짐에 주의한다. 
+명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
+
+
+Vary 헤더
+====================================
+
+Vary헤더를 인식하여 콘텐츠를 구분한다. 
+일반적으로 Vary헤더는 Cache서버의 성능을 급격히 떨어트리는 원흉이다. ::
+
+    <Options>
+        <VaryHeader />
+    </Options>
+    
+-  ``<VaryHeader>``
+
+   원본서버가 응답한 Vary헤더 중 지원할 헤더목록을 설정한다.
+   구분자는 콤마(,)를 사용한다.
+
+예를 들어 원본서버가 다음과 같이 Vary헤더를 보냈다고 하더라도 ``<VaryHeader>`` 가 설정되어 있지 않다면 무시한다. ::
+
+    Vary: Accept-Encoding, Accept, User-Agent
+
+User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 하려면 다음과 같이 설정한다. ::
+
+    <Options>
+        <VaryHeader>Accept-Encoding, Accept</VaryHeader>
+    </Options>
+    
+원본서버가 보낸 모든 Vary헤더를 인식하게 하려면 다음과 같이 설정한다. ::
+
+    <Options>
+        <VaryHeader>*</VaryHeader>
+    </Options>
+
+
+POST 요청
+====================================
+
+POST 요청을 Caching하도록 설정한다. 
+POST 요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
+
+    <Options>
+        <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>
+    </Options>
+
+-  ``<PostRequest>``
+
+   -  ``OFF (기본)`` POST요청이 오면 세션을 종료한다.
+   
+   -  ``ON`` POST요청을 Caching한다.
+   
+실제로 POST요청을 처리하는 대부분의 경우는 Body데이터를 Caching-Key로 사용한다.
+``BodySensitive`` 속성과 예외조건을 통해 정교한 설정이 가능하다.
+
+-  ``BodySensitive``
+
+    -  ``ON (기본)`` Body데이터까지 Caching-Key로 인식한다.
+       최대 길이는 ``MaxContentLength (기본: 102400 Bytes)`` 속성으로 제한한다.
+       예외조건에 만족하면 Body데이터를 무시한다.
+    
+    -  ``OFF`` Body데이터는 무시한다. 
+       예외조건에 만족하면 Body데이터를 인식한다.
+   
+POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다. ::
+    
+    # /svc/www.example.com/postbody.txt
+    /bigsale/*.php?nocache=*
+    /goods/search.php
+    
+예외조건이 ``BodySensitive`` 설정에 따라 의미가 달라짐에 주의한다. 
+명확한 URL 또는 패턴(*만 허용한다.)으로 설정이 가능하다.
+  
+.. note::
+
+    ``MaxContentLength`` 속성을 너무 크게 설정할 경우 Caching-Key 관리에 많은 메모리가 필요하다.
+    가능한 작게 설정하는 것이 좋다.
+    
