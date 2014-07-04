@@ -68,3 +68,4 @@ STON 완벽 가이드
    :maxdepth: 2
 
    admin/releasenote.kr
+   admin/graph.kr
