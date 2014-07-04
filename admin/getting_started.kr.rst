@@ -200,14 +200,14 @@ OS 구성
 
 .. _getting-started-samplevhost:
 
-가상호스트 구동
+HelloWorld
 ====================================
 vhost.xml 파일을 열어 다음과 같이 편집한다. ::
 
     <Vhosts>
         <Vhost Name="www.example.com">
             <Origin>
-                <Address>welcome.winesoft.co.kr</Address>
+                <Address>hello.winesoft.co.kr</Address>
             </Origin>
         </Vhost>
     </Vhosts>   
@@ -331,12 +331,12 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 
 .. _api-etc-help:
 
-API 이해하기
+API 호출
 ====================================
 
 HTTP기반의 API를 제공한다.
 API 호출권한은 :ref:`env-host` 의 영향을 받는다. 
-허가되지 않은 API 호출은 곧바로 연결을 종료한다.
+허가되지 않았다면 곧바로 연결을 종료한다.
 
 STON버전을 확인한다. ::
 
