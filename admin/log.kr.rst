@@ -104,22 +104,31 @@
 
 
 
-.. _admin-log-global:
+.. _admin-log-info:
 
-전역 (Info, Deny, OriginError)
+Info 로그
 ====================================
 
-전역로그는 전역설정(server.xml)에 설정한다. ::
+Info로그는 전역설정(server.xml)에 설정한다. ::
 
     <Cache>
         <InfoLog Type="size" Unit="1" Retention="5">ON</InfoLog>
-        <DenyLog Type="size" Unit="1" Retention="5">ON</DenyLog>
-        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>      
     </Cache>
 
--  ``<InfoLog> (기본: ON, Type: size, Unit: 1)``
-   
+-  ``<InfoLog> (기본: ON, Type: size, Unit: 1)``   
    STON의 동작과 설정변경에 대해 기록한다.
+   
+   
+.. _admin-log-deny:
+
+Deny 로그
+====================================
+
+Deny로그는 전역설정(server.xml)에 설정한다. ::
+
+    <Cache>
+        <DenyLog Type="size" Unit="1" Retention="5">ON</DenyLog>
+    </Cache>
 
 -  ``<DenyLog> (기본: ON, Type: size, Unit: 1)``
 
@@ -137,6 +146,17 @@
    - ``c-ip`` 클라이언트 IP
    - ``deny`` 차단조건
    
+   
+.. _admin-log-originerror:
+
+OriginError 로그
+====================================
+
+OriginError로그는 전역설정(server.xml)에 설정한다. ::
+
+    <Cache>
+        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>
+    </Cache>
 
 -  ``<OriginErrorLog> (기본: OFF, Type: size, Unit: 5, Warning: OFF)``
 
@@ -227,7 +247,7 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
     
 
 
-가상호스트
+가상호스트별 로그저장
 ====================================
 
 가상호스트별로 로그는 별도로 기록된다. 
@@ -247,7 +267,7 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
 
 .. admin-log-recorddns:
 
-DNS
+DNS 로그
 ====================================
 
 Domain Resolving결과가 변경될 때마다 Info로그에 기록한다. ::
@@ -271,7 +291,7 @@ Domain Resolving결과가 변경될 때마다 Info로그에 기록한다. ::
 
 .. _admin-log-access:
 
-Access
+Access 로그
 ====================================
 
 모든 클라이언트의 HTTP 트랜잭션을 기록한다. 
@@ -343,7 +363,7 @@ STON이 클라이언트에게 응답을 보내기 전에 HTTP연결이 종료된
 
 .. _admin-log-access-custom:
 
-Access 사용자정의
+사용자정의 Access 로그포맷
 ====================================
 
 Access 로그형식을 사용자정의 로그로 설정한다. ::
@@ -495,7 +515,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 .. admin-log-origin:
 
-원본
+Origin 로그
 ====================================
 
 원본서버의 모든 HTTP 트랜잭션을 기록한다. 
@@ -557,7 +577,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 .. admin-log-monitoring:
 
-모니터링
+Monitoring 로그
 ====================================
 
 5분 평균 통계를 기록한다. ::
@@ -572,10 +592,10 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 .. admin-log-filesystem:
 
-FileSystem
+FileSystem 로그
 ====================================
 
-모든 File I/O 접근의 트랜잭션을 기록한다. ::
+:ref:`filesystem` 을 통해 발생하는 모든 File I/O 트랜잭션을 기록한다. ::
 
     <Log>
         <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
