@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿.. _env:
 
 3장. 설정구조
@@ -970,4 +969,3 @@ Multipart방식에서는 "confile"을 기본 이름으로 사용한다.
     </form>
     
     
->>>>>>> FETCH_HEAD
