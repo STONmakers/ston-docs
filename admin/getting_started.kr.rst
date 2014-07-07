@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿.. _getting-started:
 
 2장. 시작하기
@@ -888,5 +887,4 @@ Caching 초기화
 콘솔에서는 다음 명령어를 통해 전체 또는 하나의 가상호스트를 초기화한다. ::
 
    ./stonapi reset
->>>>>>> FETCH_HEAD
    ./stonapi reset/ston.winesoft.co.kr
