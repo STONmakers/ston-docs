@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿.. _adv_topics:
 
 14장. 고급주제
@@ -538,4 +537,3 @@ Emergency모드일 때 STON은 다음과 같이 동작합니다.
    http://127.0.0.1:10040/command/mount?disk=...
 
 재투입된 디스크의 모든 콘텐츠는 무효화된다.
->>>>>>> FETCH_HEAD
