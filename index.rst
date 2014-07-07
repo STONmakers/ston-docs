@@ -37,7 +37,7 @@ STON Edge Server 완벽 가이드
    admin/https.kr
    
    
-3부. 고급주제
+3부. 고급기능
 =============================
 
 .. toctree::
