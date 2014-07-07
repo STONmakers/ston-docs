@@ -23,7 +23,7 @@ STON Edge Server 완벽 가이드
    admin/environment.kr
    
    
-2부. HTTP 서비스구성
+2부. HTTP 서비스
 =============================
 
 .. toctree::
