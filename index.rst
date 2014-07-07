@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
    
-STON 완벽 가이드
+STON Edge Server 완벽 가이드
 ==========================
 
 :저자: STON 개발팀
@@ -35,6 +35,7 @@ STON 완벽 가이드
    admin/origin.kr
    admin/access_control.kr
    admin/bypass.kr
+   admin/https.kr
    
    
 3부. 고급주제
@@ -45,7 +46,6 @@ STON 완벽 가이드
    
    admin/media.kr
    admin/bandwidth_control.kr
-   admin/https.kr
    admin/filesystem.kr
    admin/adv_topics.kr
    
