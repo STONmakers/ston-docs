@@ -33,7 +33,6 @@ STON Edge Server 완벽 가이드
    admin/caching_purge.kr
    admin/handling_http_requests.kr   
    admin/origin.kr
-   admin/access_control.kr
    admin/bypass.kr
    admin/https.kr
    
@@ -44,8 +43,9 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
    
-   admin/media.kr
+   admin/access_control.kr
    admin/bandwidth_control.kr
+   admin/media.kr   
    admin/filesystem.kr
    admin/adv_topics.kr
    
