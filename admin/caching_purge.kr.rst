@@ -3,26 +3,22 @@
 5장. Caching 무효화
 ******************
 
-purge
+이 장에서는 Caching된 콘텐츠를 무효화하는 방법에 대해 설명한다.
+업계용어로 Purge로 통칭하지만 다양한 상황과 환경으로 인해 세분화된 API가 필요하다.
 
+보통 콘텐츠는 :ref:`ttl-time-to-live` 에 기반한 갱신주기를 가진다.
+하지만 명백히 콘텐츠가 변경되었고 관리자가 이를 즉시 반영하고 싶을 경우 :ref:`ttl-time-to-live` 이 만료될 때까지 기다릴 필요는 없다.
+`Purge`_ / `Expire`_ / `HardPurge`_ 등을 사용하면 즉시 콘텐츠를 무효화시킬 수 있다.
 
-.. toctree::
-   :maxdepth: 2
+무효화 API는 단순히 브라우저에 의해 호출되는 경우도 있지만 자동화되어 있는 경우가 많다.
+가령 FTP를 통한 파일 업로드가 끝나면 즉시 `Purge`_ 를 호출하는 식이다.
+관리자는 다음과 같이 몇가지 정책에 대해 설정할 수 있다. ::
 
-
-    
-Purge계열 설정
-====================================
-
-Purge계열 API동작을 제어할 수 있다.
-
-::
-
-    <Options>
-        <Purge2Expire>NONE</Purge2Expire>
-        <RootPurgeExpire>ON</RootPurgeExpire>
-        <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
-    </Options>
+   <Options>
+      <Purge2Expire>NONE</Purge2Expire>
+      <RootPurgeExpire>ON</RootPurgeExpire>
+      <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
+   </Options>
 
 -  ``<Purge2Expire> (기본: NONE)``
 
@@ -54,8 +50,21 @@ Purge계열 API동작을 제어할 수 있다.
 
    `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ 의 대상객체가 없을 때의 
    HTTP 응답코드를 설정한다.
+   
+
+.. warning:
+
+   명확한 URL 외에 패턴이나 디렉토리도 무효화가 가능하다.
+   하지만 작업을 수행하기 전까지 대상개수를 명확히 알 수 없다.
+   이는 자칫 관리자의 의도와 다르게 너무 많은 대상을 지정할 수 있다.
+   이는 실제로 CPU자원을 너무 많이 소모하게 되어 시스템 전체에 부담을 줄 수 있다.
+   
+   그러므로 실 서비스 중에는 명확한 URL만을 사용할 것을 강력히 권장한다.
+   패턴이나 디렉토리 표현은 서비스 OFF상태에서 관리용도로 사용하기 위함이다.
 
 
+.. toctree::
+   :maxdepth: 2
 
 
 .. _api-cmd-purge:
@@ -124,7 +133,7 @@ ExpireAfter
 ExpireAfter로 만료시간을 앞당겨 컨텐츠를 더 빨리 갱신하거나, 
 반대로 만료시간을 늘려 원본서버 부하를 줄일 수 있다. ::
 
-    http://127.0.0.1:10040/command/expireafter?sec=86400&url=...
+   http://127.0.0.1:10040/command/expireafter?sec=86400&url=...
 
 함수 호출규격은 `Purge`_ / `Expire`_ 와 유사하지만 sec파라미터(단위: 초)를 통해 
 TTL만료 시간을 지정할 수 있다. 
@@ -160,25 +169,24 @@ HardPurge는 가장 강력한 삭제방법이지만 삭제한 컨텐츠는 원�
 HTTP Method
 ====================================
 
-Purge, Expire, ExpireAfter, HardPurge의 경우 HTTP Method로 지원된다. 
-다음과 같은 HTTP 규격으로 API를 호출할 수 있다. ::
+무효화 API를 확장 HTTP Method로 호출할 수 있다. ::
 
     PURGE /sample.dat HTTP/1.1
     host: ston.winesoft.co.kr
     
 HTTP Method는 기본적으로 Manager포트와 서비스(80)포트에서 동작한다. 
-서비스포트로 요청되는 HTTP Method의 ACL은 Manager설정을 참고한다.
+서비스포트로 요청되는 HTTP Method의 :ref:`env-host` 에서 설정한다.
 
 
 .. _api-etc-post:
 
-POST 지원
+POST 규격
 ====================================
 
-Purge, Expire, ExpireAfter, HardPurge의 경우 POST Method로 호출하는 URI가 지원된다. 
-다음과 같은 HTTP 규격으로 API를 호출한다. ::
+무효화 API를 다음과 같이 POST로 호출할 수 있다. ::
 
-    POST /command/purge HTTP/1.1
-    Content-Length: 37
+   POST /command/purge HTTP/1.1
+   Content-Length: 37
  
-    url=http://ston.winesoft.co.kr/sample.dat
+   url=http://ston.winesoft.co.kr/sample.dat
+    
