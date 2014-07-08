@@ -362,6 +362,23 @@ Default 가상호스트
 관련 기능에 대해 설명할 때 예외조건도 함께 다룬다.
 
 
+가상호스트 목록확인
+====================================
+
+가상호스트 목록을 조회한다. ::
+
+   http://127.0.0.1:10040/monitoring/vhostslist
+   
+결과는 JSON형식으로 제공된다. ::
+
+   {
+      "version": "1.1.9",
+      "method": "vhostslist",
+      "status": "OK",
+      "result": [ "www.example.com","www.foobar.com", "site1.com" ] 
+   }
+
+
 .. _api-conf-show:
 
 설정 확인

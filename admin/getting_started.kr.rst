@@ -418,6 +418,65 @@ STON버전을 확인한다. ::
    &가 들어가는 명령어를 호출하는 경우 \&로 입려하거나 반드시 괄호(" /...&... ")로 호출하는 URL을 묶어야 한다.
 
 
+하드웨어 정보조회
+====================================
+
+하드웨어 정보를 조회한다. :: 
+
+   http://127.0.0.1:10040/monitoring/hwinfo
+   
+결과는 JSON형식으로 제공된다. ::
+
+   {
+      "version": "1.1.9",
+      "method": "hwinfo",
+      "status": "OK",
+      "result":
+      {
+         "OS" : "Linux version 3.3.0 ...(생략)...", 
+         "STON" : "1.1.9", 
+         "CPU" : 
+         { 
+            "ProcCount": "4", 
+            "Model": "Intel(R) Xeon(R) CPU           E5606  @ 2.13GHz", 
+            "MHz": "1200.000", 
+            "Cache": "8192 KB"
+         }, 
+         "Memory" : "8 GB", 
+         "NIC" : 
+         [ 
+            { 
+               "Dev" : "eth1", 
+               "Model" : "Intel Corporation 82574L Gigabit Network Connection", 
+               "IP" : "192.168.0.13", 
+               "MAC" : "00:25:90:36:f4:cb" 
+            } 
+         ], 
+         "Disk" : 
+         [ 
+            { 
+               "Dev" : "sda", 
+               "Model" : "HP DG0146FAMWL (scsi)", 
+               "Total" : "238787584", 
+               "Usage" : "40181760" 
+            },
+            {
+               "Dev" : "sdb", 
+               "Model" : "HITACHI HUC103014CSS600 (scsi)", 
+               "Total" : "144706478080", 
+               "Usage" : "2101075968" 
+            },
+            {
+               "Dev" : "sdc", 
+               "Model" : "HITACHI HUC103014CSS600 (scsi)", 
+               "Total" : "144706478080", 
+               "Usage" : "2012160000" 
+            }
+         ]
+      } 
+   }
+
+
 재시작/종료
 ====================================
 

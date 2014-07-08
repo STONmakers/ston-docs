@@ -1154,7 +1154,7 @@ View 통계
                 "ResponseCode": 200,
                 "ContentType": "text/plain",
                 "LastModifiedTime": "[ 2010.11.22 20:31:47, -56224685 ]",
-                "ExpireTime": [ 0, 0 ],
+                "ExpireTime": "[ 0, 0 ]",
                 "CacheControl": "not-specified",
                 "ETag": "502dd614:200c2b",
                 "CustomTTL": 0,
