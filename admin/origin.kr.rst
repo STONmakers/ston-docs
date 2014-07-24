@@ -51,7 +51,7 @@
     
     원본서버로 연결이 되고 n회 연속적으로 정상응답이 오면 서비스에 재투입한다. 
     ``ResCode`` 속성이 0인 경우 응답코드 여부와 상관없이 응답만 오면 정상응답으로 간주한다. 
-    ``ResCode`` 속성을 200으로 설정한 경우 응답코드가 반드시 200이어야 정상응답으로 처리한다.     
+    ``ResCode`` 속성을 200으로 설정한 경우라면 응답코드가 반드시 200이어야 정상응답으로 처리한다.     
     
     
 장애/복구 초기화
@@ -62,21 +62,6 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 
    http://127.0.0.1:10040/command/resetorigin       // 모든 가상호스트
    http://127.0.0.1:10040/command/resetorigin?vhost=www.example.com
-
-
-
-DNS 백업
-====================================
-
-원본서버 주소가 Domain으로 설정되어 있다면 항상 최신의 Resolving결과가 사용된다.
-하지만 DNS서버의 장애 또는 네트워크 장애로 인하여 Resolving이 실패할 경우 마지막으로 Resolving된 IP에 부하가 집중될 수 있다. ::
-
-   <OriginOptions>
-      <DNSBackup>5min</DNSBackup>
-   </OriginOptions>
-    
--  ``<DNSBackup> (기본: 5min)``
-   Resolving장애 상황이 발생하면 최근(일정시간 동안) 사용된 Unique한 IP들을 모두 사용하여 부하를 분산한다.
 
 
 .. _origin-busysessioncount:
