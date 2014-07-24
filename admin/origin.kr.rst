@@ -27,7 +27,7 @@
         <ConnectTimeout>3</ConnectTimeout>
         <ReceiveTimeout>10</ReceiveTimeout>
         <Exclusion>3</Exclusion>
-        <Recovery Cycle="10">5</Recovery>
+        <Recovery Cycle="10" ResCode="0" Uri="/">5</Recovery>
     </OriginOptions>
 
 -  ``<ConnectTimeout> (기본: 3초)``
@@ -40,12 +40,18 @@
     원본서버에서 연속적으로 n번 장애상황( ``<ConnectTimeout>`` 또는 ``<ReceiveTimeout>`` )이 발생하면 해당 서버를 유효 원본서버 목록에서 배제한다. 
     배제 전 정상적인 통신이 이루어진다면 이 값은 다시 0으로 초기화된다.
 
--  ``<Recovery> (기본: 5회, Cycle: 10초)``
-    배제된 원본서버를 다시 서비스에 투입하기 위하여 설정된 ``Cycle`` 마다 다음과 같이 요청한다. ::
+-  ``<Recovery> (기본: 5회, Cycle: 10초, ResCode: 0, Uri="/")``
+    배제된 원본서버를 다시 서비스에 투입하기 위하여 설정된 ``Cycle`` 마다 ``Uri`` 로 요청한다. ::
     
        GET / HTTP/1.1
-      
-    원본서버로 연결이 되고 (응답코드 여부와 상관없이)응답이 n회 되면 서비스에 재투입한다. 
+    
+    예를 들어 ``Uri`` 속성을 /healthcheck.html 로 설정했다면 다음과 같이 요청한다. ::
+    
+       GET /healthcheck.html HTTP/1.1
+    
+    원본서버로 연결이 되고 n회 연속적으로 정상응답이 오면 서비스에 재투입한다. 
+    ``ResCode`` 속성이 0인 경우 응답코드 여부와 상관없이 응답만 오면 정상응답으로 간주한다. 
+    ``ResCode`` 속성을 200으로 설정한 경우 응답코드가 반드시 200이어야 정상응답으로 처리한다.     
     
     
 장애/복구 초기화
