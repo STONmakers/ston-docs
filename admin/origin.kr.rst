@@ -68,7 +68,7 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
 Health-Checker
 ====================================
 
-`origin_exclusion_and_recovery`_ 는 Caching 과정 중 발생하는 장애에 대응한다.
+`origin_exclusion_and_recovery` 는 Caching 과정 중 발생하는 장애에 대응한다.
 ``<Recovery>`` 는 응답코드를 받는 즉시 HTTP Transaction을 종료한다.
 하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
 
@@ -95,7 +95,7 @@ Health-Checker
    -  ``Log (기본: ON)`` HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
 
 Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 상관없이 독립적으로 수행된다.
-`origin_exclusion_and_recovery`_ 나 다른 Health-Checker와도 정보를 공유하지 않고 
+`origin_exclusion_and_recovery` 나 다른 Health-Checker와도 정보를 공유하지 않고 
 자신만의 기준으로 배제와 투입을 결정한다.
 
 

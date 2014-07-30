@@ -99,7 +99,7 @@ second(s), sec(s), (생략)	1 초
 - ReuseTimeout
 - Recovery의 Cycle속성
 - Bandwidth Throttling
-- DNSBackup
+
 
 
 원본서버 분산
