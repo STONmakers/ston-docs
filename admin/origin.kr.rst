@@ -64,6 +64,7 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
    -  ``Log (기본: ON)`` 복구를 위해 사용된 HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
       
 
+.. _origin-health-checker:
 
 Health-Checker
 ====================================

@@ -10,16 +10,17 @@ v2.0.x
 2.0.0 (2014.8.15)
 ----------------------------
 
+- 라이선스 도입. 고객사별 license.xml필요.
 - 새로운 :ref:`env-cache-storage` 을 통해 무제한 콘텐츠 Caching.
-- 원본에서 다운로드된 크기만큼만 디스크 공간을 사용한다. ( :ref:`origin_partsize` 참조)
+- 원본에서 다운로드된 크기만큼만 디스크 공간사용. ( :ref:`origin_partsize` 참조)
 - :ref:`env-cache-resource` 기능추가.
 - AES-NI를 통해 :ref:`https-aes-ni` 지원.
-- ECDHE 계열의 CipherSuite를 지원.
+- ECDHE 계열의 CipherSuite를 지원. ( :ref:`ciphersuite` 참조)
 - :ref:`api-cmd-coldcontrol` 기능추가.
 - :ref:`admin-log-dns` 추가
 - 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경.
 - :ref:`origin-exclusion-and-recovery` 추가
-- 원본 :ref:`health-checker` 추가
+- 원본 :ref:`origin-health-checker` 추가
 - 로그 롤링시 압축지원
 - :ref:`admin-log-ftpclient` 기능 강화 (경로설정, 전송 후 삭제, 전송실패 시 백업, 전송시점 선택)
 - 기타
