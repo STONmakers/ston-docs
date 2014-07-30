@@ -7,7 +7,7 @@ Appendix A: 릴리스 이력
 v2.0.x
 ====================================
 
-2.0.0 (2014.8.15)
+2.0.0 (2014.8.?)
 ----------------------------
 
 - 라이선스 도입. 고객사별 license.xml필요.
@@ -19,7 +19,7 @@ v2.0.x
 - :ref:`api-cmd-coldcontrol` 기능추가.
 - :ref:`admin-log-dns` 추가
 - 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경.
-- :ref:`origin-exclusion-and-recovery` 추가
+- :ref:`origin_exclusion_and_recovery` 추가
 - 원본 :ref:`origin-health-checker` 추가
 - 로그 롤링시 압축지원
 - :ref:`admin-log-ftpclient` 기능 강화 (경로설정, 전송 후 삭제, 전송실패 시 백업, 전송시점 선택)
