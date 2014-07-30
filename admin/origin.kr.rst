@@ -73,7 +73,13 @@ Health-Checker
 하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
 
    <Origin>
-      <HealthChecker ResCode="200" Timeout="8" Cycle="5" Exclusion="5" Recovery="5" Log="OFF">/img/common/logo_mask.png</HealthChecker>
+      <HealthChecker 
+          ResCode="0" 
+          Timeout="10" 
+          Cycle="10" 
+          Exclusion="3" 
+          Recovery="5" 
+          Log="ON">/</HealthChecker>
    </Origin>
 
 -  ``<HealthChecker> (기본: /)``
