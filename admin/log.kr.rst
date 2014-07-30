@@ -513,7 +513,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 
 
-.. admin-log-origin:
+.. _admin-log-origin:
 
 Origin 로그
 ====================================
