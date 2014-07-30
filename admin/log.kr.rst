@@ -773,9 +773,15 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
      
      전송시간을 설정할 경우 해당 시점에 로그가 롤링되지 않도록 적절히 로그관리 정책을 구성해야 한다.
      
-   
 
-FTP클라이언트는 curl을 사용한다. 
+FTP클라이언트는 curl을 사용한다.
+
+
+.. admin-log-ftplog:
+
+FTP 로그
+---------------------
+
 FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. ::
 
     #Fields: date time local-path cs-url file-size time-taken sc-status sc-error-msg
