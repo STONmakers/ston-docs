@@ -185,8 +185,10 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
    예를 들어 게임 다운로드처럼 파일 개수는 많지 않지만 Contents크기가 큰 서비스의 경우 File I/O 부하가 부담스럽다. 
    이런 경우 ``<BodyRatio>`` 를 높여서 보다 많은 Contents데이터가 메모리에 상주할 수 있도록 설정하면 서비스 품질을 높일 수 있다.
 
-
-
+      .. figure:: img/bodyratio2.png
+         :align: center
+   
+         BodyRatio를 높이면 I/O가 감소한다.
 
     
     
