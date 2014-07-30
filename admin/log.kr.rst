@@ -281,7 +281,7 @@ Domain Resolving결과를 기록한다. ::
    
 ::
 
-   #Fields: date time date time domain ttl ip-list ip-count time-taken result
+   #Fields: date time domain ttl ip-list ip-count time-taken result
    2014-07-30 12:10:33 example.com 157 173.194.127.15,173.194.127.23,173.194.127.24,173.194.127.31 4 5007 success
    2014-07-30 12:10:38 example.com 152 173.194.127.23,173.194.127.24,173.194.127.31,173.194.127.15 4 9 success
    2014-07-30 12:11:03 example.com 127 173.194.127.31,173.194.127.15,173.194.127.23,173.194.127.24 4 15007 success
@@ -298,9 +298,9 @@ Domain Resolving결과를 기록한다. ::
 -  ``time`` 시간
 -  ``domain`` 대상 Domain
 -  ``ttl`` 레코드 유효시간(Time To Live)
--  ``ip-list`` Resolving된 IP 리스트
--  ``ip-count`` Resolving된 IP 개수
--  ``time-taken`` Resolving 수행시간
+-  ``ip-list`` IP 리스트
+-  ``ip-count`` IP 개수
+-  ``time-taken`` 수행시간
 -  ``result`` success 또는 fail
 
 
