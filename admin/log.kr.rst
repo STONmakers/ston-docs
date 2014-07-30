@@ -268,7 +268,7 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
    
 
 
-.. admin-log-dns:
+.. _admin-log-dns:
 
 DNS 로그
 ====================================

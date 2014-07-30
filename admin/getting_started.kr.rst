@@ -488,7 +488,9 @@ STON버전을 확인한다. ::
    http://127.0.0.1:10040/command/terminate
    http://127.0.0.1:10040/command/terminate?key=JUSTDOIT       // 즉시 실행
    
-   
+
+.. _getting-started-reset:
+
 Caching 초기화
 ====================================
 

@@ -164,6 +164,14 @@ HardPurge는 가장 강력한 삭제방법이지만 삭제한 컨텐츠는 원�
 결과없는 응답에 대해서는 ``<ResCodeNoCtrlTarget>`` 로 HTTP 응답코드를 설정할 수 있다. ::
 
     http://127.0.0.1:10040/command/hardpurge?url=...
+
+
+.. _api-cmd-coldcontrol:
+
+Cold Control
+====================================
+
+
     
 
 HTTP Method
@@ -190,3 +198,4 @@ POST 규격
  
    url=http://ston.winesoft.co.kr/sample.dat
     
+

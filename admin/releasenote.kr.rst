@@ -10,14 +10,26 @@ v2.0.x
 2.0.0 (2014.8.15)
 ----------------------------
 
-- 새로운 :ref:`env-cache-storage` 을 통해 무제한으로 Caching할 수 있다.
+- 새로운 :ref:`env-cache-storage` 을 통해 무제한 콘텐츠 Caching.
 - 원본에서 다운로드된 크기만큼만 디스크 공간을 사용한다. ( :ref:`origin_partsize` 참조)
-- :ref:`env-cache-resource` 기능이 추가되었다.
-- AES-NI를 통해 :ref:`https-aes-ni` 을 지원한다.
-- ECDHE 계열의 CipherSuite를 지원한다.
-- cold control... 
+- :ref:`env-cache-resource` 기능추가.
+- AES-NI를 통해 :ref:`https-aes-ni` 지원.
+- ECDHE 계열의 CipherSuite를 지원.
+- :ref:`api-cmd-coldcontrol` 기능추가.
+- :ref:`admin-log-dns` 추가
+- 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경.
+- :ref:`origin-exclusion-and-recovery` 추가
+- 원본 :ref:`health-checker` 추가
+- 로그 롤링시 압축지원
+- :ref:`admin-log-ftpclient` 기능 강화 (경로설정, 전송 후 삭제, 전송실패 시 백업, 전송시점 선택)
+- 기타
 
-
+  - 최소 실행환경 변경. (Cent 6.2이상, Ubuntu 10.01 이상)
+  - 설치 패키지에 NSCD데몬이 탑재.
+  - :ref:`media-dims` 기본 탑재.
+  - :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
+  - ``<ApplyQueryString>`` 의 ``Collective`` 속성 삭제.
+  - ``<DNSBackup>`` 기능 삭제
 
 
 
