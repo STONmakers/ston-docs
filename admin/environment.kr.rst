@@ -105,44 +105,27 @@ XML형식의 텍스트파일이다. ::
     - ``UploadMultipartName`` :ref:`api-conf-upload` 의 변수명을 설정한다.
 
 
-.. _env-cache:
+.. _env-cache-storage:
 
-Caching 설정
+Storage 설정
 ------------------------------------
 
-Caching서비스의 기반동작을 설정한다. ::
+Caching된 콘텐츠를 저장할 Storage를 설정한다.
+Storage는 Caching서비스 설정 중 기반동작 가장 중요하다. ::
 
     <Cache>
-        <Cleanup>
-            <Time>02:00</Time>
-            <Age>0</Age>
-        </Cleanup>
         <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
             <Disk>/user/cache1</Disk>    
-            <Disk>/user/cache2</Disk>    
+            <Disk FileMaxCount="2000000">/user/cache2</Disk>    
             <Disk Quota="100">/user/cache3</Disk>
         </Storage>
-        <Listen>0.0.0.0</Listen>        
-        <ConfigHistory>30</ConfigHistory>
     </Cache>
-
--  ``<Cleanup>``
-    하루에 한 번 시스템 최적화를 수행한다. 
-    최적화의 대부분은 디스크정리 작업으로 I/O 부하가 발생한다.    
-    서비스 품질저하를 방지하기 위해 최적화는 조금씩 점진적으로 수행된다.
-
-    - ``<Time> (기본: AM 2)`` Cleanup 수행시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
-    
-    - ``<Age> (기본: 0, 단위: 일)`` 0보다 큰 경우, 일정 기간동안 한번도 접근되지 않은 콘텐츠를 삭제한다.
-      디스크를 미리 확보하여 서비스 시간 중 디스크 부족이 발생할 확률을 줄이기 위함이다.
     
 -  ``<Storage>``
     콘텐츠를 저장할 디스크를 설정한다. 
-    디스크 개수에 제한은 없다. 
-    각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정한다.
-    굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
+    하위 ``<Disk>`` 개수제한은 없다.
     
-    디스크는 장애가 가장 많이 발생하는 장비이기 때문에 명확한 장애조건을 설정하는 편이 좋다.
+    디스크는 장애가 가장 많이 발생하는 장비이기 때문에 명확한 장애조건을 설정할 것을 권장한다.
     ``DiskFailSec (기본: 60초)`` 동안 ``DiskFailCount (기본: 10)`` 만큼 디스크 작업이 실패하면 
     해당 디스크는 자동으로 배제된다. 
     배제된 디스크 상태는 "Invalid"로 명시된다. 
@@ -157,6 +140,43 @@ Caching서비스의 기반동작을 설정한다. ::
       
     - ``selfkill`` STON을 종료시킨다.
     
+
+저장공간이 충분하다면 무제한으로 Caching할 수 있다.
+하지만 파일이 많아질수록 I/O는 기하급수적으로 저하된다.
+그래서 기본적으로 각 ``<Disk>`` 당 최대 파일개수를 ``FileMaxCount (기본: 2000000)`` 속성으로 제한한다. 
+예를 들어 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면, 각 Disk의 최대 파일개수를 2천만 개로 설정해야 한다.
+
+각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정할 수 있다.
+굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
+    
+    
+
+    
+    
+기타 Caching 설정
+------------------------------------
+
+기타 Caching서비스의 기반동작을 설정한다. ::
+
+    <Cache>
+        <Cleanup>
+            <Time>02:00</Time>
+            <Age>0</Age>
+        </Cleanup>     
+        <Listen>0.0.0.0</Listen>        
+        <ConfigHistory>30</ConfigHistory>
+    </Cache>
+
+-  ``<Cleanup>``
+    하루에 한 번 시스템 최적화를 수행한다. 
+    최적화의 대부분은 디스크정리 작업으로 I/O 부하가 발생한다.    
+    서비스 품질저하를 방지하기 위해 최적화는 조금씩 점진적으로 수행된다.
+
+    - ``<Time> (기본: AM 2)`` Cleanup 수행시간을 설정한다. 오후 11시 10분을 설정하고 싶다면 23:10으로 설정한다.
+    
+    - ``<Age> (기본: 0, 단위: 일)`` 0보다 큰 경우, 일정 기간동안 한번도 접근되지 않은 콘텐츠를 삭제한다.
+      디스크를 미리 확보하여 서비스 시간 중 디스크 부족이 발생할 확률을 줄이기 위함이다.
+
 -  ``<Listen>``
     모든 가상호스트가 Listen할 IP목록을 지정한다. 
     모든 가상호스트의 기본 Listen설정인 *:80은 0.0.0.0:80을 의미한다. 
@@ -179,6 +199,7 @@ Caching서비스의 기반동작을 설정한다. ::
     :ref:`api-conf-restore` 가 호출되도 새로운 설정으로 저장된다. 
     백업된 설정은 Cleanup시간을 기준으로 설정된 날만큼만 저장된다.
     설정파일 저장의 날짜제한은 없다.
+    
     
     
 강제 Cleanup
