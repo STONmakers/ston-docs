@@ -17,10 +17,13 @@
    :maxdepth: 2
 
 
+
+.. _origin_exclusion_and_recovery:
+
 장애감지와 복구
 ====================================
 
-원본서버에 장애가 발생하면 자동배제한다.
+Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
 다시 안정화됐다고 판단하면 서비스에 투입한다. ::
 
     <OriginOptions>
@@ -60,7 +63,41 @@
 
    -  ``Log (기본: ON)`` 복구를 위해 사용된 HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
       
+
+
+Health-Checker
+====================================
+
+`origin_exclusion_and_recovery`_ 는 Caching 과정 중 발생하는 장애에 대응한다.
+``<Recovery>`` 는 응답코드를 받는 즉시 HTTP Transaction을 종료한다.
+하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
+
+   <Origin>
+      <HealthChecker ResCode="200" Timeout="8" Cycle="5" Exclusion="5" Recovery="5" Log="OFF">/img/common/logo_mask.png</HealthChecker>
+   </Origin>
+
+-  ``<HealthChecker> (기본: /)``
+
+   Health-Checker를 구성한다. 멀티로 구성이 가능하다.
+   값으로 Uri를 지정하며, XML예외 문자의 경우 CDATA를 사용한다.
    
+   -  ``ResCode (기본: 0)`` 올바른 응답코드 (콤마로 멀티 구성가능)
+   
+   -  ``Timeout (기본: 10초)`` 소켓연결부터 HTTP Transaction이 완료될 때까지 유효시간
+   
+   -  ``Cycle (기본: 10초)`` 실행주기
+   
+   -  ``Exclusion (기본: 3회)`` 연속 n회 실패 시 해당서버 배제
+   
+   -  ``Recovery (기본: 5회)`` 연속 n회 성공 시 해당서버 재투입
+   
+   -  ``Log (기본: ON)`` HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
+
+Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 상관없이 독립적으로 수행된다.
+`origin_exclusion_and_recovery`_ 나 다른 Health-Checker와도 정보를 공유하지 않고 
+자신만의 기준으로 배제와 투입을 결정한다.
+
+
    
 원본상태 모니터링
 ====================================
