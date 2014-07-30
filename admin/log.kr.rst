@@ -268,28 +268,40 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
    
 
 
-.. admin-log-recorddns:
+.. admin-log-dns:
 
 DNS 로그
 ====================================
 
-Domain Resolving결과가 변경될 때마다 Info로그에 기록한다. ::
+Domain Resolving결과를 기록한다. ::
 
     <Log>
-        <RecordDNS>ON</RecordDNS>
+        <Dns Type="size" Unit="10" Retention="10" SysLog="OFF" Compression="OFF">ON</Dns>
     </Log>
-   
--  ``<RecordDNS>``
-
-   - ``ON (기본)`` 로그를 기록한다.
-   
-   - ``OFF`` 로그를 기록하지 않는다.
    
 ::
 
-    2013-02-21 21:37:08 [INFO] [example.com] DNS "foobar.com" updated (OLD[0]: , NEW[2]: 202.131.30.12, 220.95.233.172)
-    2013-02-21 21:47:18 [INFO] [example.com] DNS "foobar.com" updated (OLD[2]: 202.131.30.12, 220.95.233.172, NEW[3]: 202.131.30.12, 220.95.233.172, 220.95.233.173)
+   #Fields: date time date time domain ttl ip-list ip-count time-taken result
+   2014-07-30 12:10:33 example.com 157 173.194.127.15,173.194.127.23,173.194.127.24,173.194.127.31 4 5007 success
+   2014-07-30 12:10:38 example.com 152 173.194.127.23,173.194.127.24,173.194.127.31,173.194.127.15 4 9 success
+   2014-07-30 12:11:03 example.com 127 173.194.127.31,173.194.127.15,173.194.127.23,173.194.127.24 4 15007 success
+   2014-07-30 12:12:53 example.com 17 173.194.127.15,173.194.127.23,173.194.127.24,173.194.127.31 4 6 success
+   2014-07-30 12:23:16 test.com 0 - 0 10008 fail
+   2014-07-30 12:23:21 test.com 0 - 0 5007 fail
+   2014-07-30 12:23:26 test.com 0 - 0 5011 fail
+   2014-07-30 12:24:38 example.com 152 173.194.127.23,173.194.127.24,173.194.127.31,173.194.127.15 4 9 success
+   2014-07-30 12:25:03 example.com 127 173.194.127.31,173.194.127.15,173.194.127.23,173.194.127.24 4 15007 success
 
+모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
+
+-  ``date`` 날짜
+-  ``time`` 시간
+-  ``domain`` 대상 Domain
+-  ``ttl`` 레코드 유효시간(Time To Live)
+-  ``ip-list`` Resolving된 IP 리스트
+-  ``ip-count`` Resolving된 IP 개수
+-  ``time-taken`` Resolving 수행시간
+-  ``result`` success 또는 fail
 
 
 .. _admin-log-access:
@@ -382,12 +394,12 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 위 예제의 경우 다음과 같이 Access로그가 기록된다. (#Fields는 기록하지 않는다.) ::
 
-    192.168.0.88 192.168.0.12 163276 id=winesoft; image.jpg ston.winesoft.co.kr HTTP "STON" GET 80 "GET /ston/image.jpg?type=png HTTP/1.1" 200 2014-04-03 21:21:54 1 C 204 163276 1 2571978 TCP_MISS HTTP/1.1
-    192.168.0.88 192.168.0.12 63276 id=winesoft; vod.mp4 ston.winesoft.co.kr HTTP "STON" POST 80 "GET /ston/vod.mp4?start=10 HTTP/1.1" 200 2014-04-03 21:21:54 12 C 304 363276 2 2571979 TCP_REFRESH_HIT HTTP/1.1
-    192.168.0.88 192.168.0.12 3634276 id=ston; news.html ston.winesoft.co.kr HTTPS "STON" GET 443 "GET /news.html HTTP/1.1" 200 2014-04-03 21:21:54 30 X 156 2632576 1 2571980 TCP_MISS HTTP/1.1
-    192.168.0.88 192.168.0.12 6332476 id=winesoft; style.css ston.winesoft.co.kr HTTP "STON" HEAD 80 "GET /style.css HTTP/1.1" 200 2014-04-03 21:21:54 10 X 234 653276 2 2571981 TCP_REFRESH_HIT HTTP/1.1
-    192.168.0.88 192.168.0.12 6276 id=ston; ui.js ston.winesoft.co.kr HTTP "STON" GET 80 "GET /ui.js HTTP/1.1" 200 2014-04-03 21:21:54 1 X 233 63276 1 2571982 TCP_MISS HTTP/1.1
-    192.168.0.88 192.168.0.12 626 id=winesoft; hls.m4u8 ston.winesoft.co.kr HTTP "STON" GET 80 "GET /hls.m4u8 HTTP/1.1" 200 2014-04-03 21:21:54 2 X 124 6312333276 2 2571983 TCP_REFRESH_HIT HTTP/1.1
+    192.168.0.88 192.168.0.12 163276 id=winesoft; image.jpg example.com HTTP "STON" GET 80 "GET /ston/image.jpg?type=png HTTP/1.1" 200 2014-04-03 21:21:54 1 C 204 163276 1 2571978 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 63276 id=winesoft; vod.mp4 example.com HTTP "STON" POST 80 "GET /ston/vod.mp4?start=10 HTTP/1.1" 200 2014-04-03 21:21:54 12 C 304 363276 2 2571979 TCP_REFRESH_HIT HTTP/1.1
+    192.168.0.88 192.168.0.12 3634276 id=ston; news.html example.com HTTPS "STON" GET 443 "GET /news.html HTTP/1.1" 200 2014-04-03 21:21:54 30 X 156 2632576 1 2571980 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 6332476 id=winesoft; style.css example.com HTTP "STON" HEAD 80 "GET /style.css HTTP/1.1" 200 2014-04-03 21:21:54 10 X 234 653276 2 2571981 TCP_REFRESH_HIT HTTP/1.1
+    192.168.0.88 192.168.0.12 6276 id=ston; ui.js example.com HTTP "STON" GET 80 "GET /ui.js HTTP/1.1" 200 2014-04-03 21:21:54 1 X 233 63276 1 2571982 TCP_MISS HTTP/1.1
+    192.168.0.88 192.168.0.12 626 id=winesoft; hls.m4u8 example.com HTTP "STON" GET 80 "GET /hls.m4u8 HTTP/1.1" 200 2014-04-03 21:21:54 2 X 124 6312333276 2 2571983 TCP_REFRESH_HIT HTTP/1.1
   
 `Apache로그 형식 <https://httpd.apache.org/docs/2.2/ko/mod/mod_log_config.html>`_ 을 
 기반으로 개발되었으며 일부 확장필드가 있다. 
