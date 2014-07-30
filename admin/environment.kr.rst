@@ -107,11 +107,12 @@ XML형식의 텍스트파일이다. ::
 
 .. _env-cache-storage:
 
-Storage 설정
+Storage 구성
 ------------------------------------
 
-Caching된 콘텐츠를 저장할 Storage를 설정한다.
-Storage는 Caching서비스 설정 중 기반동작 가장 중요하다. ::
+Caching된 콘텐츠를 저장할 Storage를 구성한다.
+저장공간이 충분하다면 무제한으로 Caching할 수 있다.
+Storage는 Caching서비스 설정 중 가장 중요하다. ::
 
     <Cache>
         <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
@@ -141,10 +142,10 @@ Storage는 Caching서비스 설정 중 기반동작 가장 중요하다. ::
     - ``selfkill`` STON을 종료시킨다.
     
 
-저장공간이 충분하다면 무제한으로 Caching할 수 있다.
-하지만 파일이 많아질수록 I/O는 기하급수적으로 저하된다.
+문제는 파일이 많아질수록 I/O는 기하급수적으로 저하되어 서비스 품질에 영향을 준다는 점이다.
 그래서 기본적으로 각 ``<Disk>`` 당 최대 파일개수를 ``FileMaxCount (기본: 2000000)`` 속성으로 제한한다. 
-예를 들어 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면, 각 Disk의 최대 파일개수를 2천만 개로 설정해야 한다.
+예를 들어 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면, 
+각 ``<Disk>`` 의 ``FileMaxCount`` 속성을 명시적으로 2천만 개로 설정해야 한다.
 
 각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정할 수 있다.
 굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
