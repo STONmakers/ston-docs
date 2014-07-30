@@ -700,6 +700,10 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
             <ConnectTimeout>10</ConnectTimeout>
             <TransferTimeout>600</TransferTimeout>
             <TrafficCap>0</TrafficCap>
+            <DeleteUploaded>OFF</DeleteUploaded>
+            <BackupOnFail>OFF</BackupOnFail>
+            <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
+            <Transfer Time="Rotate" />
         </Ftp>
         
         <Ftp Name="backup2">
@@ -712,6 +716,9 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
             <ConnectTimeout>3</ConnectTimeout>
             <TransferTimeout>100</TransferTimeout>
             <TrafficCap>10240</TrafficCap>
+            <DeleteUploaded>ON</DeleteUploaded>
+            <BackupOnFail>ON</BackupOnFail>            
+            <Transfer Time="Static">04:00</Transfer>
         </Ftp>
     </Server>
 

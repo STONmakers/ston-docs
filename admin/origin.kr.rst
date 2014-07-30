@@ -73,8 +73,11 @@ Health-Checker
 하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
 
    <Origin>
+      <Address> ... </Address>
       <HealthChecker ResCode="0" Timeout="10" Cycle="10" 
           Exclusion="3" Recovery="5" Log="ON">/</HealthChecker>
+      <HealthChecker ResCode="200, 404" Timeout="3" Cycle="5" 
+          Exclusion="5" Recovery="20" Log="ON">/alive.html</HealthChecker>
    </Origin>
 
 -  ``<HealthChecker> (기본: /)``
