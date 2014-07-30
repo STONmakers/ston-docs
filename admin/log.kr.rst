@@ -273,7 +273,7 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
 DNS 로그
 ====================================
 
-Domain Resolving결과를 기록한다. ::
+원본서버로 Domain으로 설정되었다면 Resolving결과를 기록한다. ::
 
     <Log>
         <Dns Type="size" Unit="10" Retention="10" SysLog="OFF" Compression="OFF">ON</Dns>

@@ -15,7 +15,7 @@ v2.0.x
 - 원본에서 다운로드된 크기만큼만 디스크 공간사용. ( :ref:`origin_partsize` 참조)
 - :ref:`env-cache-resource` 기능추가.
 - AES-NI를 통해 :ref:`https-aes-ni` 지원.
-- ECDHE 계열의 CipherSuite를 지원. ( :ref:`ciphersuite` 참조)
+- ECDHE 계열의 CipherSuite를 지원. ( :ref:`https-ciphersuite` 참조)
 - :ref:`api-cmd-coldcontrol` 기능추가.
 - :ref:`admin-log-dns` 추가
 - 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경.

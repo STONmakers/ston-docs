@@ -82,6 +82,7 @@ AES-NI가 인식된 경우 다음과 같이 Info.log에 기록된다. ::
 -  ``<AES-NI> (기본: ON)`` AES-NI 사용여부를 선택한다.
 
 
+.. _https-ciphersuite:
 
 CipherSuite 선택
 ====================================
