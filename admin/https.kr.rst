@@ -14,6 +14,8 @@ STON은 원본서버와 HTTPS로 통신하지 않는다.
 .. toctree::
    :maxdepth: 2
 
+
+
 서비스 구성
 ====================================
 
@@ -60,6 +62,27 @@ STON은 원본서버와 HTTPS로 통신하지 않는다.
    인증서 포맷은 PEM(Privacy Enhanced Mail), 비대칭키 알고리즘은 RSA만 지원한다.
 
 
+.. _https-aes-ni:
+
+SSL/TLS 가속
+====================================
+
+CPU(AES-NI)를 통해 SSL/TLS를 가속한다.
+AES-NI를 지원하는 CPU인 경우 SSL/TLS에서 AES알고리즘을 우선적으로 사용하도록 동작한다. 
+AES-NI가 인식된 경우 다음과 같이 Info.log에 기록된다. ::
+
+   AES-NI : ON (SSL/TLS accelerated)
+   
+관리자가 AES-NI 사용여부를 선택할 수 있다. ::
+
+   <Cache>
+      <AES-NI>ON</AES-NI>
+   </Cache>
+
+-  ``<AES-NI> (기본: ON)`` AES-NI 사용여부를 선택한다.
+
+
+
 CipherSuite 선택
 ====================================
 
@@ -70,6 +93,8 @@ CipherSuite 선택
 - RSA_WITH_AES_128_CBC_SHA
 - RSA_WITH_AES_256_CBC_SHA
 - RSA_WITH_3DES_EDE_CBC_SHA
+- ECDHE_RSA_WITH_AES_128_CBC_SHA
+- ECDHE_RSA_WITH_AES_256_CBC_SHA
 
 ``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
