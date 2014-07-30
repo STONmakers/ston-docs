@@ -730,6 +730,38 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
    - ``ConnectTimeout`` 연결대기 시간
    - ``TransferTimeout`` 전송대기 시간
    - ``TrafficCap (단위: KB)`` 0보다 큰 값으로 설정할 경우 전송 최대 대역폭을 설정한다.
+   - ``DeleteUploaded (기본: OFF)`` 전송완료 후 해당로그를 삭제한다.
+   - ``BackupOnFail (기본: OFF)`` 전송실패 시 로그가 삭제되지 않도록 해당로그를 다음 경로에 백업한다. ::
+     
+        /usr/local/ston/stonb/backup/
+     
+     백업된 로그는 재전송하지 않으며 관리자가 삭제하기 전까지 삭제되지 않는다.
+   
+   - ``UploadPath`` 업로드 경로를 설정한다.
+     
+     - ``%{time format}s`` 로그 시작 시간
+     - ``%{time format}e`` 로그 끝 시간
+     - ``%p`` prefix
+     - ``%v`` 가상호스트 이름
+     - ``%h`` 장비 HOST 이름
+     
+     예를 들어 다음과 같이 설정했다면 ::
+     
+        <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
+     
+     업로드 경로는 다음과 같다. ::
+     
+        /log_backup/example.com/200140722_0000-200140722_2300.access.log
+        
+   - ``Transfer`` 로그 전송시간을 지정한다. ``Type`` 속성에 따라 값의 형식이 달라진다.
+   
+     - ``Rotate (기본)`` 롤링되면 바로 전송한다. 값을 가지지 않는다.
+     - ``Static`` 하루에 한번 지정된 시간에 전송한다. 예를 들어 04:00으로 설정됐다면 새벽 4시에 전송을 시작한다.
+     - ``Interval`` 일정시간 간격으로 전송한다. 예를 들어 4로 설정했다면 4시간 간격으로 로그를 전송한다.
+     
+     전송시간을 설정할 경우 해당 시점에 로그가 롤링되지 않도록 적절히 로그관리 정책을 구성해야 한다.
+     
+   
 
 FTP클라이언트는 curl을 사용한다. 
 FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. ::
