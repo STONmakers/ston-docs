@@ -17,7 +17,7 @@
    :maxdepth: 2
 
 
-장애감지와 자동복구
+장애감지와 복구
 ====================================
 
 원본서버에 장애가 발생하면 자동배제한다.
@@ -45,7 +45,8 @@
 
 -  ``<Recovery> (기본: 5회)``
    
-   배제된 원본서버를 서비스에 투입하기 위한 복구조건을 설정한다.   
+   ``Cycle`` 마다 ``Uri`` 로 요청하여 원본서버가 ``ResCode`` 로 연속적으로 n회 응답하면 해당 서버를 복구한다.
+   이 값을 0으로 설정하면 복구하지 않는다.   
    
    -  ``Cycle (기본: 10초)`` 일정시간(초)마다 시도한다.
    
@@ -58,13 +59,106 @@
       200, 206, 404로 설정하면 응답코드가 이 중 하나인 경우 정상응답으로 처리한다.
 
    -  ``Log (기본: ON)`` 복구를 위해 사용된 HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
+      
    
-   ``Cycle`` 마다 ``Uri`` 로 요청하여 원본서버가 ``ResCode`` 로 연속적으로 n회 응답하면 해당 서버를 복구한다.
-   이 값을 0으로 설정하면 복구하지 않는다.   
    
+원본상태 모니터링
+====================================
+
+API를 통해 가상호스트의 원본상태를 모니터링한다. ::
+
+   http://127.0.0.1:10040/monitoring/origin       // 모든 가상호스트
+   http://127.0.0.1:10040/monitoring/origin?vhost=www.example.com
+   
+결과는 JSON형식으로 제공된다. ::
+
+   {
+       "origin" : 
+       [
+           {
+               "VirtualHost" : "example.com", 
+               "Address" : 
+               [ 
+                   { "1.1.1.1" : "Active" },
+                   { "1.1.1.2" : "Active" }
+               ], 
+               "Address2" : [  ], 
+               "ActiveIP" : 
+               [ 
+                   { "1.1.1.1" : 0 },
+                   { "1.1.1.2" : 0 }
+               ] , 
+               "InactiveIP" : [ ]
+           },
+           {
+               "VirtualHost" : "foobar.com", 
+               "Address" : 
+               [
+                   { "origin.foobar.com" : "Active" }
+               ], 
+               "Address2" : [  ], 
+               "ActiveIP" : 
+               [
+                   { "5.5.5.5" : 21 },
+                   { "5.5.5.6" : 60 },
+                   { "5.5.5.7" : 37 }
+               ], 
+               "InactiveIP" :
+               [
+                   { "5.5.5.8" : 10 },
+                   { "5.5.5.9" : 184 }
+               ]  
+           }
+       ]
+   }
     
+-  ``VirtualHost`` 가상호스트 이름
+
+-  ``Address`` :ref:`env-vhost-activeorigin` .
+   설정주소가 사용중이라면 ``Active`` , (장애발생으로) 사용하고 있지 않다면 ``Inactive`` 로 표시된다.
+
+-  ``Address2`` :ref:`env-vhost-standbyorigin` .
+   설정주소를 사용중이라면 ``Active`` , 사용하고 있지 않다면 ``Inactive`` 로 표시된다.
+
+-  ``ActiveIP`` 사용 중인 IP목록과 TTL. 
+   원본서버를 IP로 설정하면 ``Address`` 와 동일한 IP에 TTL은 0으로 표시된다.
+   Domain으로 설정하면 Resolving결과에 따른다.
+   다양한 IP와 TTL을 사용한다.
+   
+-  ``InactiveIP`` 사용하지 않는 IP목록과 TTL.
+   사용하지 않더라도 복구 중이거나 HealthChecker에 의해 관리될 수 있다.
+   해당 주소는 TTL 동안 복구되지 않으면 삭제된다.
+   
+   
+원본상태는 동적으로 바뀌는 경우가 많으므로 매우 복잡하다.
+원본주소가 IP인 경우는 비교적 아주 분명하다.
+
+-  설정변경 이외에 IP목록을 변화시키는 요인은 없다.
+-  TTL에 의해 IP주소가 만료되지 않는다. (항상 0으로 명시)
+
+원본주소가 Domain인 경우는 다소 복잡하다.
+
+-  Domain은 주기적으로(최대 10초) Resolving한다.
+-  Resolving결과로 IP테이블을 구성한다.
+-  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 삭제된다.
+-  같은 IP가 다시 Resolving됐다면 최신 TTL을 사용한다.
+-  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP는 삭제되지 않는다.
+-  ``InactiveIP`` 상태의 IP가 Resolving되었을 때,
+   -  복구가 진행 중이라면 TTL을 연장한다.
+   -  복구하지 않고 있다면 서비스에 다시 투입한다.
+
+.. note:
+
+   Domain주소는 ``Inactive`` 상태가 되지 않는다. 
+   왜냐하면 일반적으로 Domain은 여러 개의 IP주소로 서비스되는데 
+   모든 IP가 Resolving되었음을 알 수 없기 때문이다.
+   
+   예를 들어 Resolving결과로 얻은 모든 IP에 장애가 발생했다고 해도 아직 몇 개의 IP가 남았는지 알 수 없다. 때문에 특정 IP가 사용되지 않을 뿐 설정주소가 ``Inactive`` 되지는 않는다.
+   
+
+
     
-장애/복구 초기화
+원본상태 초기화
 ====================================
 
 API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다. 
@@ -72,6 +166,7 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 
    http://127.0.0.1:10040/command/resetorigin       // 모든 가상호스트
    http://127.0.0.1:10040/command/resetorigin?vhost=www.example.com
+   
 
 
 .. _origin-busysessioncount:
