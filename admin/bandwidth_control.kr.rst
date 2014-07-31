@@ -18,9 +18,10 @@
 가상호스트의 최대 Bandwidth을 제한한다.
 이는 가장 우선하는 물리적인 방법이다. ::
 
-   <Options>
-      <TrafficCap Session="0">0</TrafficCap>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <TrafficCap Session="0">0</TrafficCap>   
     
 -  ``<TrafficCap> (기본: 0 Mbps)``
    가상호스트의 최대 Bandwidth를 Mbps단위로 설정한다. 
@@ -60,16 +61,17 @@ BT(Bandwidth Throttling)이란 (각 세션마다)클라이언트 전송 대역�
    
 ::
 
-   <Options>
-      <BandwidthThrottling>
-         <Settings>
-            <Bandwidth Unit="kbps">1000</Bandwidth>
-            <Ratio>100</Ratio>
-            <Boost>5</Boost>      
-         </Settings>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <BandwidthThrottling>
+      <Settings>
+         <Bandwidth Unit="kbps">1000</Bandwidth>
+         <Ratio>100</Ratio>
+         <Boost>5</Boost>      
+      </Settings>
       <Throttling>OFF</Throttling> 
-      </BandwidthThrottling>
-   </Options>
+   </BandwidthThrottling>   
     
 ``<BandwidthThrottling>`` 태그 하위에 기본동작을 설정한다.
 
@@ -143,16 +145,17 @@ QueryString 우선조건
 
 ::
 
-    <Options>
-        <BandwidthThrottling>
-            <Settings>
-              <Bandwidth Param="mybandwidth" Unit="mbps">2</Bandwidth>
-              <Ratio Param="myratio">100</Ratio>
-              <Boost Param="myboost">3</Boost> 
-            </Settings>
-            <Throttling QueryString="ON">ON</Throttling>
-        </BandwidthThrottling>
-    </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <BandwidthThrottling>
+      <Settings>
+         <Bandwidth Param="mybandwidth" Unit="mbps">2</Bandwidth>
+         <Ratio Param="myratio">100</Ratio>
+         <Boost Param="myboost">3</Boost> 
+      </Settings>
+      <Throttling QueryString="ON">ON</Throttling>
+   </BandwidthThrottling>   
     
 -  ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 의 ``Param``
 
