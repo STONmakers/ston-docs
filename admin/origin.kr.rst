@@ -26,12 +26,13 @@
 Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
 다시 안정화됐다고 판단하면 서비스에 투입한다. ::
 
-    <OriginOptions>
-        <ConnectTimeout>3</ConnectTimeout>
-        <ReceiveTimeout>10</ReceiveTimeout>
-        <Exclusion>3</Exclusion>
-        <Recovery Cycle="10" Uri="/" ResCode="0" Log="ON">5</Recovery>
-    </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+    
+   <ConnectTimeout>3</ConnectTimeout>
+   <ReceiveTimeout>10</ReceiveTimeout>
+   <Exclusion>3</Exclusion>
+   <Recovery Cycle="10" Uri="/" ResCode="0" Log="ON">5</Recovery>   
 
 -  ``<ConnectTimeout> (기본: 3초)``
    
@@ -73,13 +74,14 @@ Health-Checker
 ``<Recovery>`` 는 응답코드를 받는 즉시 HTTP Transaction을 종료한다.
 하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
 
-   <Origin>
-      <Address> ... </Address>
-      <HealthChecker ResCode="0" Timeout="10" Cycle="10" 
-          Exclusion="3" Recovery="5" Log="ON">/</HealthChecker>
-      <HealthChecker ResCode="200, 404" Timeout="3" Cycle="5" 
-          Exclusion="5" Recovery="20" Log="ON">/alive.html</HealthChecker>
-   </Origin>
+   # server.xml - <Server><VHostDefault><Origin>
+   # vhosts.xml - <Vhosts><Vhost><Origin>
+   
+   <Address> ... </Address>
+   <HealthChecker ResCode="0" Timeout="10" Cycle="10" 
+                  Exclusion="3" Recovery="5" Log="ON">/</HealthChecker>
+   <HealthChecker ResCode="200, 404" Timeout="3" Cycle="5" 
+                  Exclusion="5" Recovery="20" Log="ON">/alive.html</HealthChecker>   
 
 -  ``<HealthChecker> (기본: /)``
 
@@ -206,8 +208,8 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 또한 현재 사용 중인 세션을 재사용하지 않고 새롭게 연결을 생성한다. ::
 
    http://127.0.0.1:10040/command/resetorigin       // 모든 가상호스트
-   http://127.0.0.1:10040/command/resetorigin?vhost=www.example.com
-   
+   http://127.0.0.1:10040/command/resetorigin?vhost=www.example.com   
+
 
 
 .. _origin-busysessioncount:
@@ -219,9 +221,10 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 하지만 이미 Caching된 콘텐츠라면 좀 더 유연하게 대처할 수 있다.
 원본서버가 과부하 상태라고 판단되면 갱신을 늦추어 원본부하를 높이지 않는다. ::
 
-   <OriginOptions>
-      <BusySessionCount>100</BusySessionCount>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <BusySessionCount>100</BusySessionCount>   
 
 -  ``<BusySessionCount> (기본: 100개)``
    원본서버와 HTTP트랜잭션을 진행 중인 세션 수가 일정개수를 넘으면 과부하 상태로 판단한다.
@@ -236,9 +239,10 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 
 원본서버 주소가 멀티(2개 이상)로 구성되어 있을 때 원본서버 선택정책을 설정한다. ::
 
-   <OriginOptions>
-      <BalanceMode>RoundRobin</BalanceMode>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <BalanceMode>RoundRobin</BalanceMode>   
 
 -  ``<BalanceMode> (기본: RoundRobin)``
 
@@ -269,9 +273,10 @@ API를 통해 가상호스트의 원본서버 배제/복구를 초기화한다.
 특히 오랫동안 재사용하지 않은 세션의 경우 이러한 가능성은 더욱 높다. 
 이를 방지하기 위하여 n초 동안 재사용되지 않은 세션에 대해서 자동으로 연결을 종료하도록 설정한다. ::
 
-   <OriginOptions>
-      <ReuseTimeout>60</ReuseTimeout>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <ReuseTimeout>60</ReuseTimeout>   
 
 -  ``<ReuseTimeout> (기본: 60초)`` 
    일정 시간동안 사용되지 않은 원본세션은 종료한다.
@@ -287,9 +292,10 @@ Range요청
 일반적으로 클라이언트가 요청한 콘텐츠에 대해서는 전체를 다운로드 받는다.
 하지만 동영상처럼 클라이언트가 앞부분만을 주로 소비하는 경우에 다운로드 크기를 제한하면 불필요한 원본 트래픽를 줄일 수 있다. ::
 
-   <OriginOptions>
-      <PartSize>0</PartSize>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <PartSize>0</PartSize>   
 
 -  ``<PartSize> (기본: 0 MB)``
    0보다 크면 클라이언트가 요청한 지점부터 설정크기(MB) 만큼 Range요청으로 다운로드 한다.   
@@ -325,9 +331,10 @@ Apache 웹서버는 GET요청에 대해서 항상 mod_h.264_streaming모듈을 �
 
 Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수 있다. ::
 
-   <OriginOptions>
-      <FullRangeInit>OFF</FullRangeInit>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <FullRangeInit>OFF</FullRangeInit>   
 
 -  ``<FullRangeInit>``
 
@@ -370,14 +377,18 @@ Host 헤더
 원본서버로 보내는 HTTP요청의 Host헤더를 설정한다.
 별도로 설정하지 않은 경우 가상호스트 이름이 명시된다. ::
 
-   <OriginOptions>
-      <Host />
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <Host />   
 
 -  ``<Host>``
    원본서버로 보낼 Host헤더를 설정한다.
    원본서버에서 80포트 이외의 포트로 서비스하고 있다면 반드시 포트 번호를 명시해야 한다. ::
    
+      # server.xml - <Server><VHostDefault><OriginOptions>
+      # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+      
       <Host>www.example2.com:8080</Host>
 
 
@@ -389,9 +400,10 @@ User-Agent 헤더
 
 원본서버로 보내는 HTTP요청의 User-Agent헤더를 설정한다. ::
 
-   <OriginOptions>
-      <UserAgent>STON</UserAgent>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <UserAgent>STON</UserAgent>   
 
 -  ``<UserAgent> (기본: STON)``
    원본서버로 보낼 User-Agent헤더를 설정한다.
@@ -403,9 +415,10 @@ XFF(X-Forwarded-For) 헤더
 클라이언트와 원본서버 사이에 STON이 위치하면 원본서버는 클라이언트 IP를 얻을 수 없다.
 때문에 STON은 원본서버로 보내는 모든 HTTP요청에 X-Forwarded-For헤더를 명시한다. ::
 
-   <OriginOptions>
-      <XFFClientIPOnly>OFF</XFFClientIPOnly>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <XFFClientIPOnly>OFF</XFFClientIPOnly>   
 
 -  ``<XFFClientIPOnly>``
    
@@ -424,9 +437,10 @@ ETag 헤더 인식
 
 원본서버에서 응답하는 ETag인식여부를 설정한다. ::
 
-   <OriginOptions>
-      <OriginalETag>OFF</OriginalETag>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <OriginalETag>OFF</OriginalETag>   
 
 -  ``<OriginalETag>``
    
@@ -447,9 +461,10 @@ Redirect 추적
 
 ::
 
-   <OriginOptions>
-      <RedirectionTrace>OFF</RedirectionTrace>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <RedirectionTrace>OFF</RedirectionTrace>   
 
 -  ``<RedirectionTrace>``
 
