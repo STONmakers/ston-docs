@@ -23,12 +23,12 @@
 접속단계에서 처리되기 때문에 가장 확실하며 빠르다.
 전역설정(server.xml)에 설정하며 가장 높은 우선순위를 가진다. ::
 
-   <Host>        
-      <ServiceAccess Default="Allow">
-         <Deny>192.168.7.9-255</Deny>
-         <Deny>192.168.8.10/255.255.255.0</Deny>
-      </ServiceAccess>
-   </Host>
+   # server.xml - <Server><Host>
+
+   <ServiceAccess Default="Allow">
+      <Deny>192.168.7.9-255</Deny>
+      <Deny>192.168.8.10/255.255.255.0</Deny>
+   </ServiceAccess>
 
 -  ``<ServiceAccess>``   
    IP기반의 ACL을 설정한다. 
@@ -49,6 +49,8 @@ GeoIP를 사용하여 국가별로 접근을 차단할 수 있다.
 `GeoIP Databases <http://dev.maxmind.com/geoip/legacy/downloadable/>`_ 중 
 Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmind.com/geoip/legacy/benchmarks/>`_ 로 
 링크하여 실시간으로 변경내용을 반영한다. ::
+
+   # server.xml - <Server><Host>
 
    <ServiceAccess GeoIP="/var/ston/geoip/">
       <Deny>AP</Deny>
@@ -72,9 +74,10 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
 클라이언트가 HTTP요청을 보냈을 때 차단여부를 결정한다.
 왜냐하면 HTTP요청을 보내지 않는다면 가상호스트를 찾을 수 없기 때문이다. ::
 
-   <Options>
-      <AccessControl Default="Allow" DenialCode="401">OFF</AccessControl>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <AccessControl Default="Allow" DenialCode="401">OFF</AccessControl>   
     
 -  ``<AccessControl>``
    
