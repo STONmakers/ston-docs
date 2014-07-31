@@ -22,25 +22,25 @@ STON은 원본서버와 HTTPS로 통신하지 않는다.
 별도의 IP 또는 포트를 지정하지 않는 경우 기본으로 바인딩되는 서비스 주소는 "*:443" 이다.
 전역설정(server.xml)에 설정한다. ::
 
-   <Server>
-      <Https>
-          <Cert>/usr/ssl/cert.pem</Cert>
-          <Key>/usr/ssl/certkey.pem</Key>
-          <CA>/usr/ssl/CA.pem</CA>
-      </Https>
+   # server.xml - <Server>
+
+   <Https>
+      <Cert>/usr/ssl/cert.pem</Cert>
+      <Key>/usr/ssl/certkey.pem</Key>
+      <CA>/usr/ssl/CA.pem</CA>
+   </Https>
     
-      <Https Listen="1.1.1.1:443">
-          <Cert>/usr/ssl_ip_port/cert.pem</Cert>
-          <Key>/usr/ssl_ip_port/certkey.pem</Key>
-          <CA>/usr/ssl_ip_port/CA.pem</CA>
-      </Https>
+   <Https Listen="1.1.1.1:443">
+      <Cert>/usr/ssl_ip_port/cert.pem</Cert>
+      <Key>/usr/ssl_ip_port/certkey.pem</Key>
+      <CA>/usr/ssl_ip_port/CA.pem</CA>
+   </Https>
     
-      <Https Listen="*:886">
-          <Cert>/usr/ssl_port/cert.pem</Cert>
-          <Key>/usr/ssl_port/certkey.pem</Key>
-          <CA>/usr/ssl_port/CA.pem</CA>
-      </Https>
-   </Server>
+   <Https Listen="*:886">
+      <Cert>/usr/ssl_port/cert.pem</Cert>
+      <Key>/usr/ssl_port/certkey.pem</Key>
+      <CA>/usr/ssl_port/CA.pem</CA>
+   </Https>   
    
 -  ``<Https>`` HTTPS를 구성한다.
    
@@ -75,9 +75,9 @@ AES-NI가 인식된 경우 다음과 같이 Info.log에 기록된다. ::
    
 관리자가 AES-NI 사용여부를 선택할 수 있다. ::
 
-   <Cache>
-      <AES-NI>ON</AES-NI>
-   </Cache>
+   # server.xml - <Server><Cache>
+
+   <AES-NI>ON</AES-NI>   
 
 -  ``<AES-NI> (기본: ON)`` AES-NI 사용여부를 선택한다.
 
@@ -99,13 +99,13 @@ CipherSuite 선택
 
 ``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
-   <Server>
-      <Https CipherSuite="ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP">
-          <Cert>/usr/ssl/cert.pem</Cert>
-          <Key>/usr/ssl/certkey.pem</Key>
-          <CA>/usr/ssl/CA.pem</CA>
-      </Https>
-   </Server>
+   # server.xml - <Server>
+
+   <Https CipherSuite="ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP">
+      <Cert>/usr/ssl/cert.pem</Cert>
+      <Key>/usr/ssl/certkey.pem</Key>
+      <CA>/usr/ssl/CA.pem</CA>
+   </Https>   
 
 -  ``CipherSuite`` `Apache mod_ssl의 SSL CipherSuite표현 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ 을 따른다.
 
@@ -199,9 +199,11 @@ SSL포트를 중복되지 않는 포트로 설정하시면 인증서를 여러�
     
 STON에서는 다음과 같이 Listen속성에 포트를 명시하여 인증서를 여러개로 설정한다. ::
 
-    <Https> ..A사 인증서.. </Https>  
-    <Https Listen="*:543"> ..B사 인증서.. </Https>  
-    <Https Listen="*:544"> ..C사 인증서.. </Https>
+   # server.xml - <Server>
+
+   <Https> ..A사 인증서.. </Https>  
+   <Https Listen="*:543"> ..B사 인증서.. </Https>  
+   <Https Listen="*:544"> ..C사 인증서.. </Https>
     
 이 방법은 가장 경제적이기는하나 모든 웹페이지 링크에 HTTPS 포트를 명시해야 하는 문제가 있다.
 
@@ -214,9 +216,11 @@ Multi NIC
 인증서를 결정하도록 설정한다. 
 STON에서는 다음과 같이 Listen속성에 IP명시하여 인증서를 여러개로 설정한다. ::
 
-    <Https Listen="10.10.10.10"> ..A사 인증서.. </Https>  
-    <Https Listen="10.10.10.11"> ..B사 인증서.. </Https>  
-    <Https Listen="10.10.10.12"> ..C사 인증서.. </Https>
+   # server.xml - <Server>
+
+   <Https Listen="10.10.10.10"> ..A사 인증서.. </Https>  
+   <Https Listen="10.10.10.11"> ..B사 인증서.. </Https>  
+   <Https Listen="10.10.10.12"> ..C사 인증서.. </Https>
 
 이 방법은 현재 가장 일반적으로 사용되는 방식이다.
 
