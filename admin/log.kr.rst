@@ -114,9 +114,9 @@ Info 로그
 
 Info로그는 전역설정(server.xml)에 설정한다. ::
 
-    <Cache>
-        <InfoLog Type="size" Unit="1" Retention="5">ON</InfoLog>
-    </Cache>
+   # server.xml - <Server><Cache>
+   
+   <InfoLog Type="size" Unit="1" Retention="5">ON</InfoLog>   
 
 -  ``<InfoLog> (기본: ON, Type: size, Unit: 1)``   
    STON의 동작과 설정변경에 대해 기록한다.
@@ -129,9 +129,9 @@ Deny 로그
 
 Deny로그는 전역설정(server.xml)에 설정한다. ::
 
-    <Cache>
-        <DenyLog Type="size" Unit="1" Retention="5">ON</DenyLog>
-    </Cache>
+   # server.xml - <Server><Cache>
+
+   <DenyLog Type="size" Unit="1" Retention="5">ON</DenyLog>   
 
 -  ``<DenyLog> (기본: ON, Type: size, Unit: 1)``
 
@@ -157,9 +157,9 @@ OriginError 로그
 
 OriginError로그는 전역설정(server.xml)에 설정한다. ::
 
-    <Cache>
-        <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>
-    </Cache>
+   # server.xml - <Server><Cache>
+   
+   <OriginErrorLog Type="size" Unit="5" Retention="5" Warning="OFF">ON</OriginErrorLog>   
 
 -  ``<OriginErrorLog> (기본: OFF, Type: size, Unit: 5, Warning: OFF)``
 
@@ -212,11 +212,11 @@ SysLog 전송
 `syslog <http://en.wikipedia.org/wiki/Syslog>`_ 프로토콜을 사용하여 로그를 UDP로 실시간 포워딩한다. 
 모든 로그에 대하여 syslog로 전송되도록 설정할 수 있다. ::
 
-    <Cache>
-        <InfoLog SysLog="OFF">ON</InfoLog>
-        <DenyLog SysLog="OFF">ON</DenyLog>
-        <OriginErrorLog SysLog="OFF">ON</OriginErrorLog>
-    </Cache>
+   # server.xml - <Server><Cache>
+   
+   <InfoLog SysLog="OFF">ON</InfoLog>
+   <DenyLog SysLog="OFF">ON</DenyLog>
+   <OriginErrorLog SysLog="OFF">ON</OriginErrorLog>
     
 -  ``SysLog``
 
@@ -226,11 +226,13 @@ SysLog 전송
    
 다음은 ``<OriginErrorLog>`` 가 기록될 때 syslog를 설정하는 예제이다. ::
 
-    <OriginErrorLog SysLog="ON">
-        <SysLog Priority="local3.info" Dest="192.168.0.1:514" />
-        <SysLog Priority="user.alert" Dest="192.168.0.2" />
-        <SysLog Priority="mail.debug" Dest="log.example.com" />
-    </OriginErrorLog>
+   # server.xml - <Server><Cache>
+
+   <OriginErrorLog SysLog="ON">
+      <SysLog Priority="local3.info" Dest="192.168.0.1:514" />
+      <SysLog Priority="user.alert" Dest="192.168.0.2" />
+      <SysLog Priority="mail.debug" Dest="log.example.com" />
+   </OriginErrorLog>
     
 1. ``<OriginErrorLog>`` 의 ``SysLog`` 속성을 ``ON`` 으로 설정한다.
 #. ``<OriginErrorLog>`` 의 하위에 ``<SysLog>`` 태그를 생성한다. n대의 서버로 동시에 전송가능하다.
@@ -257,11 +259,12 @@ syslog의 tag는 STON/{로그명}으로 기록된다. ::
 로그가 ``OFF`` 로 설정되어 있어도 로컬파일에만 써지지 않을 뿐이므로 
 :ref:`api-monitoring-logtrace` 는 정상동작한다. ::
 
-    <VHostDefault>
-        <Log Dir="/cache_log">
-            ... (생략) ...
-        </Log>
-    </VHostDefault>
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <Log Dir="/cache_log">
+      ... (생략) ...
+   </Log>   
 
 -  ``<Log>`` ``Dir`` 속성으로 로그가 기록될 디렉토리를 설정한다. 
    로그는 설정한 디렉토리 하위의 가상호스트 디렉토리에 생성된다.
@@ -275,9 +278,10 @@ DNS 로그
 
 원본서버로 Domain으로 설정되었다면 Resolving결과를 기록한다. ::
 
-    <Log>
-        <Dns Type="size" Unit="10" Retention="10" SysLog="OFF" Compression="OFF">ON</Dns>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <Dns Type="size" Unit="10" Retention="10" SysLog="OFF" Compression="OFF">ON</Dns>   
    
 ::
 
@@ -312,9 +316,10 @@ Access 로그
 모든 클라이언트의 HTTP 트랜잭션을 기록한다. 
 로그 기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. ::
 
-    <Log>
-        <Access Type="time" Unit="1440" Retention="10" XFF="on" Form="ston" Local="Off">ON</Access>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+   
+   <Access Type="time" Unit="1440" Retention="10" XFF="on" Form="ston" Local="Off">ON</Access>   
     
 -  ``XFF``
 
@@ -383,10 +388,11 @@ STON이 클라이언트에게 응답을 보내기 전에 HTTP연결이 종료된
 
 Access 로그형식을 사용자정의 로그로 설정한다. ::
 
-    <Log>
-        <Access Form="custom">ON</Access>
-        <AccessFormat>%a %A %b id=%{userid}C %f %h %H "%{user-agent}i" %m %P "%r" %s %t %T %X %I %O %R %e %S %K</AccessFormat>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+   
+   <Access Form="custom">ON</Access>
+   <AccessFormat>%a %A %b id=%{userid}C %f %h %H "%{user-agent}i" %m %P "%r" %s %t %T %X %I %O %R %e %S %K</AccessFormat>   
   
 -  ``<Access>`` 의 ``Form`` 속성을 ``custom`` 으로 설정한다.
 
@@ -536,9 +542,10 @@ Origin 로그
 원본서버의 모든 HTTP 트랜잭션을 기록한다. 
 기록 시점은 HTTP 트랜잭션이 완료되는 시점이며 전송완료 또는 전송중단 시점을 의미한다. ::
 
-    <Log>
-        <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <Origin Type="time" Unit="1440" Retention="10" Local="Off">ON</Origin>   
     
 ::
 
@@ -601,9 +608,10 @@ Monitoring 로그
 
 5분 평균 통계를 기록한다. ::
 
-    <Log>
-        <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <Monitoring Type="size" Unit="10" Retention="10" Form="json">ON</Monitoring>
   
 -  ``Form`` 로그형식을 지정한다. ( ``json`` 또는 ``xml`` )
 
@@ -616,9 +624,10 @@ FileSystem 로그
 
 :ref:`filesystem` 을 통해 발생하는 모든 File I/O 트랜잭션을 기록한다. ::
 
-    <Log>
-        <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
-    </Log>
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+   
+   <FileSystem Type="time" Unit="1440" Retention="10">ON</FileSystem>
   
 File I/O 트랜잭션이 종료될 때 기록된다. 
 트랜잭션 종료 시점은 cs-method의 형태에 따라 달라진다. ::
@@ -705,38 +714,38 @@ FTP클라이언트는 자신의 설정에 따라 업로드를 진행한다.
 
 FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
 
-    <Server>
-        <Ftp Name="backup1">
-            <Mode>Passive</Mode>
-            <Address>ftp.winesoft.co.kr:21</Address>
-            <Account>
-            <ID>test</ID>
-            <Password>12345abc</Password>
-            </Account>
-            <ConnectTimeout>10</ConnectTimeout>
-            <TransferTimeout>600</TransferTimeout>
-            <TrafficCap>0</TrafficCap>
-            <DeleteUploaded>OFF</DeleteUploaded>
-            <BackupOnFail>OFF</BackupOnFail>
-            <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
-            <Transfer Time="Rotate" />
-        </Ftp>
+   # server.xml - <Server>
+
+   <Ftp Name="backup1">
+      <Mode>Passive</Mode>
+      <Address>ftp.winesoft.co.kr:21</Address>
+      <Account>
+         <ID>test</ID>
+         <Password>12345abc</Password>
+      </Account>
+      <ConnectTimeout>10</ConnectTimeout>
+      <TransferTimeout>600</TransferTimeout>
+      <TrafficCap>0</TrafficCap>
+      <DeleteUploaded>OFF</DeleteUploaded>
+      <BackupOnFail>OFF</BackupOnFail>
+      <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
+      <Transfer Time="Rotate" />
+   </Ftp>
         
-        <Ftp Name="backup2">
-            <Mode>Active</Mode>
-            <Address>192.168.0.14:21</Address>
-            <Account>
-            <ID>test</ID>
-            <Password>qwerty</Password>
-            </Account>
-            <ConnectTimeout>3</ConnectTimeout>
-            <TransferTimeout>100</TransferTimeout>
-            <TrafficCap>10240</TrafficCap>
-            <DeleteUploaded>ON</DeleteUploaded>
-            <BackupOnFail>ON</BackupOnFail>            
-            <Transfer Time="Static">04:00</Transfer>
-        </Ftp>
-    </Server>
+   <Ftp Name="backup2">
+      <Mode>Active</Mode>
+      <Address>192.168.0.14:21</Address>
+      <Account>
+         <ID>test</ID>
+         <Password>qwerty</Password>
+      </Account>
+      <ConnectTimeout>3</ConnectTimeout>
+      <TransferTimeout>100</TransferTimeout>
+      <TrafficCap>10240</TrafficCap>
+      <DeleteUploaded>ON</DeleteUploaded>
+      <BackupOnFail>ON</BackupOnFail>            
+      <Transfer Time="Static">04:00</Transfer>
+   </Ftp>   
 
 -  ``<Ftp>`` FTP 클라이언트를 설정한다. ``Name`` 속성으로 고유의 이름을 설정한다.
 
@@ -763,6 +772,8 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
      
      예를 들어 다음과 같이 설정했다면 ::
      
+        # server.xml - <Server><Ftp>
+        
         <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
      
      업로드 경로는 다음과 같다. ::
@@ -815,12 +826,15 @@ FTP로그는 /usr/local/ston/sys/stonb/stonb.log에 통합하여 저장된다. :
 로그가 롤링될 때 지정된 `FTP 클라이언트` 를 통해 업로드 한다. 
 콤마(,)로 구분하면 여러 `FTP 클라이언트` 를 동시에 사용할 수 있다. ::
 
-    <Log>
-        <Access Ftp="backup1, backup2">ON</Access>
-        <Origin Ftp="backup_org">ON</Origin>
-        <Monitoring Ftp="backup1">ON</Monitoring>
-        <FileSystem Ftp="backup2">ON</FileSystem>
-    </Log>
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+   
+   <Log>
+      <Access Ftp="backup1, backup2">ON</Access>
+      <Origin Ftp="backup_org">ON</Origin>
+      <Monitoring Ftp="backup1">ON</Monitoring>
+      <FileSystem Ftp="backup2">ON</FileSystem>   
+   </Log>
     
 -  ``Ftp`` 사용할 `FTP 클라이언트`
 

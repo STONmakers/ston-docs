@@ -36,13 +36,16 @@
 
 통계수집 범위를 설정한다. ::
 
-    <Stats>
-        <DirDepth>0</DirDepth>
-        <DirDepthAccum>OFF</DirDepthAccum>
-        <HttpsTraffic>OFF</HttpsTraffic>
-        <ClientLocal>OFF</ClientLocal>
-        <OriginLocal>OFF</OriginLocal>
-    </Stats>
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <Stats>
+      <DirDepth>0</DirDepth>
+      <DirDepthAccum>OFF</DirDepthAccum>
+      <HttpsTraffic>OFF</HttpsTraffic>
+      <ClientLocal>OFF</ClientLocal>
+      <OriginLocal>OFF</OriginLocal>
+   </Stats>
     
 -  ``<DirDepth> (기본: 0)`` 
    
@@ -985,6 +988,8 @@ View는 가상호스트들을 하나로 묶어 통계를 추출하는 방식이�
 Database에서 여러 Table을 마치 하나인 것처럼 다루는 View에서 따온 개념이다. 
 구성은 다음과 같이 아주 간단하다. ::
 
+   # vhosts.xml
+
    <Vhosts>
      <Vhost> ... </Vhost>
      <Vhost> ... </Vhost>
@@ -1012,6 +1017,8 @@ View가 제공하는 통계는 다음과 같다. ::
 
 이해를 돕기 위해 View가 필요한 예를 들어보자. 
 류헌진, 서장혼, 박지송은 각각 자신이 좋아하는 스포츠 커뮤니티 사이트를 운영하고 있다. ::
+
+   # vhosts.xml
 
    <Vhosts>
      <Vhost Name="baseball.com"> ... </Vhost>
@@ -1045,6 +1052,8 @@ View가 제공하는 통계는 다음과 같다. ::
    
 URL 전처리를 사용하면 간단히 설정할 수 있다. ::
 
+   # vhosts.xml
+
    <Vhosts>
      <Vhost Name="baseball.com"> ... </Vhost>
      <Vhost Name="basketball.com"> ... </Vhost>
@@ -1064,19 +1073,21 @@ URL 전처리를 사용하면 간단히 설정할 수 있다. ::
 
 ::
 
+   # vhosts.xml
+
    <Vhosts>
-     <Vhost Name="baseball.com"> ... </Vhost>
-     <Vhost Name="basketball.com"> ... </Vhost>
-     <Vhost Name="football.com"> ... </Vhost>
-     <URLRewrite>
-       <Pattern>sports.com/(.*)/(.*)</Pattern>
-       <Replace>#1.com/#2</Replace>
-     </URLRewrite>
-     <View Name="sports.com">
-       <Vhost>baseball.com</Vhost>
-       <Vhost>basketball.com</Vhost>
-       <Vhost>football.com</Vhost>
-     </View>  
+      <Vhost Name="baseball.com"> ... </Vhost>
+      <Vhost Name="basketball.com"> ... </Vhost>
+      <Vhost Name="football.com"> ... </Vhost>
+      <URLRewrite>
+         <Pattern>sports.com/(.*)/(.*)</Pattern>
+         <Replace>#1.com/#2</Replace>
+      </URLRewrite>
+      <View Name="sports.com">
+         <Vhost>baseball.com</Vhost>
+         <Vhost>basketball.com</Vhost>
+         <Vhost>football.com</Vhost>
+      </View>  
    </Vhosts>
    
 이상의 예에서 알 수 있듯이 URL Rewrite와 View의 조합은 기존 사이트를 하나로 묶어 서비스할 때 효과적이다.

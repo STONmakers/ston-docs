@@ -25,10 +25,11 @@ MP4/M4A 헤더위치 변경
 헤더위치 변경은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지 않는다.
 별도의 저장공간을 사용하지도 않는다. ::
 
-    <Media>
-        <UpfrontMP4Header>OFF</UpfrontMP4Header>
-        <UpfrontM4AHeader>OFF</UpfrontM4AHeader>
-    </Media>
+   # server.xml - <Server><VHostDefault><Media>
+   # vhosts.xml - <Vhosts><Vhost><Media>
+
+   <UpfrontMP4Header>OFF</UpfrontMP4Header>
+   <UpfrontM4AHeader>OFF</UpfrontM4AHeader>   
 
 -  ``<UpfrontMP4Header>``
    
@@ -60,11 +61,12 @@ Trimming
 Trimming은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지 않는다.
 별도의 저장공간을 사용하지 않는다. ::
 
-    <Media>
-        <MP4Trimming StartParam="start" EndParam="end">OFF</MP4Trimming>
-        <MP3Trimming StartParam="start" EndParam="end">OFF</MP3Trimming>
-        <M4ATrimming StartParam="start" EndParam="end">OFF</M4ATrimming>
-    </Media>
+   # server.xml - <Server><VHostDefault><Media>
+   # vhosts.xml - <Vhosts><Vhost><Media>
+   
+   <MP4Trimming StartParam="start" EndParam="end">OFF</MP4Trimming>
+   <MP3Trimming StartParam="start" EndParam="end">OFF</MP3Trimming>
+   <M4ATrimming StartParam="start" EndParam="end">OFF</M4ATrimming>   
 
 -  ``<MP4Trimming>`` ``<MP3Trimming>`` ``<M4ATrimming>``
    
@@ -174,13 +176,14 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 모든 .m3u8/.ts파일은 원본파일에서 파생되며 별도의 저장공간을 소비하지 않는다. 
 서비스 즉시 메모리에 임시적으로 생성되며 서비스되지 않을 때 자동으로 없어진다. ::
 
-    <Media>    
-        <MP4HLS Status="Inactive" Keyword="mp4hls">
-            <Index>index.m3u8</Index>
-            <Sequence>0</Sequence>
-            <Duration>10</Duration>
-        </MP4HLS>
-    </Media>
+   # server.xml - <Server><VHostDefault><Media>
+   # vhosts.xml - <Vhosts><Vhost><Media>
+
+   <MP4HLS Status="Inactive" Keyword="mp4hls">
+      <Index>index.m3u8</Index>
+      <Sequence>0</Sequence>
+      <Duration>10</Duration>
+   </MP4HLS>   
     
 -  ``<MP4HLS>``   
    ``Status`` 속성이 ``Active`` 일 때 활성화된다.
@@ -275,9 +278,10 @@ DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 
 
 ``<Dims>`` 는 별도로 설정하지 않으면 모두 비활성화되어 있다. ::
 
-   <Options>
-      <Dims Status="Active" Keyword="dims" Port="8500" />
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims Status="Active" Keyword="dims" Port="8500" />
 
 -  ``<Dims>``
 
@@ -361,13 +365,14 @@ Format 변경
 앞서 설명한 기능과는 다르게 합성조건은 미리 설정되어 있어야 한다. 
 주로 워터마크 효과를 내기 위해 사용된다. ::
 
-   <Options>
-      <Dims Status="Active" Keyword="dims" port="8500">
-         <Composite Name="water1" File="/img/small.jpg" />
-         <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
-         <Composite Name="water_ratio" File="/img/wmark_s.png" Gravity="s" Geometry="+0+15%" Dissolve="100" />
-      </Dims>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims Status="Active" Keyword="dims" port="8500">
+      <Composite Name="water1" File="/img/small.jpg" />
+      <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
+      <Composite Name="water_ratio" File="/img/wmark_s.png" Gravity="s" Geometry="+0+15%" Dissolve="100" />
+   </Dims>   
     
 -  ``<Composite>``
 
@@ -410,14 +415,15 @@ Format 변경
 예를 들어 1024 X 768 이하의 이미지는 품질을 50%로 떨어트리고 그 이상의 
 이미지는 1024 X 768로 크기변환을 하려면 다음과 같이 ``<ByOriginal>`` 을 설정한다. ::
 
-   <Options>
-      <Dims Status="Active" Keyword="dims" port="8500">
-         <ByOriginal Name="size1">
-            <Condition Width="1024" Height="768">/quality/25/</Condition>
-            <Condition>/resize/1024x768/</Condition>
-         </ByOriginal>
-      </Dims>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <Dims Status="Active" Keyword="dims" port="8500">
+      <ByOriginal Name="size1">
+         <Condition Width="1024" Height="768">/quality/25/</Condition>
+         <Condition>/resize/1024x768/</Condition>
+      </ByOriginal>
+   </Dims>   
 
 -  ``<ByOriginal>``
    ``Name`` 속성으로 호출한다. 
@@ -439,18 +445,19 @@ Format 변경
 또 다른 예로 이미지 크기에 따라 다른 ``<Composite>`` 조건을 줄 수 있다. 
 이런 경우 다음과 같이 사전에 정의된 ``<Composite>`` 의 ``Name`` 으로 설정한다. ::
 
-   <Options>
-      <Dims Status="Active" Keyword="dims" port="8500">
-         <Composite Name="water1" File="/img/small.jpg" />
-         <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
-         <Composite Name="water3" File="/img/big.jpg" Gravity="se" Geometry="+10+10" Dissolve="50" />
-         <ByOriginal Name="size_water">
-            <Condition Width="400">/composite/water1/</Condition>
-            <Condition Width="800">/composite/water2/</Condition>
-            <Condition>/composite/water3/</Condition>
-         </ByOriginal>
-      </Dims>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <Dims Status="Active" Keyword="dims" port="8500">
+      <Composite Name="water1" File="/img/small.jpg" />
+      <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
+      <Composite Name="water3" File="/img/big.jpg" Gravity="se" Geometry="+10+10" Dissolve="50" />
+      <ByOriginal Name="size_water">
+         <Condition Width="400">/composite/water1/</Condition>
+         <Condition Width="800">/composite/water2/</Condition>
+         <Condition>/composite/water3/</Condition>
+      </ByOriginal>
+   </Dims>   
     
 다음과 같이 호출하면 원본 이미지 크기에 따라 합성이 적용된다. ::
 

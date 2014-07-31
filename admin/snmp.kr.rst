@@ -31,6 +31,8 @@
 
    Storage에 설정된 디스크를 의미한다. ::
    
+      # server.xml - <Server><Cache>
+   
       <Storage>
          <Disk>/cache1</Disk>
          <Disk>/cache2</Disk>
@@ -47,6 +49,8 @@
 -  ``[vhostIndex]`` 
 
    가상호스트가 로딩될 때 자동으로 부여된다. ::
+   
+      # vhosts.xml
    
       <Vhosts>
          <Vhost Status="Active" Name="kim.com"> ... </Vhost>
@@ -89,14 +93,12 @@ SNMPWalk가 동작할 수 있도록 한다.
 
 전역설정(server.xml)을 통해 SNMP동작방식과 ACL을 설정한다. ::
 
-    <Server>
-        <Host>  
-            <SNMP Port="161" Status="Inactive">
-                <Allow>192.168.5.1</Allow>
-                <Allow>192.168.6.0/24</Allow>    
-            </SNMP>  
-        </Host>
-    </Server>
+   # server.xml - <Server><Host>
+
+   <SNMP Port="161" Status="Inactive">
+      <Allow>192.168.5.1</Allow>
+      <Allow>192.168.6.0/24</Allow>    
+   </SNMP>   
 
 -  ``<SNMP>`` 속성을 통해 SNMPdml 동작방식을 설정한다.
 
@@ -115,7 +117,9 @@ SNMPWalk가 동작할 수 있도록 한다.
 
 SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 설정한다. ::
 
-    <SNMP VHostCount=0, VHostMin=5 ViewCount=0, ViewMin=5 />
+   # server.xml - <Server><Host>
+   
+   <SNMP VHostCount=0, VHostMin=5 ViewCount=0, ViewMin=5 />
 
 -  ``VHostCount (기본: 0)`` 0일 경우 존재하는 가상호스트까지만 응답을 한다. 
    0보다 큰 값일 경우 가상호스트 존재 유무에 상관없이 설정된 가상호스트까지 응답한다. 
@@ -151,7 +155,9 @@ SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 
 
 기타 변수를 설정한다. ::
 
-    <SNMP GlobalMin="5" DiskMin="5" ConfCount="10" />
+   # server.xml - <Server><Host>
+   
+   <SNMP GlobalMin="5" DiskMin="5" ConfCount="10" />
     
 -  ``GlobalMin (기본: 5분, 최대: 60분)``  ``[globalMin]``  값을 설정한다.
 
@@ -169,16 +175,18 @@ Community
 
 Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한다. ::
 
-    <SNMP>
-        <Community Name="example1" OID="Allow">
-            <OID>1.3.6.1.4.1.40001.1.4.1</OID>
-            <OID>1.3.6.1.4.1.40001.1.4.2</OID>
-            <OID>1.3.6.1.4.1.40001.1.4.4</OID>
-        </Community>
-        <Community Name="example2" OID="Deny">
-            <OID>1.3.6.1.4.1.40001.1.4.3.1.11.11.10.1-61</OID>
-        </Community>
-    </SNMP>
+   # server.xml - <Server><Host>
+
+   <SNMP>
+      <Community Name="example1" OID="Allow">
+         <OID>1.3.6.1.4.1.40001.1.4.1</OID>
+         <OID>1.3.6.1.4.1.40001.1.4.2</OID>
+         <OID>1.3.6.1.4.1.40001.1.4.4</OID>
+      </Community>
+      <Community Name="example2" OID="Deny">
+         <OID>1.3.6.1.4.1.40001.1.4.3.1.11.11.10.1-61</OID>
+      </Community>
+   </SNMP>
     
 -  ``<Community>`` Community를 설정한다.
 

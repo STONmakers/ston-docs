@@ -176,9 +176,10 @@ Parent한대당 1,000만개를 캐싱할 수 있다.
 
 분산캐시는 Child서버의 가상호스트에 설정한다. ::
 
-    <OriginOptions>
-        <Distribution>OFF</Distribution>    
-    </OriginOptions>
+    # server.xml - <Server><VHostDefault><OriginOptions>
+    # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+    <Distribution>OFF</Distribution>
     
 -  ``<Distribution>`` 원본서버 분산모드를 설정한다.
 
@@ -224,9 +225,9 @@ OS가 STON을 종료시키는 상황이 발생할 수 있다.
 이는 과다 메모리 사용으로부터 스스로를 보호하기 위한 방법이며, 
 재사용가능한 MemoryBlock이 충분히 확보되면 자동 해지된다. ::
 
-    <Cache>
-        <EmergencyMode>OFF</EmergencyMode>
-    </Cache>
+    # server.xml - <Server><Cache>
+   
+    <EmergencyMode>OFF</EmergencyMode>    
     
 -  ``<EmergencyMode>``
 

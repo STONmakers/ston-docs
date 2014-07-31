@@ -26,9 +26,9 @@ Mount하기
 
 전역설정(server.xml)에 설정한다. ::
 
-    <Cache>
-        <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">OFF</FileSystem>
-    </Cache>
+   # server.xml - <Server><Cache>
+
+   <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">OFF</FileSystem>   
     
 -  ``<FileSystem>``
 
@@ -101,15 +101,14 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
 가상호스트 별로 File System을 설정한다. 
 또는 기본 가상호스트를 통해 모든 가상호스트에 일괄설정 할 수 있다. ::
 
-   <VHostDefault>
-      <Options>
-         <FileSystem Status="Active" DotDir="OFF">                    
-            <FileStatus>200</FileStatus>
-            <DirStatus>301, 302, 400, 401, 403</DirStatus>
-            <Unlink>Purge</Unlink>
-         </FileSystem>
-      </Options>
-   </VHostDefault>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <FileSystem Status="Active" DotDir="OFF">                    
+      <FileStatus>200</FileStatus>
+      <DirStatus>301, 302, 400, 401, 403</DirStatus>
+      <Unlink>Purge</Unlink>
+   </FileSystem>   
     
 -  ``<FileSystem>``
    ``Status`` 속성이 ``Inactive`` 라면 File System에서 접근할 수 없다. 
@@ -267,9 +266,9 @@ STON이 Mount된 경로를 Wowza의 파일경로로 설정하는 것으로 모�
   전역설정(server.xml)에 다음과 같이 ``<FileSystem>`` 을 ``ON`` 으로 설정한다. 
   (예제에서는 Mount경로를 "/cachefs"로 설정한다.) ::
   
-     <Cache>
-        <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">ON</FileSystem>
-     </Cache>
+     # server.xml - <Server><Cache>
+         
+     <FileSystem Mount="/cachefs" DotDir="OFF" Separator="^">ON</FileSystem>     
      
   또는 WM의 전역설정 - 파일시스템에서 다음과 같이 파일 시스템을 "사용한다"로 설정한다.
   
@@ -285,14 +284,13 @@ STON이 Mount된 경로를 Wowza의 파일경로로 설정하는 것으로 모�
   여기서는 가상호스트 기본 설정(server.xml)을 예로 설명하지만 
   각각의 가상호스트(vhosts.xml)에서 개별적으로 설정할 수 있다. ::
   
-     <VHostDefault>
-       <Options>
-         <FileSystem Status="Active" DotDir="OFF">
-           <FileStatus>200</FileStatus>
-           <DirStatus>301, 302, 400, 401, 403</DirStatus>
-         </FileSystem>
-       </Options>
-     <VHostDefault>
+     # server.xml - <Server><VHostDefault><Options>
+     # vhosts.xml - <Vhosts><Vhost><Options>
+     
+     <FileSystem Status="Active" DotDir="OFF">
+        <FileStatus>200</FileStatus>
+        <DirStatus>301, 302, 400, 401, 403</DirStatus>
+     </FileSystem>
      
   또는 WM의 가상호스트 - 파일시스템에서 다음과 같이 접근을 "허가한다"로 설정한다.
   
