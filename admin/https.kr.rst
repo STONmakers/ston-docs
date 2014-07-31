@@ -82,6 +82,7 @@ AES-NI가 인식된 경우 다음과 같이 Info.log에 기록된다. ::
 -  ``<AES-NI> (기본: ON)`` AES-NI 사용여부를 선택한다.
 
 
+
 .. _https-ciphersuite:
 
 CipherSuite 선택
@@ -108,6 +109,45 @@ CipherSuite 선택
    </Https>   
 
 -  ``CipherSuite`` `Apache mod_ssl의 SSL CipherSuite표현 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ 을 따른다.
+
+
+
+.. _https-ciphersuite-query:
+
+CipherSuite 조회
+====================================
+
+CipherSuite 설정결과를 조회한다. 
+CipherSuite표현식은 `OpenSSL 1.0.0E <https://www.openssl.org/docs/apps/ciphers.html>`_ 를 준수한다. ::
+
+   http://127.0.0.1:10040/monitoring/ssl?ciphersuite=...
+
+결과는 JSON형식으로 제공된다. ::
+
+  {
+      "version": "2.0.0",
+      "method": "ssl",
+      "status": "OK",
+      "result":
+      [
+          {
+              "Name" : "AES128-SHA", 
+              "Ver" : "SSLv3", 
+              "Kx" : "RSA", 
+              "Au" : "RSA", 
+              "Enc" : "AES(128)", 
+              "Mac" : "SHA1"
+          },
+          {
+              "Name" : "AES256-SHA", 
+              "Ver" : "SSLv3", 
+              "Kx" : "RSA", 
+              "Au" : "RSA", 
+              "Enc" : "AES(256)", 
+              "Mac" : "SHA1"
+          }
+      ]
+  }
 
 
 
