@@ -1240,53 +1240,6 @@ Access, Origin, Monitoing로그는 가상호스트(vhost)를 지정해야 한다
 
 
 
-.. _api-monitoring-dnslist:
-   
-Domain Resolving List
-====================================
-
-원본서버 주소를 Domain으로 설정한 경우 Resolving결과를 저장한다. 
-최신 Domain 결과를 반영하기위해 최소 1초 ~ 최대 10초 단위로 Domain을 갱신한다. 
-Resolving결과가 변경되었다면 즉시 서비스에 반영한다. ::
-
-    http://127.0.0.1:10040/monitoring/dnslist
-    
-결과는 JSON형식으로 제공된다. ::
-
-    {
-        "dns" : 
-        [
-            {
-                "domain" : "www.winesoft.co.kr", 
-                "updated-date" : "2013-02-10", 
-                "updated-time" : "09:23:11", 
-                "checked-date" : "2013-02-15", 
-                "checked-time" : "10:55:16", 
-                "ip-addresses" : [ "10.10.10.10", "10.10.10.11" ],
-                "backup-ip-addresses" : [ "10.10.10.10", "10.10.10.11", "10.10.10.12", "10.10.10.13", "10.10.10.14" ]
-            },
-            {
-                "domain" : "example.com", 
-                "updated-date" : "2013-02-14", 
-                "updated-time" : "03:09:00", 
-                "checked-date" : "2013-02-15", 
-                "checked-time" : "10:55:18", 
-                "ip-addresses" : [ "20.20.20.20" ],
-                "backup-ip-addresses" : [ "20.20.20.20", "20.20.20.11", "20.20.20.12", "20.20.20.13" ]
-            }
-        ]
-    }
-
--  ``domain`` 도메인 이름
--  ``updated-date`` Resolving결과를 캐싱한 날짜
--  ``updated-time`` Resolving결과를 캐싱한 시간
--  ``checked-date`` 마지막으로 Resolving한 날짜
--  ``checked-time`` 마지막으로 Resolving한 시간
--  ``ip-addresses`` IP 리스트
--  ``backup-ip-addresses`` 백업된 IP 리스트 (Resolving이 실패하면 사용됨)
-
-
-
 .. _api-monitoring-hwinfo:
    
 하드웨어 정보조회
