@@ -492,14 +492,14 @@ txt파일들은 가상호스트(vhost)를 명확하게 지정해주어야 한다
 
     http://127.0.0.1:10040/conf/server.xml
     http://127.0.0.1:10040/conf/vhosts.xml
-    http://127.0.0.1:10040/conf/querystring.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/bypass.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/ttl.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/expires.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/acl.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/headers.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/throttling.txt?vhost=www.site1.com
-    http://127.0.0.1:10040/conf/postbody.txt?vhost=www.site1.com
+    http://127.0.0.1:10040/conf/querystring.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/bypass.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/ttl.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/expires.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/acl.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/headers.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/throttling.txt?vhost=www.example.com
+    http://127.0.0.1:10040/conf/postbody.txt?vhost=www.example.com
 
 
 .. _api-conf-history:
