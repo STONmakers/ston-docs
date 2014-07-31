@@ -48,18 +48,18 @@ TTL이 만료되기 전까지 저장된 콘텐츠로 서비스 된다.
 TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since** 또는 **If-None-Match** )를 확인한다.
 원본서버가 **304 Not Modified** 응답을 준다면 TTL은 연장된다. ::
 
-    <Options>
-        <TTL>
-            <Res2xx Ratio="20" Max="86400">1800</Res2xx>
-            <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
-            <Res3xx>300</Res3xx>
-            <Res4xx>30</Res4xx>
-            <Res5xx>30</Res5xx>
-            <ConnectTimeout>3</ConnectTimeout>
-            <ReceiveTimeout>3</ReceiveTimeout>
-            <OriginBusy>3</OriginBusy>
-        </TTL>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <TTL>
+        <Res2xx Ratio="20" Max="86400">1800</Res2xx>
+        <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
+        <Res3xx>300</Res3xx>
+        <Res4xx>30</Res4xx>
+        <Res5xx>30</Res5xx>
+        <ConnectTimeout>3</ConnectTimeout>
+        <ReceiveTimeout>3</ReceiveTimeout>
+        <OriginBusy>3</OriginBusy>
+    </TTL>    
     
 ``Ratio`` (0~100)를 제외한 모든 설정 단위는 초(sec) 다.
 
@@ -143,11 +143,11 @@ TTL 우선순위
 
 적용할 TTL설정의 우선순위를 설정한다. ::
 
-    <Options>
-        <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
-            ... (생략) ...
-        </TTL>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
+        ... (생략) ...
+    </TTL>    
     
 ``<TTL>`` 의 ``Priority (기본: cc_nocache, custom, cc_maxage, rescode)`` 속성으로 설정한다.
 
@@ -167,10 +167,10 @@ TTL 우선순위
 하지만 이미 관련 콘텐츠가 저장되어 있다면, 
 원본의 응답을 믿는 것보다 TTL을 연장시켜 서비스 전체장애가 발생하지 않도록 하는편이 효과적이다. ::
 
-    <Options>
-         <TTLExtensionBy4xx>OFF</TTLExtensionBy4xx>
-         <TTLExtensionBy5xx>ON</TTLExtensionBy5xx>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <TTLExtensionBy4xx>OFF</TTLExtensionBy4xx>
+    <TTLExtensionBy5xx>ON</TTLExtensionBy5xx>
 
 -  ``<TTLExtensionBy4xx>``
 
@@ -235,9 +235,9 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
       
 이런 차이점 때문에 백그라운드 콘텐츠 갱신기능이 개발되었다. ::
 
-    <Options>
-        <RefreshExpired>ON</RefreshExpired>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <RefreshExpired>ON</RefreshExpired>    
 
 -  ``<RefreshExpired>``
 
@@ -274,9 +274,9 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
     
 ::
 
-    <Options>
-         <NoCacheRequestExpire>OFF</NoCacheRequestExpire>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <NoCacheRequestExpire>OFF</NoCacheRequestExpire>    
 
 -  ``<NoCacheRequestExpire>``
 
@@ -301,9 +301,9 @@ Accept-Encoding 헤더
 
 ::
 
-    <Options>
-        <AcceptEncoding>ON</AcceptEncoding>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <AcceptEncoding>ON</AcceptEncoding>    
 
 -  ``<AcceptEncoding>``
 
@@ -328,9 +328,9 @@ Accept-Encoding 헤더
    
 ::
 
-    <Options>
-        <CaseSensitive>ON</CaseSensitive>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <CaseSensitive>ON</CaseSensitive>    
 
 -  ``<CaseSensitive>``
 
@@ -354,9 +354,9 @@ QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 Que
    
 ::
 
-    <Options>
-        <ApplyQueryString>ON</ApplyQueryString>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <ApplyQueryString>ON</ApplyQueryString>    
 
 -  ``<ApplyQueryString>``
 
@@ -380,9 +380,9 @@ Vary 헤더
 Vary헤더를 인식하여 콘텐츠를 구분한다. 
 일반적으로 Vary헤더는 Cache서버의 성능을 급격히 떨어트리는 원흉이다. ::
 
-    <Options>
-        <VaryHeader />
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <VaryHeader />    
     
 -  ``<VaryHeader>``
 
@@ -395,15 +395,15 @@ Vary헤더를 인식하여 콘텐츠를 구분한다.
 
 User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 하려면 다음과 같이 설정한다. ::
 
-    <Options>
-        <VaryHeader>Accept-Encoding, Accept</VaryHeader>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <VaryHeader>Accept-Encoding, Accept</VaryHeader>    
     
 원본서버가 보낸 모든 Vary헤더를 인식하게 하려면 다음과 같이 설정한다. ::
 
-    <Options>
-        <VaryHeader>*</VaryHeader>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <VaryHeader>*</VaryHeader>    
 
 
 POST 요청
@@ -412,9 +412,9 @@ POST 요청
 POST 요청을 Caching하도록 설정한다. 
 POST 요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
 
-    <Options>
-        <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>
-    </Options>
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+    <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>    
 
 -  ``<PostRequest>``
 
