@@ -324,7 +324,7 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 서비스 형태에 맞게 다양한 원본서버는 다양하게 접근이 가능하다. ::
 
     <Vhosts>
-        <Vhost ...>
+        <Vhost Name="www.example.com">
             <Origin>
                 <Address>1.1.1.1</Address>
                 <Address>1.1.1.2</Address>
@@ -356,11 +356,13 @@ example.com:8080/account/dir   example.com:8080
 
 :ref:`origin-httprequest` 중 Host헤더를 별도로 설정하지 않는한 표의 Host헤더를 전송한다. ::
 
-    <Vhost Name="www.example.com">
-        <Origin>
-            <Address>origin.com:8888/account/dir</Address>            
-        </Origin>
-    </Vhost>
+    <Vhosts>
+        <Vhost Name="www.example.com">
+            <Origin>
+                <Address>origin.com:8888/account/dir</Address>            
+            </Origin>
+        </Vhost>
+    </Vhosts>
 
 예를 들어 위와같이 설정하면 원본으로 다음과 같이 요청한다. ::
 
@@ -381,13 +383,15 @@ example.com:8080/account/dir   example.com:8080
 보조 원본서버를 설정한다.::
 
     <Vhost ...>
-        <Origin>
-            <Address>1.1.1.1</Address>
-            <Address>1.1.1.2</Address>
-            <Address2>1.1.1.3</Address2>
-            <Address2>1.1.1.4</Address2>
-        </Origin>
-    </Vhost>
+        <Vhost ...>
+            <Origin>
+                <Address>1.1.1.1</Address>
+                <Address>1.1.1.2</Address>
+                <Address2>1.1.1.3</Address2>
+                <Address2>1.1.1.4</Address2>
+            </Origin>
+        </Vhost>
+    </Vhosts>
     
 -  ``<Address2>``
 
