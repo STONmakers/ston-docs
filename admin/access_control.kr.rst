@@ -65,6 +65,35 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
 
    GeoIP는 파일명이 예약되어 있으므로 반드시 저장된 로컬경로를 입력하도록 설정한다. 
    또한 자동으로 변경이 반영되기 별도로 설정을 Reload하지 않아도 된다.
+   
+   
+GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을 조회한다. 
+설정되어 있지 않다면 404 NOT FOUND로 응답한다. ::
+   
+   http://127.0.0.1:10040/monitoring/geoiplist
+   
+결과는 JSON형식으로 제공된다. ::
+
+   {
+       "version": "2.0.0",
+       "method": "geoiplist",
+       "status": "OK",
+       "result":
+       {
+           "path" : "/usr/ston/geoip/",
+           "files" :
+           [
+               {
+                   "file" : "GeoIP.dat", 
+                   "size" : 766255
+               },
+               {
+                   "file" : "GeoLiteCity.dat", 
+                   "size" : 12826936
+               }
+           ]
+       }
+   }
 
 
 가상호스트 접근제어
