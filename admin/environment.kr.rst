@@ -359,7 +359,7 @@ vhosts.xml 가상호스트 설정
 하나의 가상호스트를 여러 이름으로 서비스하고 싶다면 ``<Alias>`` 를 사용한다. ::
 
     # vhosts.xml - <Vhosts>
-    <Vhost ...>
+    <Vhost Name="www.example.com">
         <Alias>www2.example.com</Alias>
         <Alias>*.sub.example.com</Alias>
     </Vhost>
