@@ -382,8 +382,8 @@ example.com:8080/account/dir   example.com:8080
 
 보조 원본서버를 설정한다.::
 
-    <Vhost ...>
-        <Vhost ...>
+    <Vhosts>
+        <Vhost Name="www.example.com">
             <Origin>
                 <Address>1.1.1.1</Address>
                 <Address>1.1.1.2</Address>
