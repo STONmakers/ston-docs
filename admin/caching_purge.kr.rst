@@ -14,11 +14,11 @@
 가령 FTP를 통한 파일 업로드가 끝나면 즉시 `Purge`_ 를 호출하는 식이다.
 관리자는 다음과 같이 몇가지 정책에 대해 설정할 수 있다. ::
 
-   <Options>
-      <Purge2Expire>NONE</Purge2Expire>
-      <RootPurgeExpire>ON</RootPurgeExpire>
-      <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   <Purge2Expire>NONE</Purge2Expire>
+   <RootPurgeExpire>ON</RootPurgeExpire>
+   <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>   
 
 -  ``<Purge2Expire> (기본: NONE)``
 
@@ -182,14 +182,14 @@ Cold Control
 디스크 I/O의 급격한 증가와 함께 서비스 품질이 저하되는 것이다. 
 이런 상황을 방지하기 위해 ``<ColdControl>`` 이 존재한다. ::
 
-    <VHostDefault>
-        <ColdControl>
-            <Purge>OFF</Purge>
-            <Expire>OFF</Expire>
-            <ExpireAfter>OFF</ExpireAfter>
-            <Cold2Hot Value="0">NONE</Cold2Hot>
-        </ColdControl>
-    </VHostDefault>
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+   <ColdControl>
+      <Purge>OFF</Purge>
+      <Expire>OFF</Expire>
+      <ExpireAfter>OFF</ExpireAfter>
+      <Cold2Hot Value="0">NONE</Cold2Hot>
+   </ColdControl>   
 
 -  ``<Purge> (기본: OFF)`` 
    
