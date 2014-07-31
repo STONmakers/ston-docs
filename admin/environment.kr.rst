@@ -15,8 +15,7 @@
 
 2개의 XML파일로 대부분의 서비스를 구성한다.
 여러 TXT파일에는 가상호스트별 예외조건을 설정하는데, 특정기능의 목록을 작성하는데 사용된다.
-
-단일 기능을 설명할 때도 온전한 XML구조가 필요하다. ::
+기능설명을 위해 다음처럼 완전한 형태의 XML을 예시하는 것은 굉장히 번거롭다. ::
 
    <Server>
        <VHostDefault>
@@ -26,7 +25,7 @@
        </VHostDefault>
    </Server>
 
-예를 들어 server.xml의 위와 같은 설정은 다음과 같이 축약하여 설명한다. ::
+때문에 다음과 같이 축약하여 설명한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    <CaseSensitive>ON</CaseSensitive>
