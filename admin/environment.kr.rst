@@ -28,10 +28,8 @@
 
 예를 들어 server.xml의 위와 같은 설정은 다음과 같이 축약하여 설명한다. ::
 
-   # server.xml - <Server><VHostDefault>
-   <Options>
-      <CaseSensitive>ON</CaseSensitive>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   <CaseSensitive>ON</CaseSensitive>
 
 
 .. note:
