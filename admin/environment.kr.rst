@@ -16,6 +16,24 @@
 2개의 XML파일로 대부분의 서비스를 구성한다.
 여러 TXT파일에는 가상호스트별 예외조건을 설정하는데, 특정기능의 목록을 작성하는데 사용된다.
 
+설정에 대해 설명할 때 해당 설정과 부모 태그만 명시한다. ::
+
+   <Server>
+       <VHostDefault>
+           <Options>
+               <CaseSensitive>ON</CaseSensitive>
+           </Options>
+       </VHostDefault>
+   </Server>
+
+예를 들어 server.xml의 위와 같은 설정은 다음과 같이 축약하여 설명한다. ::
+
+   # server.xml - <Server><VHostDefault>
+   
+   <Options>
+      <CaseSensitive>ON</CaseSensitive>
+   </Options>
+
 
 .. note:
    
