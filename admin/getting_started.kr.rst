@@ -200,7 +200,7 @@ OS 구성
 
 .. _getting-started-samplevhost:
 
-HelloWorld
+Hello World
 ====================================
 vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
 
@@ -221,14 +221,14 @@ STON 실행
 
 2. server.xml을 열어 <Storage>를 구성한다. ::
 
-      <Server>
-          <Cache>
-              <Storage>
-                  <Disk>/cache1/</Disk>
-                  <Disk>/cache2/</Disk>
-              </Storage>
-          </Cache>
-      </Server>
+    <Server>
+        <Cache>
+            <Storage>
+                <Disk>/cache1/</Disk>
+                <Disk>/cache2/</Disk>
+            </Storage>
+        </Cache>
+    </Server>
       
 .. note::
 
@@ -323,12 +323,14 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 가상호스트는 원본서버를 대신해 콘텐츠를 서비스하는 것이 목적이다.
 서비스 형태에 맞게 다양한 원본서버는 다양하게 접근이 가능하다. ::
 
-    <Vhost ...>
-        <Origin>
-            <Address>1.1.1.1</Address>
-            <Address>1.1.1.2</Address>
-        </Origin>
-    </Vhost>
+    <Vhosts>
+        <Vhost ...>
+            <Origin>
+                <Address>1.1.1.1</Address>
+                <Address>1.1.1.2</Address>
+            </Origin>
+        </Vhost>
+    </Vhosts>
 
 -  ``<Address>``
    가상호스트가 콘텐츠를 복제 할 원본서버 주소.
