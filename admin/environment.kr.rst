@@ -407,7 +407,7 @@ Default 가상호스트
 서비스 주소를 설정한다. ::
 
     # vhosts.xml - <Vhosts>
-    <Vhost ...>
+    <Vhost Name="www.example.com">
         <Listen>*:80</Listen>
     </Vhost>
     
@@ -418,7 +418,7 @@ Default 가상호스트
    예를 들어 특정 IP(1.1.1.1)의 90포트로 서비스하고 싶다면 다음과 같이 설정한다. ::
    
        # vhosts.xml - <Vhosts>
-       <Vhost ...>
+       <Vhost Name="www.example.com">
            <Listen>1.1.1.1:90</Listen>
        </Vhost>
     
@@ -427,7 +427,7 @@ Default 가상호스트
    서비스 포트를 열지 않으려면 ``OFF`` 로 설정한다. ::
    
       # vhosts.xml - <Vhosts> 
-      <Vhost ...>
+      <Vhost Name="www.example.com">
          <Listen>OFF</Listen>
       </Vhost>
     
