@@ -16,6 +16,7 @@
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
+   
    <Purge2Expire>NONE</Purge2Expire>
    <RootPurgeExpire>ON</RootPurgeExpire>
    <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>   
@@ -184,6 +185,7 @@ Cold Control
 
    # server.xml - <Server><VHostDefault>
    # vhosts.xml - <Vhosts><Vhost>
+   
    <ColdControl>
       <Purge>OFF</Purge>
       <Expire>OFF</Expire>
