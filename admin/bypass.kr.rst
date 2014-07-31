@@ -32,9 +32,10 @@ No-Cache 요청 바이패스
     
 ::
 
-   <Options>
-      <BypassNoCacheRequest>OFF</BypassNoCacheRequest>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <BypassNoCacheRequest>OFF</BypassNoCacheRequest>   
     
 -  ``<BypassNoCacheRequest>``
 
@@ -56,10 +57,11 @@ GET/POST 바이패스
 바이패스가 GET/POST요청의 기본동작이 되도록 설정할 수 있다. 
 GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 
-   <Options>
-      <BypassPostRequest>ON</BypassPostRequest>
-      <BypassGetRequest>OFF</BypassGetRequest>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <BypassPostRequest>ON</BypassPostRequest>
+   <BypassGetRequest>OFF</BypassGetRequest>   
     
 -  ``<BypassPostRequest>``
 
@@ -105,10 +107,11 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
 `GET/POST 바이패스`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
 
-   <Options>
-      <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
-      <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
+   <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>   
 
 -  ``OriginAffinity``
 
@@ -146,10 +149,11 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 
 `GET/POST 바이패스`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
 
-   <Options>
-      <BypassPostRequest Private="OFF">...</BypassPostRequest>
-      <BypassGetRequest Private="OFF">...</BypassGetRequest>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <BypassPostRequest Private="OFF">...</BypassPostRequest>
+   <BypassGetRequest Private="OFF">...</BypassGetRequest>   
     
 -  ``Private``
 
@@ -174,10 +178,11 @@ Timeout
 이로 인해 처리 속도가 정적인 콘텐츠보다 느린 경우가 많다.
 바이패스 전용 Timeout을 설정하여 섣부른 장애판단이 되지 않도록 한다. ::
 
-   <OriginOptions>        
-      <BypassConnectTimeout>5</BypassConnectTimeout>
-      <BypassReceiveTimeout>300</BypassReceiveTimeout>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <BypassConnectTimeout>5</BypassConnectTimeout>
+   <BypassReceiveTimeout>300</BypassReceiveTimeout>   
 
 -  ``<BypassConnectTimeout> (기본: 5초)``   
    바이패스를 위해 n초 이내에 원본서버와 접속이 이루어지지 않는 경우 접속실패로 처리한다.
@@ -193,11 +198,12 @@ Timeout
 
 :ref:`origin-httprequest` 설정의 바이패스 적용여부를 설정한다. ::
 
-   <OriginOptions>
-      <UserAgent Bypass="OFF">...</UserAgent>
-      <Host Bypass="ON"/>
-      <XFFClientIPOnly Bypass="ON">...</XFFClientIPOnly>
-   </OriginOptions>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <UserAgent Bypass="OFF">...</UserAgent>
+   <Host Bypass="ON"/>
+   <XFFClientIPOnly Bypass="ON">...</XFFClientIPOnly>   
     
 -  ``Bypass`` 속성
 
@@ -214,12 +220,12 @@ Port 바이패스
 특정 TCP포트의 모든 패킷을 원본서버로 바이패스한다. 
 가상호스트 전용설정이다. ::
 
-   <Vhosts>
-      <Vhost Name="www.example">
-         <PortBypass>443</PortBypass>
-         <PortBypass Dest=”1935”>1935</PortBypass>
-      </Vhost>
-   </Vhosts>
+   # vhosts.xml - <Vhosts>
+      
+   <Vhost Name="www.example">
+      <PortBypass>443</PortBypass>
+      <PortBypass Dest=”1935”>1935</PortBypass>
+   </Vhost>
 
 -  ``<PortBypass>``   
    지정된 포트로 입력된 모든 패킷을 원본서버의 같은 포트로 바이패스한다.
