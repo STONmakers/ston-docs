@@ -246,6 +246,8 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
     모든 가상호스트의 기본 Listen설정인 *:80은 0.0.0.0:80을 의미한다. 
     지정된 IP만을 열고 싶은 경우 다음과 같이 명확하게 설정한다. ::
 
+       # server.xml - <Server>
+       
        <Cache>
          <Listen>10.10.10.10</Listen>
          <Listen>10.10.10.11</Listen>

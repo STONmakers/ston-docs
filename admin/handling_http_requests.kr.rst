@@ -21,11 +21,12 @@ HTTP 클라이언트가 서버(STON)에 접속하면 HTTP 세션이 생성된다
 요청부터 응답까지를 하나의 **HTTP 트랜잭션** 이라고 부른다.
 HTTP 세션은 여러 HTTP 트랜잭션을 순차적으로 처리한다. ::
 
-   <Options>
-      <ConnectionHeader>keep-alive</ConnectionHeader>
-      <ClientKeepAliveSec>10</ClientKeepAliveSec>
-      <KeepAliveHeader Max="0">ON</KeepAliveHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ConnectionHeader>keep-alive</ConnectionHeader>
+   <ClientKeepAliveSec>10</ClientKeepAliveSec>
+   <KeepAliveHeader Max="0">ON</KeepAliveHeader>   
     
 -  ``<ConnectionHeader> (기본: keep-alive)``    
    클라이언트에게 보내는 HTTP응답의 Connection헤더( ``keep-alive`` 또는 ``close`` )를 설정한다.
@@ -76,9 +77,10 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 2. ``<ConnectionHeader>`` 가 ``Close`` 로 설정된 경우 ::
 
-      <Options>
-         <ConnectionHeader>Close</ConnectionHeader>
-      </Options>
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+      
+      <ConnectionHeader>Close</ConnectionHeader>      
     
    클라이언트 HTTP요청과 상관없이 "Connection: Close"로 응답한다.
    Keep-Alive헤더는 명시되지 않는다. ::
@@ -90,10 +92,11 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 3. ``<KeepAliveHeader>`` 가 ``OFF`` 로 설정된 경우 ::
 
-      <Options>
-         <ConnectionHeader>Keep-Alive</ConnectionHeader>
-         <KeepAliveHeader>OFF</KeepAliveHeader>
-      </Options>
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+      
+      <ConnectionHeader>Keep-Alive</ConnectionHeader>
+      <KeepAliveHeader>OFF</KeepAliveHeader>
     
    Keep-Alive헤더가 명시되지 않는다. HTTP 세션은 지속적으로 재사용가능하다. ::
 
@@ -104,11 +107,12 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 4. ``<KeepAliveHeader>`` 가 ``ON`` 으로 설정된 경우 ::
 
-      <Options>
-         <ConnectionHeader>Keep-Alive</ConnectionHeader>
-         <ClientKeepAliveSec>10</ClientKeepAliveSec>
-         <KeepAliveHeader>ON</KeepAliveHeader>
-      </Options>
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+      
+      <ConnectionHeader>Keep-Alive</ConnectionHeader>
+      <ClientKeepAliveSec>10</ClientKeepAliveSec>
+      <KeepAliveHeader>ON</KeepAliveHeader>      
     
    Keep-Alive헤더가 명시된다.
    timeout값은 세션 Keep-Alive시간 설정을 사용한다. ::
@@ -130,11 +134,12 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
 5. ``<KeepAliveHeader>`` 의 ``Max`` 속성이 설정된 경우 ::
 
-      <Options>
-         <ConnectionHeader>Keep-Alive</ConnectionHeader>
-         <ClientKeepAliveSec>10</ClientKeepAliveSec>
-         <KeepAliveHeader Max="50">ON</KeepAliveHeader>
-      </Options>
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+      
+      <ConnectionHeader>Keep-Alive</ConnectionHeader>
+      <ClientKeepAliveSec>10</ClientKeepAliveSec>
+      <KeepAliveHeader Max="50">ON</KeepAliveHeader>      
     
    Keep-Alive헤더에 max값을 명시한다. 
    이 세션은 max회만큼 사용이 가능하며 HTTP 트랜잭션이 진행될때마다 1씩 감소된다. ::
@@ -174,9 +179,10 @@ Age 헤더
 Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며 
 `RFC2616 - 13.2.3 Age Calculations <http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.2.3>`_ 에 의하여 계산된다. ::
 
-   <Options>
-      <AgeHeader>OFF</AgeHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <AgeHeader>OFF</AgeHeader>   
     
 -  ``<AgeHeader>``
     
@@ -190,9 +196,10 @@ Expires 헤더
 
 Expires헤더를 재설정한다. ::
 
-   <Options>
-      <RefreshExpiresHeader Base="Access">OFF</RefreshExpiresHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <RefreshExpiresHeader Base="Access">OFF</RefreshExpiresHeader>   
     
 -  ``<RefreshExpiresHeader>``
     
@@ -256,9 +263,10 @@ ETag 헤더
 
 클라이언트에게 보내는 HTTP응답에 ETag 헤더 명시여부를 설정한다. ::
 
-   <Options>
-      <ETagHeader>ON</ETagHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ETagHeader>ON</ETagHeader>   
     
 -  ``<ETagHeader>``
     
@@ -277,9 +285,10 @@ HTTP 요청/응답 헤더 변경
 
 클라이언트 HTTP요청과 응답을 특정 조건에 따라 변경한다. ::
 
-   <Options>
-      <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>   
     
 -  ``<ModifyHeader>``
     
@@ -374,9 +383,10 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 
 성능상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
 
-   <Options>
-      <OriginalHeader>OFF</OriginalHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <OriginalHeader>OFF</OriginalHeader>   
     
 -  ``<OriginalHeader>``
 
@@ -391,9 +401,10 @@ Via 헤더
 
 클라이언트에게 보내는 HTTP응답에 Via 헤더 명시여부를 설정한다. ::
 
-   <Options>
-      <ViaHeader>ON</ViaHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ViaHeader>ON</ViaHeader>   
     
 -  ``<ViaHeader>``
     
@@ -410,9 +421,10 @@ Server 헤더
  
 클라이언트에게 보내는 HTTP응답에 Server 헤더 명시여부를 설정한다. ::
 
-   <Options>
-      <ServerHeader>ON</ServerHeader>
-   </Options>
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ServerHeader>ON</ServerHeader>   
     
 -  ``<ServerHeader>``
     
@@ -437,6 +449,8 @@ URL전처리가 설정되어 있다면 모든 클라이언 요청(HTTP 또는 Fi
 URL 전처리는 가상호스트 설정(vhosts.xml)에 설정한다.
 대부분의 설정이 가상호스트에 종속되지만, URL전처리의 경우 클라이언트가 요청한 Host의 이름을 변경할 수 있으므로 가상호스트와 같은 레벨로 설정한다. ::
 
+   # vhosts.xml
+   
    <Vhosts>
       <Vhost ...> ... </Vhost>
       <Vhost ...> ... </Vhost>
@@ -446,6 +460,8 @@ URL 전처리는 가상호스트 설정(vhosts.xml)에 설정한다.
     
 멀티로 설정할 수 있으며 순차적으로 정규표현식 일치 여부를 비교한다. ::
 
+   # vhosts.xml - <Vhosts>
+   
    <URLRewrite AccessLog="Replace">
        <Pattern>www.exmaple.com/([^/]+)/(.*)</Pattern>
        <Replace>#1.exmaple.com/#2</Replace>
@@ -467,6 +483,8 @@ URL 전처리는 가상호스트 설정(vhosts.xml)에 설정한다.
       
 처리량은 :ref:`monitoring_stats` 로 제공되며 :ref:`api-graph-urlrewrite` 로도 확인할 수 있다. 
 URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과 결합하여 표현을 간결하게 만든다. ::
+
+   # vhosts.xml - <Vhosts>
 
    <URLRewrite>
        <Pattern>example.com/([^/]+)/(.*)</Pattern>
