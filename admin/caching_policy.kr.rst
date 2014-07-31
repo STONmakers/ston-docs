@@ -50,6 +50,7 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <TTL>
         <Res2xx Ratio="20" Max="86400">1800</Res2xx>
         <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
@@ -126,6 +127,7 @@ URL마다 별도로 TTL을 설정한다.
 
     # /svc/www.example.com/ttl.txt
     # 구분자는 콤마(,)이며 시간 단위는 초이다.
+    
     *.jsp, 10
     /,5
     /index.html, 5
@@ -145,6 +147,7 @@ TTL 우선순위
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
         ... (생략) ...
     </TTL>    
@@ -169,6 +172,7 @@ TTL 우선순위
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <TTLExtensionBy4xx>OFF</TTLExtensionBy4xx>
     <TTLExtensionBy5xx>ON</TTLExtensionBy5xx>
 
@@ -237,6 +241,7 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <RefreshExpired>ON</RefreshExpired>    
 
 -  ``<RefreshExpired>``
@@ -276,6 +281,7 @@ TTL이 만료된 콘텐츠의 경우 원본서버에서 갱신여부를 확인�
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <NoCacheRequestExpire>OFF</NoCacheRequestExpire>    
 
 -  ``<NoCacheRequestExpire>``
@@ -303,6 +309,7 @@ Accept-Encoding 헤더
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <AcceptEncoding>ON</AcceptEncoding>    
 
 -  ``<AcceptEncoding>``
@@ -330,6 +337,7 @@ Accept-Encoding 헤더
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <CaseSensitive>ON</CaseSensitive>    
 
 -  ``<CaseSensitive>``
@@ -356,6 +364,7 @@ QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 Que
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <ApplyQueryString>ON</ApplyQueryString>    
 
 -  ``<ApplyQueryString>``
@@ -367,6 +376,7 @@ QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 Que
 QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설정한다. ::
 
     # ./svc/www.example.com/querystring.txt
+    
     /private/personal.jsp?login=ok*
     /image/ad.jpg
 
@@ -382,6 +392,7 @@ Vary헤더를 인식하여 콘텐츠를 구분한다.
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <VaryHeader />    
     
 -  ``<VaryHeader>``
@@ -397,12 +408,14 @@ User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 �
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <VaryHeader>Accept-Encoding, Accept</VaryHeader>    
     
 원본서버가 보낸 모든 Vary헤더를 인식하게 하려면 다음과 같이 설정한다. ::
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <VaryHeader>*</VaryHeader>    
 
 
@@ -414,6 +427,7 @@ POST 요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
 
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
+    
     <PostRequest MaxContentLength="102400" BodySensitive="ON">OFF</PostRequest>    
 
 -  ``<PostRequest>``
@@ -437,6 +451,7 @@ POST 요청의 특성상 URL은 같지만 Body데이터가 다를 수 있다. ::
 POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정한다. ::
     
     # /svc/www.example.com/postbody.txt
+    
     /bigsale/*.php?nocache=*
     /goods/search.php
     

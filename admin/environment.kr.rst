@@ -28,6 +28,7 @@
 때문에 다음과 같이 축약하여 설명한다. ::
 
    # server.xml - <Server><VHostDefault><Options>
+   
    <CaseSensitive>ON</CaseSensitive>
 
 
@@ -56,6 +57,7 @@ server.xml 전역설정
 XML형식의 텍스트파일이다. ::
 
     # server.xml
+    
     <Server>
         <Host> ... </Host>
         <Cache> ... </Cache>
@@ -77,6 +79,7 @@ XML형식의 텍스트파일이다. ::
 관리목적의 기능을 설정한다. ::
 
     # server.xml - <Server>
+    
     <Host>
         <Name>stream_07</Name>
         <Admin>admin@example.com</Admin>
@@ -131,6 +134,7 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다.
 Storage는 Caching서비스 설정 중 가장 중요하다. ::
 
     # server.xml - <Server>
+    
     <Cache>
         <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
             <Disk>/user/cache1</Disk>    
@@ -177,6 +181,7 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
 사용할 최대 메모리와 BodyRatio(파일로부터 메모리에 적재된 데이터의 비율)를 설정한다. ::
 
     # server.xml - <Server>
+    
     <Cache>
         <Resource>
             <SystemMemoryRatio>100</SystemMemoryRatio>
@@ -216,6 +221,7 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
 기타 Caching서비스의 기반동작을 설정한다. ::
 
     # server.xml - <Server>
+    
     <Cache>
         <Cleanup>
             <Time>02:00</Time>
@@ -294,6 +300,7 @@ www.example.com의 경우 별도로 덮어쓰기(Overriding)한 값이 없으므
 ``<VHostDefault>`` 는 기능별로 묶인 5개의 하위 태그를 가진다. ::
 
     # server.xml - <Server>
+    
     <VHostDefault>
         <Options> ... </Options>  
         <OriginOptions> ... </OriginOptions>  
@@ -314,6 +321,7 @@ vhosts.xml 가상호스트 설정
 가상호스트 개수에 제한은 없다. ::
 
     # vhosts.xml
+    
     <Vhosts>
         <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
         <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
@@ -329,6 +337,7 @@ vhosts.xml 가상호스트 설정
 ``<Vhosts>`` 하위에 ``<Vhost>`` 로 가상호스트를 설정한다. ::
 
     # vhosts.xml - <Vhosts>
+    
     <Vhost Status="Active" Name="www.example.com">
         <Origin>
             <Address>10.10.10.10</Address>
@@ -359,6 +368,7 @@ vhosts.xml 가상호스트 설정
 하나의 가상호스트를 여러 이름으로 서비스하고 싶다면 ``<Alias>`` 를 사용한다. ::
 
     # vhosts.xml - <Vhosts>
+    
     <Vhost Name="www.example.com">
         <Alias>www2.example.com</Alias>
         <Alias>*.sub.example.com</Alias>
@@ -388,6 +398,7 @@ Default 가상호스트
 요청을 처리하고 싶지 않다면 설정하지 않아도 된다. ::
 
     # vhosts.xml
+    
     <Vhosts>
         <Vhost Status="Active" Name="www.example.com"> ... </Vhost>
         <Vhost Status="Active" Name="img.example.com"> ... </Vhost>
@@ -407,6 +418,7 @@ Default 가상호스트
 서비스 주소를 설정한다. ::
 
     # vhosts.xml - <Vhosts>
+    
     <Vhost Name="www.example.com">
         <Listen>*:80</Listen>
     </Vhost>
@@ -418,6 +430,7 @@ Default 가상호스트
    예를 들어 특정 IP(1.1.1.1)의 90포트로 서비스하고 싶다면 다음과 같이 설정한다. ::
    
        # vhosts.xml - <Vhosts>
+       
        <Vhost Name="www.example.com">
            <Listen>1.1.1.1:90</Listen>
        </Vhost>
@@ -427,6 +440,7 @@ Default 가상호스트
    서비스 포트를 열지 않으려면 ``OFF`` 로 설정한다. ::
    
       # vhosts.xml - <Vhosts> 
+      
       <Vhost Name="www.example.com">
          <Listen>OFF</Listen>
       </Vhost>
