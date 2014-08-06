@@ -107,7 +107,7 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
 .. _caching-policy-ttl-originbusy:
 
 -  ``<OriginBusy> (기본: 3초)``
-   :ref:`origin-busysessioncount`_ 조건을 만족하면 원본서버 요청없이 만료된 콘텐츠의 TTL을 설정된 시간만큼 연장한다.
+   :ref:`origin-busysessioncount` 조건을 만족하면 원본서버 요청없이 만료된 콘텐츠의 TTL을 설정된 시간만큼 연장한다.
    이는 원본서버의 부하를 가중시키지 않기 위함이다.
    
 .. note::
