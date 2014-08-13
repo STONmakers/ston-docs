@@ -74,7 +74,6 @@ Health-Checker
 ``<Recovery>`` 는 응답코드를 받는 즉시 HTTP Transaction을 종료한다.
 하지만 Health-Checker는 HTTP Transaction이 성공함을 확인한다. ::
 
-   # server.xml - <Server><VHostDefault>
    # vhosts.xml - <Vhosts><Vhost>
    
    <Origin>
