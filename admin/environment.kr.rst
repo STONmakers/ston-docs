@@ -183,10 +183,8 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
     # server.xml - <Server>
     
     <Cache>
-        <Resource>
-            <SystemMemoryRatio>100</SystemMemoryRatio>
-            <BodyRatio>50</BodyRatio>
-        </Resource>
+        <SystemMemoryRatio>100</SystemMemoryRatio>
+        <BodyRatio>50</BodyRatio>
     </Cache>
     
 -  ``<SystemMemoryRatio> (기본: 100%)``
