@@ -177,7 +177,7 @@ Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한�
 
    # server.xml - <Server><Host>
 
-   <SNMP>
+   <SNMP UnregisteredCommunity="Allow">
       <Community Name="example1" OID="Allow">
          <OID>1.3.6.1.4.1.40001.1.4.1</OID>
          <OID>1.3.6.1.4.1.40001.1.4.2</OID>
@@ -188,6 +188,8 @@ Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한�
       </Community>
    </SNMP>
     
+``<SNMP>`` 의 ``UnregisteredCommunity`` 속성을 "Deny"로 설정하면 등록되지 않은 모든 Community의 요청은 모두 차단한다.
+
 -  ``<Community>`` Community를 설정한다.
 
    - ``Name`` Community 이름.
