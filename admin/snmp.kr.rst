@@ -188,7 +188,7 @@ Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한�
       </Community>
    </SNMP>
     
-``<SNMP>`` 의 ``UnregisteredCommunity`` 속성을 "Deny"로 설정하면 등록되지 않은 모든 Community의 요청은 모두 차단한다.
+``<SNMP>`` 의 ``UnregisteredCommunity`` 를 "Deny"로 설정하면 등록되지 않은 Community 요청은 차단한다.
 
 -  ``<Community>`` Community를 설정한다.
 
