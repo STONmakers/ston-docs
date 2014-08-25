@@ -167,7 +167,7 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
 
 Storage 구성시 가장 중요하게 고려해야 할 것은 저장할 파일개수다.
 파일이 많아질수록 I/O성능이 급격히 떨어져서 서비스 품질이 떨어진다.
-그래서 최대 파일개수를 ``<Storage>`` 의 ``FileMaxCount (기본: Disk * 200백만)`` 속성으로 설정한다.
+최대 파일개수를 ``<Storage>`` 의 ``FileMaxCount (기본: Disk * 200백만)`` 속성으로 설정하여 원하는 서비스 품질과 형태를 구성할 수 있다.
 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면 다음과 같이 설정한다.
 
     # server.xml - <Server>
