@@ -40,6 +40,8 @@ TTL은 한번 설정되면 만료되기 전까지 바뀌지 않는다.
 관리자는 :ref:`api-cmd-purge` , :ref:`api-cmd-expire` , :ref:`api-cmd-expireafter` , :ref:`api-cmd-hardpurge` 등의 API를 사용해 TTL을 변경할 수 있다.
 
 
+.. _caching-policy-ttl:
+
 기본 TTL
 ---------------------
 
@@ -103,8 +105,6 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
 -  ``<ReceiveTimeout> (기본: 3초)``
    접속은 됐으나 데이터를 수신하지 못하는 경우 TTL을 설정한다.
    ``<ConnectTimeout>`` 과 의미적 동일하다.
-
-.. _caching-policy-ttl-originbusy:
 
 -  ``<OriginBusy> (기본: 3초)``
    :ref:`origin-busysessioncount` 조건을 만족하면 원본서버 요청없이 만료된 콘텐츠의 TTL을 설정된 시간만큼 연장한다.
