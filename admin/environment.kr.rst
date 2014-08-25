@@ -11,7 +11,7 @@
    .. figure:: img/conf_files.png
       :align: center
 
-      3개의 .xml파일이 전부입니다.
+      2개의 .xml파일이 전부입니다.
 
 2개의 XML파일로 대부분의 서비스를 구성한다.
 여러 TXT파일에는 가상호스트별 예외조건을 설정하는데, 특정기능의 목록을 작성하는데 사용된다.
@@ -136,9 +136,9 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
     # server.xml - <Server>
     
     <Cache>
-        <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
+        <Storage DiskFailSec="60" DiskFailCount="10" FileMaxCount="2000000" OnCrash="hang">
             <Disk>/user/cache1</Disk>    
-            <Disk FileMaxCount="2000000">/user/cache2</Disk>    
+            <Disk>/user/cache2</Disk>    
             <Disk Quota="100">/user/cache3</Disk>
         </Storage>
     </Cache>
@@ -163,10 +163,12 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
     - ``selfkill`` STON을 종료시킨다.
     
 
-문제는 파일이 많아질수록 I/O는 기하급수적으로 저하되어 서비스 품질에 영향을 준다는 점이다.
-그래서 기본적으로 각 ``<Disk>`` 당 최대 파일개수를 ``FileMaxCount (기본: 2000000)`` 속성으로 제한한다. 
-예를 들어 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면, 
-각 ``<Disk>`` 의 ``FileMaxCount`` 속성을 명시적으로 2천만 개로 설정해야 한다.
+문제는 파일이 많아질수록 I/O성능이 급격히 떨어져서 서비스 품질에 영향을 준다는 점이다.
+그래서 최대 파일개수를 ``<Storage>`` 의 ``FileMaxCount (기본: Disk * 200백만)`` 속성으로 제한한다.
+예를 들어 ``<Disk>`` 가 5개 구성된 서비스의 기본 ``FileMaxCount`` 값은 1,000만이다.
+
+여러분이 5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면, 
+각 ``FileMaxCount`` 속성을 명시적으로 100000000 으로 설정해야 한다.
 
 각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정할 수 있다.
 굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
