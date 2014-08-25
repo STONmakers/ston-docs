@@ -127,7 +127,7 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
       < ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계 >
     
       ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 보다 근본적인 문제와 관련이 있다. 
-      성능이나 자원적으로 가장 중요한 이슈는 `` "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" `` 이다. 
+      성능이나 자원적으로 가장 중요한 이슈는 ** "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" ** 이다. 
       HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 Idle세션 정리는 훨씬 민감한 문제이다. 
       이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
