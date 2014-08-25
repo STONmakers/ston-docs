@@ -249,7 +249,7 @@ STON 실행
 가상호스트 동작확인
 -----------------------------------------------
 
-(Windows 7 기준) C:\\Windows\\System32\\drivers\\etc\\hosts\\hosts 파일에 다음과 같이
+(Windows 7 기준) C:\\Windows\\System32\\drivers\\etc\\hosts 파일에 다음과 같이
 www.example.com 도메인을 설정한다. ::
 
     192.168.0.100        www.example.com
