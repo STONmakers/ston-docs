@@ -127,7 +127,7 @@ HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
       < ``<Keep-Alive>`` 와 ``<ClientKeepAliveSec>`` 의 관계 >
     
       ``<Keep-Alive>`` 설정시 ``<ClientKeepAliveSec>`` 를 참고하지만 ``<ClientKeepAliveSec>`` 는 보다 근본적인 문제와 관련이 있다. 
-      성능이나 자원적으로 가장 중요한 이슈는 ** "Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)을 언제 정리할 것인가?" ** 이다. 
+      성능이나 자원적으로 가장 중요한 이슈는 Idle세션(=HTTP 트랜잭션이 발생되지 않는 세션)의 정리시점을 잡는 것이다.
       HTTP 헤더 설정은 동적으로 변경되거나 때로 생략될 수 있지만 Idle세션 정리는 훨씬 민감한 문제이다. 
       이런 이유 때문에 ``<ClientKeepAliveSec>`` 는 ``<KeepAliveHeader>`` 에 통합되지 않고 별도로 존재한다.
    
@@ -481,7 +481,7 @@ URL 전처리는 가상호스트 설정(vhosts.xml)에 설정한다.
       일치된 패턴에 대해서는 #1, #2와 같이 사용할 수 있다. #0는 요청 URL전체를 의미한다. 
       패턴은 최대 9개(#9)까지 지정할 수 있다.
       
-처리량은 :ref:`monitoring_stats` 로 제공되며 :ref:`api-graph-urlrewrite` 로도 확인할 수 있다. 
+처리량은 :ref:`monitoring_stats` 로 제공되며 :ref:`api-graph-urlrewrite` 으로도 확인할 수 있다. 
 URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과 결합하여 표현을 간결하게 만든다. ::
 
    # vhosts.xml - <Vhosts>
