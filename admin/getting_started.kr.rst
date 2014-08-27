@@ -256,7 +256,7 @@ www.example.com 도메인을 설정한다. ::
 
 브라우저로 www.example.com에 접근했을 때 다음 페이지가 정상적으로 서비스되면 성공입니다.
 
-   .. figure:: img/welcome_page.png
+   .. figure:: img/helloworld.png
       :align: center
 
 
