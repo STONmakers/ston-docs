@@ -4,7 +4,7 @@
 ******************
 
 이 장에서는 원치않는 클라이언트 접근을 차단하는 방법에 대해 설명한다.
-접근차단은 보통 ACL(Access Control List)에 차단목록을 작성하지만 설정편의상 허용목록을 작상하기도 한다.
+접근차단은 보통 ACL(Access Control List)에 차단목록을 작성하지만 설정편의상 허용목록을 작성하기도 한다.
 
 접근제어는 접속단계에서 수행하는 서버 접근제어와 가상호스트마다 설정하는 가상호스트 접근제어로 나뉜다.
 수준별로 시점과 판단기준이 다르므로 효과적인 차단시점을 결정해야 한다.
@@ -37,7 +37,7 @@
    ``Default (기본: Allow)`` 속성은 일치하는 조건이 없을 때 처리방법이다.
    이 속성을 ``Deny`` 로 설정하면 하위에 ``<Allow>`` 로 허가할 조건들을 명시해주어야 한다.
    
-차단된 IP는 :ref:`admin-log-global` 중 Deny로그에 기록된다.
+차단된 IP는 :ref:`admin-log-deny` 에 기록된다.
 
 
 .. _access-control-geoip:
@@ -64,7 +64,7 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
 .. note::
 
    GeoIP는 파일명이 예약되어 있으므로 반드시 저장된 로컬경로를 입력하도록 설정한다. 
-   또한 자동으로 변경이 반영되기 별도로 설정을 Reload하지 않아도 된다.
+   또한 자동으로 변경이 반영되기 때문에 별도로 설정을 Reload하지 않아도 된다.
    
    
 GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을 조회한다. 
@@ -117,7 +117,7 @@ GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을
      ``Default (기본: Allow)`` 속성이 ``Allow`` 라면 ACL은 거부목록이 된다. 
      반대로 ``Deny`` 라면 ACL은 허가목록이 된다.
      
-:ref:`admin-log-access` 에 기록된다.
+Deny된 요청은 :ref:`admin-log-access` 에 TCP_DENY로 기록된다.
 
 
 .. _access-control-vhost_acl:
