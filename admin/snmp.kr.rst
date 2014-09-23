@@ -11,7 +11,6 @@
 - 별도의 패키지가 필요없다.
 - snmpd를 별도로 실행하지 않는다.
 - SNMP v1과 v2c를 지원한다.
-- Community를 등록하는 절차없이 Public을 사용한다.
 
 .. toctree::
    :maxdepth: 2
