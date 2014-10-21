@@ -114,46 +114,40 @@ Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 �
 
 원본주소(IP)는 다음 요소들에 의해 어떻게 사용될지 결정된다.
 
--  ref:`env-vhost-activeorigin`_ 주소 형식(IP 또는 Domain)과 보조주소
+-  :ref:`env-vhost-activeorigin`_ 주소 형식(IP 또는 Domain)과 보조주소
 -  `origin_exclusion_and_recovery`_
 -  `origin-health-checker`_
 
 서비스를 운영하다보면 원본주소가 배제/복구되는 일은 빈번하다. 
 STON은 IP테이블을 기반으로 원본주소를 사용하며 `origin-status`_ API를 통해 정보를 제공한다.
 
-원본주소가 IP인 경우 사용정책은 다음과 같이 간단하다.
+원본주소를 IP로 설정한 경우 매우 간단하다. 
 
 -  설정변경 이외에 IP목록을 변화시키는 요인은 없다.
 -  TTL에 의해 IP주소가 만료되지 않는다.
+-  장애/복구 모두 설정(IP주소)에 기반하여 동작한다.
 
-Domain인 경우는 Resolving과 IP테이블에 대해 이해해야 한다.
-Resolving된 IP의 경우 TTL(Time To Live)동안만 유효하다.
+원본주소를 Domain으로 설정하면 Domain주소로부터 Resolving과 IP를 사용해야 한다. 
+IP 목록은 동적으로 변경될 수 있으며 모든 IP는 TTL(Time To Live)동안만 유효하다.
 
 -  Domain은 주기적으로(1~10초) Resolving한다.
 -  Resolving결과를 통해 사용할 IP테이블을 구성한다.
 -  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 사용하지 않는다.
--  같은 IP가 다시 Resolving됐다면 ?TTL을 갱신한다.
+-  같은 IP가 다시 Resolving되면 TTL을 갱신한다.
 -  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP들은 삭제되지 않는다.
 
-위 원칙에 더하여 장애/복구 상황 정책은 다음과 같다.
+원본주소를 Domain으로 설정하여도 장애/복구는 IP기반으로 동작한다. 
+여기서 미묘한 점이 있다.
+DNS 클라이언트(=STON)는 Domain의 모든 IP 목록을 정확히 알 수 없다. 
+하지만 사용할 수 없는 IP들만으로 Domain을 구성할 경우 장애상태가 지속될 수 없다.
 
--  ``InactiveIP`` 상태의 IP가 Resolving되었을 때,
+Domain주소 장애/복구 정책은 다음과 같다.
 
-   -  복구가 진행 중이라면 TTL을 연장한다.
-   -  복구하지 않고 있다면 서비스에 다시 투입한다.
-   
--  Resolving된 모든 IP가 Inactive상태가 되면 해당 Domain도 Inactive가 된다.
--  Domain이 Inactive상태라면 이후 Resolving된 IP들도 모두 Inactive상태가 된다.
-   
-   -  모든 IP가 TTL만료되더라도 Domain은 Inactive상태가 유지된다.
-   -  `origin_exclusion_and_recovery`_ 또는 `origin-health-checker`_ 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
+-  (Domain에 대해) 알고 있는 모든 IP주소가 배제(Inactive)되면 해당 Domain주소가 배제된다.
+-  신규 IP가 Resolving되더라도 Domain이 배제되어 있다면 IP주소가 배제된다.
+-  모든 IP가 TTL이 만료되더라도 배제된 Domain상태는 풀리지 않는다.
+-  배제된 Domain에 속한 IP주소가 하나라도 복구되면 해당 Domain은 다시 활성화된다.
 
-
-Domain주소는 ``Inactive`` 상태가 되지 않는다. 
-왜냐하면 일반적으로 Domain은 여러 개의 IP주소로 서비스되는데 
-모든 IP가 Resolving되었음을 알 수 없기 때문이다.   
-예를 들어 Resolving결과로 얻은 모든 IP에 장애가 발생했다고 해도 아직 몇 개의 IP가 남았는지 알 수 없다. 때문에 특정 IP가 사용되지 않을 뿐 설정주소가 ``Inactive`` 되지는 않는다.
-   
 
 
 .. _origin-status:
