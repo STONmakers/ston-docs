@@ -203,7 +203,7 @@ Domain인 경우는 Resolving결과를 충실히 따른다.
 -  Domain이 Inactive상태라면 이후 Resolving된 IP들도 모두 Inactive상태가 된다.
    
    -  모든 IP가 TTL만료되더라도 Domain은 Inactive상태가 유지된다.
-   -  `origin_exclusion_and_recovery` 또는 `origin-health-checker` 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
+   -  `origin_exclusion_and_recovery`_ 또는 `origin-health-checker`_ 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
 
 
 Domain주소는 ``Inactive`` 상태가 되지 않는다. 
