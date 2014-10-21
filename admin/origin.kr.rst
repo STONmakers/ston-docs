@@ -64,6 +64,7 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
 
    -  ``Log (기본: ON)`` 복구를 위해 사용된 HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
       
+      
 
 .. _origin-health-checker:
 
@@ -106,7 +107,57 @@ Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 �
 자신만의 기준으로 배제와 투입을 결정한다.
 
 
+.. _origin-use-policy:
+
+원본주소 사용정책
+====================================
+
+원본주소(IP)는 다음 요소들에 의해 어떻게 사용될지 결정된다.
+
+-  ref:`env-vhost-activeorigin`_ 주소 형식(IP 또는 Domain)과 보조주소
+-  `origin_exclusion_and_recovery`_
+-  `origin-health-checker`_
+
+서비스를 운영하다보면 원본주소가 배제/복구되는 일은 빈번하다. 
+STON은 IP테이블을 기반으로 원본주소를 사용하며 `origin-status`_ API를 통해 정보를 제공한다.
+
+원본주소가 IP인 경우 사용정책은 다음과 같이 간단하다.
+
+-  설정변경 이외에 IP목록을 변화시키는 요인은 없다.
+-  TTL에 의해 IP주소가 만료되지 않는다.
+
+Domain인 경우는 Resolving과 IP테이블에 대해 이해해야 한다.
+Resolving된 IP의 경우 TTL(Time To Live)동안만 유효하다.
+
+-  Domain은 주기적으로(1~10초) Resolving한다.
+-  Resolving결과를 통해 사용할 IP테이블을 구성한다.
+-  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 사용하지 않는다.
+-  같은 IP가 다시 Resolving됐다면 ?TTL을 갱신한다.
+-  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP들은 삭제되지 않는다.
+
+위 원칙에 더하여 장애/복구 상황 정책은 다음과 같다.
+
+-  ``InactiveIP`` 상태의 IP가 Resolving되었을 때,
+
+   -  복구가 진행 중이라면 TTL을 연장한다.
+   -  복구하지 않고 있다면 서비스에 다시 투입한다.
    
+-  Resolving된 모든 IP가 Inactive상태가 되면 해당 Domain도 Inactive가 된다.
+-  Domain이 Inactive상태라면 이후 Resolving된 IP들도 모두 Inactive상태가 된다.
+   
+   -  모든 IP가 TTL만료되더라도 Domain은 Inactive상태가 유지된다.
+   -  `origin_exclusion_and_recovery`_ 또는 `origin-health-checker`_ 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
+
+
+Domain주소는 ``Inactive`` 상태가 되지 않는다. 
+왜냐하면 일반적으로 Domain은 여러 개의 IP주소로 서비스되는데 
+모든 IP가 Resolving되었음을 알 수 없기 때문이다.   
+예를 들어 Resolving결과로 얻은 모든 IP에 장애가 발생했다고 해도 아직 몇 개의 IP가 남았는지 알 수 없다. 때문에 특정 IP가 사용되지 않을 뿐 설정주소가 ``Inactive`` 되지는 않는다.
+   
+
+
+.. _origin-status:
+
 원본상태 모니터링
 ====================================
 
@@ -174,46 +225,10 @@ API를 통해 가상호스트의 원본상태를 모니터링한다. ::
    사용하지 않더라도 복구 중이거나 HealthChecker에 의해 관리될 수 있다.
    해당 주소는 TTL 동안 복구되지 않으면 삭제된다.
    
-   
-원본상태는 여러 요인에 의해 유동적으로 변경될 수 있다. 
-따라서 설정별로 동작방식에 대해 정확히 이해할 필요가 있다.
-
-원본주소가 IP인 경우는 간단하다.
-
--  설정변경 이외에 IP목록을 변화시키는 요인은 없다.
--  TTL에 의해 IP주소가 만료되지 않는다. (항상 0으로 명시)
-
-Domain인 경우는 Resolving결과를 충실히 따른다. 
-특히 TTL(Time To Live)동안만 Resolving된 IP를 사용한다.
-
--  Domain은 주기적으로(1~10초) Resolving한다.
--  Resolving결과를 통해 사용할 IP테이블을 구성한다.
--  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 사용하지 않는다.
--  같은 IP가 다시 Resolving됐다면 ?TTL을 갱신한다.
--  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP들은 삭제되지 않는다.
-
-위 원칙에 더하여 장애/복구 상황 정책은 다음과 같다.
-
--  ``InactiveIP`` 상태의 IP가 Resolving되었을 때,
-
-   -  복구가 진행 중이라면 TTL을 연장한다.
-   -  복구하지 않고 있다면 서비스에 다시 투입한다.
-   
--  Resolving된 모든 IP가 Inactive상태가 되면 해당 Domain도 Inactive가 된다.
--  Domain이 Inactive상태라면 이후 Resolving된 IP들도 모두 Inactive상태가 된다.
-   
-   -  모든 IP가 TTL만료되더라도 Domain은 Inactive상태가 유지된다.
-   -  `origin_exclusion_and_recovery`_ 또는 `origin-health-checker`_ 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
-
-
-Domain주소는 ``Inactive`` 상태가 되지 않는다. 
-왜냐하면 일반적으로 Domain은 여러 개의 IP주소로 서비스되는데 
-모든 IP가 Resolving되었음을 알 수 없기 때문이다.   
-예를 들어 Resolving결과로 얻은 모든 IP에 장애가 발생했다고 해도 아직 몇 개의 IP가 남았는지 알 수 없다. 때문에 특정 IP가 사용되지 않을 뿐 설정주소가 ``Inactive`` 되지는 않는다.
-   
-
 
     
+.. _origin-status-reset:
+
 원본상태 초기화
 ====================================
 
