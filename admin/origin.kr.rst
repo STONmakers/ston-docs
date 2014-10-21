@@ -127,7 +127,7 @@ STON은 IP테이블을 기반으로 원본주소를 사용하며 `origin-status`
 -  TTL에 의해 IP주소가 만료되지 않는다.
 -  장애/복구 모두 설정(IP주소)에 기반하여 동작한다.
 
-원본주소를 Domain으로 설정하면 Domain주소로부터 Resolving과 IP를 사용해야 한다. 
+원본주소를 Domain으로 설정하면 Resolving해서 IP를 얻어야 한다. 
 IP 목록은 동적으로 변경될 수 있으며 모든 IP는 TTL(Time To Live)동안만 유효하다.
 
 -  Domain은 주기적으로(1~10초) Resolving한다.
