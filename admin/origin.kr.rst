@@ -115,8 +115,8 @@ Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 �
 원본주소(IP)는 다음 요소들에 의해 어떻게 사용될지 결정된다.
 
 -  :ref:`env-vhost-activeorigin` 주소 형식(IP 또는 Domain)과 보조주소
--  `origin_exclusion_and_recovery`_
--  `origin-health-checker`_
+-  `장애감지와 복구`_
+-  `Health-Checker`_
 
 서비스를 운영하다보면 원본주소가 배제/복구되는 일은 빈번하다. 
 STON은 IP테이블을 기반으로 원본주소를 사용하며 `origin-status`_ API를 통해 정보를 제공한다.
