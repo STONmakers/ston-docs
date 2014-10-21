@@ -114,7 +114,7 @@ Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 �
 
 원본주소(IP)는 다음 요소들에 의해 어떻게 사용될지 결정된다.
 
--  :ref:`env-vhost-activeorigin`_ 주소 형식(IP 또는 Domain)과 보조주소
+-  :ref:`env-vhost-activeorigin` 주소 형식(IP 또는 Domain)과 보조주소
 -  `origin_exclusion_and_recovery`_
 -  `origin-health-checker`_
 
