@@ -183,17 +183,27 @@ API를 통해 가상호스트의 원본상태를 모니터링한다. ::
 -  설정변경 이외에 IP목록을 변화시키는 요인은 없다.
 -  TTL에 의해 IP주소가 만료되지 않는다. (항상 0으로 명시)
 
-원본주소가 Domain인 경우는 다소 복잡하다.
+Domain인 경우는 Resolving결과를 충실히 따른다. 
+특히 TTL(Time To Live)동안만 Resolving된 IP를 사용한다.
 
 -  Domain은 주기적으로(1~10초) Resolving한다.
--  Resolving결과로 IP테이블을 구성한다.
--  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 삭제된다.
--  같은 IP가 다시 Resolving됐다면 최신 TTL을 사용한다.
--  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP는 삭제되지 않는다.
+-  Resolving결과를 통해 사용할 IP테이블을 구성한다.
+-  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 사용하지 않는다.
+-  같은 IP가 다시 Resolving됐다면 ?TTL을 갱신한다.
+-  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP들은 삭제되지 않는다.
+
+위 원칙에 더하여 장애/복구 상황 정책은 다음과 같다.
+
 -  ``InactiveIP`` 상태의 IP가 Resolving되었을 때,
 
    -  복구가 진행 중이라면 TTL을 연장한다.
    -  복구하지 않고 있다면 서비스에 다시 투입한다.
+   
+-  Resolving된 모든 IP가 Inactive상태가 되면 해당 Domain도 Inactive가 된다.
+-  Domain이 Inactive상태라면 이후 Resolving된 IP들도 모두 Inactive상태가 된다.
+   
+   -  모든 IP가 TTL만료되더라도 Domain은 Inactive상태가 유지된다.
+   -  `origin_exclusion_and_recovery` 또는 `origin-health-checker` 에 의해 하나의 IP라도 복구되면 해당 Domain은 다시 Active상태가 된다.   
 
 
 Domain주소는 ``Inactive`` 상태가 되지 않는다. 
