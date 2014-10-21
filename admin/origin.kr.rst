@@ -144,9 +144,11 @@ DNS 클라이언트(=STON)는 Domain의 모든 IP 목록을 정확히 알 수 �
 Domain주소 장애/복구 정책은 다음과 같다.
 
 -  (Domain에 대해) 알고 있는 모든 IP주소가 배제(Inactive)되면 해당 Domain주소가 배제된다.
--  신규 IP가 Resolving되더라도 Domain이 배제되어 있다면 IP주소가 배제된다.
--  모든 IP가 TTL이 만료되더라도 배제된 Domain상태는 풀리지 않는다.
--  배제된 Domain에 속한 IP주소가 하나라도 복구되면 해당 Domain은 다시 활성화된다.
+-  신규 IP가 Resolving되더라도 Domain이 배제되어 있다면 IP주소는 처음부터 배제된다.
+-  모든 IP가 TTL 만료되더라도 배제된 Domain상태는 풀리지 않는다.
+-  배제된 Domain에 속한 IP주소가 하나라도 복구되어야 해당 Domain은 다시 활성화된다.
+
+다소 복잡한 내용이므로 `origin-status`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
 
 
 
