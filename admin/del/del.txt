@@ -1,0 +1,51 @@
+.. _api-cmd-coldcontrol:
+
+Cold Control
+====================================
+
+콘텐츠가 많으면 많을수록 관리(Purge등)이 증가한다. 
+자주 접근되어 메모리 상주하는(=Hot영역) 파일을 Purge하는데 드는 비용이 1이라면 
+디스크에 상주하는(=Cold영역)에서는 1,000이 든다. 
+
+명확한 URL에 의한 Purge등의 API호출은 항상 빠르다.
+하지만 디렉토리/패턴 등의 범위 비용은 의도치 않게 디스크 부하를 증가시켜 서비스 장애를 발생시킬 수 있다.
+
+예를 들어 관리자가 /img/ 경로를 Purge했을 때 만약 Cold영역(Disk)에 10만개의 파일이 존재하고 있다면 Purge가 언제 끝날지 알 수 없다. 
+디스크 I/O의 급격한 증가와 함께 서비스 품질이 저하되는 것이다. 
+이런 상황을 방지하기 위해 ``<ColdControl>`` 이 존재한다. ::
+
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+   
+   <ColdControl>
+      <Purge>OFF</Purge>
+      <Expire>OFF</Expire>
+      <ExpireAfter>OFF</ExpireAfter>
+      <Cold2Hot Value="0">NONE</Cold2Hot>
+   </ColdControl>   
+
+-  ``<Purge> (기본: OFF)`` 
+   
+   ``ON`` 이라면 Cold영역의 파일도 `Purge`_ 한다.
+   
+-  ``<Expire> (기본: OFF)`` 
+
+   ``ON`` 이라면 Cold영역의 파일도 `Expire`_ 한다.
+   
+-  ``<ExpireAfter> (기본: OFF)`` 
+
+   ``ON`` 이라면 Cold영역의 파일도 `ExpireAfter`_ 한다.
+   
+-  ``<Cold2Hot> (기본: NONE)`` 
+
+   Cold영역의 파일을 서비스하기 위해 Hot영역으로 옮길 때 동작방식을 설정한다.
+   
+   -  ``NONE`` 아무 동작도 하지 않는다.
+   -  ``expire`` TTL을 만료시킨다. (서비스 전 원본서버로부터 변경여부를 확인한다.)
+   -  ``purge`` 원본서버로부터 다시 다운로드 받는다. (원본서버 장애 시 해당 파일로 서비스한다.)
+   -  ``expireafter`` 현재 시간부터 ``Value (단위: 초)`` 속성만큼 TTL을 설정한다.
+
+.. note::
+
+   서비스 상태에서 `Purge`_ 등의 관리 API를 호출하실 때는 반드시 명확한 URL로 호출할 것을 강력히 권장한다.
+   디렉토리 또는 패턴은 관리용도로만 한정하는 것이 적합하다.
