@@ -10,54 +10,6 @@
    :maxdepth: 2
 
 
-.. _adv_topics_disk_overload:
-
-I/O 과부하
-====================================
-
-처리할 수 있는 능력보다 클라이언트 요청이 많을 경우 과부하(Overload) 상태가 된다.
-시스템 자원 모두 과부하 상태에 빠질 수 있지만, 대부분은 디스크 I/O 부하 다.
-이로 인해 퍼포먼스 저하가 발생하는데 출근길 rush hour상황과 유사하다.
-
-I/O와 관려되었기 때문에 :ref:`env-cache-storage` 에 설정한다. ::
-
-    # server.xml - <Server><Cache>
-   
-    <Storage DiskOverloadTime="3000"> ... </Storage>
-    
--  ``DiskOverloadTime (기본: 3000 ms)``
-
-   단위 작업의 처리속도가 일정 시간을 넘을 경우 과부하 상태로 판단한다.
-   
-관련 로그는 :ref:`admin-log-info` 에 남는다. ::
-
-   Disk-overload mode activated. (Time: 3000 ms, Default-Policy: refuse)
-   Disk-overload mode inactivated.
-   
-이때 이미 메모리에 적재된 Hot콘텐츠는 정상적으로 서비스되지만 Cold/신규 콘텐츠는 가상호스트 정책을 따른다. ::
-
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
-
-   <OnDiskOverload>refuse</OnDiskOverload>
-
--  ``<OnDiskOverload>``
-
-   I/O 과부하 상태에서 Hot이 아닌 콘텐츠의 처리 정책을 설정한다.
-   
-   - ``refuse (기본)`` 처리하지 않고 **503 Service Unavailable** 로 응답한다.
-   - ``bypass`` 원본으로 바이패스한다.
-   - ``proceed`` 처리될 때까지 기다린다.
-
-.. note::
-
-   ``<OnDiskOverload>`` 정책을 수립할 때 Worst Case를 고려해야 한다.
-
-   - ``refuse (기본)`` 클라이언트가 정상적인 서비스를 받지 못한다.
-   - ``bypass`` 원본으로 너무 많은 클라이언트가 유입된다.
-   - ``proceed`` 대기 중인 작업이 너무 많아져서 시스템 이상이 발생한다.
-
-
 
 Request hit ratio
 ====================================

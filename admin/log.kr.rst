@@ -751,8 +751,15 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
 -  ``<Ftp>`` FTP 클라이언트를 설정한다. ``Name`` 속성으로 고유의 이름을 설정한다.
 
    - ``Mode (기본: Passive)`` 접속모드 ( ``Passive`` 또는 ``Active`` )
-   - ``Address`` FTP주소
-   - ``Account`` FTP 계정
+   - ``Address`` FTP주소. 만약 비밀번호(예를 들어 qwerty)를 암호화하고 싶다면 다음 API 사용한다. 
+   - ``Account`` FTP 계정 ::
+     
+        /command/encryptpassword?plain=qwerty
+        
+     암호화된 비밀번호는 다음과 같이 설정한다. ::
+     
+        <Password Type="enc">dXR9k0xNUZVVYQsK5Bi1cg==</Password>
+     
    - ``ConnectTimeout`` 연결대기 시간
    - ``TransferTimeout`` 전송대기 시간
    - ``TrafficCap (단위: KB)`` 0보다 큰 값으로 설정할 경우 전송 최대 대역폭을 설정한다.
