@@ -79,7 +79,7 @@ Trimming은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지
    
      - ``OFF (기본)`` Audio/Video 트랙만 Trimming한다. (Mod-H264 방식)
      
-     - ``ON`` 모든 트랙을 Trimming한다.
+     - ``ON`` 모든 트랙을 Trimming한다. 사용 전 반드시 플레이어 호환성을 확인해야 한다.
      
 파라미터는 클라이언트 QueryString을 통해 입력받는다.     
 예를 들어 10분 분량의 동영상(/video.mp4)을 특정 구간만 Trimming하고 싶다면 QueryString에 원하는 시점(단위: 초)을 명시한다. ::
