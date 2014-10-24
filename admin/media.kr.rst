@@ -64,9 +64,9 @@ Trimming은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지
    # server.xml - <Server><VHostDefault><Media>
    # vhosts.xml - <Vhosts><Vhost><Media>
    
-   <MP4Trimming StartParam="start" EndParam="end">OFF</MP4Trimming>
+   <MP4Trimming StartParam="start" EndParam="end" AllTracks="off">OFF</MP4Trimming>
+   <M4ATrimming StartParam="start" EndParam="end" AllTracks="off">OFF</M4ATrimming>   
    <MP3Trimming StartParam="start" EndParam="end">OFF</MP3Trimming>
-   <M4ATrimming StartParam="start" EndParam="end">OFF</M4ATrimming>   
 
 -  ``<MP4Trimming>`` ``<MP3Trimming>`` ``<M4ATrimming>``
    
@@ -74,6 +74,12 @@ Trimming은 전송단계에서만 발생할 뿐 원본의 형태를 변경하지
    
    - ``ON`` 확장자(.mp4, .mp3, .m4a)가 일치하면 원하는 구간만큼 서비스하도록 Trimming한다.
      Trimming구간은 ``StartParam`` 속성과 ``EndParam`` 으로 설정한다.
+     
+   - ``AllTracks`` 속성
+   
+     - ``OFF (기본)`` Audio/Video 트랙만 Trimming한다. (Mod-H264 방식)
+     
+     - ``ON`` 모든 트랙을 Trimming한다.
      
 파라미터는 클라이언트 QueryString을 통해 입력받는다.     
 예를 들어 10분 분량의 동영상(/video.mp4)을 특정 구간만 Trimming하고 싶다면 QueryString에 원하는 시점(단위: 초)을 명시한다. ::
