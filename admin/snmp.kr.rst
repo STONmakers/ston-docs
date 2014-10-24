@@ -475,19 +475,32 @@ OID    Name             Type       Description
 .1     memory           Integer    메모리 캐싱 크기(KB)
 .2     filesTotalCount  Integer    서비스 중인 파일개수
 .3     filesTotalSize   Integer    서비스 중인 전체 파일량(MB)
-.10    filesCountU4KB   Integer    4KB미만 파일개수
-.11    filesCountU16KB  Integer    16KB미만 파일개수
-.12    filesCountU32KB  Integer    32KB미만 파일개수
-.13    filesCountU64KB  Integer    64KB미만 파일개수
-.14    filesCountU128KB Integer    128KB미만 파일개수
-.15    filesCountU256KB Integer    256KB미만 파일개수
-.16    filesCountU1MB   Integer    1MB미만 파일개수
-.17    filesCountU10MB  Integer    10MB미만 파일개수
-.18    filesCountU100MB Integer    100MB미만 파일개수
-.19    filesCountU512MB Integer    512MB미만 파일개수
-.20    filesCountU1GB   Integer    1GB미만 파일개수
-.21    filesCountU4GB   Integer    4GB미만 파일개수
-.22    filesCountO4GB   Integer    4GB이상 파일개수
+.10    filesCountU1KB   Integer    1KB미만 파일개수
+.11    filesCountU2KB   Integer    2KB미만 파일개수
+.12    filesCountU4KB   Integer    4KB미만 파일개수
+.13    filesCountU8KB   Integer    8KB미만 파일개수
+.14    filesCountU16KB  Integer    16KB미만 파일개수
+.15    filesCountU32KB  Integer    32KB미만 파일개수
+.16    filesCountU64KB  Integer    64KB미만 파일개수
+.17    filesCountU128KB Integer    128KB미만 파일개수
+.18    filesCountU256KB Integer    256KB미만 파일개수
+.19    filesCountU512KB Integer    512KB미만 파일개수
+.20    filesCountU1MB   Integer    1MB미만 파일개수
+.21    filesCountU2MB   Integer    2MB미만 파일개수
+.22    filesCountU4MB   Integer    4MB미만 파일개수
+.23    filesCountU8MB   Integer    8MB미만 파일개수
+.24    filesCountU16MB  Integer    16MB미만 파일개수
+.25    filesCountU32MB  Integer    32MB미만 파일개수
+.26    filesCountU64MB  Integer    64MB미만 파일개수
+.27    filesCountU128MB Integer    128MB미만 파일개수
+.28    filesCountU256MB Integer    256MB미만 파일개수
+.29    filesCountU512MB Integer    512MB미만 파일개수
+.30    filesCountU1GB   Integer    1GB미만 파일개수
+.31    filesCountU2GB   Integer    2GB미만 파일개수
+.32    filesCountU4GB   Integer    4GB미만 파일개수
+.33    filesCountU8GB   Integer    8GB미만 파일개수
+.34    filesCountU16GB  Integer    16GB미만 파일개수
+.35    filesCountO16GB  Integer    16GB이상 파일개수
 ====== ================ ========== ============================
 
 
@@ -798,19 +811,32 @@ OID                       Name                Type       Description
 .1. ``[vhostIndex]``      memory              Integer    메모리 캐싱 크기(KB)
 .2. ``[vhostIndex]``      filesTotalCount     Integer    서비스 중인 파일개수
 .3. ``[vhostIndex]``      filesTotalSize      Integer    서비스 중인 전체 파일량(MB)
-.10. ``[vhostIndex]``     filesCountU4KB      Integer    4KB미만 파일개수
-.11. ``[vhostIndex]``     filesCountU16KB     Integer    16KB미만 파일개수
-.12. ``[vhostIndex]``     filesCountU32KB     Integer    32KB미만 파일개수
-.13. ``[vhostIndex]``     filesCountU64KB     Integer    64KB미만 파일개수
-.14. ``[vhostIndex]``     filesCountU128KB    Integer    128KB미만 파일개수
-.15. ``[vhostIndex]``     filesCountU256KB    Integer    256KB미만 파일개수
-.16. ``[vhostIndex]``     filesCountU1MB      Integer    1MB미만 파일개수
-.17. ``[vhostIndex]``     filesCountU10MB     Integer    10MB미만 파일개수
-.18. ``[vhostIndex]``     filesCountU100MB    Integer    100MB미만 파일개수
-.19. ``[vhostIndex]``     filesCountU512MB    Integer    512MB미만 파일개수
-.20. ``[vhostIndex]``     filesCountU1GB      Integer    1GB미만 파일개수
-.21. ``[vhostIndex]``     filesCountU4GB      Integer    4GB미만 파일개수
-.22. ``[vhostIndex]``     filesCountO4GB      Integer    4GB이상 파일개수
+.10. ``[vhostIndex]``     filesCountU1KB      Integer    1KB미만 파일개수
+.11. ``[vhostIndex]``     filesCountU2KB      Integer    2KB미만 파일개수
+.12. ``[vhostIndex]``     filesCountU4KB      Integer    4KB미만 파일개수
+.13. ``[vhostIndex]``     filesCountU8KB      Integer    8KB미만 파일개수
+.14. ``[vhostIndex]``     filesCountU16KB     Integer    16KB미만 파일개수
+.15. ``[vhostIndex]``     filesCountU32KB     Integer    32KB미만 파일개수
+.16. ``[vhostIndex]``     filesCountU64KB     Integer    64KB미만 파일개수
+.17. ``[vhostIndex]``     filesCountU128KB    Integer    128KB미만 파일개수
+.18. ``[vhostIndex]``     filesCountU256KB    Integer    256KB미만 파일개수
+.19. ``[vhostIndex]``     filesCountU512KB    Integer    512KB미만 파일개수
+.20. ``[vhostIndex]``     filesCountU1MB      Integer    1MB미만 파일개수
+.21. ``[vhostIndex]``     filesCountU2MB      Integer    2MB미만 파일개수
+.22. ``[vhostIndex]``     filesCountU4MB      Integer    4MB미만 파일개수
+.23. ``[vhostIndex]``     filesCountU8MB      Integer    8MB미만 파일개수
+.24. ``[vhostIndex]``     filesCountU16MB     Integer    16MB미만 파일개수
+.25. ``[vhostIndex]``     filesCountU32MB     Integer    32MB미만 파일개수
+.26. ``[vhostIndex]``     filesCountU64MB     Integer    64MB미만 파일개수
+.27. ``[vhostIndex]``     filesCountU128MB    Integer    128MB미만 파일개수
+.28. ``[vhostIndex]``     filesCountU256MB    Integer    256MB미만 파일개수
+.29. ``[vhostIndex]``     filesCountU512MB    Integer    512MB미만 파일개수
+.30. ``[vhostIndex]``     filesCountU1GB      Integer    1GB미만 파일개수
+.31. ``[vhostIndex]``     filesCountU2GB      Integer    2GB미만 파일개수
+.32. ``[vhostIndex]``     filesCountU4GB      Integer    4GB미만 파일개수
+.33. ``[vhostIndex]``     filesCountU8GB      Integer    8GB미만 파일개수
+.34. ``[vhostIndex]``     filesCountU16GB     Integer    16GB미만 파일개수
+.35. ``[vhostIndex]``     filesCountO16GB     Integer    16GB이상 파일개수
 ========================= =================== ========== =============================
 
 
