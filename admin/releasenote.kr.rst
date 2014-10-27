@@ -13,6 +13,7 @@ v2.0.x
 - 라이선스 도입. 고객사별 license.xml필요.
 - 원본에서 다운로드된 크기만큼만 디스크 공간사용. ( :ref:`origin_partsize` 참조)
 - :ref:`env-cache-resource` 기능추가.
+- TLS 1.1 지원.
 - AES-NI를 통해 :ref:`https-aes-ni` 지원.
 - ECDHE 계열의 CipherSuite를 지원. ( :ref:`https-ciphersuite` 참조)
 - :ref:`api-cmd-coldcontrol` 기능추가.
