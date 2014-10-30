@@ -50,12 +50,12 @@
 
 계층화 (layering) 로 서비스를 모델링 하면 다음 그림과 같이 두 계층으로 나눌수 있다.
 
-.. figure:: img/2layers.png
+.. figure:: img/intro_2layers.png
    :align: center
       
 중심에 데이터를 관리하는 스토리지 (storage) 계층이 있다. 그 위에는 서비스 로직이 구현된 어플리케이션 (application) 계층이 있다. 어플리케이션 계층은 소규모 고객용 컨텐츠 전송도 처리할 수 있다. 초기에는 스토리지와 어플리케이션 계층만으로 서비스를 구성할 수 있다.
 
-.. figure:: img/graph_1.png
+.. figure:: img/intro_graph_1.png
    :align: center
 
 서비스가 성장하면서 처리비용은 변화한다. 초기에는 로직 개발이, 성장기에는 고객증가와 함께 데이터 관리가 가장 많은 비용을 차지한다. 서비스가 발전할 수록 가장 큰 고민은 컨텐츠 전송이다. 폭발하는 대역폭을 어떻게 해결할 것인가? 컨텐츠 전송은 서비스 증설 (Scale-out)의 큰 과제이다.
@@ -63,7 +63,7 @@
 4. 엣지 (edge) : 전송 계층
 ----------------------------
 
-.. figure:: img/intro_dance.png
+.. figure:: img/intro_3layers.png
    :align: center
    
 서비스가 성장할 수록, 전송에 대한 부담은 기하급수적으로 커진다. 쇼핑몰의 컨텐츠 개수는 많게는 수십 억 개에 이른다. 동영상 서비스의 컨텐츠는 TB에 이른지 오래다. 서비스의 증설에는 컨텐츠 전송의 확장성 (scalibility) 을 반드시 고려해야 한다. 
@@ -80,12 +80,12 @@
 5. STON 엣지 서버의 동작 방식: 캐시(cache)
 -------------------------------------------
 
-.. figure:: img/cache1.png
+.. figure:: img/intro_cache1.png
    :align: center
 
 전송의 규모는 고객의 수와 컨텐츠 크기에 따라 커진다. 얼마나 많은 고객이 어떤 컨텐츠를 요청하는지는 엣지에서 가장 빨리 알 수 있다. 엣지로부터 Bottom-up의 처리흐름이 효율적이다. 따라서 엣지 서버는 고객의 요청에 따라 On-demand 로 동작하는 캐시(cache) 전송방식을 채택하였다. 관리 시스템도 필요없다. 구체적인 동작은 다음과 같다.
 
-.. figure:: img/cache2.png
+.. figure:: img/intro_cache2.png
    :align: center
    
 STON 엣지 서버는 첫번째 컨텐츠 전송 요청을 받았을 때,
