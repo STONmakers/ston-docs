@@ -377,5 +377,5 @@ Storage중앙 집중화 및 동기화 이슈를 제거할 수 있다.
 
 STON은 이러한 특성들을 적극 활용하는 다음 서비스들과 함께 성장하고 있다. 
 
-.. figure:: img/reference.png
+.. figure:: img/intro_reference.png
    :align: center
