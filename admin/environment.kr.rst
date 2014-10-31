@@ -164,23 +164,6 @@ Storage는 Caching서비스 설정 중 가장 중요하다. ::
     
 각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정할 수 있다.
 굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
-
-Storage 구성시 가장 중요하게 고려해야 할 것은 저장할 파일개수다.
-파일이 많아질수록 I/O성능이 급격히 떨어져서 서비스 품질이 떨어진다.
-최대 파일개수를 ``<Storage>`` 의 ``FileMaxCount (기본: Disk * 200백만)`` 속성으로 설정하여 원하는 서비스 품질과 형태를 구성할 수 있다.
-5개의 Disk로 1억 개의 Contents를 Caching하고 싶다면 다음과 같이 설정한다.
-
-    # server.xml - <Server>
-    
-    <Cache>
-        <Storage FileMaxCount="100000000">
-            <Disk>/user/cache1</Disk>
-            <Disk>/user/cache2</Disk>
-            <Disk>/user/cache3</Disk>
-            <Disk>/user/cache4</Disk>
-            <Disk>/user/cache5</Disk>
-        </Storage>
-    </Cache>
     
     
 
