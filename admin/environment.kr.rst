@@ -129,9 +129,7 @@ XML형식의 텍스트파일이다. ::
 Storage 구성
 ------------------------------------
 
-Caching된 콘텐츠를 저장할 Storage를 구성한다.
-저장공간이 충분하다면 무제한으로 Caching할 수 있다.
-Storage는 Caching서비스 설정 중 가장 중요하다. ::
+Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
 
     # server.xml - <Server>
     
