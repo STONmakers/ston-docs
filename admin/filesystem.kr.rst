@@ -115,18 +115,18 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
    ``Status`` 속성이 ``Inactive`` 라면 File System에서 접근할 수 없다. 
    `Active` 로 설정해야 한다.
 
--  ``<FileStatus>``
+-  ``<FileStatus> (기본: 200)``
    파일로 인식할 원본서버 HTTP 응답코드를 설정한다. 
    일반적으로는 200만을 설정하지만 특별한 제약은 없다.
    
--  ``<DirStatus>``
+-  ``<DirStatus> (기본: 301, 302, 400, 401, 403)``
     디렉토리로 인식할 원본서버 HTTP 응답코드를 설정한다. 
     기본 값으로 302, 400, 401, 403등이 설정된다.
     
--  ``<Unlink>``
+-  ``<Unlink> (기본: Purge)``
    파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정한다.
    
--  ``<FileTime>``
+-  ``<FileTime> (기본: Origin)``
    파일시간을 제공할 때 ``origin`` 인 경우 원본에서 응답한 Last-Modified시간, ``Local`` 인 경우 캐싱된 시간을 서비스한다.
    ( ``Origin`` 인 경우) 원본서버에서 Last-Modified시간을 주지 않은 경우 다음과 같이 Unix 초기시간으로 제공된다.
    
