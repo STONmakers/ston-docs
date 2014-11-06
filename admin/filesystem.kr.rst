@@ -105,11 +105,18 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
    # vhosts.xml - <Vhosts><Vhost><Options>
 
    <FileSystem Status="Active" DotDir="OFF">                    
+      <FileTime>origin</FileTime>
       <FileStatus>200</FileStatus>
       <DirStatus>301, 302, 400, 401, 403</DirStatus>
-      <Unlink>Purge</Unlink>
-      <FileTime>origin</FileTime>
+      <Unlink>Purge</Unlink>      
    </FileSystem>   
+
+-  ``<FileTime> (기본: Origin)``
+   파일시간을 제공할 때 ``Origin`` 인 경우 원본에서 응답한 Last-Modified시간, ``Local`` 인 경우 로컬에 캐싱된 시간을 서비스한다.
+   ( ``Origin`` 인 경우) 원본서버에서 Last-Modified시간을 주지 않은 경우 다음과 같이 Unix 초기시간으로 제공된다.
+   
+   .. figure:: img/fs_filetime.png
+      :align: center
     
 -  ``<FileSystem>``
    ``Status`` 속성이 ``Inactive`` 라면 File System에서 접근할 수 없다. 
@@ -125,13 +132,8 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
     
 -  ``<Unlink> (기본: Purge)``
    파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정한다.
-   
--  ``<FileTime> (기본: Origin)``
-   파일시간을 제공할 때 ``origin`` 인 경우 원본에서 응답한 Last-Modified시간, ``Local`` 인 경우 캐싱된 시간을 서비스한다.
-   ( ``Origin`` 인 경우) 원본서버에서 Last-Modified시간을 주지 않은 경우 다음과 같이 Unix 초기시간으로 제공된다.
-   
-   .. figure:: img/fs_filetime.png
-      :align: center
+  
+
 
 원본서버마다 HTTP 응답코드가 다양하게 해석될 수 있다. 
 그러므로 각각의 HTTP 응답코드 해석방식을 설정해야 한다. 
