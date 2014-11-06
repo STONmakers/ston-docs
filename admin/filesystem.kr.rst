@@ -108,6 +108,7 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
       <FileStatus>200</FileStatus>
       <DirStatus>301, 302, 400, 401, 403</DirStatus>
       <Unlink>Purge</Unlink>
+      <FileTime>origin</FileTime>
    </FileSystem>   
     
 -  ``<FileSystem>``
@@ -124,6 +125,13 @@ example.com의 ``<Alias>`` 로 *.example.com이 지정되어 있다면 다음 �
     
 -  ``<Unlink>``
    파일삭제 요청이 들어온 경우 동작방식 ``Purge`` , ``Expire`` , ``HardPurge`` 을 설정한다.
+   
+-  ``<FileTime>``
+   파일시간을 제공할 때 ``origin`` 인 경우 원본에서 응답한 Last-Modified시간, ``Local`` 인 경우 캐싱된 시간을 서비스한다.
+   ( ``Origin`` 인 경우) 원본서버에서 Last-Modified시간을 주지 않은 경우 다음과 같이 Unix 초기시간으로 제공된다.
+   
+   .. figure:: img/fs_filetime.png
+      :align: center
 
 원본서버마다 HTTP 응답코드가 다양하게 해석될 수 있다. 
 그러므로 각각의 HTTP 응답코드 해석방식을 설정해야 한다. 
