@@ -462,7 +462,7 @@ POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정�
 
 이 설정은 :ref:`bypass-getpost` 와 정책적으로 혼란스러울 수 있다.
 ``<BypassPostRequest> (기본: ON)`` 에 의해 POST요청이 캐싱되지 않을 수 있다.
-따라서 POST요청을 캐싱하기 위해서는 ``<BypassPostRequest>`` 를 OFF 또는 구체적으로 설정해주어야 한다.
+따라서 POST요청을 캐싱하기 위해서는 ``<BypassPostRequest>`` 를 ``OFF`` 또는 예외조건을 설정해야 한다.
 정리하면 우선순위는 다음과 같다.
         
 * 바이패스 조건( :ref:`bypass-getpost` )에 만족할 경우 원본서버로 바이패스 한다.
