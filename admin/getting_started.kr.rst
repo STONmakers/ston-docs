@@ -14,6 +14,7 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 
 .. toctree::
    :maxdepth: 2
+   
 
 .. _getting-started-serverconf:
 
@@ -161,6 +162,20 @@ OS 구성
           `./libphp5.so.5.5' -> `/usr/local/ston/wm/modules/libphp5.so'
           WM installation almost complete. Changing WM privileges.
       Installation successfully complete
+
+
+.. _getting-started-license:
+
+라이선스
+====================================
+
+신규 고객의 경우 다음 절차를 통해 라인선스를 발급한다.
+
+* `신청양식 <http://ston.winesoft.co.kr/EULR.doc>`_ 작성
+* license@winesoft.co.kr 로 전송
+* 확인절차 후 발급
+
+라이선스 파일(license.xml)이 반드시 설치경로에 존재해야 STON이 정상적으로 구동된다.
 
 
 .. _getting-started-update:
