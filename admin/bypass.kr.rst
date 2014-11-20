@@ -66,6 +66,8 @@ GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 -  ``<BypassPostRequest>``
 
    - ``ON (기본)`` POST요청을 원본서버로 바이패스한다.
+     단, Content-Length헤더가 없는 경우는 연결을 종료한다.
+     :ref:`caching-policy-post-method-caching` 이 ``ON`` 으로 설정되어 있고 ``MaxContentLength`` 속성보다 Content-Length가 작다면 바이패스되지 않고 캐싱모듈에 의해 처리된다.
    
    - ``OFF`` POST요청을 STON이 처리한다.
    

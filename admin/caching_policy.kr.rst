@@ -419,7 +419,9 @@ User-Agent를 제외한 Accept-Encoding과 Accept헤더만을 인식하도록 �
     <VaryHeader>*</VaryHeader>    
 
 
-POST 요청
+.. _caching-policy-post-method-caching:
+
+POST 요청 캐싱
 ====================================
 
 POST 요청을 Caching하도록 설정한다. 
