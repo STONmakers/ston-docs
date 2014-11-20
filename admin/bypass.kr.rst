@@ -49,7 +49,7 @@ No-Cache 요청 바이패스
     그러므로 대량의 바이패스가 원본에 부담을 줄 가능성이 있다.
     
 
-.. _bypass-getpost:    
+.. _bypass-getpost:
  
 GET/POST 바이패스
 ====================================
@@ -66,17 +66,6 @@ GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 -  ``<BypassPostRequest>``
 
    - ``ON (기본)`` POST요청을 원본서버로 바이패스한다.
-     단, Content-Length헤더가 없는 경우는 연결을 종료한다.
-     
-     .. note::
-     
-        :ref:`caching-policy-post-method-caching` 과 정책적으로 혼란스러울 수 있다.
-        정책은 아래와 같다.
-        
-        * 바이패스 조건에 만족할 경우 원본서버로 바이패스 한다.
-        * Content-Length헤더가 없다면 연결을 종료한다.
-        * :ref:`caching-policy-post-method-caching` 이 ``ON`` 으로 설정되어 있고 ``MaxContentLength`` 속성보다 Content-Length가 캐싱모듈에 의해 처리된다.
-        * 이상의 시나리오에서 처리되지 않은 요청은 종료한다.        
    
    - ``OFF`` POST요청을 STON이 처리한다.
    
