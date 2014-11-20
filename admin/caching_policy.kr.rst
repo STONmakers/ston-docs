@@ -467,7 +467,7 @@ POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정�
         
 * 바이패스 조건( :ref:`bypass-getpost` )에 만족할 경우 원본서버로 바이패스 한다.
 * Content-Length헤더가 없다면 연결을 종료한다.
-* ``PostRequest`` 가 ``ON`` 으로 설정되어 있고 ``MaxContentLength`` 속성보다 Content-Length가 캐싱모듈에 의해 처리된다.
+* ``PostRequest`` 가 ``ON`` 으로 설정되어 있고 Content-Length가 ``MaxContentLength`` 속성 값을 넘지 않는다면 캐싱모듈에 의해 처리된다.
 * 이상의 시나리오에서 처리되지 않은 요청은 종료한다.
   
 .. note::
