@@ -166,10 +166,10 @@ OS 구성
 
 .. _getting-started-license:
 
-라이선스
+라이선스 발급
 ====================================
 
-신규 고객의 경우 다음 절차를 통해 라인선스를 발급한다.
+신규 고객의 경우 다음 절차를 통해 라이선스를 발급한다.
 
 * `신청양식 <http://ston.winesoft.co.kr/EULR.doc>`_ 작성
 * license@winesoft.co.kr 로 전송
