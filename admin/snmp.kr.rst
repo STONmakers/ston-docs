@@ -3,7 +3,7 @@
 16장. SNMP
 ******************
 
-이 장에서는 SNMP(Simple Network Monitoring Protocol)에 대해 다룬다.
+이 장에서는 SNMP(Simple Network Management Protocol)에 대해 다룬다.
 :ref:`monitoring_stats` 의 모든 수치는 SNMP로도 제공된다.
 뿐만 아니라 더욱 세분화된 시간단위와 시스템 상태정보까지 제공한다.
 가상호스트별로 실시간 통계와 최대 60분까지 "분" 단위의 평균 통계를 제공한다. 
