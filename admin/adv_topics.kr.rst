@@ -313,7 +313,7 @@ Emergency모드일 때 STON은 다음과 같이 동작합니다.
     2013-08-07 21:10:43 [NOTICE] Emergency mode inactivated.
     
     
-디스크 Hot-Sawp
+디스크 Hot-Swap
 ====================================
 
 서비스 중단없이 디스크를 교체한다. 
