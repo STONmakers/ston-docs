@@ -400,7 +400,7 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
 원본요청 URI
 ====================================
 
-클라이언트가 요청한 URI를 가공없이 그대로 원본서버로 보낼지 설정한다. ::
+원본에 요청할 때 사용할 URI를 선택한다. ::
 
    # server.xml - <Server><VHostDefault><OriginOptions>
    # vhosts.xml - <Vhosts><Vhost><OriginOptions>
@@ -419,10 +419,10 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
 ========================================= ======================= ============================
 설정                                      클라이언트 요청 URI     원본 요청URI (=Caching Key)
 ========================================= ======================= ============================
-``<CaseSensitive>OFF</CaseSensitive>``	  /Image/LOGO.png	        /Image/LOGO.png
-<CaseSensitive>ON</CaseSensitive>	        /Image/LOGO.png	        /image/logo.png
-<ApplyQueryString>ON</ApplyQueryString>	  /view/list.php?type=A	  /view/list.php?type=A
-<ApplyQueryString>OFF</ApplyQueryString>	/view/list.php?type=A 	/view/list.php
+``<CaseSensitive>OFF</CaseSensitive>``    /Image/LOGO.png         /Image/LOGO.png
+<CaseSensitive>ON</CaseSensitive>         /Image/LOGO.png         /image/logo.png
+<ApplyQueryString>ON</ApplyQueryString>   /view/list.php?type=A   /view/list.php?type=A
+<ApplyQueryString>OFF</ApplyQueryString>  /view/list.php?type=A   /view/list.php
 ========================================= ======================= ============================
 
 ``ON`` 으로 설정하면 다음과 같이 클라이언트가 보낸 URI그대로 원본에 보낸다.
