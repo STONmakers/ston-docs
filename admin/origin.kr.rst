@@ -416,14 +416,14 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
 일반적으로 Hit Raio를 높이기 위해 :ref:`caching-policy-casesensitive`, :ref:`caching-policy-applyquerystring` 을 적절하게 사용한다.
 이에 따라 원본서버로 요청되는 URI와 Caching-Key가 결정된다.
 
-========================================= ======================= ============================
-설정                                      클라이언트 요청 URI     원본 요청URI (=Caching Key)
-========================================= ======================= ============================
-``<CaseSensitive>OFF</CaseSensitive>``    /Image/LOGO.png         /Image/LOGO.png
-<CaseSensitive>ON</CaseSensitive>         /Image/LOGO.png         /image/logo.png
-<ApplyQueryString>ON</ApplyQueryString>   /view/list.php?type=A   /view/list.php?type=A
-<ApplyQueryString>OFF</ApplyQueryString>  /view/list.php?type=A   /view/list.php
-========================================= ======================= ============================
+=============================================== ======================= ============================
+설정                                            클라이언트 요청 URI     원본 요청URI (=Caching Key)
+=============================================== ======================= ============================
+:ref:`caching-policy-casesensitive` ``OFF``     /Image/LOGO.png         /Image/LOGO.png
+:ref:`caching-policy-casesensitive` ``ON``      /Image/LOGO.png         /image/logo.png
+:ref:`caching-policy-applyquerystring` ``OFF``  /view/list.php?type=A   /view/list.php?type=A
+:ref:`caching-policy-applyquerystring` ``ON``   /view/list.php?type=A   /view/list.php
+=============================================== ======================= ============================
 
 ``ON`` 으로 설정하면 다음과 같이 클라이언트가 보낸 URI그대로 원본에 보낸다.
 
