@@ -435,8 +435,10 @@ Hit Raio를 높이기 위해 :ref:`caching-policy-casesensitive`, :ref:`caching-
 :ref:`caching-policy-applyquerystring` ``OFF``  /view/list.php?type=A               /view/list.php
 :ref:`caching-policy-applyquerystring` ``ON``   /view/list.php?type=A               /view/list.php?type=A       
 =============================================== =================================== ============================
-
-클라이언트가 보낸 URI를 있는 그대로 보내기 때문에 :ref:`media-trimming` 처럼 부가기능을 위해 붙여진 QueryString도 그대로 원본서버로 전달된다.
+       
+.. note::
+       
+   클라이언트가 보낸 URI를 있는 그대로 보내기 때문에 :ref:`media-trimming` 처럼 부가기능을 위해 붙여진 QueryString도 그대로 원본서버로 전달된다.
 
 
 .. _origin-httprequest:
