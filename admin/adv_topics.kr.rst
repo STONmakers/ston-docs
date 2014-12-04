@@ -37,7 +37,7 @@ STON메모리는 내부적으로 Core, Sockets, Contents 3가지로 분류된다
 
 .. note::
 
-   얼마나 많은 Contents를 Caching하여 Disk I/O를 줄일 수 있는가?
+   당신이 알아야하는 것! "얼마나 많은 Contents를 Caching해야 Disk I/O를 줄일 수 있는가?"
    
 
 System Free
