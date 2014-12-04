@@ -101,7 +101,9 @@ Contents Caching이 클수록 Disk I/O가 줄어들어 성능이 향상된다는
 쇼핑몰과 같이 파일이 많은 서비스가 아니라면 최대 파일개수를 보다 적게 설정하는 것이 Disk I/O 성능향상에 도움이 된다.
 최대 파일 개수를 설정하면 STON은 Core에 사용될 메모리를 Contents Caching에 사용한다. 
 
-다시 한번 말하지만 Contents메모리 영역이 커질수록 Disk I/O는 줄어든다.                                                                                                                         
+.. note::
+   
+   다시 한번 말하지만 Contents메모리 영역이 커질수록 Disk I/O는 줄어든다.                                                                                                                         
 
 
 STON Sockets
