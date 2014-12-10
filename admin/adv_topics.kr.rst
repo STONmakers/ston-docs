@@ -27,7 +27,7 @@ STON의 구조와 동작방식을 상세히 이해하면 보다 최적화된 서
 
 다음 그림은 STON을 8GB와 16GB메모리 장비에서 구동시켰을 때의 메모리 구성이다.
 
-.. figure:: img/perf_mem1.png
+.. figure:: img/perf_mem_8_16.png
    :align: center
 
 메모리는 크게 STON이 사용하는 메모리와 사용하지 않는 메모리(Free)로 나눈다. 
