@@ -44,10 +44,11 @@ System Free 메모리
 ------------------------------------
 
 이전 그림에서 쉽게 알 수 있는 점은 생각보다 사용하지 않는(이하 Free) 메모리 공간이 크다는 점이다.
-어떠한 프로그램도 OS가 느리면 성능이 저하될 수 밖에 없다.
+이는 OS의 성능을 극대화하기 위함이다.
+OS가 느리면 어떠한 프로그램도 제 성능을 내지 못한다.
 
 Paul Valentino가 sysexpoerts.com에 기고한 `vm.dirty_ratio and vm.dirty_background_ratio <http://www.sysxperts.com/home/announce/vmdirtyratioandvmdirtybackgroundratio>`_ 에 따르면 물리 메모리의 40%가량을 남겨 두어야 시스템 성능이 극대화 된다.
-물리 메모리 크기별로 STON이 사용하지 않는 Free영역 크기이다.
+따라서 STON은 OS를 위해 일부 메모리를 사용하지 않는다. 이를 Free메모리라 부른다.
 
 ============== ===============
 물리 메모리    Free메모리
@@ -62,7 +63,7 @@ Paul Valentino가 sysexpoerts.com에 기고한 `vm.dirty_ratio and vm.dirty_back
 128GB	         51.2GB
 ============== ===============
 
-Free메모리 비율을 줄이면 더 많은 Contents를 메모리에 적재할 수 있지만 그리 권장하는 방법은 아니다. ::
+고급 사용자의 경우 서비스 형태에 맞추어 Free메모리 비율을 줄일 수 있다. Free메모리가 줄어들면 더 많은 Contents를 메모리에 적재할 수 있다. ::
 
    # server.xml - <Server><Cache>
    
@@ -107,7 +108,7 @@ Contents 메모리와 파일 개수
 Socket 메모리
 ------------------------------------
 
-Core메모리가 빠른 응답속도를 위한 메모리라면 Sockets는 높은 전송속도를 보장하기 위한 메모리다.
+소켓도 메모리를 사용한다.
 4GB이상의 장비에서 STON은 2만개의 소켓을 기본으로 생성한다. 
 소켓 1개=10KB, 1만개당 97.6MB의 메모리를 사용하므로 약 195MB의 메모리가 기본으로 소켓에 할당된다.
 
