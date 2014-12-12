@@ -52,7 +52,9 @@ STON이 사용하는 메모리는 파일, 소켓같이 서비스 규모에 따�
 
 .. note::
 
-   당신이 알아야하는 것! "얼마나 많은 Contents를 Caching해야 디스크 I/O를 줄일 수 있는가?"
+   시스템 부하의 근본은 디스크 I/O 때문이다.
+   당신은 "얼마나 많은 Contents를 Caching해야 디스크 I/O를 줄일 수 있는가?" 에 대해 고민해야 한다.
+   
    
    
 .. _adv_topics_mem_control:
