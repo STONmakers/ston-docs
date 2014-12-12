@@ -28,7 +28,6 @@ v2.0.x
   - 설치 패키지에 NSCD데몬이 탑재.
   - :ref:`media-dims` 기본 탑재.
   - :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
-  - ``<ApplyQueryString>`` 의 ``Collective`` 속성 삭제.
   - ``<DNSBackup>`` 기능 삭제
   - ``<MaxFileCount>`` 기능 삭제.
   - ``<Distribution>`` 기능 삭제. :ref:`origin-balancemode` 기능에 통합.
