@@ -365,7 +365,7 @@ QueryString에 의하여 동적으로 생성되는 콘텐츠가 아니라면 Que
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
     
-    <ApplyQueryString>ON</ApplyQueryString>    
+    <ApplyQueryString Collective="OFF">ON</ApplyQueryString>
 
 -  ``<ApplyQueryString>``
 
@@ -382,6 +382,20 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 
 예외조건이 ``<ApplyQueryString>`` 설정에 따라 의미가 달라짐에 주의한다. 
 명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
+
+``Collective`` 속성은 :ref:`caching-purge`_ API가 호출되었을 때 대상을 지정한다.
+
+-  ``Collective``
+
+   -  ``OFF (기본)`` 호출된 URL만을 대상으로 지정한다. 
+   
+   -  ``ON`` 호출된 URL뿐만 아니라 URL에 QueryString이 존재하는 모든 컨텐츠를 대상으로 지정한다.
+
+.. note:
+
+   ``Collective`` 속성이 ON이고 파일이 많을수록 컨텐츠 관리에 드는 CPU사용률이 높아진다. 
+   또한 관련 파일을 검색하는 소요시간이 길어질 수 있음에 주의한다.
+
 
 
 
