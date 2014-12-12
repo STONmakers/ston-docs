@@ -31,7 +31,8 @@ v2.0.x
   - :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
   - ``<ApplyQueryString>`` 의 ``Collective`` 속성 삭제.
   - ``<DNSBackup>`` 기능 삭제
-  - ``<MaxFileCount>`` 기능 삭제. 
+  - ``<MaxFileCount>`` 기능 삭제. :ref:`adv_topics_mem_control` 기능으로 변경.
+  - ``<Distribution>`` 기능 삭제. :ref:`origin-balancemode` 기능에 통합.
 
 
 v1.4.x
