@@ -58,25 +58,28 @@ STON이 사용하는 메모리는 파일, 소켓같이 서비스 규모에 따�
 
    # server.xml - <Server><Cache>
    
-   <ContentMemoryRatio>100</ContentMemoryRatio>
+   <ContentMemoryRatio>50</ContentMemoryRatio>
 
--  ``<ContentMemoryRatio> (기본: 50)`` 서비스 데이터를 메모리에 적재하는 비율을 설정한다.
+-  ``<ContentMemoryRatio> (기본: 50)`` STON이 사용하는 전체 메모리 중 서비스 데이터 메모리 적재비율을 설정한다.
 
-예를 들어 게임 포탈처럼 파일개수는 적지만 컨텐츠 크기가 클 경우엔 컨텐츠 캐싱에 사용되는 메모리를 늘리는 것이 효과적이다.
-반대로 아주 작은 파일이 많은 경우는 줄여주는 것이 효과적일 수 있다.
+예를 들어 게임 포탈처럼 파일개수는 적지만 컨텐츠 크기가 클 경우엔 이 수치를 늘리면 파일 I/O가 감소된다.
+반대로 아주 작은 파일이 많은 경우는 반대로 줄이는 설정이 유용할 수 있다.
    
 
 .. _adv_topics_sys_free_mem:
 
-System Free 메모리
-------------------------------------
+시스템 Free 메모리
+====================================
 
-이전 그림에서 쉽게 알 수 있는 점은 생각보다 사용하지 않는(이하 Free) 메모리 공간이 크다는 점이다.
-이는 OS의 성능을 극대화하기 위함이다.
+생각보다 사용하지 않는 메모리 공간이 크다.
 OS가 느리면 어떠한 프로그램도 제 성능을 내지 못한다.
+STON은 OS를 위해 일부 메모리를 사용하지 않는다. 
+OS의 성능을 극대화하기 위해서며 이를 시스템 Free메모리라 부른다.
 
-Paul Valentino가 sysexpoerts.com에 기고한 `vm.dirty_ratio and vm.dirty_background_ratio <http://www.sysxperts.com/home/announce/vmdirtyratioandvmdirtybackgroundratio>`_ 에 따르면 물리 메모리의 40%가량을 남겨 두어야 시스템 성능이 극대화 된다.
-따라서 STON은 OS를 위해 일부 메모리를 사용하지 않는다. 이를 Free메모리라 부른다.
+.. note::
+
+   이에 대해 권위있는 설명을 제시하고 싶으나 아쉽게도 찾지 못하였다.
+   구글링을 통해 가장 많이 `인용된 글<http://www.sysxperts.com/home/announce/vmdirtyratioandvmdirtybackgroundratio>`_ 을 제시한다.
 
 ============== ===============
 물리 메모리    Free메모리
