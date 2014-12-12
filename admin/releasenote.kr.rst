@@ -22,6 +22,7 @@ v2.0.x
 - 원본 :ref:`origin-health-checker` 추가
 - 로그 롤링시 압축지원
 - :ref:`admin-log-ftpclient` 기능 강화 (경로설정, 전송 후 삭제, 전송실패 시 백업, 전송시점 선택)
+- :ref:`adv_topics_sys_free_mem` 추가
 - 기타
 
   - 최소 실행환경 변경. (Cent 6.2이상, Ubuntu 10.01 이상)
@@ -30,6 +31,7 @@ v2.0.x
   - :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
   - ``<ApplyQueryString>`` 의 ``Collective`` 속성 삭제.
   - ``<DNSBackup>`` 기능 삭제
+  - ``<MaxFileCount>`` 기능 삭제. 
 
 
 v1.4.x
