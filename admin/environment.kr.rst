@@ -172,13 +172,13 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
 메모리 제한
 ------------------------------------
 
-사용할 최대 메모리와 BodyRatio(파일로부터 메모리에 적재된 데이터의 비율)를 설정한다. ::
+사용할 최대 메모리와 컨텐츠 적재비율 설정한다. ::
 
     # server.xml - <Server>
     
     <Cache>
         <SystemMemoryRatio>100</SystemMemoryRatio>
-        <BodyRatio>50</BodyRatio>
+        <ContentMemoryRatio>50</ContentMemoryRatio>
     </Cache>
     
 -  ``<SystemMemoryRatio> (기본: 100%)``
@@ -187,7 +187,7 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
    예를 들어 16GB장비에서 이 수치를 50(%)으로 설정하면 시스템 메모리가 8GB인 것처럼 동작한다.
    특히 :ref:`filesystem` 등을 통해 다른 프로세스와 연동할 때 유용하다.
    
--  ``<BodyRatio> (기본: 50%)``
+-  ``<ContentMemoryRatio> (기본: 50%)``
 
    STON은 디스크에서 로딩된 Body 데이터를 메모리에 최대한 Caching하여 서비스 품질을 향상시킨다. 
    서비스 형태에 따라 이 비율을 조절하여 품질을 최적화한다.
@@ -195,15 +195,15 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
       .. figure:: img/bodyratio1.png
          :align: center
    
-         BodyRatio를 통해 메모리비율을 설정한다.
+         ContentMemoryRatio를 통해 메모리비율을 설정한다.
          
    예를 들어 게임 다운로드처럼 파일 개수는 많지 않지만 Contents크기가 큰 서비스의 경우 File I/O 부하가 부담스럽다. 
-   이런 경우 ``<BodyRatio>`` 를 높여서 보다 많은 Contents데이터가 메모리에 상주할 수 있도록 설정하면 서비스 품질을 높일 수 있다.
+   이런 경우 ``<ContentMemoryRatio>`` 를 높여서 보다 많은 Contents데이터가 메모리에 상주할 수 있도록 설정하면 서비스 품질을 높일 수 있다.
 
       .. figure:: img/bodyratio2.png
          :align: center
    
-         BodyRatio를 높이면 I/O가 감소한다.
+         ContentMemoryRatio를 높이면 I/O가 감소한다.
 
     
     

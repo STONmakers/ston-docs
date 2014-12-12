@@ -10,7 +10,6 @@ v2.0.x
 2.0.0 (2014.12.?)
 ----------------------------
 
-- 라이선스 도입. 고객사별 license.xml필요.
 - 원본에서 다운로드된 크기만큼만 디스크 공간사용. ( :ref:`origin_partsize` 참조)
 - :ref:`env-cache-resource` 기능추가.
 - TLS 1.1 지원.
@@ -31,7 +30,7 @@ v2.0.x
   - :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
   - ``<ApplyQueryString>`` 의 ``Collective`` 속성 삭제.
   - ``<DNSBackup>`` 기능 삭제
-  - ``<MaxFileCount>`` 기능 삭제. :ref:`adv_topics_mem_control` 기능으로 변경.
+  - ``<MaxFileCount>`` 기능 삭제.
   - ``<Distribution>`` 기능 삭제. :ref:`origin-balancemode` 기능에 통합.
 
 
