@@ -174,6 +174,8 @@ Purge 기본동작
 Purge API가 호출될 때 컨텐츠 복구 여부를 선택한다. ::
 
    # server.xml - <Server><Cache>
+   
+   <Purge>Normal</Purge>
       
 -  ``<Purge>`` 
    
