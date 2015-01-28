@@ -488,6 +488,9 @@ User-Agent 헤더
 
 -  ``<UserAgent> (기본: STON)``
    원본서버로 보낼 User-Agent헤더를 설정한다.
+   
+   
+클라이언트가 보낸 User-Agent헤더를 원본으로 보내고 싶은 경우 *로 설정한다.
 
 
 XFF(X-Forwarded-For) 헤더
