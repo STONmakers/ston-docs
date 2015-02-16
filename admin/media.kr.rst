@@ -265,7 +265,7 @@ DIMS
 
 DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공하는 기능이다. 
 `mod_dims <https://code.google.com/p/moddims/wiki/WebserviceApi>`_ 를 기반으로 확장한 형태이다. 
-가공형태는 모두 6가지(crop, thumbnail, resize, reformat, quality, composite)이며 이를 조합한 복합가공이 가능하다.
+가공형태는 모두 7가지(optimize, crop, thumbnail, resize, reformat, quality, composite)이며 이를 조합한 복합가공이 가능하다.
 
 .. figure:: img/dims.png
    :align: center
@@ -273,11 +273,13 @@ DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 
    다양한 동적 이미지 가공
 
 이미지는 동적으로 생성되며 원본 이미지 URL뒤에 약속된 키워드와 가공옵션을 붙여서 호출한다. 
-가공된 이미지는 캐싱되어 원본서버 이미지가 바뀌지 않는 이상 다시 가공되지 않는다. 
+가공된 이미지는 캐싱되어 원본서버 이미지가 바뀌지 않는 이상 다시 가공되지 않는다.
+
 예를 들어 원본 파일이 /img.jpg라면 다음과 같은 형식으로 이미지를 가공할 수 있다. 
 ("12AB"는 약속된 Keyword이다.) ::
 
    http://image.example.com/img.jpg    // 원본 이미지
+   http://image.example.com/img.jpg/12AB/optimize
    http://image.example.com/img.jpg/12AB/resize/500x500/
    http://image.example.com/img.jpg/12AB/crop/400x400/
    http://image.example.com/img.jpg/12AB/composite/watermark1/
@@ -287,15 +289,68 @@ DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" Port="8500" />
+   <Dims Status="Active" Keyword="dims" MaxSourceSize="10" OnFailure="message" />
 
 -  ``<Dims>``
 
    - ``Status`` DIMS활성화 ( ``Active`` 또는 ``Inactive`` )   
-   - ``Keyword`` 원본과 DIMS를 구분하는 키워드   
-   - ``Port`` WM접속포트
+   - ``Keyword`` 원본과 DIMS를 구분하는 키워드
+   - ``MaxSourceSize (기본: 10MB)`` 변환을 허용할 최대 원본 이미지 크기 (단위: MB)
+   - ``OnFailure`` 이미지 변환실패 시 동작방식
+     
+     - ``message (기본)`` 500 Internal Error로 응답한다. 본문에는 구체적인 실패 이유를 명시한다.
+     
+       - ``The original file was not successfully downloaded.`` 원본이미지를 완전하게 다운로드 하지 못했다.
+       - ``The original file size is too large.`` 원본이미지 크기가 ``MaxSourceSize`` 를 넘어 변환하지 못했다.
+       - ``The original file loading failed.`` 원본 이미지 데이터를 불러오지 못했다.
+       - ``Image converting failed or invalid DIMS command.`` 잘못된 명령어 또는 지원되지 않는 이미지등으로 인해 변환하지 못했다.
+     
+     - ``redirect`` 원본 이미지 주소로 302 Redirect한다.
+
+
+
+최적화
+-----------------------
+
+최적화란 이미지 품질을 저하시키지 않으면서 이미지를 압축하는 과정이다. 
+JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
+이미 다른 도구등을 통해 최적화된 이미지는 더 이상 최적화되지 않는다. ::
+
+   http://image.example.com/img.jpg/dims/optimize
+
+최적화는 키워드 이외 별도의 옵션을 가지지 않는다.
+그러므로 다른 변환조건과 조합할 때 맨 뒤에 명시하는 편이 바람직하다. ::
+
+   http://image.example.com/img.jpg/dims/resize/100x100/optimize
    
-``<Dims>`` 동작을 위해서는 :ref:`wm` 이 반드시 동작하고 있어야 한다.
+다른 모든 DIMS기능이 시스템 자원을 많이 사용하지만 그 중에서도 최적화가 가장 무거운 작업이다.
+다음은 HitRatio가 0%인 상태에서 이미지 크기별 성능 테스트 결과이다.
+
+-  ``OS`` CentOS 6.2 (Linux version 2.6.32-220.el6.x86_64 (mockbuild@c6b18n3.bsys.dev.centos.org) (gcc version 4.4.6 20110731 (Red Hat 4.4.6-3) (GCC) ) #1 SMP Tue Dec 6 19:48:22 GMT 2011)
+-  ``CPU`` `Intel(R) Xeon(R) CPU E3-1230 v3 @ 3.30GHz (8 processors) <http://www.cpubenchmark.net/cpu.php?cpu=Intel+Xeon+E3-1230+v3+%40+3.30GHz>`_
+-  ``RAM`` 16GB
+-  ``HDD`` SMC2108 SAS 275GB X 3EA
+
+====== ==== ============= ======================= ================== ================
+크기   RPS  응답속도(ms)	클라이언트 트래픽(Mbps)	원본 트래픽(Mbps)  트래픽 절감률(%)
+====== ==== ============= ======================= ================== ================
+16KB   720  19.32         46.32                   92.62              49.99
+32KB   680  20.68         86.42                   165.08             47.65
+64KB   285  50.16         80.67                   150.96             46.56
+128KB  274  57.80         164.35                  276.52             40.56
+256KB  210  80.74         99.42                   432.35             77.00
+512KB  113  156.18        160.54                  436.04             63.18
+1MB    20   981.07        90.62                   179.88             49.62
+====== ==== ============= ======================= ================== ================
+
+약 50%내외의 트래픽 절감률이 있으므로 매우 효과적이다.
+다시 한번 말하지만 최적화는 매우 무거운 작업이다.
+표를 통해 알 수 있듯이 이미지 크기가 가장 큰 변수가 된다.
+
+때문에 충분한 고려없이 서비스에 적용했다가는 큰 낭패를 볼 수 있다.
+적당한 :ref:`adv_topics_req_hit_ratio` 가 있는 상황이 바람직하나 그렇지 않다면 
+서비스 규모에 맞게 물리적인 CPU자원이 충분히 확보하는 것이 바람직하다.
+
 
 
 잘라내기
