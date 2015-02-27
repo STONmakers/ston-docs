@@ -1,6 +1,6 @@
 ﻿.. _api-graph:
 
-Appendix B: Graph
+Appendix A: Graph
 ******************
 
 모든 MRTG통계는 PNG포맷 그래프로 제공된다. 
