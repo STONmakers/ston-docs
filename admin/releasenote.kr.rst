@@ -7,6 +7,24 @@ Appendix A: 릴리스 이력
 v2.0.x
 ====================================
 
+2.0.4 (2015.2.27)
+----------------------------
+
+**기능개선/정책변경**
+
+   - :ref:`origin-balancemode` 의 ``Hash`` 알고리즘 변경
+   
+     | **Before.** hash(URL) / 서버대수
+     | **After.** `Consistent Hashing <http://en.wikipedia.org/wiki/Consistent_hashing>`_
+     |     
+   - :ref:`access-control-vhost` 를 통해 Redirect 할 때 클라이언트가 요청한 URI을 파라미터로 입력할 수 있다.
+   
+**버그 수정**
+
+   - 캐싱된 파일이 삭제되지 않아 디스크가 꽉 차던 증상
+   
+   
+
 2.0.3 (2015.2.9)
 ----------------------------
 
