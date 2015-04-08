@@ -186,47 +186,62 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
    # vhosts.xml - <Vhosts><Vhost><Media>
 
    <MP4HLS Status="Inactive" Keyword="mp4hls">
-      <Index>index.m3u8</Index>
+      <Index Ver="3">index.m3u8</Index>
       <Sequence>0</Sequence>
       <Duration>10</Duration>
    </MP4HLS>   
-    
--  ``<MP4HLS>``   
-   ``Status`` 속성이 ``Active`` 일 때 활성화된다.
 
-예를 들어 서비스 주소가 다음과 같다면 해당 주소로 Pseudo-Streaming을 진행할 수 있다. ::
+-  ``<MP4HLS>``
+   
+   - ``Status (기본: Inactive)`` 값이 ``Active`` 일 때만 활성화된다.
+   
+   - ``Keyword (기본: mp4hls)`` HLS 서비스 키워드
+   
+-  ``<Index> (기본: index.m3u8)`` HLS 인덱스(.m3u8) 파일명
+   
+   - ``Ver (기본 3)`` 인덱스 파일 버전. 
+     3인 경우 ``#EXT-X-VERSION:3`` 헤더가 명시되며 ``#EXTINF`` 의 시간 값이 소수점 3째 자리까지 표시된다. 
+     1인 경우 ``#EXT-X-VERSION`` 헤더가 없으며, ``#EXTINF`` 의 시간 값이 정수(반올림)로 표시된다.
+
+-  ``<Sequence> (기본: 0)`` .ts 파일의 시작 번호. 이 수를 기준으로 순차적으로 증가한다.
+
+-  ``<Duration> (기본: 10초)`` MP4를 HLS로 분할하는 기준 시간(초).
+   분할의 기준은 Video/Audio의 KeyFrame이다.
+   KeyFrame은 들쭉날쭉할 수 있으므로 정확히 분할되지 않는다.
+   만약 10초로 분할하려는데 KeyFrame이 9초와 12초에 있다면 가까운 값(9초)을 선택한다.
+
+
+서비스 주소가 다음과 같다면 해당 주소로 Pseudo-Streaming을 진행할 수 있다. ::
 
     http://www.example.com/video.mp4
     
 가상호스트는 ``<MP4HLS>`` 에 정의된 ``Keyword`` 문자열을 인식함으로써 HLS서비스를 진행한다. 
-다음 URL이 호출되면 /video.mp4로부터 index.m3u8파일을 생성한다. 
-인덱스 파일명은 ``<Index>`` 에서 문자열로 설정한다. ::
+다음 URL이 호출되면 /video.mp4로부터 index.m3u8파일을 생성한다. ::
 
    http://www.example.com/video.mp4/mp4hls/index.m3u8
     
-생성된 index.m3u8은 다음과 같다. ::
+생성된 index.m3u8(버전 3)은 다음과 같다. ::
 
    #EXTM3U
    #EXT-X-TARGETDURATION: 10
+   #EXT-X-VERSION:3
    #EXT-X-MEDIA-SEQUENCE: 0
-   #EXTINF:10,
+   #EXTINF:11.637,
    /video.mp4/mp4hls/0.ts
-   #EXTINF:10,
+   #EXTINF:10.092,
    /video.mp4/mp4hls/1.ts
-   #EXTINF:10,
+   #EXTINF:10.112,
    /video.mp4/mp4hls/2.ts
    
    ... (중략)...
     
-   #EXTINF:10,
+   #EXTINF:10.847,
    /video.mp4/mp4hls/161.ts
-   #EXTINF:9,
+   #EXTINF:9.078,
    /video.mp4/mp4hls/162.ts
    #EXT-X-ENDLIST
     
-#EXT-X-TARGETDURATION은 ``<Duration>`` 으로 설정한다.
-주의할 점은 원본파일은 정확히 Video의 KeyFrame에 의해서만 분할된다는 것이다. 
-다음 4가지 경우가 존재할 수 있다.
+분할에는 3가지 정책이 있다.
 
 -  **KeyFrame 간격보다** ``<Duration>`` **설정이 큰 경우**   
    KeyFrame이 3초, ``<Duration>`` 이 20초라면 20초를 넘지 않는 KeyFrame의 배수인 18초로 분할된다.
@@ -237,11 +252,6 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 -  **KeyFrame 간격이** ``<Duration>`` **설정보다 큰 경우**
    KeyFrame단위로 분할된다.
    
--  **Video가 없는 경우**
-   ``<Duration>`` 단위로 분할된다.
-   
-#EXT-X-MEDIA-SEQUENCE은 .ts파일의 시작 숫자를 정의하며 ``<Sequence>`` 로 설정한다.
-
 다음 클라이언트 요청에 대해 STON이 어떻게 동작하는지 이해해보자. ::
 
    GET /video.mp4/mp4hls/99.ts HTTP/1.1
@@ -256,6 +266,18 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 #.	``STON`` 100번째(99.ts)파일 생성 후 Range 서비스
 #.	``STON`` 서비스가 완료되면 99.ts파일 파괴
 
+.. note::
+
+   ``MP4Trimming`` 기능이 ``ON`` 이라면 Trimming된 MP4를 HLS로 변환할 수 있다. (HLS영상을 Trimming할 수 없다. HLS는 MP4가 아니라 MPEG2TS 임에 주의하자.)
+   영상을 Trimming한 뒤, HLS로 변환하기 때문에 다음과 같이 표현하는 것이 자연스럽다. ::
+   
+      /video.mp4?start=0&end=60/mp4hls/index.m3u8
+      
+   동작에는 문제가 없지만 QueryString을 맨 뒤에 붙이는 HTTP 규격에 어긋난다.
+   이를 보완하기 위해 다음과 같은 표현해도 동작은 동일하다. ::
+   
+      /video.mp4/mp4hls/index.m3u8?start=0&end=60
+      /video.mp4?start=0/mp4hls/index.m3u8?end=60
 
 
 .. _media-dims:
