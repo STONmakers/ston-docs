@@ -55,10 +55,10 @@ Physical RAM  System Free    Contents        Caching Count Sockets
    <Indexing>Memory</Indexing>
 
 메모리 인덱싱에서는 Cold가 존재하지 않는다.
-모든 파일에 대한 정보는 메모리에 적재되기 때문에 메모리 없는 경우 원본서버에서 신규로 다운로드 한다.
-그 만큼 고성능과 빠른 서비스 품질을 얻을 수 있다.
+모든 파일에 대한 정보는 메모리에 적재되기 때문에 메모리에 찾을 수 없다면 원본서버에서 신규로 다운로드 한다.
+검색시간이 매우 짧기 때문에 그 만큼 고성능과 빠른 서비스 품질을 얻을 수 있다.
 하지만 메모리 저장공간의 한계로 인해 캐싱 개수에 한계가 있다.
-그 한계는 앞선 표의 Caching Count에서 명시한다.
+그 한계는 앞선 표의 Caching Count를 참고한다.
 
 디스크 인덱싱은 Hot에 없는 경우 원본으로 가기 전에 Cold에서 콘텐츠를 찾는다. ::
 
@@ -67,7 +67,7 @@ Physical RAM  System Free    Contents        Caching Count Sockets
    <Indexing>Disk</Indexing>
    
 이 방식은 메모리 제한을 받지 않기 때문에 Caching Count에 제한이 없다.
-Hot 콘텐츠의 경우 빠른 품질을 보장하지만, Cold의 경우 디스크를 사용하기 때문에 높은 성능을 기대하긴 어렵다.
+Hot 콘텐츠의 경우 빠른 품질을 보장하지만, Cold의 경우 디스크를 사용하기 때문에 상대적으로 느리다.
 간단히 정리하면 Hot은 메모리 속도, Cold는 디스크 속도에 수렴한다.
 
 디스크 인덱싱을 사용할 경우 SSD를 사용할 것을 강력히 권장한다.

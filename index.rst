@@ -18,9 +18,9 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
-   admin/intro
-   admin/getting_started
-   admin/environment
+   admin/intro.kr
+   admin/getting_started.kr
+   admin/environment.kr
    
    
 2부. HTTP 서비스
@@ -29,12 +29,12 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
    
-   admin/caching_policy
-   admin/caching_purge
-   admin/handling_http_requests
-   admin/origin
-   admin/bypass
-   admin/https
+   admin/caching_policy.kr
+   admin/caching_purge.kr
+   admin/handling_http_requests.kr   
+   admin/origin.kr
+   admin/bypass.kr
+   admin/https.kr
    
    
 3부. 고급기능
@@ -43,11 +43,11 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
    
-   admin/access_control
-   admin/bandwidth_control
-   admin/media
-   admin/filesystem
-   admin/adv_topics
+   admin/access_control.kr
+   admin/bandwidth_control.kr
+   admin/media.kr   
+   admin/filesystem.kr
+   admin/adv_topics.kr
    
    
 4부. 관리/운영
@@ -56,10 +56,10 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
    
-   admin/monitoring_stats
-   admin/snmp
-   admin/log
-   admin/wm
+   admin/monitoring_stats.kr
+   admin/snmp.kr
+   admin/log.kr
+   admin/wm.kr
    
    
 5부. 부록
@@ -68,4 +68,4 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
-   admin/graph
+   admin/graph.kr
