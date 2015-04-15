@@ -28,6 +28,8 @@ HTTP의 여러 기능에 따라 같은 URL이라고 하더라도 콘텐츠가 �
 
 
 
+.. _caching-policy-ttl:
+
 TTL (Time To Live)
 ====================================
 
@@ -39,8 +41,6 @@ TTL은 한번 설정되면 만료되기 전까지 바뀌지 않는다.
 새로운 TTL은 파일이 만료되었을 때 적용된다.
 관리자는 :ref:`api-cmd-purge` , :ref:`api-cmd-expire` , :ref:`api-cmd-expireafter` , :ref:`api-cmd-hardpurge` 등의 API를 사용해 TTL을 변경할 수 있다.
 
-
-.. _caching-policy-ttl:
 
 기본 TTL
 ---------------------

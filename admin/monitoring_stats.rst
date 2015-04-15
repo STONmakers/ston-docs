@@ -500,24 +500,25 @@ System 통계
          "Outbound":0,                            <Memory>784786700</Memory>                              
          "Session":0                              <SecuredMemory>0</SecuredMemory>                        
        },                                         <Disk> ... </Disk>                                      
-       "Memory":785740769,                        <Session> ... </Session>                                
-       "SecuredMemory":0,                         <File Total="458278" Opened="15" Instance="458292"/>    
-       "Disk": { ... },                           <Cached> ... </Cached>                                  
-       "Session": { ... },                        <CacheFileEvent> ... </CacheFileEvent>                  
-       "FileTotal":458308,                        <WaitingFiles2Delete>1087593</WaitingFiles2Delete>      
-       "FileOpened":15,                           <ClientHttpReqBypass Sum="8100">27</ClientHttpReqBypass>
-       "FileInstance":458320,                     <ClientHttpReqDenied Sum="400">1</ClientHttpReqDenied>  
-       "Cached": { ... },                         <OriginTraffic> ... </OriginTraffic>                    
-       "CacheFileEvent": { ... },                 <PortBypass> ... </PortBypass>                          
-       "WaitingFiles2Delete":1087595,             <ClientTraffic> ... </ClientTraffic>                    
-       "ClientHttpReqBypassSum":8100,             <UrlBypass> ... </UrlBypass>                            
-       "ClientHttpReqBypass":27,                </VirtualHost>                                            
-       "ClientHttpReqDeniedSum":400,            <VirtualHost> ... </VirtualHost>                          
-       "ClientHttpReqDenied":1,                 <VirtualHost> ... </VirtualHost>                          
-       "OriginTraffic": { ... },                <VirtualHost> ... </VirtualHost>                          
-       "PortBypass": { ... },
-       "ClientTraffic": { ... },
-       "UrlBypass": { ... },
+       "Memory":785740769,                        <Session> ... </Session>
+       "SecuredMemory":0,                         <Dims> ... </Dims>
+       "Disk": { ... },                           <File Total="458278" Opened="15" Instance="458292"/>                                
+       "Session": { ... },                        <Cached> ... </Cached>                                                              
+       "Dims": { ... },                           <CacheFileEvent> ... </CacheFileEvent>                                              
+       "FileTotal":458308,                        <WaitingFiles2Delete>1087593</WaitingFiles2Delete>                                   
+       "FileOpened":15,                           <CacheFileEvent Create=\"%u\" Swap=\"%u\" Erase=\"%u\" Purge=\"%u\" Expire=\"%u\" /> 
+       "FileInstance":458320,                     <ClientHttpReqBypass Sum="8100">27</ClientHttpReqBypass>                             
+       "Cached": { ... },                         <ClientHttpReqDenied Sum="400">1</ClientHttpReqDenied>                               
+       "CacheFileEvent": { ... },                 <OriginTraffic> ... </OriginTraffic>                                                 
+       "WaitingFiles2Delete":1087595,             <PortBypass> ... </PortBypass>                                                       
+       "ClientHttpReqBypassSum":8100,             <ClientTraffic> ... </ClientTraffic>                                                 
+       "ClientHttpReqBypass":27,                  <UrlBypass> ... </UrlBypass>                                                        
+       "ClientHttpReqDeniedSum":400,            </VirtualHost>                                                                        
+       "ClientHttpReqDenied":1,                 <VirtualHost> ... </VirtualHost>                                                      
+       "OriginTraffic": { ... },                <VirtualHost> ... </VirtualHost>                                                      
+       "PortBypass": { ... },                   <VirtualHost> ... </VirtualHost>                                                      
+       "ClientTraffic": { ... },              
+       "UrlBypass": { ... }
      },
      ...
    ]
@@ -530,6 +531,7 @@ System 통계
 -  ``SecuredMemory (단위: Bytes)`` 메모리에서 삭제한 컨텐츠 양
 -  ``Disk`` 디스크 정보
 -  ``Session`` 세션 정보
+-  ``Dims`` DIMS변환 통계
 -  ``FileTotal`` 전체파일 개수
 -  ``FileOpened`` 열려져 있는 로컬파일 개수
 -  ``FileInstance`` 캐싱파일 개수
@@ -541,7 +543,7 @@ System 통계
 -  ``OriginTraffic`` 원본서버 트래픽 통계
 -  ``PortBypass`` 포트 바이패스 트래픽 통계
 -  ``ClientTraffic`` 클라이언트 트래픽 통계
--  ``UrlBypass`` URL매칭 또는 ``<BypassNoCacheRequest>`` 를 통해 원본서버로 바이패스되는 HTTP트래픽 통계
+-  ``UrlBypass`` URL매칭 또는 ``<BypassNoCacheRequest>`` 를 통해 원본서버로변환 통계되는 HTTP트래픽 통계
 
 .. note::
 
@@ -653,6 +655,30 @@ System 통계
 -  ``ActiveClient`` 전체 HTTP 클라이언트 중 전송 중인 세션수
 -  ``Origin`` 전체 원본서버 세션수
 -  ``ActiveOrigin`` 전체 원본서버 세션수 중 전송 중인 세션수
+
+
+
+DIMS 통계
+------------------------------
+
+DIMS의 성능지표를 제공한다. ::
+
+   "Dims":                                   <Dims
+   {                                           Requests="30"
+     "Requests": 30,                           Converted="29"
+     "Converted": 29,                          Failed="1"
+     "Failed": 1,                              AvgSrcSize="1457969"
+     "AvgSrcSize": 1457969,                    AvgDestSize="598831"
+     "AvgDestSize": 598831,                    AvgTime="34" />
+     "AvgTime": 34
+   },
+   
+-  ``Requests`` 변환요청 횟수
+-  ``Converted`` 변환성공 횟수
+-  ``Failed`` 변환실패 횟수
+-  ``AvgSrcSize (단위: Bytes)`` 원본 이미지의 평균 크기
+-  ``AvgDestSize (단위: Bytes)`` 변환된 이미지의 평균 크기
+-  ``AvgTime (단위: ms)`` 변환 소요시간
 
 
 
