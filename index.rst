@@ -68,4 +68,5 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
+   admin/release
    admin/graph
