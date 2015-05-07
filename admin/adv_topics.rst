@@ -269,6 +269,46 @@ Keep-Alive시간을 길게 줄수록 소켓의 재사용성은 좋아지지만 �
 
 
 
+.. _adv_topics_tso:
+
+TCP Segmentation Offload
+====================================
+
+.. important::
+
+   10G NIC를 사용한다면 TSO(TCP Segmentation Offload)를 OFF로 설정하길 권장한다.
+   
+TCP는 전송시 패킷을 분할(Segmentation)하는데, 이 작업을 CPU가 아닌 NIC가 수행하도록 설정하는 것이 TSO이다.
+(기본 값은 ON이다.)
+하지만 10G NIC 서비스 환경에서 우리는 이와 관련된 많은 장애를 겪었다.
+
+-  TCP 패킷 유실 및 지연
+-  TCP 연결 종료
+-  Load Average의 비정상적인 증가
+
+결론적으로 TSO는 모두의 기대만큼 높은 성능을 내지 못하는 것으로 추정된다.
+(NIC만 1G로 바꿔도 이런 문제는 발생하지 않았다.)
+결론적으로 TSO를 OFF로 설정함으로써 서비스는 정상화되었다.
+이에 따른 CPU 사용량은 우려할 수준이 아니며 서비스 규모와 비례하는 정직한 지표를 보여 준다.
+
+TSO 설정은 다음과 같이 설정/확인할 수 있다. (K의 대/소문자에 유의한다.) ::
+
+   # ethtool -K ethX tso off        // TSO OFF 설정
+   # ethtool -k ethX                // 설정 열람
+   ...
+   tcp segmentation offload: on
+   ...
+
+.. tip::
+
+   더 자세한 정보는 다음 링크를 참조한다.
+
+   -  `http://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool <http://sandilands.info/sgordon/segmentation-offloading-with-wireshark-and-ethtool>`_
+   -  `http://www.linuxfoundation.org/collaborate/workgroups/networking/tso <http://www.linuxfoundation.org/collaborate/workgroups/networking/tso>`_
+   -  `http://www.packetinside.com/2013/02/mtu-1500.html <http://www.packetinside.com/2013/02/mtu-1500.html>`_
+
+
+
 
 클라이언트 접속 제한
 ====================================

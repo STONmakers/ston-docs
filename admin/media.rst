@@ -186,9 +186,10 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
    # vhosts.xml - <Vhosts><Vhost><Media>
 
    <MP4HLS Status="Inactive" Keyword="mp4hls">
-      <Index Ver="3">index.m3u8</Index>
+      <Index Ver="3" Alternates="off">index.m3u8</Index>
       <Sequence>0</Sequence>
       <Duration>10</Duration>
+      <AlternatesName>playlist.m3u8</AlternatesName>
    </MP4HLS>   
 
 -  ``<MP4HLS>``
@@ -202,6 +203,18 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
    - ``Ver (기본 3)`` 인덱스 파일 버전. 
      3인 경우 ``#EXT-X-VERSION:3`` 헤더가 명시되며 ``#EXTINF`` 의 시간 값이 소수점 3째 자리까지 표시된다. 
      1인 경우 ``#EXT-X-VERSION`` 헤더가 없으며, ``#EXTINF`` 의 시간 값이 정수(반올림)로 표시된다.
+     
+   - ``Alternates (기본: OFF)`` Stream Alternates 사용여부.
+   
+     .. figure:: img/hls_alternates_off.png
+        :align: center   
+        
+        OFF. ``<Index>`` 에서 TS목록을 서비스한다.
+        
+     .. figure:: img/hls_alternates_on.png
+        :align: center   
+        
+        ON. ``<AlternatesName>`` 에서 TS목록을 서비스한다.
 
 -  ``<Sequence> (기본: 0)`` .ts 파일의 시작 번호. 이 수를 기준으로 순차적으로 증가한다.
 
@@ -209,6 +222,10 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
    분할의 기준은 Video/Audio의 KeyFrame이다.
    KeyFrame은 들쭉날쭉할 수 있으므로 정확히 분할되지 않는다.
    만약 10초로 분할하려는데 KeyFrame이 9초와 12초에 있다면 가까운 값(9초)을 선택한다.
+   
+-  ``<AlternatesName> (기본: playlist.m3u8)`` Stream Alternates 파일명. ::
+
+      http://www.example.com/video.mp4/mp4hls/playlist.m3u8
 
 
 서비스 주소가 다음과 같다면 해당 주소로 Pseudo-Streaming을 진행할 수 있다. ::
@@ -219,8 +236,23 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 다음 URL이 호출되면 /video.mp4로부터 index.m3u8파일을 생성한다. ::
 
    http://www.example.com/video.mp4/mp4hls/index.m3u8
-    
-생성된 index.m3u8(버전 3)은 다음과 같다. ::
+
+``Alternates`` 속성이 ON이라면 ``<Index>`` 파일은 ``<AlternatesName>`` 파일을 서비스한다. ::
+
+   #EXTM3U
+   #EXT-X-VERSION:3
+   #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=200000,RESOLUTION=720x480
+   /video.mp4/mp4hls/playlist.m3u8
+
+``#EXT-X-STREAM-INF`` 의 Bandwidth와 Resolution은 영상을 분석하여 동적으로 제공한다.
+
+.. note::
+
+   Stream Alternates를 제공하긴 하지만 현재 버전에서 index.m3u8는 항상 하나의 서브 인덱스 파일(playlist.m3u8)만을 제공한다. 
+   캐시 입장에서는 video_1080.mp4와 video_720.mp4가 (인코딩 옵션만 다른) 같은 영상인지 알 수 없기 때문이다.
+   
+
+최종적으로 생성된 .ts 목록(버전 3)은 다음과 같다. ::
 
    #EXTM3U
    #EXT-X-TARGETDURATION: 10
