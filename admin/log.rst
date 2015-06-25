@@ -484,6 +484,10 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 -  ``%...U`` ShortURI ::
 
       /img/img.jpg
+      
+-  ``%...u`` FullURI ::
+
+      /img/img.jpg?session=1232&id=37
 
 -  ``%...X`` 트랜잭션이 완료되었을 때의 상태
    

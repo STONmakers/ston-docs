@@ -538,3 +538,25 @@ Emergency모드일 때 STON은 다음과 같이 동작합니다.
    http://127.0.0.1:10040/command/mount?디스크=...
 
 재투입된 디스크의 모든 콘텐츠는 무효화된다.
+
+
+.. _adv_topics_syncstale:
+
+SyncStale
+====================================
+
+(인덱싱시점과 성능상의 이유로) 비정상 서비스 종료시 관리자가 :ref:`api-cmd-purge` , :ref:`api-cmd-expire` , :ref:`api-cmd-hardpurge` 한 컨텐츠가 인덱싱에서 누락될 수 있다. 
+이를 보완하기 위해 API호출을 로그로 기록하여 서비스 재가동시 반영한다. ::
+
+    # server.xml - <Server><Cache>
+   
+    <SyncStale>ON</SyncStale>    
+    
+-  ``<SyncStale>``
+
+   - ``ON  (기본)`` 구동될 때 동기화한다.
+   
+   - ``OFF`` 무시한다.
+   
+로그는 ./stale.log에 기록되며 정상종료 또는 정기 인덱싱 시점에 초기화된다.
+

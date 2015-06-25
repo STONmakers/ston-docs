@@ -345,9 +345,10 @@ WM에서는 색으로 재정의를 구분한다.
 
 가동 중인 서버의 시스템 정보를 조회한다.
 
+
 .. figure:: img/wm_gstat1.png
    :align: center
-   
+
    
    
 서비스 상태
