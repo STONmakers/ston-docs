@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'STON Edge Server'
-copyright = '2015, WineSOFT Inc.'
+copyright = '2014, WineSOFT Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

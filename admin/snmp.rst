@@ -1,6 +1,6 @@
 ﻿.. _snmp:
 
-16장. SNMP
+11장. SNMP
 ******************
 
 이 장에서는 SNMP(Simple Network Management Protocol)에 대해 다룬다.

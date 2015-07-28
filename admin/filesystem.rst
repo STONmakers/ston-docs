@@ -1,6 +1,6 @@
 ﻿.. _filesystem:
 
-13장. File System
+17장. File System
 ******************
 
 이 장에서는 STON을 로컬 디스크처럼 사용하는 방법에 대해 설명한다.

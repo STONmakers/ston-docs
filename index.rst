@@ -35,9 +35,21 @@ STON Edge Server 완벽 가이드
    admin/origin
    admin/bypass
    admin/https
+
+
+3부. 관리/운영
+=============================
+
+.. toctree::
+   :maxdepth: 2
+   
+   admin/monitoring_stats
+   admin/snmp
+   admin/log
+   admin/wm
    
    
-3부. 고급기능
+4부. 고급기능
 =============================
 
 .. toctree::
@@ -49,17 +61,7 @@ STON Edge Server 완벽 가이드
    admin/filesystem
    admin/adv_topics
    
-   
-4부. 관리/운영
-=============================
 
-.. toctree::
-   :maxdepth: 2
-   
-   admin/monitoring_stats
-   admin/snmp
-   admin/log
-   admin/wm
    
    
 5부. 부록
