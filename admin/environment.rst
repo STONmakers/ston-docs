@@ -363,8 +363,8 @@ vhosts.xml 가상호스트 설정
 
     # vhosts.xml - <Vhosts>
     
-    <Vhost Name="www.example.com">
-        <Alias>www2.example.com</Alias>
+    <Vhost Name="example.com">
+        <Alias>another.com</Alias>
         <Alias>*.sub.example.com</Alias>
     </Vhost>
 
@@ -372,7 +372,7 @@ vhosts.xml 가상호스트 설정
 
    가상호스트의 별명을 설정한다.
    개수는 제한이 없다.
-   명확한 표현(www2.example.com)과 패턴표현(*.sub.example.com)을 지원한다.
+   명확한 표현(another.com)과 패턴표현(*.sub.example.com)을 지원한다.
    패턴은 복잡한 정규표현식이 아닌 prefix에 * 표현을 하나만 붙일 수 있는 간단한 형식만을 지원한다.
 
 
@@ -381,6 +381,70 @@ vhosts.xml 가상호스트 설정
 1. ``<Vhost>`` 의 ``Name`` 과 일치하는가?
 2. 명시적인 ``<Alias>`` 와 일치하는가?
 3. 패턴 ``<Alias>`` 를 만족하는가?
+
+
+
+.. _env-vhost-facadevhost:    
+
+Facade 가상호스트
+------------------------------------
+
+``<Alias>`` 는 가상호스트의 별명만을 추가하는 것이므로 통계와 로그가 분리되지 않는다.
+가상호스트는 공유하지만 도메인에 따라 :ref:`monitoring_stats_vhost_client` 와 :ref:`admin-log-access` 를 분리하고 싶은 경우 Facade가상호스트를 설정한다. ::
+
+    # vhosts.xml - <Vhosts>
+    
+    <Vhost Name="example.com">
+       ...
+    </Vhost>
+    
+    <Vhost Name="another.com" Status="facade:example.com">
+       ...
+    </Vhost>
+
+``Status`` 속성의 값을 ``facade:`` + ``가상호스트`` 로 설정한다.
+예제의 경우 :ref:`monitoring_stats_vhost_client` 와 :ref:`admin-log-access` 는 example.com이 아닌 클라이언트가 요청한 도메인인 another.com으로 수집된다.
+
+
+
+.. _env-vhost-sub-path:
+    
+Sub-Path
+------------------------------------
+
+한 가상호스트에서 경로에 따라 다른 가상호스트가 처리하도록 설정할 수 있다. ::
+
+   # vhosts.xml - <Vhosts>
+   
+   <Vhost Name="sports.com">
+     <Sub Status="Active">
+       <Path Vhost="baseball.com">/baseball/<Path>
+       <Path Vhost="football.com">/football/<Path>
+       <Path Vhost="photo.com">/*.jpg<Path>
+     </Sub>
+   </Vhost>
+
+   <Vhost Name="baseball.com" />
+   <Vhost Name="football.com" />
+   <Vhost Name="photo.com" />
+
+-  ``<Sub>`` 경로나 패턴이 일치하면 해당 요청을 다른 가상호스트로 보낸다.
+   일치하지 않는 경우만 현재 가상호스트가 처리한다.
+    
+   - ``Status (기본: Active)`` Inactive인 경우 무시한다.
+
+   -  ``<Path>`` 클라이언트가 요청한 URI와 경로가 일치하면 ``Vhost`` 로 해당 요청을 보낸다.
+      값은 경로 또는 패턴만 가능하다. ::
+      
+         <Path Vhost="baseball.com">baseball<Path>
+         <Path Vhost="photo.com">*.jpg<Path>
+      
+      위와 같이 입력해도 각각 /baseball/과 /*.jpg로 인식된다.
+
+예를 들어 클라이언트가 다음과 같이 요청했다면 해당 요청은 가상호스트 football.com이 처리한다. ::
+
+   GET /football/rank.html HTTP/1.1
+   Host: sports.com
 
 
 .. _env-vhost-defaultvhost:    

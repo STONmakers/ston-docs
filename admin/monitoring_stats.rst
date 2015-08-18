@@ -832,6 +832,8 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
 
 
 
+.. _monitoring_stats_vhost_client:
+
 클라이언트 통계
 ------------------------------
 
@@ -1033,6 +1035,7 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
    -  ``CountSum`` HTTP응답의 총 회수
    -  ``CompletedSum`` 완료된 HTTP 트랜잭션의 총 회수
    -  ``RequestHitSum`` 캐시 HIT 결과
+   
    
 
 View
