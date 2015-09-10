@@ -605,8 +605,8 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 
 다음과 같이 URL을 호출할 때 ``FirstFrameOnly`` 옵션을 명시적으로 지정할 수 있다. ::
 
-   http://image.example.com/img.jpg/dims/firstframe/on/resize/200x200/
-   http://image.example.com/img.jpg/dims/firstframe/off/resize/200x200/
+   http://image.example.com/img.jpg/dims/firstframeonly/on/resize/200x200/
+   http://image.example.com/img.jpg/dims/firstframeonly/off/resize/200x200/
 
 위와 같이 URL에 명시적으로 지정되어 있는 경우 설정보다 우선한다.
 
