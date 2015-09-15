@@ -324,7 +324,7 @@ Access 로그
 -  ``XFF``
 
    - ``OFF`` 클라이언트 IP를 기록한다.
-   - ``ON (기본)`` 클라이언트가 보낸 X-Forwarded-For헤더 값을 기록한다. 없다면 ``OFF`` 와 같다.
+   - ``ON (기본)`` 클라이언트가 보낸 X-Forwarded-For헤더 값과 클라이언트 IP를 같이 기록한다. 없다면 ``OFF`` 와 같다.
 
 -  ``Form``
    
@@ -355,7 +355,7 @@ Access 로그
 -  ``cs-uri-query`` 클라이언트가 보낸 URL중 QueryString
 -  ``s-port`` 서버 포트
 -  ``cs-username`` 클라이언트 username
--  ``c-ip`` 클라이언트 IP`` XFF설정이 "ON"이라면 X-Forwarded-For헤더 값을 기록한다.
+-  ``c-ip`` 클라이언트 IP`` XFF설정이 "ON"이라면 X-Forwarded-For헤더 값과 클라이언트 IP를 기록한다.
 -  ``cs(User-Agent)`` 클라이언트가 보낸 HTTP User-Agent
 -  ``sc-status`` 서버 응답코드.
 -  ``sc-bytes`` 서버가 보낸 Bytes (헤더 + 컨텐츠)
