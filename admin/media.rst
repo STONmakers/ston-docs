@@ -134,6 +134,56 @@ lighttpd의 `Mod-H264-Streaming-Testing-Version2 <http://h264.code-shop.com/trac
 
 
 
+.. _media-multi-trimming:
+
+Multi-Trimming
+====================================
+
+시간 값을 기준으로 복수로 지정된 구간을 하나의 영상으로 추출한다. 
+
+.. figure:: img/conf_media_multitrimming.png
+   :align: center
+   
+   /video.mp4?trimming=0-30,210-270,525-555
+
+구간 지정방법만 다를뿐 동작방식은 `Trimming`_ 과 동일하다. ::
+
+   # server.xml - <Server><VHostDefault><Media>
+   # vhosts.xml - <Vhosts><Vhost><Media>
+   
+   <MP4Trimming MultiParam="trimming" MaxRatio="50">OFF</MP4Trimming>
+   <M4ATrimming MultiParam="trimming">OFF</M4ATrimming>
+
+-  ``<MP4Trimming>`` ``<M4ATrimming>``
+   
+   - ``MultiParam (기본: "trimming")`` 
+     설정된 이름을 QueryString Key로 사용하여 추출 구간을 지정한다.
+     하나의 구간은 "시작시간 - 종료시간" 으로 표기하며 각 구간은 콤마(,)로 연결한다.
+     
+   - ``MaxRatio (기본: 50%)``
+     Multi-Trimming된 영상은 원본보다 ``MaxRatio (최대 100%)`` 비율만큼까지 커질 수 있다.
+     ``MaxRatio`` 를 넘어가는 구간은 무시된다.
+     
+
+예를 들어 다음과 같이 호출하면 3분짜리 영상이 생성된다. ::
+
+   http://example.com/video.mp4?trimming=10-70,560-620,1245-1305
+   
+같은 영상을 반복하거나 앞 뒤가 바뀐 영상을 만들 수도 있다. ::
+
+   http://example.com/video.mp4?trimming=17-20,17-20,17-20,17-20
+   http://example.com/video.mp4?trimming=1000-1200,500-623,1900-2000
+   http://example.com/video.mp4?trimming=600-,400-600
+   
+구간 값을 지정하지 않은 경우 맨 앞 또는 맨 뒤를 의미한다.
+
+
+.. note::
+
+   `Multi-Trimming`_ 은 `Trimming`_ 보다 우선한다. 
+   QueryString에 `Multi-Trimming`_ 키가 명시되어 있다면 `Trimming`_ 키는 무시된다.
+
+
 .. _media-hls:
 
 HLS (HTTP Live Streaming)
