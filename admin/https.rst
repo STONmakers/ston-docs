@@ -4,7 +4,7 @@
 ******************
 
 이 장에서는 HTTPS 구성에 대해 설명한다.
-SSL 3.0, TLS 1.0, TLS 1.1을 지원하며 SSL 2.0은 보안상의 이유로 업그레이드만 허용한다.
+TLS 1.2까지 지원하며 SSL 2.0은 보안상의 이유로 업그레이드만 허용한다.
 HTTPS는 클라이언트와 STON구간에서만 사용된다. 
 STON은 원본서버와 HTTPS로 통신하지 않는다.
 왜냐하면 보안적으로나 성능적으로 STON이 HTTPS를 중계하는 것은 적절하지 않기 때문이다.
@@ -90,13 +90,22 @@ CipherSuite 선택
 
 지원하는 CipherSuites는 다음과 같다.
 
-- RSA_WITH_RC4_SHA
-- RSA_WITH_RC4_MD5
-- RSA_WITH_AES_128_CBC_SHA
-- RSA_WITH_AES_256_CBC_SHA
-- RSA_WITH_3DES_EDE_CBC_SHA
-- ECDHE_RSA_WITH_AES_128_CBC_SHA
-- ECDHE_RSA_WITH_AES_256_CBC_SHA
+================================================ ======== =========== ======= 
+Cipher Suite                                     TLS1.2   TLS1.1/1.0  SSL3.0
+================================================ ======== =========== =======
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256	(0xc02F)   O       
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256	(0xC027)   O
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xC014)      O        O
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xC013)      O        O
+TLS_RSA_WITH_AES_128_GCM_SHA256	(0x009C)         O
+TLS_RSA_WITH_AES_256_CBC_SHA256	(0x003D)         O
+TLS_RSA_WITH_AES_128_CBC_SHA256	(0x003C)         O
+TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)            O        O
+TLS_RSA_WITH_AES_128_CBC_SHA (0x002F)            O        O
+TLS_RSA_WITH_3DES_EDE_CBC_SHA (0x000A)           O        O
+TLS_RSA_WITH_RC4_128_SHA (0x0005)                                     O
+TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
+================================================ ======== =========== =======
 
 ``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
@@ -109,6 +118,29 @@ CipherSuite 선택
    </Https>   
 
 -  ``CipherSuite`` `Apache mod_ssl의 SSL CipherSuite표현 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ 을 따른다.
+
+`Forward Secrecy <https://en.wikipedia.org/wiki/Forward_secrecy>`_ 를 보장하면 더 높은 보안성을 얻을 수 있다. (아래 링크 참조)
+
+   - `SSL Labs: Deploying Forward Secrecy <https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy>`_
+   - `SSL/TLS & Perfect Forward Secrecy <http://vincent.bernat.im/en/blog/2011-ssl-perfect-forward-secrecy.html>`_   
+   - `Configuring Apache, Nginx, and OpenSSL for Forward Secrecy <https://community.qualys.com/blogs/securitylabs/2013/08/05/configuring-apache-nginx-and-openssl-for-forward-secrecy>`_
+
+기본적으로 FS(Forward Secrecy)를 보장하는 CipherSuite를 우선적으로 선택한다. ::
+
+   # server.xml - <Server>
+
+   <Https FS="ON"> ...  </Https>
+
+-  ``FS``
+
+   - ``ON (기본)`` Forward Secrecy를 보장하는 CipherSuite를 우선적으로 선택한다.
+   - ``OFF`` ClientHello에 명시된 순서대로 선택한다.
+   
+``FS`` 속성은 ``CipherSuite`` 속성보다 우선한다.
+
+.. note::
+
+   성능상의 이유로 ECDHE만 지원한다. DHE는 지원하지 않는다.
 
 
 
@@ -284,10 +316,13 @@ STON에서는 다음과 같이 Listen속성에 IP명시하여 인증서를 여�
 
    # server.xml - <Server>
 
-   <Https SSL3.0="ON" TLS1.0="ON" TLS1.1="ON> ...  </Https>
-   
-- ``SSL3.0 (기본: ON)`` SSL3.0을 사용한다.
+   <Https TLS1.2="ON" TLS1.1="ON" TLS1.0="ON" SSL3.0="ON"> ...  </Https>
 
-- ``TLS1.0 (기본: ON)`` TLS1.0을 사용한다.
+- ``TLS1.2 (기본: ON)`` TLS1.2를 사용한다.
 
 - ``TLS1.1 (기본: ON)`` TLS1.1을 사용한다.
+   
+- ``TLS1.0 (기본: ON)`` TLS1.0을 사용한다.
+
+- ``SSL3.0 (기본: ON)`` SSL3.0을 사용한다.
+
