@@ -465,7 +465,7 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 영역은 **widthxheight{+-}x{+-}y{%}** 로 표현한다. 
 다음은 좌상단 x=20, y=30을 기준으로 width=100, height=200만큼 잘라내는 예제다. ::
 
-   http://image.example.com/img.jpg/dims/crop/100x300+20+30/
+   http://image.example.com/img.jpg/dims/crop/100x200+20+30/
     
 
 Thumbnail 생성
