@@ -1,6 +1,6 @@
 ﻿.. _handling_http_requests:
 
-6장. HTTP 요청처리
+6장. HTTP 요청/응답
 ******************
 
 이 장에서는 HTTP 클라이언트 세션과 요청을 처리하는 방식에 대해 설명한다.
@@ -275,112 +275,14 @@ ETag 헤더
    -  ``ON (기본)`` ETag헤더를 명시한다.
    
    -  ``OFF``  ETag헤더를 생략한다.
-   
+
    
 
 
-응답 헤더
+기본응답 헤더
 ====================================
 
-HTTP 요청/응답 헤더 변경
----------------------
-
-클라이언트 HTTP요청과 응답을 특정 조건에 따라 변경한다. ::
-
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
-   
-   <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>   
-    
--  ``<ModifyHeader>``
-    
-   -  ``OFF (기본)`` 변경하지 않는다.
-   
-   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.
-   
-헤더 변경시점을 정확히 이해하자.
-
--  **HTTP 요청헤더 변경시점**
-
-   클라이언트 HTTP 요청을 최초로 인식하는 시점에 헤더를 변경한다. 
-   헤더가 변경되었다면 변경된 상태로 Cache 모듈에서 처리된다.
-   단, Host헤더와 URI는 변조할 수 없다.
-
--  **HTTP 응답헤더 변경시점**
-
-   클라이언트 응답 직전에 헤더를 변경한다. 
-   단, Content-Length는 변경할 수 없다.   
-
-      
-헤더 변경조건은 /svc/{가상호스트 이름}/headers.txt에 설정한다. 
-헤더는 멀티로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 동시에 적용된다. 
-
-최초 조건에만 변경을 원할 경우 ``FirstOnly`` 속성을 ``ON`` 으로 설정한다.
-서로 다른 조건이 같은 헤더를 변경하는 경우 Last-Win이 되거나 명시적으로 Append할 수 있다. ::
-
-   # /svc/www.example.com/headers.txt
-   # 구분자는 콤마(,)이다.
-   
-   # 요청변경
-   # {Match}, {$REQ}, {Action(set|unset|append)} 순서로 표기한다.
-   $IP[192.168.1.1], $REQ[SOAPAction], unset
-   $IP[192.168.2.1-255], $REQ[accept-encoding: gzip], set
-   $IP[192.168.3.0/24], $REQ[cache-control: no-cache], append
-   $IP[192.168.4.0/255.255.255.0], $REQ[x-custom-header], unset
-   $IP[AP], $REQ[X-Forwarded-For], unset
-   $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
-   $HEADER[via], $REQ[via], unset
-   $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
-   
-   # 응답변경
-   # {Match}, {$RES}, {Action(set|unset|append)}, {condition} 순서로 표기한다.
-   # {condition}은 특정 응답코드에 한하여 헤더를 변경할 수 있지만 필수는 아니다.
-   $IP[192.168.1.1], $RES[via: STON for CDN], set
-   $IP[192.168.2.1-255], $RES[X-Cache], unset, 200
-   $IP[192.168.3.0/24], $RES[cache-control: no-cache, private], append, 3xx
-   $IP[192.168.4.0/255.255.255.0], $RES[x-custom-header], unset
-   $HEADER[user-agent: *IE6*], $RES[vary], unset
-   $HEADER[x-custom-header], $RES[cache-control: no-cache, private], append, 5xx
-   $URL[/source/*], $RES[cache-control: no-cache], set, 404
-   /secure/*.dat, $RES[x-custom], unset, 200
-    
-{Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
-
--  **IP**
-   $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
-
--  **GeoIP**
-   $IP[...]로 표기하며 반드시 :ref:`access-control-geoip` 가 설정되어 있어야 한다.
-   국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
-     
--  **Header**
-   $HEADER[Key : Value]로 표기한다. 
-   Value는 명확한 표현과 패턴을 지원한다. 
-   Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
-    
--  **URL**
-   $URL[...]로 표기하며 생략이 가능하다. 명확한 표현과 패턴을 인식한다.
-    
-{$REQ}와 {$RES}는 헤더변경 방법을 설정한다.
-일반적으로 ``set`` 과 ``append`` 의 경우 {Key: Value}로 설정하며, 
-Value가 입력되지 않은 경우 빈 값("")이 입력된다. 
-``unset`` 의 경우 {Key}만 입력한다.
-
-{Action}은 ``set`` , ``unset`` , ``append`` 3가지로 설정이 가능하다.
-
--  ``set``  요청/응답 헤더에 설정되어 있는 Key와 Value를 헤더에 추가한다. 
-   이미 같은 Key가 존재한다면 이전 값을 덮어쓴다.    
-
--  ``unset`` 요청/응답 헤더에 설정되어 있는 Key에 해당하는 헤더를 삭제한다.
-
--  ``append``  ``set`` 과 유사하나 해당 Key가 존재한다면 기존의 Value와 설정된 Value사이에 Comma(,)로 구분하여 값을 결합한다.
-
-{Condition}은 200이나 304같은 구체적인 응답 코드외에 2xx, 3xx, 4xx, 5xx처럼 응답코드 계열조건으로 설정한다. 
-{Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
-{Condition}이 생략된 경우 응답코드를 검사하지 않는다.
-
-
-원본 헤더
+원본 비표준 헤더
 ---------------------
 
 성능과 보안상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
@@ -434,6 +336,109 @@ Server 헤더
    
    -  ``OFF``  Server헤더를 생략한다.
 
+
+.. _handling_http_requests_modify_client:
+
+클라이언트 요청/응답 헤더 변경
+====================================
+
+클라이언트 HTTP요청과 응답을 특정 조건에 따라 변경한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+   
+   <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>   
+    
+-  ``<ModifyHeader>``
+    
+   -  ``OFF (기본)`` 변경하지 않는다.
+   
+   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.
+   
+헤더 변경시점을 정확히 이해하자.
+
+-  **HTTP 요청헤더 변경시점**
+
+   클라이언트 HTTP 요청을 최초로 인식하는 시점에 헤더를 변경한다. 
+   헤더가 변경되었다면 변경된 상태로 Cache 모듈에서 처리된다.
+   단, Host헤더와 URI는 변경할 수 없다.
+
+-  **HTTP 응답헤더 변경시점**
+
+   클라이언트 응답 직전에 헤더를 변경한다. 
+   단, Content-Length는 변경할 수 없다.   
+
+      
+헤더 변경조건은 /svc/{가상호스트 이름}/headers.txt에 설정한다. 
+헤더는 멀티로 설정이 가능하므로 조건과 일치한다면 모든 변경설정이 순차적으로 모두 적용된다. 
+
+최초 조건에만 변경을 원할 경우 ``FirstOnly`` 속성을 ``ON`` 으로 설정한다.
+서로 다른 조건이 같은 헤더를 변경하는 경우 ``set`` 에 의해 Last-Win이 되거나 명시적으로 ``put`` ``append`` 할 수 있다. ::
+
+   # /svc/www.example.com/headers.txt
+   # 구분자는 콤마(,)이다.
+   
+   # 요청변경
+   # {Match}, {$REQ}, {Action(set|put|append|unset)} 순서로 표기한다.
+   $IP[192.168.1.1], $REQ[SOAPAction], unset
+   $IP[192.168.2.1-255], $REQ[accept-encoding: gzip], set
+   $IP[192.168.3.0/24], $REQ[cache-control: no-cache], append
+   $IP[192.168.4.0/255.255.255.0], $REQ[x-custom-header], unset
+   $IP[AP], $REQ[X-Forwarded-For], unset
+   $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
+   $HEADER[via], $REQ[via], unset
+   $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
+   
+   # 응답변경
+   # {Match}, {$RES}, {Action(set|put|append|unset)}, {condition} 순서로 표기한다.
+   # {condition}은 특정 응답코드에 한하여 헤더를 변경할 수 있지만 필수는 아니다.
+   $IP[192.168.1.1], $RES[via: STON for CDN], set
+   $IP[192.168.2.1-255], $RES[X-Cache], unset, 200
+   $IP[192.168.3.0/24], $RES[cache-control: no-cache, private], append, 3xx
+   $IP[192.168.4.0/255.255.255.0], $RES[x-custom-header], unset
+   $HEADER[user-agent: *IE6*], $RES[vary], unset
+   $HEADER[x-custom-header], $RES[cache-control: no-cache, private], append, 5xx
+   $URL[/source/*], $RES[cache-control: no-cache], set, 404
+   /secure/*.dat, $RES[x-custom], unset, 200
+   /*.mp4, $RES[Access-Control-Allow-Origin: example1.com], set
+   /*.mp4, $RES[Access-Control-Allow-Origin: example2.com], put
+    
+{Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
+
+-  **IP**
+   $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
+
+-  **GeoIP**
+   $IP[...]로 표기하며 반드시 :ref:`access-control-geoip` 가 설정되어 있어야 한다.
+   국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
+     
+-  **Header**
+   $HEADER[Key : Value]로 표기한다. 
+   Value는 명확한 표현과 패턴을 지원한다. 
+   Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
+    
+-  **URL**
+   $URL[...]로 표기하며 생략이 가능하다. 명확한 표현과 패턴을 인식한다.
+    
+{$REQ}와 {$RES}는 헤더변경 방법을 설정한다.
+``set`` ``put`` ``append`` 의 경우 {Key: Value}로 설정하며, 
+Value가 입력되지 않은 경우 빈 값("")이 입력된다. 
+``unset`` 의 경우 {Key}만 입력한다.
+
+{Action}은 ``set`` , ``put`` , ``append`` , ``unset``  4가지로 설정이 가능하다.
+
+-  ``set``  요청/응답 헤더에 설정되어 있는 Key와 Value를 헤더에 추가한다. 
+   이미 같은 Key가 존재한다면 이전 값을 덮어쓴다.
+   
+-  ``put``  ( ``set`` 과 유사하나) 같은 Key가 존재하면, 덮어쓰지 않고 새로운 라인으로 붙여 넣는다.
+
+-  ``append`` ( ``set`` 과 유사하나) 같은 Key가 존재하면, 기존의 Value와 설정된 Value사이에 Comma(,)로 구분하여 값을 결합한다.
+
+-  ``unset`` 요청/응답 헤더에 설정되어 있는 Key에 해당하는 헤더를 삭제한다.
+
+{Condition}은 200이나 304같은 구체적인 응답 코드외에 2xx, 3xx, 4xx, 5xx처럼 응답코드 계열조건으로 설정한다. 
+{Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
+{Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
 
 URL 전처리

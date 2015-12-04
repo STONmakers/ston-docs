@@ -57,7 +57,7 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
    .. figure:: img/02_disk.png
       :align: center
       
-      항상 OS와 STON은 별도의 디스크로 구성한다.
+      항상 OS와 STON은 콘텐츠와 별도의 디스크로 구성한다.
    
    일반적으로 OS가 설치된 디스크에 STON을 설치한다. 
    로그 역시 같은 디스크에 구성하는 것이 일반적이다. 

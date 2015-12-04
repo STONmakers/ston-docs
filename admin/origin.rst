@@ -448,7 +448,7 @@ Hit Raio를 높이기 위해 :ref:`caching-policy-casesensitive`, :ref:`caching-
 
 .. _origin-httprequest:
     
-원본요청 헤더
+원본요청 기본 Header
 ====================================
 
 Host 헤더
@@ -531,6 +531,45 @@ ETag 헤더 인식
    
    - ``ON`` ETag를 인식하며 컨텐츠 갱신시 If-None-Match헤더를 추가한다.
 
+
+
+
+.. _origin_modify_client:
+
+원본요청 헤더변경
+====================================
+
+원본으로 HTTP요청을 보낼 때 조건에 따라 HTTP 헤더를 변경한다. ::
+
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+   
+   <ModifyHeader FirstOnly="OFF">OFF</ModifyHeader>   
+    
+-  ``<ModifyHeader>``
+    
+   -  ``OFF (기본)`` 변경하지 않는다.
+   
+   -  ``ON`` 헤더 변경조건에 따라 헤더를 변경한다.
+   
+헤더 변경시점은 HTTP 요청패킷이 완성되어 원본서버로 전송하기 직전에 수행된다.
+단, Range헤더는 변조할 수 없다.
+      
+이 기능은 :ref:`handling_http_requests_modify_client` 의 하위 기능이다.
+헤더변경에는 $ORGREQ 키워드를 사용한다. ::
+
+   # /svc/www.example.com/headers.txt
+   
+   $URL[/*.mp4], $ORGREQ[x-media-type: video/mp4], set
+   $IP[1.1.1.1], $ORGREQ[user-agent: media_probe], put
+   *, $ORGREQ[If-Modified-Since], unset
+   *, $ORGREQ[If-None-Match], unset
+   
+
+.. note::
+
+   If-Modified-Since 헤더와 If-None-Match 헤더를 ``unset`` 하면 TTL이 만료된 컨텐츠는 항상 다시 다운로드 한다.
+
    
 Redirect 추적
 ====================================
@@ -557,3 +596,6 @@ Redirect 추적
      형식에 맞지 않거나 Location헤더가 없는 경우에는 동작하지 않는다.
      무한히 Redirect되는 경우를 방지하기 위하여 1회만 추적한다.
 
+
+   
+   

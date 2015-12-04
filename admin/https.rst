@@ -326,3 +326,23 @@ STON에서는 다음과 같이 Listen속성에 IP명시하여 인증서를 여�
 
 - ``SSL3.0 (기본: ON)`` SSL3.0을 사용한다.
 
+
+.. _https-hsts:
+
+HSTS
+====================================
+
+`HSTS(HTTP Strict Transport Security) <https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>`_ 는 
+:ref:`handling_http_requests_modify_client` 를 이용해 손쉽게 구현이 가능하다. 
+::
+
+   # /svc/www.example.com/headers.txt
+   
+   *, $RES[Strict-Transport-Security: max-age=31536000; includeSubDomains], set
+
+`Qualys SSL Server Test <https://www.ssllabs.com/ssltest/>`_ 에서는 HSTS가 적용된 사이트에 대해서만 A+등급을 부여한다.
+
+.. figure:: img/qualys_a_plus.png
+   :align: center
+      
+   STON v2.2부터는 A+를 받을 수 있다.
