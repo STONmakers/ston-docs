@@ -586,7 +586,7 @@ Format 변경
    
    <Dims Status="Active" Keyword="dims" port="8500">
       <ByOriginal Name="size1">
-         <Condition Width="1024" Height="768">/quality/25/</Condition>
+         <Condition Width="1024" Height="768">/quality/50/</Condition>
          <Condition>/resize/1024x768/</Condition>
       </ByOriginal>
    </Dims>   
