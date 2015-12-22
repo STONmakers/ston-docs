@@ -55,7 +55,7 @@ STON은 가급적 Apache의 정책을 따른다.
 특히 세션유지 정책은 HTTP헤더 값에 따른 변수가 많다.
 HTTP 세션 유지정책에 영향을 주는 요소는 다음과 같다.
 
-- 클라이언트 HTTP요청에 명시된 Connection헤더 ("ep-Alive" 또는 "Close")
+- 클라이언트 HTTP요청에 명시된 Connection헤더 ("Keep-Alive" 또는 "Close")
 - 가상호스트 ``<Connection>`` 설정
 - 가상호스트 세션 Keep-Alive시간 설정
 - 가상호스트 ``<Keep-Alive>`` 설정
@@ -190,7 +190,7 @@ Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며
     
    -  ``OFF (기본)`` Age헤더를 생략한다.
    
-   -  ``OFF`` Age헤더를 명시한다.
+   -  ``ON`` Age헤더를 명시한다.
 
 
 Expires 헤더
