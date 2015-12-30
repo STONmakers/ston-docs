@@ -186,7 +186,7 @@ Multi-Trimming
 
 .. _media-hls:
 
-HLS (HTTP Live Streaming)
+MP4 HLS (HTTP Live Streaming)
 ====================================
 
 MP4파일을 HLS(HTTP Live Streaming)로 서비스한다. 
