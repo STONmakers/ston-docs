@@ -363,8 +363,8 @@ Access 로그
 -  ``time-taken`` HTTP트랜잭션이 완료될 때까지 소요된 전체시간(밀리세컨드)
 -  ``cs-referer`` 클라이언트가 보낸 HTTP Referer
 -  ``sc-resinfo`` 부가 정보. "+"문자로 구분된다. 
-   인코딩된 컨텐츠를 서비스했다면 인코딩 옵션(gzip 또는 defalte)이 명시된다. 
-   보안 통신이라면 보안방식(SSL3 또는 TLS1)이 명시된다. 
+   인코딩된 컨텐츠를 서비스했다면 인코딩 옵션(gzip 또는 deflate)이 명시된다. 
+   보안 통신이라면 SSL 프로토콜 버전(SSL3, TLS1, TLS1.1, TLS1.2)이 명시된다. 
    바이패스한 통신이라면 "Bypass"가 명시된다.
    
 -  ``cs-range`` 클라이언트가 보낸 Range 헤더를 기록한다.
