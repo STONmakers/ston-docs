@@ -422,6 +422,7 @@ Hit Ratio를 높이기 위해 다음 설정들을 통해 Caching-Key를 결정�
 
 - :ref:`caching-policy-casesensitive`
 - :ref:`caching-policy-applyquerystring`
+- :ref:`caching-policy-post-method-caching`
 
 이에 따라 원본서버로 요청하는 URL과 Caching-Key가 다음과 같이 결정된다.
 
@@ -444,7 +445,9 @@ Hit Ratio를 높이기 위해 다음 설정들을 통해 Caching-Key를 결정�
 :ref:`caching-policy-applyquerystring` ``OFF`` /view/list.php?type=A               /view/list.php
 :ref:`caching-policy-applyquerystring` ``ON``  /view/list.php?type=A               /view/list.php?type=A       
 ============================================== =================================== ============================
-       
+
+POST 요청을 캐싱하는 경우 원본서버로 요청할 때 클라이언트가 보낸 POST요청의 Body데이터가 수정없이 전송된다.       
+
 .. note::
        
    클라이언트가 보낸 URL을 그대로 보내기 때문에 :ref:`media-trimming` 처럼 부가기능을 위해 붙여진 QueryString도 그대로 원본서버로 전달된다.
