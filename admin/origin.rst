@@ -418,7 +418,7 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
    
    - ``ON`` 클라이언트가 요청한 URL로 원본에 요청한다.
 
-Hit Raio를 높이기 위해 다음 설정들을 통해 Caching-Key를 결정한다.
+Hit Ratio를 높이기 위해 다음 설정들을 통해 Caching-Key를 결정한다.
 
 - :ref:`caching-policy-casesensitive`
 - :ref:`caching-policy-applyquerystring`
