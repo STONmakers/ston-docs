@@ -99,7 +99,7 @@ SNMPWalk가 동작할 수 있도록 한다.
       <Allow>192.168.6.0/24</Allow>    
    </SNMP>   
 
--  ``<SNMP>`` 속성을 통해 SNMPdml 동작방식을 설정한다.
+-  ``<SNMP>`` 속성을 통해 SNMP의 동작방식을 설정한다.
 
    - ``Port (기본: 161)`` SNMP 서비스 포트
    
