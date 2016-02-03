@@ -71,3 +71,4 @@ STON Edge Server 완벽 가이드
    :maxdepth: 2
 
    admin/graph
+   admin/cacti
