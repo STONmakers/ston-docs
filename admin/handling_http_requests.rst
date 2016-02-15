@@ -581,9 +581,9 @@ URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과
 
    /sample.css, no       // 압축하지 않는다.
    *.css                 // *.css 조건에 대해 기본 Method와 Level로 압축한다.
-   *.htm, gzip           // *.htm 조건에 대해 deflate로 압축한다. (기본 Level)
+   *.htm, gzip           // *.htm 조건에 대해 gzip으로 압축한다. (기본 Level)
    *.xml, , 9            // *.xml 조건에 대해 Level 9로 압축한다.*. (기본 Method)
-   *.js, gzip, 5         // *.js 조건에 대해 gzip (Level=5)로 압축한다.*.
+   *.js, gzip, 5         // *.js 조건에 대해 gzip (Level=5)으로 압축한다.
 
 압축은 CPU자원을 많이 소모하는 기능이다.
 다음은 파일 크기별 GZIP(Level: 9) 성능 테스트 결과이다.
