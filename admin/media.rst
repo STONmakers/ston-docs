@@ -1,4 +1,4 @@
-﻿.. _media:
+.. _media:
 
 16장. 미디어
 ******************
@@ -306,9 +306,9 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 최종적으로 생성된 .ts 목록(버전 3)은 다음과 같다. ::
 
    #EXTM3U
-   #EXT-X-TARGETDURATION: 10
+   #EXT-X-TARGETDURATION:10
    #EXT-X-VERSION:3
-   #EXT-X-MEDIA-SEQUENCE: 0
+   #EXT-X-MEDIA-SEQUENCE:0
    #EXTINF:11.637,
    /video.mp4/mp4hls/0.ts
    #EXTINF:10.092,

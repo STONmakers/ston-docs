@@ -1,4 +1,4 @@
-﻿.. STON Edge Server documentation master file, created by
+.. STON Edge Server documentation master file, created by
    sphinx-quickstart on Fri Jun 13 16:37:06 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -9,7 +9,7 @@ STON Edge Server 완벽 가이드
 
 :저자: STON 개발팀
 
-:최신버전: 2.3.1, 2016년 2월 25일
+:최신버전: 2.3.2, 2016년 3월 22일
 
    
 1부. STON 기본: 설정 배우기
