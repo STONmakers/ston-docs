@@ -3,15 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-   
+
 STON Edge Server 완벽 가이드
 ==========================
 
 :저자: STON 개발팀
 
-:최신버전: 2.3.6, 2016년 8월 16일
+:최신버전: 2.3.7, 2016년 9월 26일
 
-   
+
 1부. STON 기본: 설정 배우기
 =============================
 
@@ -21,14 +21,14 @@ STON Edge Server 완벽 가이드
    admin/intro
    admin/getting_started
    admin/environment
-   
-   
+
+
 2부. HTTP 서비스
 =============================
 
 .. toctree::
    :maxdepth: 2
-   
+
    admin/caching_policy
    admin/caching_purge
    admin/handling_http_requests
@@ -42,28 +42,28 @@ STON Edge Server 완벽 가이드
 
 .. toctree::
    :maxdepth: 2
-   
+
    admin/monitoring_stats
    admin/snmp
    admin/log
    admin/wm
-   
-   
+
+
 4부. 고급기능
 =============================
 
 .. toctree::
    :maxdepth: 2
-   
+
    admin/access_control
    admin/bandwidth_control
-   admin/media 
+   admin/media
    admin/filesystem
    admin/adv_topics
-   
 
-   
-   
+
+
+
 5부. 부록
 =============================
 
