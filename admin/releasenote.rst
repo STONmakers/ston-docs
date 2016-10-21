@@ -1,6 +1,6 @@
 .. _release:
 
-Appendix A: 릴리스 이력
+Appendix D: 릴리스 노트
 ***********************
 
 
