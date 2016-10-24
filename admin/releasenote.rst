@@ -268,7 +268,7 @@ v2.1.x
 **버그수정**
 
    - :ref:`dims` - 원본서버에서 Last-Modified헤더를 주지 않을 때 이미지가 갱신되지 않던 증상  
-   - :ref:`trimming`된 MP4의 크기가 4GB를 넘어갈 때 CPU를 과점유하던 증상
+   - :ref:`trimming` 된 MP4의 크기가 4GB를 넘어갈 때 CPU를 과점유하던 증상
    - 에러 페이지를 응답할 때 :ref:`via` 헤더 설정이 반영되지 않던 증상
 
 
