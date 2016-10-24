@@ -113,7 +113,7 @@ v2.3.x
 2.3.0 (2016.02.03)
 ----------------------------
 
-   - 컨텐츠를 :ref:`handling-http-requests-compression`하여 전송한다.
+   - 컨텐츠를 :ref:`handling-http-requests-compression` 하여 전송한다.
    
 **버그수정**
 
