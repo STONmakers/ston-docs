@@ -224,7 +224,7 @@ v2.1.x
 
 **기능개선/정책변경**
 
-   - :ref:`dims` - :ref:`animated-gif`에 대해 첫 장면만 변환할 수 있다.
+   - :ref:`dims` - :ref:`animated-gif` 에 대해 첫 장면만 변환할 수 있다.
    
 **버그수정**
 
@@ -253,8 +253,8 @@ v2.1.x
 **버그수정**
 
    - :ref:`dims` - 인코딩된 변환 문자열을 인식하지 못하던 증상
-   - :ref:`hardpurge`가 :ref:`caching-policy-casesensitive` 구분 정책을 따르지 않던 증상
-   - 설정백업할 때 :ref:`post`이 누락되던 증상
+   - :ref:`hardpurge` 가 :ref:`caching-policy-casesensitive` 구분 정책을 따르지 않던 증상
+   - 설정백업할 때 :ref:`post` 이 누락되던 증상
 
 
 2.1.3 (2015.06.25)
@@ -263,7 +263,7 @@ v2.1.x
 **기능개선/정책변경**
 
    - :ref:`syncstale` - 관리(:ref:`purge`, :ref:`expire`, :ref:`hardpurge`) API호출이 인덱싱에 반영되지 않는 경우가 없도록 로그로 기록하여 서비스 재가동시 다시 반영한다.
-   - :ref:`admin-log-access-custom`에 %u표현 추가. 클라이언트가 요청한 Full URI를 기록한다.
+   - :ref:`admin-log-access-custom` 에 %u표현 추가. 클라이언트가 요청한 Full URI를 기록한다.
    
 **버그수정**
 
@@ -300,12 +300,12 @@ v2.1.x
 ----------------------------
 
    - :ref:`adv-topics-indexing` 모드 추가.
-   - :ref:`dims`에서 Animated GIF포맷을 지원한다.
-   - :ref:`dims`변환 통계추가
+   - :ref:`dims` 에서 Animated GIF포맷을 지원한다.
+   - :ref:`dims` 변환 통계추가
 
 **기능개선/정책변경**
 
-   - :ref:`caching-purge`에서 디렉토리 표현 제거
+   - :ref:`caching-purge` 에서 디렉토리 표현 제거
      | 디렉토리 표현(example.com/img/)은 해당 URL에 해당하는 (원본서버가 응답한)파일 하나만을 의미한다.
      | 기존의 디렉토리 표현(example.com/img/)은 패턴(example.com/img/*)으로 통합한다.
    - API표현 추가
@@ -346,7 +346,7 @@ v2.0.x
 **버그수정**
 
    - :ref:`media_dims` - 원본서버에서 Last-Modified헤더를 주지 않을 때 이미지가 갱신되지 않던 증상
-   - :ref:`trimming`된 MP4의 크기가 4GB를 넘어갈 때 CPU를 과점유하던 증상
+   - :ref:`trimming` 된 MP4의 크기가 4GB를 넘어갈 때 CPU를 과점유하던 증상
    - 에러 페이지를 응답할 때 :ref:`via` 헤더 설정이 반영되지 않던 증상
 
 
@@ -367,8 +367,8 @@ v2.0.x
 
 **기능개선/정책변경**
 
-   - :ref:`trimming`된 영상을 :ref:`hls-http-live-streaming`로 서비스할 수 있다.
-     다음은 원본영상(/vod.mp4)의 0~60초 구간을 Trimming한 뒤 :ref:`hls-http-live-streaming`로 서비스하는 표현이다.
+   - :ref:`trimming` 된 영상을 :ref:`hls-http-live-streaming` 로 서비스할 수 있다.
+     다음은 원본영상(/vod.mp4)의 0~60초 구간을 Trimming한 뒤 :ref:`hls-http-live-streaming` 로 서비스하는 표현이다.
      | /vod.mp4?start=0&end=60/**mp4hls/index.m3u8**
      | /vod.mp4**/mp4hls/index.m3u8**?start=0&end=60
      | /vod.mp4?start=0/**mp4hls/index.m3u8**?end=60
@@ -380,7 +380,7 @@ v2.0.x
 
    - :ref:`hls-http-live-streaming` 변환 중 HTTP인코딩되는 특수문자가 있을 때 비정상 종료되던 증상
    - 헤더가 깨진 MP4영상 분석 중 CPU가 과도하게 점유되던 증상
-   - Audio의 KeyFrame이 균일하지 않은 MP4영상을 :ref:`hls-http-live-streaming`로 서비스할 때 Audio와 Video의 동기가 안맞는 증상
+   - Audio의 KeyFrame이 균일하지 않은 MP4영상을 :ref:`hls-http-live-streaming` 로 서비스할 때 Audio와 Video의 동기가 안맞는 증상
    - RRD - 통계수집이 되지 않던 증상, 응답시간이 평균이 아니라 합으로 표시되던 증상
    - WM - 신규 디스크 투입시 포맷을 강제하던 조건 제거
 
@@ -485,8 +485,8 @@ v1.4.x
 1.4.2 (2014.12.08)
 ----------------------------
 
-   - Purge(자동 복구) API가 HardPurge(복구 불가)로 동작하도록 :ref:`purge`할 수 있다.
-   - 로그 롤링시 압축하도록 :ref:`id1`할 수 있다.
+   - Purge(자동 복구) API가 HardPurge(복구 불가)로 동작하도록 :ref:`purge` 할 수 있다.
+   - 로그 롤링시 압축하도록 :ref:`id1` 할 수 있다.
    - FTP 클라이언트 기능강화 - 전송시간, 경로, 삭제, 백업 기능 추가
 
 **버그수정**
@@ -497,7 +497,7 @@ v1.4.x
 1.4.1 (2014.11.25)
 ----------------------------
 
-   - 클라이언트가 보낸 URI를 가공없이 원본서버에 보내도록 :ref:`origin-wholeclientrequest`할 수 있다.
+   - 클라이언트가 보낸 URI를 가공없이 원본서버에 보내도록 :ref:`origin-wholeclientrequest` 할 수 있다.
 
 **버그수정**
 
@@ -536,8 +536,8 @@ v1.3.x
    
 **버그수정**
 
-   - :ref:`file-system`에서 파일접근에 실패했을 경우 비정상종료될 수 있던 증상
-   - WM - :ref:`origin-exclusion-and-recovery`에서 Cycle과 값이 서로 바뀌어서 저장되던 증상
+   - :ref:`file-system` 에서 파일접근에 실패했을 경우 비정상종료될 수 있던 증상
+   - WM - :ref:`origin-exclusion-and-recovery` 에서 Cycle과 값이 서로 바뀌어서 저장되던 증상
 
 
 1.3.19 (2014.10.21)
@@ -566,8 +566,8 @@ v1.3.x
 
 **버그수정**
 
-   - SNMPWalk를 통해 :ref:`cache-host-traffic-filesystem`통계가 제공되지 않던 증상
-   - WM을 통해 DIMS설정 시 해당 가상호스트의 :ref:`env-vhost-find`가 초기화되던 증상
+   - SNMPWalk를 통해 :ref:`cache-host-traffic-filesystem` 통계가 제공되지 않던 증상
+   - WM을 통해 DIMS설정 시 해당 가상호스트의 :ref:`env-vhost-find` 가 초기화되던 증상
 
 
 1.3.16 (2014.08.27)
@@ -589,8 +589,8 @@ v1.3.x
 1.3.14 (2014.08.13)
 ----------------------------
 
-   - 최대 사용 메모리를 제한하도록 :ref:`env-cache-resource`할 수 있다.
-   - SNMP - 허가된 Community외엔 접근이 불가능하도록 :ref:`community`할 수 있다.
+   - 최대 사용 메모리를 제한하도록 :ref:`env-cache-resource` 할 수 있다.
+   - SNMP - 허가된 Community외엔 접근이 불가능하도록 :ref:`community` 할 수 있다.
    - WM - 서비스 Listen포트를 멀티로 설정할 수 있다. 클러스터 전용포트를 설정할 수 있다.
 
 **기능개선/정책변경**
@@ -605,7 +605,7 @@ v1.3.x
 1.3.13 (2014.07.21)
 ----------------------------
 
-   - WM - :ref:`id15`에서 조회한 파일을 다운로드 할 수 있다.
+   - WM - :ref:`id15` 에서 조회한 파일을 다운로드 할 수 있다.
 
 **버그수정**
 
@@ -653,13 +653,13 @@ v1.3.x
 1.3.10 (2014.06.03)
 ----------------------------
 
-   - 모든 Disk가 장애로 배제되었을 때 동작방식(재투입, Bypass, 종료)을 :ref:`storage`할 수 있습니다.
+   - 모든 Disk가 장애로 배제되었을 때 동작방식(재투입, Bypass, 종료)을 :ref:`storage` 할 수 있습니다.
    - 원본 HTTP요청의 Host헤더를 클라이언트가 보낸 값을 사용하도록 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
    - 파일캐싱 모니터링에서 QueryString 특수문자을 포함하는 URL도 모니터링할 수 있습니다.
-   - :ref:`monitoring_stats`에서 5분간 총 양이 함께 표기됩니다.
+   - :ref:`monitoring_stats` 에서 5분간 총 양이 함께 표기됩니다.
    - HTTP POST요청캐싱과 Bypass정책이 동시에 설정된 경우, 서비스 정책이 재정립되었습니다
    - Trimming정책 변경
      | **Before**. Trimming의 끝(end) 시간에 가장 인접하도록 분할
@@ -675,14 +675,14 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - 서비스 거부 조건에서 응답코드를 :ref:`acl`할 수 있습니다.
+   - 서비스 거부 조건에서 응답코드를 :ref:`acl` 할 수 있습니다.
      | **Before**. 에러 페이지에 "401 Access Denied"라고 명시
      | **After**. 별도의 페이지 없이 설정된 응답코드로만 응답
    
 **버그수정**
 
    - 잘못된 MP4영상 :ref:`trimming` 중 비정상 종료되던 증상.
-   - :ref:`filesystem`에서 (최초 :ref:`range`가 설정된 상태에서 캐싱되는 파일에 대해) 간헐적으로 잘못된 데이터를 서비스하던 증상.
+   - :ref:`filesystem` 에서 (최초 :ref:`range`가 설정된 상태에서 캐싱되는 파일에 대해) 간헐적으로 잘못된 데이터를 서비스하던 증상.
    - WM - Port바이패스 설정이 반영되지 않던 증상
 
 
