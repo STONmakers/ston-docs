@@ -8,7 +8,6 @@ STON Edge Server 완벽 가이드
 ==========================
 
 :저자: STON 개발팀
-
 :최신버전: 2.4.0, 2016년 11월 7일
 
 
@@ -62,8 +61,6 @@ STON Edge Server 완벽 가이드
    admin/adv_topics
 
 
-
-
 5부. 부록
 =============================
 
@@ -73,3 +70,4 @@ STON Edge Server 완벽 가이드
    admin/graph
    admin/cacti
    admin/dynpage_exception.rst
+   admin/releasenote.rst
