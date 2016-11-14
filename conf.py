@@ -131,12 +131,12 @@ html_favicon = 'favicons/favicon.ico'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['sphinxdocsstatic']
+html_static_path = ['sphinxdocsstatic','naverc46208a60682bfaec8907a399e6bb851.html']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
-html_extra_path = ['/naverc46208a60682bfaec8907a399e6bb851.html']
+#html_extra_path = ['naverc46208a60682bfaec8907a399e6bb851.html']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
