@@ -1,4 +1,4 @@
-﻿.. _https:
+.. _https:
 
 9장. HTTPS
 ******************
@@ -225,9 +225,8 @@ SNI (Server Name Indication)
 
 SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_ 
 확장 필드를 사용하는 방식이다. 
-이 기능은 처음 클라이언트가 서버에게 SSL 연결을 요청할 때 HTTP 요청의 Host헤더처럼 대상 가상호스트를 명시함으로써 가능하다. 
-이 기능은 가장 우아한 방법이지만 호환성에 문제가 있다. 
-다음은 SNI를 지원하지 않는 클라이언트 목록이다.
+이 기능은 최초 클라이언트가 서버에게 SSL 연결을 요청할 때(ClientHello) HTTP 요청의 Host헤더처럼 대상 가상호스트를 명시함으로써 가능하다. 
+현재까지 가장 우아한 방법이지만 일부 구버전 클라이언트에서 지원하지 않는다.  
 (출처: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ ).
 
 - Internet Explorer (any version) on Windows XP or Internet Explorer 6 or earlier
@@ -238,7 +237,41 @@ SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Nam
 - wget before 1.14
 - Java before 1.7
 
-현실적으로 SNI의 사용은 불가능하므 STON은 SNI를 지원하고 있지 않다.
+기본 값으로 SNI는 비활성화되어 있다. ::
+
+   # server.xml - <Server><Cache>
+
+   <HttpsSNI>OFF</HttpsSNI>
+
+-  ``<HttpsSNI>``
+
+   - ``OFF (기본)`` SNI를 비활성화한다. 서로 다른 인증서가 같은 주소(IP+Port)에 바인딩 될 수 없다.
+   - ``ON`` SNI를 활성화한다. 서로 다른 인증서가 같은 주소(IP+Port)를 바인딩 할 수 있다.
+
+``<HttpsSNI>`` 를 ``ON`` 으로 설정하면 다음과 같이 동일한 ``Listen`` 주소(기본주소 *:443)으로 여러 인증서를 바인딩 할 수 있다. ::
+
+   <Https>
+      <Cert>/usr/ssl/example.pem</Cert>
+      <Key>/usr/ssl/example_key.pem</Key>
+      <CA>/usr/ssl/example_CA.pem</CA>
+   </Https>
+    
+   <Https>
+      <Cert>/usr/ssl/sample.pem</Cert>
+      <Key>/usr/ssl/sample_key.pem</Key>
+      <CA>/usr/ssl/sample_CA.pem</CA>
+   </Https>
+    
+   <Https>
+      <Cert>/usr/ssl/test.pem</Cert>
+      <Key>/usr/ssl/test_key.pem</Key>
+      <CA>/usr/ssl/test_CA.pem</CA>
+   </Https>
+
+
+이 구성에서 인증서 설정 순서는 크게 중요하지 않지만 클라이언트가 요청한 가상호스트를 찾을 수 없다면 가장 먼저 설정된 인증서가 서비스된다.
+``<HttpsSNI>`` 가 ``OFF`` 로 설정되었다면 처음 example.pem인증서만 *:443에 바인딩되고 나머지 설정(sample.pem, test.pem)은 모두 무시된다.
+
 
 
 

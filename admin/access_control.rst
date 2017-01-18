@@ -1,6 +1,6 @@
 ﻿.. _access-control:
 
-14장. 접근제어
+15장. 접근제어
 ******************
 
 이 장에서는 원치않는 클라이언트 접근을 차단하는 방법에 대해 설명한다.
@@ -30,13 +30,13 @@
       <Deny>192.168.8.10/255.255.255.0</Deny>
    </ServiceAccess>
 
--  ``<ServiceAccess>``   
-   IP기반의 ACL을 설정한다. 
+-  ``<ServiceAccess>``
+   IP기반의 ACL을 설정한다.
    IP, IP Range, Bitmask, Subnet 이상 네 가지 형식을 지원한다.
-   순서를 인식하며 상위에 설정된 표현이 우선한다. 
+   순서를 인식하며 상위에 설정된 표현이 우선한다.
    ``Default (기본: Allow)`` 속성은 일치하는 조건이 없을 때 처리방법이다.
    이 속성을 ``Deny`` 로 설정하면 하위에 ``<Allow>`` 로 허가할 조건들을 명시해주어야 한다.
-   
+
 차단된 IP는 :ref:`admin-log-deny` 에 기록된다.
 
 
@@ -45,9 +45,9 @@
 GeoIP
 ====================================
 
-GeoIP를 사용하여 국가별로 접근을 차단할 수 있다. 
-`GeoIP Databases <http://dev.maxmind.com/geoip/legacy/downloadable/>`_ 중 
-Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmind.com/geoip/legacy/benchmarks/>`_ 로 
+GeoIP를 사용하여 국가별로 접근을 차단할 수 있다.
+`GeoIP Databases <http://dev.maxmind.com/geoip/legacy/downloadable/>`_ 중
+Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmind.com/geoip/legacy/benchmarks/>`_ 로
 링크하여 실시간으로 변경내용을 반영한다. ::
 
    # server.xml - <Server><Host>
@@ -56,22 +56,22 @@ Binary Databases를 `GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE <http://dev.maxmin
       <Deny>AP</Deny>
       <Deny>GIN</Deny>
    </ServiceAccess>
-    
+
 ``<ServiceAccess>`` 의 ``GeoIP`` 속성에 GeoIP Databases 경로를 설정한다.
-국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 
+국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와
 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
 
 .. note::
 
-   GeoIP는 파일명이 예약되어 있으므로 반드시 저장된 로컬경로를 입력하도록 설정한다. 
+   GeoIP는 파일명이 예약되어 있으므로 반드시 저장된 로컬경로를 입력하도록 설정한다.
    또한 자동으로 변경이 반영되기 때문에 별도로 설정을 Reload하지 않아도 된다.
-   
-   
-GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을 조회한다. 
+
+
+GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을 조회한다.
 설정되어 있지 않다면 404 NOT FOUND로 응답한다. ::
-   
+
    http://127.0.0.1:10040/monitoring/geoiplist
-   
+
 결과는 JSON형식으로 제공된다. ::
 
    {
@@ -84,17 +84,17 @@ GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을
            "files" :
            [
                {
-                   "file" : "GeoIP.dat", 
+                   "file" : "GeoIP.dat",
                    "size" : 766255
                },
                {
-                   "file" : "GeoLiteCity.dat", 
+                   "file" : "GeoLiteCity.dat",
                    "size" : 12826936
                }
            ]
        }
    }
-   
+
 
 .. _access-control-vhost:
 
@@ -107,18 +107,18 @@ GeoIP가 설정되어 있다면 해당 디렉토리에 저장된 파일목록을
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
-   
-   <AccessControl Default="Allow" DenialCode="401">OFF</AccessControl>   
-    
+
+   <AccessControl Default="Allow" DenialCode="401">OFF</AccessControl>
+
 -  ``<AccessControl>``
-   
+
    - ``OFF (기본)`` ACL이 활성화되지 않는다. 모든 클라이언트 요청을 허가한다.
-    
-   - ``ON`` ACL이 활성화된다. 
+
+   - ``ON`` ACL이 활성화된다.
      차단된 요청에 대해서는 ``DenialCode`` 속성에 설정된 응답코드로 응답한다.
-     ``Default (기본: Allow)`` 속성이 ``Allow`` 라면 ACL은 거부목록이 된다. 
+     ``Default (기본: Allow)`` 속성이 ``Allow`` 라면 ACL은 거부목록이 된다.
      반대로 ``Deny`` 라면 ACL은 허가목록이 된다.
-     
+
 Deny된 요청은 :ref:`admin-log-access` 에 TCP_DENY로 기록된다.
 
 
@@ -129,7 +129,7 @@ Deny된 요청은 :ref:`admin-log-access` 에 TCP_DENY로 기록된다.
 
 모든 클라이언트 HTTP요청에 대하여 허용/거부/Redirect 여부를 판단한다.
 각 조건마다 별도로 응답코드를 설정할 수도 있다.
-Redirect된 요청에 대해서는 **302 Moved temporarily** 로 응답한다. 
+Redirect된 요청에 대해서는 **302 Moved temporarily** 로 응답한다.
 ACL은 /svc/{가상호스트 이름}/acl.txt에 설정한다. ::
 
    # /svc/www.example.com/acl.txt
@@ -138,7 +138,7 @@ ACL은 /svc/{가상호스트 이름}/acl.txt에 설정한다. ::
    # 명시하지 않으면 ``<AccessControl>`` 의 ``DenialCode`` 를 사용한다.
    # redirect일 경우 키워드 뒤에 이동시킬 URL을 명시한다. (Location헤더의 값으로 명시)
    # n 개의 조건을 결합(AND)하기 위해서는 &를 사용한다.
-   
+
    $IP[192.168.1.1], allow
    $IP[192.168.2.1-255]
    $IP[192.168.3.0/24], deny
@@ -154,33 +154,33 @@ ACL은 /svc/{가상호스트 이름}/acl.txt에 설정한다. ::
    $URL[/source/*]
    /profile.zip, deny, 500
    /secure/*.dat
-   
+
 조건은 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
 
 -  **IP**
    $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
 
 -  **GeoIP**
-   $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다. 
-     
+   $IP[...]로 표기하며 반드시 GeoIP설정이 되어 있어야 동작한다.
+
 -  **Header**
-   $HEADER[Key : Value]로 표기한다. 
-   Value는 명확한 표현과 패턴을 인식한다. 
-   $HEADER[Key:]처럼 구분자는 있지만 Value가 빈 문자열이라면 요청 헤더의 값이 비어 있는 경우를 의미한다. 
+   $HEADER[Key : Value]로 표기한다.
+   Value는 명확한 표현과 패턴을 인식한다.
+   $HEADER[Key:]처럼 구분자는 있지만 Value가 빈 문자열이라면 요청 헤더의 값이 비어 있는 경우를 의미한다.
    $HEADER[Key]처럼 구분자 없이 Key만 명시되어 있다면 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
-    
+
 -  **URL**
    $URL[...]로 표기하며 생략이 가능합니다. 명확한 표현과 패턴을 인식합니다.
-    
-$는 "조건에 맞다면 ~ 한다"를 의미하지만 !는 "조건에 맞지 않는다면 ~ 한다"를 의미한다. 
+
+$는 "조건에 맞다면 ~ 한다"를 의미하지만 !는 "조건에 맞지 않는다면 ~ 한다"를 의미한다.
 다음과 같이 부정조건으로 지원한다. ::
 
    # 국가가 KOR이 아니라면 deny한다.
    !IP[KOR], deny
-    
+
    # referer헤더가 존재하지 않는다면 deny한다.
    !HEADER[referer], deny
-   
+
    # /secure/ 경로 하위가 아니라면 allow한다.
    !URL[/secure/*], allow
 

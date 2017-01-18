@@ -54,6 +54,7 @@ STON Edge Server 완벽 가이드
 .. toctree::
    :maxdepth: 2
 
+   admin/adv_vhost
    admin/access_control
    admin/bandwidth_control
    admin/media
