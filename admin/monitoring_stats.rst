@@ -229,8 +229,8 @@
 -  ``ClientSession`` 클라이언트 세션 수
 -  ``ClientActiveSession`` 전송 중인 클라이언트 세션 수
 -  ``ClientInbound (단위: Bytes, 평균)`` 클라이언트로부터 받은 양
--  ``ClientOutbound (단위: Bytes, 평균)`` 클라이언트로에게 보낸 양
--  ``ClientReqCount (평균)`` 클라이언트로 받은 요청횟수
+-  ``ClientOutbound (단위: Bytes, 평균)`` 클라이언트에게 보낸 양
+-  ``ClientReqCount (평균)`` 클라이언트가  요청횟수
 -  ``ClientResTotalCount (평균)`` 클라이언트 응답횟수
 -  ``ClientResTotalTimeRes (단위: 0.01ms, 평균)`` 클라이언트 응답시간 (HTTP요청 수신 ~ HTTP응답 전송)
 -  ``ClientResTotalTimeComplete (단위: 0.01ms, 평균)`` 클라이언트 HTTP 트랜잭션 완료시간 (HTTP요청 수신 ~ HTTP응답 완료)
@@ -257,7 +257,7 @@
       HTTP와 File I/O는 가상호스트를 공유한다.
       
    Apache를 통해 접근되는 File I/O의 RequestHitRatio는 0%이 된다.
-   하지만 HTTP Server의 경우 File I/O에 의해 캐싱된 파일을 접근하기 때문에 100%의 RequestHitRatio를 가진다. 
+   하지만 HTTP Server의 경우 File I/O에 의해 캐싱된 파일이 서비스되기 때문에 100%의 RequestHitRatio를 가진다. 
    ByteHitRatio의 경우 원본 Inbound대비 Http outbound, File I/O outbound로 각각 계산된다.
    
 -  ``ByteHitRatio (단위: 0.01%, 평균)`` 원본서버 대비 클라이언트 전송률. ::
