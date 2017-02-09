@@ -715,7 +715,7 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - 파일캐싱 모니터링에서 QueryString 특수문자을 포함하는 URL도 모니터링할 수 있습니다.
+   - 파일캐싱 모니터링에서 QueryString 특수문자를 포함하는 URL도 모니터링할 수 있습니다.
    - :ref:`monitoring_stats` 에서 5분간 총 양이 함께 표기됩니다.
    - HTTP POST요청캐싱과 Bypass정책이 동시에 설정된 경우, 서비스 정책이 재정립되었습니다
    - Trimming정책 변경
