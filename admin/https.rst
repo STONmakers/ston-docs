@@ -245,7 +245,7 @@ SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Nam
 Multi Certificate
 --------------------------
 
-인증서의에 여러 도메인을 넣거나 Wildcard(i.e. *.winesoft.co.kr)를 명시하여
+인증서에 여러 도메인을 넣거나 Wildcard(i.e. *.winesoft.co.kr)를 명시하여
 하나의 인증서로 여러 도메인의 신원을 확인시킬 수 있는 방법이다.
 
 .. figure:: img/faq_ssl2.jpg
@@ -255,7 +255,7 @@ Multi Certificate
 
 서비스 주체가 같다면 효과적인 방법이지만 무관하다면 같은 인증서를 공유하는 것은
 현실적으로 어렵다.
-이 방법은 인증서만 교체하면 되는 것이므로 STON에서 별도로 설정하실 것은 없다
+이 방법은 인증서만 교체하면 되는 것이므로 STON에서 별도로 설정할 것은 없다
 [ `DigiCert <http://www.digicert.com/wildcard-ssl-certificates.htm>`_ 참고].
 
 
@@ -264,7 +264,7 @@ Multi Port
 --------------------------
 
 SSL은 기본적으로 443포트를 사용한다.
-SSL포트를 중복되지 않는 포트로 설정하시면 인증서를 여러개 설치할 수 있다.
+SSL포트를 중복되지 않는 포트로 설정하면 인증서를 여러개 설치할 수 있다.
 클라이언트에서는 다음과 같이 포트를 명시함으로써 SSL통신이 가능하다. ::
 
     https://winesoft.co.kr:543/
@@ -286,7 +286,7 @@ Multi NIC
 서버의 NIC가 여러개로 구성되어 있다면 NIC마다 IP를 별도로 할당할 수 있다.
 그러므로 서버 IP마다 별도의 인증서를 설치하여 클라이언트가 접속한 서버IP에 기반하여
 인증서를 결정하도록 설정한다.
-STON에서는 다음과 같이 Listen속성에 IP명시하여 인증서를 여러개로 설정한다. ::
+STON에서는 다음과 같이 Listen속성에 IP를 명시하여 인증서를 여러개로 설정한다. ::
 
    # server.xml - <Server>
 
