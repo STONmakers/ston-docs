@@ -31,7 +31,7 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
    단, 높은 처리량이 반드시 높은 트래픽을 의미하는 것은 아니다.
 
    .. figure:: img/10g_cpu.jpg
-      :align: center
+      :align: center
 
       클라이언트가 많을수록 많은 CPU는 힘이 된다.
     
