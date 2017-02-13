@@ -14,8 +14,7 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 
 .. toctree::
    :maxdepth: 2
-   
-
+   
 .. _getting-started-serverconf:
 
 서버 구성
