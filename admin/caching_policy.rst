@@ -7,7 +7,7 @@
 저장된 콘텐츠는 TTL동안 유효하다.
 HTTP 규격은 TTL을 설정할 수 있도록 Cache-Control을 명시하고 있다.
 하지만 이는 절대적인 것은 아니다. 
-다양한 방식의 TTL 정책과 :ref:`caching-purge` 를 통해 서비스 품질을 높일 수 있다.
+다양한 방식의 TTL 정책과 :ref:`api-cmd-purge` 를 통해 서비스 품질을 높일 수 있다.
 
 HTTP에는 콘텐츠를 구분하는 다양한 규격이 존재한다. 
 그만큼 Caching-Key도 다양하게 존재할 수 있다.
@@ -385,7 +385,7 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 예외조건이 ``<ApplyQueryString>`` 설정에 따라 의미가 달라짐에 주의한다. 
 명확한 URL또는 패턴(*만 허용한다)으로 설정이 가능하다.
 
-``Collective`` 속성은 :ref:`caching-purge` API가 호출되었을 때 대상을 지정한다.
+``Collective`` 속성은 :ref:`api-cmd-purge` API가 호출되었을 때 대상을 지정한다.
 
 -  ``Collective``
 
@@ -393,9 +393,9 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
    
    -  ``ON`` 파라미터 URL뿐만 아니라 URL에 QueryString이 존재하는 모든 컨텐츠를 대상으로 지정한다.
    
-``Collective`` 속성이 ON이고 파일이 많을수록 :ref:`caching-purge` 에 CPU부하가 높아진다. 
+``Collective`` 속성이 ON이고 파일이 많을수록 :ref:`api-cmd-purge` 에 CPU부하가 높아진다. 
 관련 파일을 검색하는 소요시간이 길어질 수 있어 예기치 않은 문제를 일으킬 수 있다.
-가급적 QueryString까지 붙은 명확한 URL로 :ref:`caching-purge` API를 호출할 것을 권장한다.
+가급적 QueryString까지 붙은 명확한 URL로 :ref:`api-cmd-purge` API를 호출할 것을 권장한다.
 
 
 
