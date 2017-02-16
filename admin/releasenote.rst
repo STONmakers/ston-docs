@@ -8,7 +8,7 @@ v2.4.x
 ----------------------------
 **버그수정**
 
- - :ref:`dims` 처리시 원본 서버가 Transfer-Encoding: chunked로 응답 할 경우 비정상 종료되는 증상
+ - :ref:`media-dims` 처리시 원본 서버가 Transfer-Encoding: chunked로 응답 할 경우 비정상 종료되는 증상
  - SSL CipherSuite를 ECDHE 만 선택하도록 설정 할 경우 크롬 브라우저에서 연결이 종료되는 증상
  - 매우 낮은 확률로 로그 정리시 비정상 종료 되는 증상
 
@@ -18,7 +18,7 @@ v2.4.x
 ----------------------------
 **버그수정**
 
- - 원본 서버 장애 시 간헐적으로 :ref:`dims` 변환 요청이 Bypass 되는 증상
+ - 원본 서버 장애 시 간헐적으로 :ref:`media-dims` 변환 요청이 Bypass 되는 증상
 
 
 2.4.3 (2017.1.20)
@@ -42,13 +42,13 @@ v2.4.x
 **기능개선/정책변경**
 
  - 원본 HTTP 응답에서 reason phrases가 없는 경우에도 처리 할 수 있도록 정책 변경
- -	:ref:`dims` – 이미지 확대 시 캔버스만 키우는 기능 추가
+ -	:ref:`media-dims` – 이미지 확대 시 캔버스만 키우는 기능 추가
 
 **버그수정**
 
  - 압축 기능 사용 시 아주 낮은 확률로 압축 된 파일이 깨지는 증상 수정
  -	VLC 플레이어에서 M4A HLS가 재생되지 않는 문제 수정
- - :ref:`dims` 를 이용해서 이미지 변환시 변환 크기를 입력하지 않을 경우 비정상 종료되는 증상
+ - :ref:`media-dims` 를 이용해서 이미지 변환시 변환 크기를 입력하지 않을 경우 비정상 종료되는 증상
 
 2.4.0 (2016.11.7)
 ----------------------------
@@ -87,7 +87,7 @@ v2.3.x
 
 **기능개선/정책변경**
 
- - :ref:`dims` 기능을 이용해서 이미지 변환시 시스템 자원 사용량을 제한하도록 정책 변경
+ - :ref:`media-dims` 기능을 이용해서 이미지 변환시 시스템 자원 사용량을 제한하도록 정책 변경
  - Health-Checker 기능 사용시 Standby 원본 서버도 검사하도록 정책 변경
 
 **버그수정**
@@ -185,7 +185,7 @@ v2.3.x
 **버그수정**
 
    - :ref:`expires` 헤더 시간을 Modification으로 설정한 경우 max-age 값이 잘못 계산되던 증상
-   - :ref:`dims` - 평균 통계 산출할 때 분모를 “성공” 횟수만 사용하던 증상
+   - :ref:`media-dims` - 평균 통계 산출할 때 분모를 “성공” 횟수만 사용하던 증상
 
 
 v2.2.x
@@ -282,7 +282,7 @@ v2.1.x
 **버그수정**
 
    - :ref:`hls-http-live-streaming` - 일부 profile에서의 화면떨림 증상
-   - :ref:`dims` - TTL이 0으로 설정되어 있을 때 간헐적으로 500 Internal Error로 응답하던 증상
+   - :ref:`media-dims` - TTL이 0으로 설정되어 있을 때 간헐적으로 500 Internal Error로 응답하던 증상
    - X-Forwarded-For 헤더를 로그에 c-ip필드로 기록할 때 공백 문자가 포함되던 증상
 
 
@@ -291,12 +291,12 @@ v2.1.x
 
 **기능개선/정책변경**
 
-   - :ref:`dims` - :ref:`animated-gif` 에 대해 첫 장면만 변환할 수 있다.
+   - :ref:`media-dims` - :ref:`animated-gif` 에 대해 첫 장면만 변환할 수 있다.
 
 **버그수정**
 
    - :ref:`access-control` - IP허용/차단이 정상동작하지 않던 증상
-   - :ref:`dims` - Crop등에서 + 기호를 이용한 좌표지정이 되지 않던 증상
+   - :ref:`media-dims` - Crop등에서 + 기호를 이용한 좌표지정이 되지 않던 증상
 
 
 2.1.5 (2015.08.18)
@@ -319,7 +319,7 @@ v2.1.x
 
 **버그수정**
 
-   - :ref:`dims` - 인코딩된 변환 문자열을 인식하지 못하던 증상
+   - :ref:`media-dims` - 인코딩된 변환 문자열을 인식하지 못하던 증상
    - :ref:`hardpurge` 가 :ref:`caching-policy-casesensitive` 구분 정책을 따르지 않던 증상
    - 설정백업할 때 :ref:`post` 이 누락되던 증상
 
@@ -334,7 +334,7 @@ v2.1.x
 
 **버그수정**
 
-   - :ref:`dims` - 원본서버에서 Last-Modified헤더를 주지 않을 때 이미지가 갱신되지 않던 증상
+   - :ref:`media-dims` - 원본서버에서 Last-Modified헤더를 주지 않을 때 이미지가 갱신되지 않던 증상
    - :ref:`trimming` 된 MP4의 크기가 4GB를 넘어갈 때 CPU를 과점유하던 증상
    - 에러 페이지를 응답할 때 :ref:`via` 헤더 설정이 반영되지 않던 증상
 
@@ -367,8 +367,8 @@ v2.1.x
 ----------------------------
 
    - :ref:`adv-topics-indexing` 모드 추가.
-   - :ref:`dims` 에서 Animated GIF포맷을 지원한다.
-   - :ref:`dims` 변환 통계추가
+   - :ref:`media-dims` 에서 Animated GIF포맷을 지원한다.
+   - :ref:`media-dims` 변환 통계추가
 
 **기능개선/정책변경**
 
@@ -538,7 +538,7 @@ v1.4.x
 
 **버그수정**
 
-   - :ref:`dims` 처리시 404 Not Found로 응답되던 증상
+   - :ref:`media-dims` 처리시 404 Not Found로 응답되던 증상
 
 
 1.4.3 (2014.12.10)
@@ -622,7 +622,7 @@ v1.3.x
 
 **버그수정**
 
-   - :ref:`dims` 처리에서 클라이언트가 보낸 QueryString이 반영되지 않던 증상
+   - :ref:`media-dims` 처리에서 클라이언트가 보낸 QueryString이 반영되지 않던 증상
    - 원본서버가 모두 배제되었을 때 특정조건에서 캐싱파일이 초기화되지 않던 증상
    - WM - 보안정책 강화 및 가상호스트 이름에 공백이 없도록 Trim.
    - WM - Unmount된 디스크의 상태를 올바르게 인식하지 못하던 증상
@@ -725,7 +725,7 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - 파일캐싱 모니터링에서 QueryString 특수문자를 포함하는 URL도 모니터링할 수 있습니다.
+   - 파일캐싱 모니터링에서 QueryString 특수문자을 포함하는 URL도 모니터링할 수 있습니다.
    - :ref:`monitoring_stats` 에서 5분간 총 양이 함께 표기됩니다.
    - HTTP POST요청캐싱과 Bypass정책이 동시에 설정된 경우, 서비스 정책이 재정립되었습니다
    - Trimming정책 변경
@@ -1016,7 +1016,7 @@ v1.2.x
 1.2.3 (2013.09.05)
 ----------------------------
 
-   - DIMS(Dynamic Image Management System) - 원본서버의 이미지를 가공(잘라내기, 썸네일생성, 크기변경, 포맷변경, 품질조절, 합성)하도록 :ref:`dims`할 수 있습니다.
+   - DIMS(Dynamic Image Management System) - 원본서버의 이미지를 가공(잘라내기, 썸네일생성, 크기변경, 포맷변경, 품질조절, 합성)하도록 :ref:`media-dims`할 수 있습니다.
    - MP3파일을 원하는 구간만큼 잘라내어 서비스하도록 :ref:`trimming`할 수 있습니다.
    - 특정 IP만 Listen하도록 :ref:`caching`할 수 있습니다.
    - [WM] 신규 가상호스트를 생성할 때 기존 가상호스트를 선택해 복사할 수 있습니다.
