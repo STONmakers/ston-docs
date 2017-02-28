@@ -6,7 +6,7 @@
 이 장에서는 SNMP(Simple Network Management Protocol)에 대해 다룬다.
 :ref:`monitoring_stats` 의 모든 수치는 SNMP로도 제공된다.
 뿐만 아니라 더욱 세분화된 시간단위와 시스템 상태정보까지 제공한다.
-가상호스트별로 실시간 통계와 최대 60분까지 "분" 단위의 평균 통계를 제공한다. 
+가상호스트별로 실시간 통계와 최대 60분까지 "분" 단위의 평균 통계를 제공한다.
 
 - 별도의 패키지가 필요없다.
 - snmpd를 별도로 실행하지 않는다.
@@ -21,67 +21,67 @@
 변수
 ====================================
 
-설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다. 
-예를 들어 디스크는 여러개가 존재할 수 있다. 
-이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다. 
+설정이나 사용자의 의도에 의하여 변경될 수 있는 값을 [변수명]으로 명시한다.
+예를 들어 디스크는 여러개가 존재할 수 있다.
+이 경우 각 디스크를 가리키는 고유 번호가 필요하며 입력된 순서대로 1부터 할당된다.
 이런 변수를 ``[diskIndex]`` 로 명시한다.
 
 -  ``[diskIndex]``
 
    Storage에 설정된 디스크를 의미한다. ::
-   
+
       # server.xml - <Server><Cache>
-   
+
       <Storage>
          <Disk>/cache1</Disk>
          <Disk>/cache2</Disk>
          <Disk>/cache3</Disk>
       </Storage>
-      
-   위와 같이 3개의 디스크가 설정된 환경에서 /cache1의 
-   ``[diskIndex]`` 는 1, /cache3의 ``[diskIndex]`` 는 3을 가진다. 
-   예를 들어 /cache1의 전체용량에 해당하는 OID는 
-   system.diskInfo.diskInfoTotalSize.1 
-   (1.3.6.1.4.1.40001.1.2.18.1.3.1이 된다. 
+
+   위와 같이 3개의 디스크가 설정된 환경에서 /cache1의
+   ``[diskIndex]`` 는 1, /cache3의 ``[diskIndex]`` 는 3을 가진다.
+   예를 들어 /cache1의 전체용량에 해당하는 OID는
+   system.diskInfo.diskInfoTotalSize.1
+   (1.3.6.1.4.1.40001.1.2.18.1.3).1이 된다. 
    마지막 .1은 첫번째 디스크를 의미한다.
-   
--  ``[vhostIndex]`` 
+
+-  ``[vhostIndex]``
 
    가상호스트가 로딩될 때 자동으로 부여된다. ::
-   
+
       # vhosts.xml
-   
+
       <Vhosts>
          <Vhost Status="Active" Name="kim.com"> ... </Vhost>
          <Vhost Status="Active" Name="lee.com"> ... </Vhost>
          <Vhost Status="Active" Name="park.com" StaticIndex="10300"> ... </Vhost>
       </Vhosts>
-   
-   최초 위와 같이 3개의 가상호스트가 로딩되면 1부터 순차적으로  ``[vhostIndex]`` 가 부여된다. 
-   이후 가상호스트는  ``[vhostIndex]`` 를 기억하며, 가상호스트가 삭제되더라도  ``[vhostIndex]`` 는 변하지 않는다. 
-   가상호스트의 삭제와 추가가 동시에 발생할 경우 삭제가 먼저 동작하며, 
+
+   최초 위와 같이 3개의 가상호스트가 로딩되면 1부터 순차적으로  ``[vhostIndex]`` 가 부여된다.
+   이후 가상호스트는  ``[vhostIndex]`` 를 기억하며, 가상호스트가 삭제되더라도  ``[vhostIndex]`` 는 변하지 않는다.
+   가상호스트의 삭제와 추가가 동시에 발생할 경우 삭제가 먼저 동작하며,
    신규 추가된 가상호스트는 비어있는  ``[vhostIndex]`` 를 부여 받는다.
-   
+
    .. figure:: img/snmp_vhostindex.png
       :align: center
-      
+
       ``[vhostIndex]`` 의 동작방식
 
--  ``[diskMin]`` , ``[vhostMin]`` 
+-  ``[diskMin]`` , ``[vhostMin]``
 
-   시간(분)을 의미한다. 
-   5는 5분의 평균을 의미하며 60은 60분의 평균을 의미한다. 
+   시간(분)을 의미한다.
+   5는 5분의 평균을 의미하며 60은 60분의 평균을 의미한다.
    이 값은 1(분)부터 60(분)까지 범위를 가지며 0은 실시간(1초) 데이터를 의미한다.
-   
-SNMP에서는 동적으로 값이 바뀔 수 있는 항목에 대하여 Table구조를 사용한다. 
-예를 들어 "디스크 전체크기"는 디스크의 개수에 따라 제공하는 데이터 개수가 
-달라지기 때문에 Table구조를 사용하여 표현해야 한다. 
-STON은 모든 가상호스트에 대하여 "분"단위 통계를 제공한다. 
-그러므로 ``[vhostMin]`` . ``[vhostIndex]`` 라는 다소 난해한 표현을 제공한다. 
 
-이 표현은 가상호스트별로 원하는 "분" 단위의 통계를 볼 수 있다는 장점을 가지고 있지만 
-변수가 2개이므로 Table구조로 표현하기 어렵다는 단점이 있다. 
-이런 문제를 극복하기 위하여  ``[vhostMin]`` 의 기본값을 설정하여 
+SNMP에서는 동적으로 값이 바뀔 수 있는 항목에 대하여 Table구조를 사용한다.
+예를 들어 "디스크 전체크기"는 디스크의 개수에 따라 제공하는 데이터 개수가
+달라지기 때문에 Table구조를 사용하여 표현해야 한다.
+STON은 모든 가상호스트에 대하여 "분"단위 통계를 제공한다.
+그러므로 ``[vhostMin]`` . ``[vhostIndex]`` 라는 다소 난해한 표현을 제공한다.
+
+이 표현은 가상호스트별로 원하는 "분" 단위의 통계를 볼 수 있다는 장점을 가지고 있지만
+변수가 2개이므로 Table구조로 표현하기 어렵다는 단점이 있다.
+이런 문제를 극복하기 위하여  ``[vhostMin]`` 의 기본값을 설정하여
 SNMPWalk가 동작할 수 있도록 한다.
 
 
@@ -96,20 +96,20 @@ SNMPWalk가 동작할 수 있도록 한다.
 
    <SNMP Port="161" Status="Inactive">
       <Allow>192.168.5.1</Allow>
-      <Allow>192.168.6.0/24</Allow>    
-   </SNMP>   
+      <Allow>192.168.6.0/24</Allow>
+   </SNMP>
 
 -  ``<SNMP>`` 속성을 통해 SNMP의 동작방식을 설정한다.
 
    - ``Port (기본: 161)`` SNMP 서비스 포트
-   
+
    - ``Status (기본: Inactive)`` SNMP를 활성화 하려면 이 값을 ``Active`` 로 설정한다.
-   
--  ``<Allow>`` SNMP접근을 허가할 IP주소를 설정한다. 
-    IP지정, IP범위지정, 비트마스크, 서브넷 이상 네 가지 형식을 지원한다. 
+
+-  ``<Allow>`` SNMP접근을 허가할 IP주소를 설정한다.
+    IP지정, IP범위지정, 비트마스크, 서브넷 이상 네 가지 형식을 지원한다.
     접속한 소켓이 허가된 IP가 아니면 응답을 주지 않는다.
-    
-    
+
+
 
 가상호스트/View 변수
 ====================================
@@ -117,18 +117,18 @@ SNMPWalk가 동작할 수 있도록 한다.
 SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 설정한다. ::
 
    # server.xml - <Server><Host>
-   
+
    <SNMP VHostCount=0, VHostMin=5 ViewCount=0, ViewMin=5 />
 
--  ``VHostCount (기본: 0)`` 0일 경우 존재하는 가상호스트까지만 응답을 한다. 
-   0보다 큰 값일 경우 가상호스트 존재 유무에 상관없이 설정된 가상호스트까지 응답한다. 
-   
+-  ``VHostCount (기본: 0)`` 0일 경우 존재하는 가상호스트까지만 응답을 한다.
+   0보다 큰 값일 경우 가상호스트 존재 유무에 상관없이 설정된 가상호스트까지 응답한다.
+
 -  ``ViewCount (기본: 0)`` View에 적용. ( ``VHostCount`` 와 동일)
-   
--  ``VHostMin (기본: 5분, 최대: 60분)``  ``[vhostMin]``  값을 설정한다. 
-   0~60까지의 값을 가진다. 
+
+-  ``VHostMin (기본: 5분, 최대: 60분)``  ``[vhostMin]``  값을 설정한다.
+   0~60까지의 값을 가진다.
    0일 경우 실시간 데이터를 제공하하며 1~60사이인 경우 해당 분만큼의 평균값을 제공한다.
-   
+
 -  ``ViewMin (기본: 0)`` View에 적용. ( ``VHostMin`` 와 동일)
 
 예를 들어 3개의 가상호스트가 설정되어 있는 환경에서 SNMPWalk의 동작방식이 달라진다.
@@ -138,7 +138,7 @@ SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 
     SNMPv2-SMI::enterprises.40001.1.4.2.1.2.1 = STRING: "web.winesoft.co.kr"
     SNMPv2-SMI::enterprises.40001.1.4.2.1.2.2 = STRING: "img.winesoft.co.kr"
     SNMPv2-SMI::enterprises.40001.1.4.2.1.2.3 = STRING: "vod.winesoft.co.kr"
-    
+
 - VHostCount=5 경우 ::
 
     SNMPv2-SMI::enterprises.40001.1.4.2.1.2.1 = STRING: "web.winesoft.co.kr"
@@ -155,18 +155,18 @@ SNMP를 통해 제공되는 가상호스트/View 개수와 기본시간(분)을 
 기타 변수를 설정한다. ::
 
    # server.xml - <Server><Host>
-   
+
    <SNMP GlobalMin="5" DiskMin="5" ConfCount="10" />
-    
+
 -  ``GlobalMin (기본: 5분, 최대: 60분)``  ``[globalMin]``  값을 설정한다.
 
 -  ``DiskMin (기본: 5분, 최대: 60분)``  ``[diskMin]``  값을 설정한다.
 
--  ``ConfCount (기본: 10)`` 설정목록을 n개까지 열람한다. 
-   1~100사이에서 지정 가능하다. 
-   1은 현재 반영된 설정을 의미하며 2는 이전 설정을 의미한다. 
+-  ``ConfCount (기본: 10)`` 설정목록을 n개까지 열람한다.
+   1~100사이에서 지정 가능하다.
+   1은 현재 반영된 설정을 의미하며 2는 이전 설정을 의미한다.
    100은 현재를 기준으로 99번 이전의 설정을 의미한다.
-   
+
 
 
 Community
@@ -186,18 +186,18 @@ Community를 설정하여 허가된 OID에만 접근/차단되도록 설정한�
          <OID>1.3.6.1.4.1.40001.1.4.3.1.11.11.10.1-61</OID>
       </Community>
    </SNMP>
-    
+
 ``<SNMP>`` 의 ``UnregisteredCommunity`` 를 "Deny"로 설정하면 등록되지 않은 Community 요청은 차단한다.
 
 -  ``<Community>`` Community를 설정한다.
 
    - ``Name`` Community 이름.
-   
+
    - ``OID (기본: Allow)`` 하위 ``<OID>`` 태그의 값을 설정한다.
-     속성 값이 ``Allow`` 라면 하위 ``<OID>`` 목록만 접근 가능하다. 
+     속성 값이 ``Allow`` 라면 하위 ``<OID>`` 목록만 접근 가능하다.
      반대로 속성 값이 ``Deny`` 라면 하위 <OID>목록에는 접근이 불가능하다.
 
-명시적인 OID(1.3.6.1.4.1.40001.1.4.4)와 범위OID(1.3.6.1.4.1.40001.1.4.3.1.11.11.10.1-61) 표현이 가능하다. 
+명시적인 OID(1.3.6.1.4.1.40001.1.4.4)와 범위OID(1.3.6.1.4.1.40001.1.4.3.1.11.11.10.1-61) 표현이 가능하다.
 OID를 허용/차단할 경우 하위 모든 OID에 대해 같은 규칙이 적용된다.
 
 
@@ -211,7 +211,7 @@ meta
 
    OID = 1.3.6.1.4.1.40001.1.1
 
-메타정보를 제공한다. 
+메타정보를 제공한다.
 
 ===== ============= ========= ===========================================
 OID   Name          Type      Description
@@ -238,8 +238,8 @@ meta.conf
    OID = 1.3.6.1.4.1.40001.1.1.10
 
 ``[confIndex]`` 는 ``<SNMP>`` 의 ``ConfCount`` 속성에서 설정한다.
-``[confIndex]`` 가 1인 경우는 항상 현재 적용된 설정 값을, 
-2인 경우는 이전 설정 값을 의미한다. 
+``[confIndex]`` 가 1인 경우는 항상 현재 적용된 설정 값을,
+2인 경우는 이전 설정 값을 의미한다.
 10 이라면 현재(1)로부터 9번째 이전의 설정을 의미한다.
 
 ==================== ======= ======= =============================================================================================
@@ -266,7 +266,7 @@ system
    OID = 1.3.6.1.4.1.40001.1.2
 
 STON이 동작하는 시스템 정보를 제공한다.
-``[sysMin]`` 변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다. 
+``[sysMin]`` 변수는 0~60분까지의 값을 가지며 실시간 또는 원하는 시간만큼의 평균 값을 제공한다.
 SNMPWalk에서  ``[sysMin]`` 은 0으로 설정되며 현재 정보를 제공한다.
 
 =================== ========================================= ======= ===============================================
@@ -318,7 +318,7 @@ OID                 Name                                      Type    Descriptio
 
 
 .. _snmp-meta-system-diskinfo:
-                                    
+
 system.diskInfo
 ---------------------
 
@@ -331,19 +331,19 @@ system.diskInfo
 ======================= ================== =========== =========================================
 OID                     Name               Type        Description
 ======================= ================== =========== =========================================
-.2. ``[diskIndex]``     diskInfoPath       String      디스크 경로                                 
-.3. ``[diskIndex]``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)                    
-.4. ``[diskIndex]``     diskInfoUseSize    Integer     디스크 사용량 (MB)                          
-.5. ``[diskIndex]``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)                 
-.6. ``[diskIndex]``     diskInfoUseRatio   Integer     디스크 사용률 (100%)                    
-.7. ``[diskIndex]``                                    디스크 사용률 (10000%)                                              
+.2. ``[diskIndex]``     diskInfoPath       String      디스크 경로
+.3. ``[diskIndex]``     diskInfoTotalSize  Integer     디스크 전체용량 (MB)
+.4. ``[diskIndex]``     diskInfoUseSize    Integer     디스크 사용량 (MB)
+.5. ``[diskIndex]``     diskInfoFreeSize   Integer     디스크 사용 가능량 (MB)
+.6. ``[diskIndex]``     diskInfoUseRatio   Integer     디스크 사용률 (100%)
+.7. ``[diskIndex]``                                    디스크 사용률 (10000%)
 .8. ``[diskIndex]``     diskInfoStatus     String      "Normal" 또는 "Invalid" 또는 "Unmounted"
 ======================= ================== =========== =========================================
 
 
 
 .. _snmp-meta-system-diskperf:
-                                    
+
 system.diskPerf
 ---------------------
 
@@ -380,12 +380,12 @@ global
 
    OID = 1.3.6.1.4.1.40001.1.3
 
-STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이벤트 등)를 제공한다. 
+STON의 모든 모듈이 공통적으로 사용하는 자원정보(소켓, 이벤트 등)를 제공한다.
 
 -  **ServerSocket**
-   
+
    클라이언트 ~ STON구간. STON이 클라이언트의 요청을 처리할 용도로 사용하는 소켓
-   
+
 -  **ClientSocket**
 
    STON ~ 원본서버구간. STON이 원본서버로 요청을 보내는 용도로 사용하는 소켓
@@ -416,7 +416,7 @@ cache
 ====================================
 
 ::
-   
+
     OID = 1.3.6.1.4.1.40001.1.4
 
 캐시 서비스의 통계는 가상호스트별로 상세하게 수집/제공된다.
@@ -514,9 +514,9 @@ cache.host.traffic
 
    OID = 1.3.6.1.4.1.40001.1.4.1.11
 
-호스트(=모든 가상호스트)의 캐시 서비스와 트래픽 통계를 제공한다. 
-traffic의 모든 통계는 최대 60분까지의 평균으로 제공한다. 
-min은 '분'을 의미하며 최대 60까지의 값을 가진다. 
+호스트(=모든 가상호스트)의 캐시 서비스와 트래픽 통계를 제공한다.
+traffic의 모든 통계는 최대 60분까지의 평균으로 제공한다.
+min은 '분'을 의미하며 최대 60까지의 값을 가진다.
 min이 생략되거나 0이라면 실시간정보를 제공한다.
 
 ===================== =============== ======= ==============================
@@ -538,10 +538,10 @@ cache.host.traffic.origin
 ---------------------
 
 ::
-   
+
     OID = 1.3.6.1.4.1.40001.1.4.1.11.10
 
-원본서버 트래픽 통계를 제공한다. 
+원본서버 트래픽 통계를 제공한다.
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분한다.
 
 ========================== =================================== ========== ===================================================================
@@ -622,9 +622,9 @@ cache.host.traffic.client
 
    OID = 1.3.6.1.4.1.40001.1.4.1.11.11
 
-클라이언트 트래픽 통계를 제공한다. 
-클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다. 
-SNMP에서는 디렉토리별 통계를 제공하지 않는다. 
+클라이언트 트래픽 통계를 제공한다.
+클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다.
+SNMP에서는 디렉토리별 통계를 제공하지 않는다.
 설령 디렉토리 통계가 설정되어 있다고 하더라도 합산되어 제공한다.
 
 ========================== ========================================== ========== =============================================================
@@ -725,48 +725,48 @@ cache.host.traffic.filesystem
 Host의 File I/O 통계를 제공한다.
 
 ======================== ============================================ ========== =============================================
-OID                      Name                                         Type       Description                                  
+OID                      Name                                         Type       Description
 ======================== ============================================ ========== =============================================
-.1. ``[vhostMin]``       requestHitRatio                              Integer    Request Hit Ratio(100%)                      
-.2. ``[vhostMin]``                                                               Request Hit Ratio(10000%)                    
-.3. ``[vhostMin]``       byteHitRatio                                 Integer    Byte Hit Ratio(100%)                         
-.4. ``[vhostMin]``                                                               Byte Hit Ratio(10000%)                       
-.5. ``[vhostMin]``       outbound                                     Integer    File I/O로 보내는 평균 트래픽 (Bytes)                 
-.6. ``[vhostMin]``       session                                      Integer    File I/O를 진행 중인 평균 Thread개수                  
-.7                       requestHitAverage                            OID        평균 캐시 HIT결과                                  
-.7.1. ``[vhostMin]``     requestHitAverage.TCP_HIT                    Integer    TCP_HIT                                      
-.7.2. ``[vhostMin]``     requestHitAverage.TCP_IMS_HIT                Integer    TCP_IMS_HIT                                  
-.7.3. ``[vhostMin]``     requestHitAverage.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT                              
-.7.4. ``[vhostMin]``     requestHitAverage.TCP_REF_FAIL_HIT           Integer    TCP_REF_FAIL_HIT                             
-.7.5. ``[vhostMin]``     requestHitAverage.TCP_NEGATIVE_HIT           Integer    TCP_NEGATIVE_HIT                             
-.7.6. ``[vhostMin]``     requestHitAverage.TCP_MISS                   Integer    TCP_MISS                                     
-.7.7. ``[vhostMin]``     requestHitAverage.TCP_REFRESH_MISS           Integer    TCP_REFRESH_MISS                             
-.7.8. ``[vhostMin]``     requestHitAverage.TCP_CLIENT_REFRESH_MISS    Integer    TCP_CLIENT_REFRESH_MISS                      
-.7.9. ``[vhostMin]``     requestHitAverage.TCP_DENIED                 Integer    TCP_DENIED                                   
-.7.10. ``[vhostMin]``    requestHitAverage.TCP_ERROR                  Integer    TCP_ERROR                                    
-.7.11. ``[vhostMin]``    requestHitAverage.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT                             
-.8                       requestHitCount                              OID        캐시 HIT결과 개수                                  
-.8.1. ``[vhostMin]``     requestHitCount.TCP_HIT                      Integer    TCP_HIT                                      
-.8.2. ``[vhostMin]``     requestHitCount.TCP_IMS_HIT                  Integer    TCP_IMS_HIT                                  
-.8.3. ``[vhostMin]``     requestHitCount.TCP_REFRESH_HIT              Integer    TCP_REFRESH_HIT                              
-.8.4. ``[vhostMin]``     requestHitCount.TCP_REF_FAIL_HIT             Integer    TCP_REF_FAIL_HIT                             
-.8.5. ``[vhostMin]``     requestHitCount.TCP_NEGATIVE_HIT             Integer    TCP_NEGATIVE_HIT                             
-.8.6. ``[vhostMin]``     requestHitCount.TCP_MISS                     Integer    TCP_MISS                                     
-.8.7. ``[vhostMin]``     requestHitCount.TCP_REFRESH_MISS             Integer    TCP_REFRESH_MISS                             
-.8.8. ``[vhostMin]``     requestHitCount.TCP_CLIENT_REFRESH_MISS      Integer    TCP_CLIENT_REFRESH_MISS                      
-.8.9. ``[vhostMin]``     requestHitCount.TCP_DENIED                   Integer    TCP_DENIED                                   
-.8.10. ``[vhostMin]``    requestHitCount.TCP_ERROR                    Integer    TCP_ERROR                                    
-.8.11. ``[vhostMin]``    requestHitCount.TCP_REDIRECT_HIT             Integer    TCP_REDIRECT_HIT                             
-.10. ``[vhostMin]``      getattr.filecount                            Integer    (getattr함수 호출) FILE로 응답한 회수                  
-.11. ``[vhostMin]``      getattr.dircount                             Integer    (getattr함수 호출) DIR로 응답한 회수                   
-.12. ``[vhostMin]``      getattr.failcount                            Integer    (getattr함수 호출) 실패로 응답한 회수                    
-.13. ``[vhostMin]``      getattr.timeres                              Integer    (getattr함수 호출) 반응시간 (0.01ms)                 
-.14. ``[vhostMin]``      open.count                                   Integer    open함수 호출 회수                                 
-.15. ``[vhostMin]``      open.timeres                                 Integer    open함수 반응시간 (0.01ms)                         
-.16. ``[vhostMin]``      read.count                                   Integer    read함수 호출 회수                                 
-.17. ``[vhostMin]``      read.timeres                                 Integer    read함수 반응시간 (0.01ms)                         
-.18. ``[vhostMin]``      read.buffersize                              Integer    read함수에서 요청된 버퍼 크기 (Bytes)                   
-.19. ``[vhostMin]``      read.bufferfilled                            Integer    read함수에서 요청된 버퍼에 채운 크기 (Bytes)               
+.1. ``[vhostMin]``       requestHitRatio                              Integer    Request Hit Ratio(100%)
+.2. ``[vhostMin]``                                                               Request Hit Ratio(10000%)
+.3. ``[vhostMin]``       byteHitRatio                                 Integer    Byte Hit Ratio(100%)
+.4. ``[vhostMin]``                                                               Byte Hit Ratio(10000%)
+.5. ``[vhostMin]``       outbound                                     Integer    File I/O로 보내는 평균 트래픽 (Bytes)
+.6. ``[vhostMin]``       session                                      Integer    File I/O를 진행 중인 평균 Thread개수
+.7                       requestHitAverage                            OID        평균 캐시 HIT결과
+.7.1. ``[vhostMin]``     requestHitAverage.TCP_HIT                    Integer    TCP_HIT
+.7.2. ``[vhostMin]``     requestHitAverage.TCP_IMS_HIT                Integer    TCP_IMS_HIT
+.7.3. ``[vhostMin]``     requestHitAverage.TCP_REFRESH_HIT            Integer    TCP_REFRESH_HIT
+.7.4. ``[vhostMin]``     requestHitAverage.TCP_REF_FAIL_HIT           Integer    TCP_REF_FAIL_HIT
+.7.5. ``[vhostMin]``     requestHitAverage.TCP_NEGATIVE_HIT           Integer    TCP_NEGATIVE_HIT
+.7.6. ``[vhostMin]``     requestHitAverage.TCP_MISS                   Integer    TCP_MISS
+.7.7. ``[vhostMin]``     requestHitAverage.TCP_REFRESH_MISS           Integer    TCP_REFRESH_MISS
+.7.8. ``[vhostMin]``     requestHitAverage.TCP_CLIENT_REFRESH_MISS    Integer    TCP_CLIENT_REFRESH_MISS
+.7.9. ``[vhostMin]``     requestHitAverage.TCP_DENIED                 Integer    TCP_DENIED
+.7.10. ``[vhostMin]``    requestHitAverage.TCP_ERROR                  Integer    TCP_ERROR
+.7.11. ``[vhostMin]``    requestHitAverage.TCP_REDIRECT_HIT           Integer    TCP_REDIRECT_HIT
+.8                       requestHitCount                              OID        캐시 HIT결과 개수
+.8.1. ``[vhostMin]``     requestHitCount.TCP_HIT                      Integer    TCP_HIT
+.8.2. ``[vhostMin]``     requestHitCount.TCP_IMS_HIT                  Integer    TCP_IMS_HIT
+.8.3. ``[vhostMin]``     requestHitCount.TCP_REFRESH_HIT              Integer    TCP_REFRESH_HIT
+.8.4. ``[vhostMin]``     requestHitCount.TCP_REF_FAIL_HIT             Integer    TCP_REF_FAIL_HIT
+.8.5. ``[vhostMin]``     requestHitCount.TCP_NEGATIVE_HIT             Integer    TCP_NEGATIVE_HIT
+.8.6. ``[vhostMin]``     requestHitCount.TCP_MISS                     Integer    TCP_MISS
+.8.7. ``[vhostMin]``     requestHitCount.TCP_REFRESH_MISS             Integer    TCP_REFRESH_MISS
+.8.8. ``[vhostMin]``     requestHitCount.TCP_CLIENT_REFRESH_MISS      Integer    TCP_CLIENT_REFRESH_MISS
+.8.9. ``[vhostMin]``     requestHitCount.TCP_DENIED                   Integer    TCP_DENIED
+.8.10. ``[vhostMin]``    requestHitCount.TCP_ERROR                    Integer    TCP_ERROR
+.8.11. ``[vhostMin]``    requestHitCount.TCP_REDIRECT_HIT             Integer    TCP_REDIRECT_HIT
+.10. ``[vhostMin]``      getattr.filecount                            Integer    (getattr함수 호출) FILE로 응답한 회수
+.11. ``[vhostMin]``      getattr.dircount                             Integer    (getattr함수 호출) DIR로 응답한 회수
+.12. ``[vhostMin]``      getattr.failcount                            Integer    (getattr함수 호출) 실패로 응답한 회수
+.13. ``[vhostMin]``      getattr.timeres                              Integer    (getattr함수 호출) 반응시간 (0.01ms)
+.14. ``[vhostMin]``      open.count                                   Integer    open함수 호출 회수
+.15. ``[vhostMin]``      open.timeres                                 Integer    open함수 반응시간 (0.01ms)
+.16. ``[vhostMin]``      read.count                                   Integer    read함수 호출 회수
+.17. ``[vhostMin]``      read.timeres                                 Integer    read함수 반응시간 (0.01ms)
+.18. ``[vhostMin]``      read.buffersize                              Integer    read함수에서 요청된 버퍼 크기 (Bytes)
+.19. ``[vhostMin]``      read.bufferfilled                            Integer    read함수에서 요청된 버퍼에 채운 크기 (Bytes)
 ======================== ============================================ ========== =============================================
 
 
@@ -783,7 +783,7 @@ cache.host.traffic.dims
 Host의 DIMS변환 통계를 제공한다.
 
 ======================== ============================================ ========== =============================================
-OID                      Name                                         Type       Description                                  
+OID                      Name                                         Type       Description
 ======================== ============================================ ========== =============================================
 .1. ``[vhostMin]``       requests                                     Integer    DIMS 변환요청 횟수
 .2. ``[vhostMin]``       converted                                    Integer    변환성공 횟수
@@ -807,7 +807,7 @@ cache.host.traffic.compression
 Host의 압축 통계를 제공한다.
 
 ======================== ============================================ ========== =============================================
-OID                      Name                                         Type       Description                                  
+OID                      Name                                         Type       Description
 ======================== ============================================ ========== =============================================
 .1. ``[vhostMin]``       requests                                     Integer    압축요청 횟수
 .2. ``[vhostMin]``       converted                                    Integer    압축성공 횟수
@@ -827,7 +827,7 @@ cache.vhost
 ====================================
 
 ::
-  
+
    OID = 1.3.6.1.4.1.40001.1.4.3.1
 
 가상호스트의 정보를 제공한다.  ``[vhostIndex]`` 는 1부터 가상호스트 개수의 범위를 가진다.
@@ -850,7 +850,7 @@ cache.vhost.contents
 ---------------------
 
 ::
-   
+
    OID = 1.3.6.1.4.1.40001.1.4.3.1.10
 
 가상호스트가 서비스하는 컨텐츠 통계를 제공한다.
@@ -900,9 +900,9 @@ cache.vhost.traffic
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11
 
-가상호스트의 캐시 서비스와 트래픽 통계를 제공한다. 
-traffic의 모든 통계는 최대 60분까지의 평균으로 제공된다. 
-min은 '분'을 의미하며 최대 60까지의 값을 가진다. 
+가상호스트의 캐시 서비스와 트래픽 통계를 제공한다.
+traffic의 모든 통계는 최대 60분까지의 평균으로 제공된다.
+min은 '분'을 의미하며 최대 60까지의 값을 가진다.
 min이 생략되거나 0이라면 실시간정보를 제공한다.
 
 ========================================= ================= =========== ==============================
@@ -927,7 +927,7 @@ cache.vhost.traffic.origin
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.10
 
-원본서버 트래픽 통계를 제공한다. 
+원본서버 트래픽 통계를 제공한다.
 원본서버 트래픽은 HTTP트래픽과 Port바이패스 트래픽으로 구분된다.
 
 ============================================= ===================================== ========== =================================================================
@@ -1008,9 +1008,9 @@ cache.vhost.traffic.client
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.11
 
-클라이언트 트래픽 통계를 제공한다. 
-클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다. 
-SNMP에서는 디렉토리별 통계를 제공하지 않는다. 
+클라이언트 트래픽 통계를 제공한다.
+클라이언트 트래픽은 HTTP트래픽, SSL트래픽, Port바이패스 트래픽으로 구분된다.
+SNMP에서는 디렉토리별 통계를 제공하지 않는다.
 설령 디렉토리 통계가 설정되어 있다고 하더라도 합산되어 제공한다.
 
 ============================================= ========================================= ========== ==============================================================
@@ -1157,50 +1157,50 @@ OID                                         Name                                
 
 
 
-.. _snmp-cache-vhost-traffic-dims:                                                                                                         
-                                                                                                                                                 
-cache.vhost.traffic.dims                                                                                                                
----------------------                                                                                                                            
-                                                                                                                                                 
-::                                                                                                                                               
-                                                                                                                                                 
+.. _snmp-cache-vhost-traffic-dims:
+
+cache.vhost.traffic.dims
+---------------------
+
+::
+
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.21
-                                                                                                                                                 
-가상호스트의 DIMS변환 통계를 제공한다.                                                                                                                        
-                     
+
+가상호스트의 DIMS변환 통계를 제공한다.
+
 =========================================== =========================================== ========== ==============================================
-OID                                         Name                                        Type       Description                                   
+OID                                         Name                                        Type       Description
 =========================================== =========================================== ========== ==============================================
-.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    DIMS 변환요청 횟수                          
-.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    변환성공 횟수                               
-.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    변환실패 횟수                               
-.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 이미지의 평균 크기 (Bytes)                 
-.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    변환된 이미지의 평균 크기 (Bytes)                
-.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    변환 소요시간 (ms)          
+.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    DIMS 변환요청 횟수
+.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    변환성공 횟수
+.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    변환실패 횟수
+.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 이미지의 평균 크기 (Bytes)
+.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    변환된 이미지의 평균 크기 (Bytes)
+.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    변환 소요시간 (ms)
 =========================================== =========================================== ========== ==============================================
 
 
 
-.. _snmp-cache-vhost-traffic-compression:                                                                                                         
-                                                                                                                                                 
+.. _snmp-cache-vhost-traffic-compression:
+
 cache.vhost.traffic.compression
----------------------                                                                                                                            
-                                                                                                                                                 
-::                                                                                                                                               
-                                                                                                                                                 
+---------------------
+
+::
+
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.22
-                                                                                                                                                 
-가상호스트의 압축 통계를 제공한다.                                                                                                                        
-                     
+
+가상호스트의 압축 통계를 제공한다.
+
 =========================================== =========================================== ========== ==============================================
-OID                                         Name                                        Type       Description                                   
+OID                                         Name                                        Type       Description
 =========================================== =========================================== ========== ==============================================
-.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    압축요청 횟수                          
-.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    압축성공 횟수                               
-.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    압축실패 횟수                               
-.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 파일의 평균 크기 (Bytes)                 
-.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    압축된 파일의 평균 크기 (Bytes)                
-.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    압축 소요시간 (ms)          
+.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    압축요청 횟수
+.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    압축성공 횟수
+.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    압축실패 횟수
+.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 파일의 평균 크기 (Bytes)
+.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    압축된 파일의 평균 크기 (Bytes)
+.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    압축 소요시간 (ms)
 =========================================== =========================================== ========== ==============================================
 
 
@@ -1214,11 +1214,9 @@ cache.view
 
    OID = 1.3.6.1.4.1.40001.1.4.11.1
 
-가상호스트 통계와 동일한 정보를 제공한다. 
+가상호스트 통계와 동일한 정보를 제공한다.
 ``[viewIndex]`` 는 1부터 View개수의 범위를 가진다.
 
 - 1.3.6.1.4.1.40001.1.4.3 - 가상호스트 통계
 
 - 1.3.6.1.4.1.40001.1.4.11 - View 통계
-
-

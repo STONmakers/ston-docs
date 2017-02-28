@@ -1,20 +1,25 @@
-.. _getting-started:
+﻿.. _getting-started:
 
 2장. 시작하기
 ******************
 
-이 장에서는 시스템 구성부터 설치 그리고 예제 가상호스트까지 구성해본다. 
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 1. 설치와 실행 <https://youtu.be/sMfp728pMtM?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+
+이 장에서는 시스템 구성으로부터 설치 그리고 예제 가상호스트까지 구성해본다.
 텍스트 편집기만 있으면 누구나 할 수 있다.
 
-STON은 표준 Linux 서버에서 동작하도록 개발되었다. 
-개발 단계부터 HW뿐만 아니라 OS, 파일시스템 등 종속성을 가질 수 있는 요소는 최대한 배제하였다. 
-고객이 합리적인 장비를 선택할 수 있도록 돕는 것은 매우 중요하다. 
+STON은 표준 Linux 서버에서 동작하도록 개발되었다.
+개발 단계부터 HW뿐만 아니라 OS, 파일시스템 등 종속성을 가질 수 있는 요소는 최대한 배제하였다.
+고객이 합리적인 장비를 선택할 수 있도록 돕는 것은 매우 중요하다.
 왜냐하면 서비스의 특성과 규모에 따라 적절한 서버를 구성하는 것이 서비스의 시작이기 때문이다.
 
 
 .. toctree::
    :maxdepth: 2
-   
+
+
 .. _getting-started-serverconf:
 
 서버 구성
@@ -25,46 +30,46 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 
 -  **CPU**
 
-   Quad 코어 이상을 권장한다. 
-   STON은 Many-Core에 대해 확장성(Scalability)를 가진다. 
-   코어가 많으면 많을수록 초당 처리량은 증가한다. 
+   Quad 코어 이상을 권장한다.
+   STON은 Many-Core에 대해 확장성(Scalability)를 가진다.
+   코어가 많으면 많을수록 초당 처리량은 증가한다.
    단, 높은 처리량이 반드시 높은 트래픽을 의미하는 것은 아니다.
 
    .. figure:: img/10g_cpu.jpg
       :align: center
 
       클라이언트가 많을수록 많은 CPU는 힘이 된다.
-    
-   4KB인 파일을 약 26만번을 전송하는 것과 1GB파일을 한번 전송하는 것은 같은 대역폭을 사용한다. 
+
+   4KB인 파일을 약 26만번을 전송하는 것과 1GB파일을 한번 전송하는 것은 같은 대역폭을 사용한다.
    CPU선택의 가장 큰 기준은 얼마나 많은 동시접속을 처리하는가이다.
-   
+
 
 -  **메모리**
 
    Memory-Indexing 방식을 사용하므로 4GB이상을 권장한다. ( :ref:`adv_topics_mem` 참조)
    자주 접근되는 콘텐츠는 항상 메모리에 상주하지만 그렇지 않은 컨텐츠는 디스크에서 로딩한다.
    따라서 컨텐츠가 많고 집중도가 낮다면(Long-tail) 디스크 부하 증가로 성능이 저하될 수 있다.
-   서비스되는 콘텐츠 개수와 상관없이 콘텐츠 크기가 커서 디스크 I/O 부하가 높다면 
+   서비스되는 콘텐츠 개수와 상관없이 콘텐츠 크기가 커서 디스크 I/O 부하가 높다면
    메모리를 증설하여 부하를 낮출 수 있다.
 
 
 -  **디스크**
 
-   OS를 포함하여 최소 3개 이상을 권장한다. 
+   OS를 포함하여 최소 3개 이상을 권장한다.
    디스크 역시 많으면 많을수록 많은 콘텐츠를 캐싱할 수 있을뿐만 아니라 I/O부하도 분산된다.
-   
+
    .. figure:: img/02_disk.png
       :align: center
-      
+
       항상 OS와 STON은 콘텐츠와 별도의 디스크로 구성한다.
-   
-   일반적으로 OS가 설치된 디스크에 STON을 설치한다. 
-   로그 역시 같은 디스크에 구성하는 것이 일반적이다. 
+
+   일반적으로 OS가 설치된 디스크에 STON을 설치한다.
+   로그 역시 같은 디스크에 구성하는 것이 일반적이다.
    로그는 서비스 상황을 실시간으로 기록하기 때문에 항상 Write부하가 발생한다.
-   
-   STON은 디스크를 RAID 0처럼 사용한다. 
-   성능 RAID의 상관여부는 고객 서비스 특성에 따라 달라진다. 
-   하지만 파일 변경이 빈번하지 않고 콘텐츠의 크기가 물리적 메모리 크기보다 
+
+   STON은 디스크를 RAID 0처럼 사용한다.
+   성능과 RAID의 상관여부는 고객 서비스 특성에 따라 달라진다.
+   하지만 파일 변경이 빈번하지 않고 콘텐츠의 크기가 물리적 메모리 크기보다
    훨씬 큰 경우 RAID를 통한 Read속도 향상이 효과적일 수 있다.
 
 
@@ -73,8 +78,8 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 OS 구성
 ====================================
 
-가장 기본적인 형태로 설치한다. 
-표준 64bit Linux 배포판(Cent 6.2이상, Ubuntu 10.04이상) 이라면 정상동작한다. 
+가장 기본적인 형태로 설치한다.
+표준 64bit Linux 배포판(Cent 6.2이상, Ubuntu 10.04이상) 이라면 정상동작한다.
 패키지 의존성을 가지지 않는다.
 
 
@@ -92,9 +97,9 @@ OS 구성
       HTTP request sent, awaiting response... 200 OK
       Length: 71340645 (68M) [application/x-gzip]
       Saving to: “ston.2.0.0.rhel.2.6.32.x64.tar.gz”
-      
+
       100%[===============================================>] 71,340,645  42.9M/s   in 1.6s
-      
+
       2014-06-17 13:29:15 (42.9 MB/s) - “ston.2.0.0.rhel.2.6.32.x64.tar.gz” saved [71340645/71340645]
 
 
@@ -184,7 +189,7 @@ OS 구성
 최신버전이 배포되면 stonu명령어로 업데이트할 수 있다. ::
 
 	./stonu 2.0.1
-	
+
 또는 :ref:`wm` 의 :ref:`wm-update` 를 통해 간편하게 업데이트를 진행할 수 있다.
 
    .. figure:: img/conf_update1.png
@@ -206,9 +211,9 @@ OS 구성
 - server.xml
 - vhosts.xml
 
-최초 설치시 모든 XML파일이 존재하지 않는다. 
+최초 설치시 모든 XML파일이 존재하지 않는다.
 배포받은 라이센스파일을 설치 경로에 복사한다.
-그리고 설치경로의 server.xml.default와 vhosts.xml.default를 복사 또는 수정하여 설정하길 바란다. 
+그리고 설치경로의 server.xml.default와 vhosts.xml.default를 복사 또는 수정하여 설정하길 바란다.
 *.default파일은 항상 최신패키지와 함께 배포된다.
 
 
@@ -224,7 +229,7 @@ vhosts.xml 파일을 열어 다음과 같이 편집한다. ::
                 <Address>hello.winesoft.co.kr</Address>
             </Origin>
         </Vhost>
-    </Vhosts>   
+    </Vhosts>
 
 
 .. _getting-started-runston:
@@ -243,10 +248,10 @@ STON 실행
             </Storage>
         </Cache>
     </Server>
-      
+
 .. note::
 
-   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면 구동되지 않는다. 
+   STON은 기본적으로 디스크를 저장공간으로 사용하기 때문에 디스크가 설정되어 있지 않으면 구동되지 않는다.
    자세한 내용은 다음 장에서 설명한다.
 
 3. STON을 실행한다.  ::
@@ -279,8 +284,8 @@ www.example.com 도메인을 설정한다. ::
 WM이 느리거나 그래프가 나오지 않는 문제
 -----------------------------------------------
 
-설치과정 중 RRD그래프는 동적으로 다운로드 받아서 설치된다. 
-제한된 네트워크에서 STON을 설치할 경우 RRD가 제대로 설치되지 않을 수 있다. 
+설치과정 중 RRD그래프는 동적으로 다운로드 받아서 설치된다.
+제한된 네트워크에서 STON을 설치할 경우 RRD가 제대로 설치되지 않을 수 있다.
 이로 인해 :ref:`wm` 이 매우 느리게 동작하거나 :ref:`api-graph` 가 동작하지 않게 된다.
 다음과 같이 수정한다.
 
@@ -288,7 +293,7 @@ WM이 느리거나 그래프가 나오지 않는 문제
 **1. rrdtool 설치확인**
 
    다음과 같이 설치여부를 확인한다. ::
-   
+
       [root@localhost ston]# yum install rrdtool
       Loaded plugins: fastestmirror, security
       Loading mirror speeds from cached hostfile
@@ -300,7 +305,7 @@ WM이 느리거나 그래프가 나오지 않는 문제
       Setting up Install Process
       Package rrdtool-1.3.8-6.el6.x86_64 already installed and latest version
       Nothing to do
-      
+
    다음은 Ubuntu계열의 경우이다. ::
 
       root@ubuntu:~# apt-get install rrdtool
@@ -312,13 +317,13 @@ WM이 느리거나 그래프가 나오지 않는 문제
         libgraphicsmagick3 libgraphicsmagick++3 libgraphicsmagick1-dev libgraphics-magick-perl libgraphicsmagick++1-dev
       Use 'apt-get autoremove' to remove them.
       0 upgraded, 0 newly installed, 0 to remove and 102 not upgraded.
-      
-      
+
+
 **2. RRD 수동설치**
 
-   만약 rrdtool이 yum을 이용해서 설치가 되지 않는다면, 
-   OS 버전에 맞는 패키지를 `다운로드 <http://pkgs.repoforge.org/rrdtool/>`_ 후 수동으로 설치한다.   
-   
+   만약 rrdtool이 yum을 이용해서 설치가 되지 않는다면,
+   OS 버전에 맞는 패키지를 `다운로드 <http://pkgs.repoforge.org/rrdtool/>`_ 후 수동으로 설치한다.
+
 ======================================== =================== ======= ============================
 Name                                     Last Modified       Size    Description
 ======================================== =================== ======= ============================
@@ -349,22 +354,22 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 -  ``<Address>``
    가상호스트가 콘텐츠를 복제 할 원본서버 주소.
    개수제한은 없다.
-   주소가 2개 이상일 경우 Active/Active방식(Round-Robin)으로 선택된다. 
-   원본서버 주소 포트가 80인 경우 생략할 수 있다. 
+   주소가 2개 이상일 경우 Active/Active방식(Round-Robin)으로 선택된다.
+   원본서버 주소 포트가 80인 경우 생략할 수 있다.
 
-예를 들어 다른 포트(8080)로 서비스되는 경우 1.1.1.1:8080과 같이 포트번호를 
+예를 들어 다른 포트(8080)로 서비스되는 경우 1.1.1.1:8080과 같이 포트번호를
 명시해야 한다. 주소는 {IP|Domain}{Port}{Path}형식으로 8가지 형식이 가능하다.
 
 ============================== ==========================
 Address                        Host헤더
 ============================== ==========================
 1.1.1.1	                       가상호스트명
-1.1.1.1:8080	               가상호스트명:8080       
-1.1.1.1/account/dir	           가상호스트명            
-1.1.1.1:8080/account/dir       가상호스트명:8080       
-example.com	                   example.com             
-example.com:8080	           example.com:8080        
-example.com/account/dir	       example.com             
+1.1.1.1:8080	               가상호스트명:8080
+1.1.1.1/account/dir	           가상호스트명
+1.1.1.1:8080/account/dir       가상호스트명:8080
+example.com	                   example.com
+example.com:8080	           example.com:8080
+example.com/account/dir	       example.com
 example.com:8080/account/dir   example.com:8080
 ============================== ==========================
 
@@ -373,7 +378,7 @@ example.com:8080/account/dir   example.com:8080
     <Vhosts>
         <Vhost Name="www.example.com">
             <Origin>
-                <Address>origin.com:8888/account/dir</Address>            
+                <Address>origin.com:8888/account/dir</Address>
             </Origin>
         </Vhost>
     </Vhosts>
@@ -385,7 +390,7 @@ example.com:8080/account/dir   example.com:8080
 
 .. note:
 
-   원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다. 
+   원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다.
    클라이언트가 /img.jpg를 요청하면 최종 주소는 example.com/account/dir/img.jpg가 된다.
 
 
@@ -406,12 +411,12 @@ example.com:8080/account/dir   example.com:8080
             </Origin>
         </Vhost>
     </Vhosts>
-    
+
 -  ``<Address2>``
 
-   모든 ``<Address>`` 가 정상동작하고 있다면 ``<Address2>`` 는 서비스에 투입되지 않는다. 
-   Active서버에 장애가 감지되면 해당 서버를 대체하기 위해 투입되며 
-   Active서버가 복구되면 다시 Standby상태로 돌아간다. 
+   모든 ``<Address>`` 가 정상동작하고 있다면 ``<Address2>`` 는 서비스에 투입되지 않는다.
+   Active서버에 장애가 감지되면 해당 서버를 대체하기 위해 투입되며
+   Active서버가 복구되면 다시 Standby상태로 돌아간다.
    만약 Standby서버에 장애가 감지되면 해당 Standby서버가 복구되기 전까지 서비스에 투입되지 않는다.
 
 
@@ -421,30 +426,30 @@ API 호출
 ====================================
 
 HTTP기반의 API를 제공한다.
-API 호출권한은 :ref:`env-host` 의 영향을 받는다. 
+API 호출권한은 :ref:`env-host` 의 영향을 받는다.
 허가되지 않았다면 곧바로 연결을 종료한다.
 
 STON버전을 확인한다. ::
 
    http://127.0.0.1:10040/version
-    
+
 같은 API를 Linux Shell에서 명령어로 수행한다. ::
 
    ./stonapi version
 
 .. note:
 
-   HTTP API는 &를 QueryString의 구분자로 인식하지만 Linux 콘솔에서는 다른 의미를 가진다. 
+   HTTP API는 &를 QueryString의 구분자로 인식하지만 Linux 콘솔에서는 다른 의미를 가진다.
    &가 들어가는 명령어를 호출하는 경우 \&로 입려하거나 반드시 괄호(" /...&... ")로 호출하는 URL을 묶어야 한다.
 
 
 하드웨어 정보조회
 ====================================
 
-하드웨어 정보를 조회한다. :: 
+하드웨어 정보를 조회한다. ::
 
    http://127.0.0.1:10040/monitoring/hwinfo
-   
+
 결과는 JSON형식으로 제공된다. ::
 
    {
@@ -453,73 +458,73 @@ STON버전을 확인한다. ::
       "status": "OK",
       "result":
       {
-         "OS" : "Linux version 3.3.0 ...(생략)...", 
-         "STON" : "1.1.9", 
-         "CPU" : 
-         { 
-            "ProcCount": "4", 
-            "Model": "Intel(R) Xeon(R) CPU           E5606  @ 2.13GHz", 
-            "MHz": "1200.000", 
+         "OS" : "Linux version 3.3.0 ...(생략)...",
+         "STON" : "1.1.9",
+         "CPU" :
+         {
+            "ProcCount": "4",
+            "Model": "Intel(R) Xeon(R) CPU           E5606  @ 2.13GHz",
+            "MHz": "1200.000",
             "Cache": "8192 KB"
-         }, 
-         "Memory" : "8 GB", 
-         "NIC" : 
-         [ 
-            { 
-               "Dev" : "eth1", 
-               "Model" : "Intel Corporation 82574L Gigabit Network Connection", 
-               "IP" : "192.168.0.13", 
-               "MAC" : "00:25:90:36:f4:cb" 
-            } 
-         ], 
-         "Disk" : 
-         [ 
-            { 
-               "Dev" : "sda", 
-               "Model" : "HP DG0146FAMWL (scsi)", 
-               "Total" : "238787584", 
-               "Usage" : "40181760" 
+         },
+         "Memory" : "8 GB",
+         "NIC" :
+         [
+            {
+               "Dev" : "eth1",
+               "Model" : "Intel Corporation 82574L Gigabit Network Connection",
+               "IP" : "192.168.0.13",
+               "MAC" : "00:25:90:36:f4:cb"
+            }
+         ],
+         "Disk" :
+         [
+            {
+               "Dev" : "sda",
+               "Model" : "HP DG0146FAMWL (scsi)",
+               "Total" : "238787584",
+               "Usage" : "40181760"
             },
             {
-               "Dev" : "sdb", 
-               "Model" : "HITACHI HUC103014CSS600 (scsi)", 
-               "Total" : "144706478080", 
-               "Usage" : "2101075968" 
+               "Dev" : "sdb",
+               "Model" : "HITACHI HUC103014CSS600 (scsi)",
+               "Total" : "144706478080",
+               "Usage" : "2101075968"
             },
             {
-               "Dev" : "sdc", 
-               "Model" : "HITACHI HUC103014CSS600 (scsi)", 
-               "Total" : "144706478080", 
-               "Usage" : "2012160000" 
+               "Dev" : "sdc",
+               "Model" : "HITACHI HUC103014CSS600 (scsi)",
+               "Total" : "144706478080",
+               "Usage" : "2012160000"
             }
          ]
-      } 
+      }
    }
 
 
 재시작/종료
 ====================================
 
-명령어를 통해 STON을 재시작/종료할 수 있다. 
+명령어를 통해 STON을 재시작/종료할 수 있다.
 의도하지 않은 결과를 피하기 위해 웹 페이지를 통한 확인작업이 반드시 필요하도록 개발되었다. ::
 
    http://127.0.0.1:10040/command/restart
    http://127.0.0.1:10040/command/restart?key=JUSTDOIT       // 즉시 실행
    http://127.0.0.1:10040/command/terminate
    http://127.0.0.1:10040/command/terminate?key=JUSTDOIT       // 즉시 실행
-   
+
 
 .. _getting-started-reset:
 
 Caching 초기화
 ====================================
 
-서비스를 중단하며 캐싱된 모든 컨텐츠를 삭제한다. 
+서비스를 중단하며 캐싱된 모든 컨텐츠를 삭제한다.
 설정된 모든 디스크를 포맷하며 작업이 완료되면 다시 서비스를 재개한다. ::
 
    http://127.0.0.1:10040/command/cacheclear
    http://127.0.0.1:10040/command/cacheclear?key=JUSTDOIT       // 즉시 실행
-   
+
 콘솔에서는 다음 명령어를 통해 전체 또는 하나의 가상호스트를 초기화한다. ::
 
    ./stonapi reset

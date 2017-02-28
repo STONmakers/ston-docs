@@ -208,7 +208,7 @@ v2.2.x
 
 **버그수정**
 
-   - :ref:`hls-http-live-streaming` - 일부 영상에서 Segmentation정책때문에 재생되지 않던 증상
+   - HLS - 일부 영상에서 Segmentation정책때문에 재생되지 않던 증상
 
 
 2.2.3 (2015.12.04)
@@ -222,7 +222,7 @@ v2.2.x
 2.2.2 (2015.12.04)
 ----------------------------
 
-   - 원본으로 보내는 HTTP요청의 헤더를 :ref:`origin-modify-client`한다.
+   - 원본으로 보내는 HTTP요청의 헤더를 변조한다.
 
 **기능개선/정책변경**
 
@@ -247,6 +247,7 @@ v2.2.x
 
    - 디스크 정보를 얻지 못한 경우 비정상 종료되던 증상
    - TLS - Handshake과정에서 Max버전을 선택하지 않던 증상
+
      | **Before**. TLSPlaintext.version 사용
      | **After**. ClientHello.client_version 사용
 
@@ -259,7 +260,7 @@ v2.1.x
 
 **버그수정**
 
-   - :ref:`hls-http-live-streaming` - v2.1.7 업데이트 이후 일부 영상이 정상적으로 재생되지 않던 증상
+   - :ref:`media-hls` - v2.1.7 업데이트 이후 일부 영상이 정상적으로 재생되지 않던 증상
 
 
 2.1.8 (2015.10.14)
@@ -281,7 +282,7 @@ v2.1.x
 
 **버그수정**
 
-   - :ref:`hls-http-live-streaming` - 일부 profile에서의 화면떨림 증상
+   - HLS - 일부 profile에서의 화면떨림 증상
    - :ref:`media-dims` - TTL이 0으로 설정되어 있을 때 간헐적으로 500 Internal Error로 응답하던 증상
    - X-Forwarded-For 헤더를 로그에 c-ip필드로 기록할 때 공백 문자가 포함되던 증상
 
@@ -291,11 +292,11 @@ v2.1.x
 
 **기능개선/정책변경**
 
-   - :ref:`media-dims` - :ref:`animated-gif` 에 대해 첫 장면만 변환할 수 있다.
+   - :ref:`media-dims` - Animated GIF 에 대해 첫 장면만 변환할 수 있다.
 
 **버그수정**
 
-   - :ref:`access-control` - IP허용/차단이 정상동작하지 않던 증상
+   - ACL - IP허용/차단이 정상동작하지 않던 증상
    - :ref:`media-dims` - Crop등에서 + 기호를 이용한 좌표지정이 되지 않던 증상
 
 
@@ -314,13 +315,14 @@ v2.1.x
    - CPU사용량 개선
    - :ref:`multi-nic` - NIC이름으로 Listen한다.
    - 접근제어 시점 변경
+
      | **Before**. 클라이언트가 요청한 URI에서 키워드(DIMS나 MP4HLS등) 제거 후 검사
      | **After**. 클라이언트가 요청한 URI 그대로 검사
 
 **버그수정**
 
    - :ref:`media-dims` - 인코딩된 변환 문자열을 인식하지 못하던 증상
-   - :ref:`hardpurge` 가 :ref:`caching-policy-casesensitive` 구분 정책을 따르지 않던 증상
+   - :ref:`hardpurge` 가 :ref:`caching-policy-casesensitive` 정책을 따르지 않던 증상
    - 설정백업할 때 :ref:`post` 이 누락되던 증상
 
 
@@ -356,7 +358,7 @@ v2.1.x
 2.1.1 (2015.05.07)
 ----------------------------
 
-   - :ref:`has-http-live-streaming` - Stream Alternates형식을 통해 Bandwidth, Resolution 정보를 제공한다.
+   - HLS - Stream Alternates형식을 통해 Bandwidth, Resolution 정보를 제공한다.
 
 **버그수정**
 
@@ -366,16 +368,18 @@ v2.1.x
 2.1.0 (2015.04.15)
 ----------------------------
 
-   - :ref:`adv-topics-indexing` 모드 추가.
    - :ref:`media-dims` 에서 Animated GIF포맷을 지원한다.
    - :ref:`media-dims` 변환 통계추가
 
 **기능개선/정책변경**
 
-   - :ref:`caching-purge` 에서 디렉토리 표현 제거
+   - :ref:`caching-purge` API에서 디렉토리 표현 제거
+
      | 디렉토리 표현(example.com/img/)은 해당 URL에 해당하는 (원본서버가 응답한)파일 하나만을 의미한다.
      | 기존의 디렉토리 표현(example.com/img/)은 패턴(example.com/img/*)으로 통합한다.
+
    - API표현 추가
+
      | /monitoring/average.xml
      | /monitoring/average.json
      | /monitoring/realtime.xml
@@ -389,6 +393,7 @@ v2.1.x
      | /monitoring/cacheresource.json
      | /monitoring/origin.json
      | /monitoring/coldfiledist.json
+
    - WM - resolv.conf 편집기능 삭제
 
 
@@ -434,20 +439,23 @@ v2.0.x
 
 **기능개선/정책변경**
 
-   - :ref:`trimming` 된 영상을 :ref:`hls-http-live-streaming` 로 서비스할 수 있다.
-     다음은 원본영상(/vod.mp4)의 0~60초 구간을 Trimming한 뒤 :ref:`hls-http-live-streaming` 로 서비스하는 표현이다.
-     | /vod.mp4?start=0&end=60/**mp4hls/index.m3u8**
-     | /vod.mp4**/mp4hls/index.m3u8**?start=0&end=60
-     | /vod.mp4?start=0/**mp4hls/index.m3u8**?end=60
-   - :ref:`hls-http-live-streaming` 인덱스 파일(.m3u8) 버전 개선
-     | **Before**. 버전 1
-     | **After**. 버전 3 (버전 1로 변경 가능)
+   - Trimming 된 영상을 HLS 로 서비스할 수 있다.
+     다음은 원본영상(/vod.mp4)의 0~60초 구간을 Trimming한 뒤 HLS 로 서비스하는 표현이다.
+
+       | /vod.mp4?start=0&end=60/**mp4hls/index.m3u8**
+       | /vod.mp4**/mp4hls/index.m3u8**?start=0&end=60
+       | /vod.mp4?start=0/**mp4hls/index.m3u8**?end=60
+
+   - HLS 인덱스 파일(.m3u8) 버전 개선
+
+       | **Before**. 버전 1
+       | **After**. 버전 3 (버전 1로 변경 가능)
 
 **버그수정**
 
-   - :ref:`hls-http-live-streaming` 변환 중 HTTP인코딩되는 특수문자가 있을 때 비정상 종료되던 증상
+   - HLS 변환 중 HTTP인코딩되는 특수문자가 있을 때 비정상 종료되던 증상
    - 헤더가 깨진 MP4영상 분석 중 CPU가 과도하게 점유되던 증상
-   - Audio의 KeyFrame이 균일하지 않은 MP4영상을 :ref:`hls-http-live-streaming` 로 서비스할 때 Audio와 Video의 동기가 안맞는 증상
+   - Audio의 KeyFrame이 균일하지 않은 MP4영상을 HLS 로 서비스할 때 Audio와 Video의 동기가 안맞는 증상
    - RRD - 통계수집이 되지 않던 증상, 응답시간이 평균이 아니라 합으로 표시되던 증상
    - WM - 신규 디스크 투입시 포맷을 강제하던 조건 제거
 
@@ -458,8 +466,10 @@ v2.0.x
 **기능개선/정책변경**
 
    - :ref:`origin-balancemode` 의 Hash 알고리즘 변경
-     | **Before**. hash(URL) / 서버대수
-     | **After**. `Consistent Hashing <http://en.wikipedia.org/wiki/Consistent_hashing>`
+
+       | **Before**. hash(URL) / 서버대수
+       | **After**. `Consistent Hashing <http://en.wikipedia.org/wiki/Consistent_hashing>`
+
    - :ref:`access-control-vhost` 를 통해 Redirect 할 때 클라이언트가 요청한 URI을 파라미터로 입력할 수 있다.
 
 **버그수정**
@@ -502,23 +512,24 @@ v2.0.x
 ----------------------------
 
    - 원본에서 다운로드된 크기만큼만 디스크 공간사용. (:ref:`origin-partsize` 참조)
-   - :ref:`env-cache-resource` 기능추가.
-   - TLS 1.1 지원.
-   - AES-NI를 통해 :ref:`https-aes-ni` 지원.
+   - :ref:`env-cache-resource` 기능추가
+   - TLS 1.1 지원
+   - AES-NI를 통해 :ref:`https-aes-ni` 지원
    - ECDHE 계열의 CipherSuite를 지원. (:ref:`https-ciphersuite` 참조)
    - :ref:`admin-log-dns` 추가
-   - 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경.
+   - 원본서버가 Domain일 경우 각 IP별 TTL을 사용하도록 정책변경
    - 원본 :ref:`origin_exclusion_and_recovery` 추가
    - 원본 :ref:`origin-health-checker` 추가
    - :ref:`adv_topics_sys_free_mem` 추가
    - 기타
-     | 최소 실행환경 변경. (Cent 6.2이상, Ubuntu 10.01 이상)
-     | 설치 패키지에 NSCD데몬이 탑재.
-     | :ref:`media-dims` 기본 탑재.
-     | :ref:`getting-started-reset` 후 STON 재시작하도록 변경.
-     | <DNSBackup> 기능 삭제
-     | <MaxFileCount> 기능 삭제.
-     | <Distribution> 기능 삭제. :ref:`origin-balancemode` 기능에 통합.
+
+       | 최소 실행환경 변경. (Cent 6.2이상, Ubuntu 10.01 이상)
+       | 설치 패키지에 NSCD데몬이 탑재
+       | :ref:`media-dims` 기본 탑재
+       | :ref:`getting-started-reset` 후 STON 재시작하도록 변경
+       | <DNSBackup> 기능 삭제
+       | <MaxFileCount> 기능 삭제
+       | <Distribution> 기능 삭제. :ref:`origin-balancemode` 기능에 통합
 
 
 v1.4.x
@@ -553,7 +564,7 @@ v1.4.x
 ----------------------------
 
    - Purge(자동 복구) API가 HardPurge(복구 불가)로 동작하도록 :ref:`purge` 할 수 있다.
-   - 로그 롤링시 압축하도록 :ref:`id1` 할 수 있다.
+   - 로그 롤링시 압축하도록 설정 할 수 있다.
    - FTP 클라이언트 기능강화 - 전송시간, 경로, 삭제, 백업 기능 추가
 
 **버그수정**
@@ -577,7 +588,7 @@ v1.4.x
 ----------------------------
 
    - :ref:`getting-started-license` 도입
-   - WM - :ref:`id12` 추가
+   - WM - 전용 포트분리 추가
 
 
 v1.3.x
@@ -586,17 +597,21 @@ v1.3.x
 1.3.20 (2014.11.05)
 ----------------------------
 
-   - [전역] :ref:`id5` 기능 추가. 설정된 최대 클라이언트(소켓) 수를 넘어가는 접근이 발생할 경우 클라이언트 접속 즉시 연결을 끊는다. 이는 솔루션과 플랫폼을 보호하기 위한 가장 강력한 조치이다. 전체 소켓이 일정비율 이하로 내려가면 다시 클라이언트 접근을 허용한다.
+   - [전역] 과부하관리 기능 추가. 설정된 최대 클라이언트(소켓) 수를 넘어가는 접근이 발생할 경우 클라이언트 접속 즉시 연결을 끊는다. 이는 솔루션과 플랫폼을 보호하기 위한 가장 강력한 조치이다. 전체 소켓이 일정비율 이하로 내려가면 다시 클라이언트 접근을 허용한다.
    - :ref:`https` 프로토콜(SSL3.0 또는 TLS1.0) 선택가능
 
 **기능개선/정책변경**
 
    - :ref:`file-system` 에서 파일시간 제공방식 설정가능
+
      | **Before**. 로컬에 캐싱된 시간
      | **After**. 원본의 Last-Modified 시간
-   - :ref:`id5` ON 설정시 동작변경
+
+   - 쿠키관련 정책변경
+
      | **Before**. cookie 헤더를 제거한다.
      | **After**. cookie, set-cookie, set-cookie2 헤더를 제거한다. WM에서 경고메시지 강화
+
    - WM - 가상호스트 삭제시 삭제 될 가상호스트 이름 명시
    - WM - 설치시 cgi-bin경로에 어떤 파일도 설치하지 않도록 수정
    - WM - RRD 메모리 그래프의 Scale을 1000에서 1024로 변경
@@ -613,6 +628,7 @@ v1.3.x
 **기능개선/정책변경**
 
    - :ref:`trimming` 정책변경
+
      | **Before**. 모든 트랙을 Trimming한다.
      | **After**. Audio/Video 트랙만을 Trimming한다. AllTracks속성을 통해 기존처럼 모든 트랙을 Trimming할 수 있다.
 
@@ -624,7 +640,7 @@ v1.3.x
 
    - :ref:`media-dims` 처리에서 클라이언트가 보낸 QueryString이 반영되지 않던 증상
    - 원본서버가 모두 배제되었을 때 특정조건에서 캐싱파일이 초기화되지 않던 증상
-   - WM - 보안정책 강화 및 가상호스트 이름에 공백이 없도록 Trim.
+   - WM - 보안정책 강화 및 가상호스트 이름에 공백이 들어가지 않도록 예외처리
    - WM - Unmount된 디스크의 상태를 올바르게 인식하지 못하던 증상
 
 
@@ -663,8 +679,10 @@ v1.3.x
 **기능개선/정책변경**
 
    - 파일 인덱싱 정책 변경
+
      | **Before**. 완료된 파일만 인덱싱한다.
      | **After**. 다운로드 중인 파일도 인덱싱한다.
+
    - :ref:`emergency` 기본 값 OFF로 변경
    - 기본 Access로그에 sc-content-length필드 추가
 
@@ -672,7 +690,7 @@ v1.3.x
 1.3.13 (2014.07.21)
 ----------------------------
 
-   - WM - :ref:`id15` 에서 조회한 파일을 다운로드 할 수 있다.
+   - WM - "컨텐츠제어"에서 조회한 파일을 다운로드 할 수 있다.
 
 **버그수정**
 
@@ -684,9 +702,11 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - :ref:`acl`, :ref:`bypass`, :ref:`id2` - 복합조건을 설정할 때 결합(AND) 키워드를 "&"에서 " & "로 변경.
+   - :ref:`acl`, :ref:`bypass` - 복합조건을 설정할 때 결합(AND) 키워드를 "&"에서 " & "로 변경.
+
      | **Before**. $IP[AP]&!HEADER[referer] 표현가능
      | **After**. $IP[AP] & !HEADER[referer] 처럼 결합조건 사이에 반드시 공백필요
+
    - SNMP - bytesHitRatio 타입이 음수를 표현할 수 있도록 gauge32에서 integer로 변경
    - WM - 비대칭키 인증정책으로 변경
 
@@ -704,8 +724,10 @@ v1.3.x
 **기능개선/정책변경**
 
    - :ref:`bypass` 개선
+
      | **Before**. 명시적인 URL 또는 Cookie등으로 바이패스(또는 예외) 설정
      | **After**. IP, Header, URL 또는 이를 결합한 복합조건으로 바이패스 가능. Cookie바이패스 삭제.
+
    - 클라이언트 트래픽 - 디렉토리 별 requestHitRaio 추가
    - WM - hostname과 IP가 로그인하지 않은 상태에서 표시되지 않도록 수정
 
@@ -725,10 +747,11 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - 파일캐싱 모니터링에서 QueryString 특수문자을 포함하는 URL도 모니터링할 수 있습니다.
+   - 파일캐싱 모니터링에서 QueryString 특수문자를 포함하는 URL도 모니터링할 수 있습니다.
    - :ref:`monitoring_stats` 에서 5분간 총 양이 함께 표기됩니다.
    - HTTP POST요청캐싱과 Bypass정책이 동시에 설정된 경우, 서비스 정책이 재정립되었습니다
    - Trimming정책 변경
+
      | **Before**. Trimming의 끝(end) 시간에 가장 인접하도록 분할
      | **After**. Trimming의 끝(end) 시간의 이전 Key-Frame으로 분할
 
@@ -742,30 +765,30 @@ v1.3.x
 
 **기능개선/정책변경**
 
-   - 서비스 거부 조건에서 응답코드를 :ref:`acl` 할 수 있습니다.
+   - 서비스 거부 조건에서 응답코드를 설정할 수 있습니다.
+
      | **Before**. 에러 페이지에 "401 Access Denied"라고 명시
      | **After**. 별도의 페이지 없이 설정된 응답코드로만 응답
 
 **버그수정**
 
    - 잘못된 MP4영상 :ref:`trimming` 중 비정상 종료되던 증상.
-   - :ref:`filesystem` 에서 (최초 :ref:`range`가 설정된 상태에서 캐싱되는 파일에 대해) 간헐적으로 잘못된 데이터를 서비스하던 증상.
    - WM - Port바이패스 설정이 반영되지 않던 증상
 
 
 1.3.8 (2014.04.30)
 ----------------------------
 
-   - 로그가 롤링될 때 FTP로 전송하도록 :ref:`ftp`할 수 있습니다.
-   - Emergency모드가 발동하지 않도록 :ref:`emergency`할 수 있습니다.
-   - 원본서버의 ETag를 인식하도록 :ref:`etag`할 수 있습니다.
-   - SNMP Community를 :ref:`community`할 수 있습니다.
-   - TTL적용 우선순위를 :ref:`id5`할 수 있습니다.
-   - HTTP의 POST Method요청의 Body를 캐싱키로 인식/무시하도록 :ref:`caching-policy-post-method-caching`할 수 있습니다.
+   - 로그가 롤링될 때 FTP로 전송하도록 설정할 수 있습니다.
+   - Emergency모드가 발동하지 않도록 설정할 수 있습니다.
+   - 원본서버의 ETag를 인식하도록 설정할 수 있습니다.
+   - SNMP Community를 설정할 수 있습니다.
+   - TTL적용 우선순위를 선택할 수 있습니다.
+   - HTTP의 POST Method요청의 Body를 캐싱키로 인식/무시하도록 설정할 수 있습니다.
 
 **버그수정**
 
-   - :ref:`hls-http-live-streaming` 변환 중 비디오가 깨지던 증상.
+   - HLS 변환 중 비디오가 깨지던 증상.
    - 강제로 TTL을 만료시킨 컨텐츠가 304 Not Modified로 인해 TTL이 다시 정해질 때 설정상 가장 큰 값이 할당되던 증상. 설정상 가장 작은 값이 할당되도록 수정.
 
 
@@ -774,23 +797,24 @@ v1.3.x
 
 **버그수정**
 
-   - domain.com:80 처럼 Port가 명시된 HTTP요청에 대해 가상호스트를 찾지 못하던 증상 (v1.3.4~1.3.6)
+   - domain.com:80 처럼 Port가 명시된 HTTP요청에 대해 가상호스트를 찾지 못하던 증상 (v1.3.4 ~ 1.3.6)
    - 잘못된 MP4영상분석 중 비정상 종료되던 증상
 
 
 1.3.6 (2014.04.09)
 ----------------------------
 
-   - :ref:`admin-log-access-custom`를 설정할 수 있습니다.
-   - :ref:`view`를 통해 가상호스트를 통합하여 모니터링 할 수 있습니다.
-   - 컨트롤 API(Purge, Expire, HardPurge, ExpireAfter)의 대상이 없을 때 HTTP 응답코드를 :ref:`caching`할 수 있습니다.
-   - FAQ에 :ref:`wowza`가 추가 되었습니다.
+   - Access.log를 Custom하게 설정할 수 있습니다.
+   - View를 통해 가상호스트를 통합하여 모니터링 할 수 있습니다.
+   - 컨트롤 API(Purge, Expire, HardPurge, ExpireAfter)의 대상이 없을 때 HTTP 응답코드를 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
-   - :ref:`admin-log`
+   - 로그 롤링조건
+
      | **Before**. 시간 또는 크기 중 택1
      | **After**. 시간과 크기 동시설정 가능
+
    - WM - 페이지 상단에 서버의 호스트명과 IP를 보여줍니다.
 
 **버그수정**
@@ -811,12 +835,13 @@ v1.3.x
 ----------------------------
 
    - FileSystem 업그레이드
-     | :ref:`id9`(Trimming, HLS, DIMS등)이 HTTP와 동일하게 동작합니다.
-     | :ref:`filesystem`가 추가되었습니다.
-     | :ref:`id3`, XML/JSON, :ref:`cache`, 상세통계가 추가 되었습니다.
-   - 정규표현식을 사용한 :ref:`url`가 가능합니다.
-   - 시스템(OS)의 TCP 소켓상태를 실시간으로 모니터링 합니다. :ref:`system`, :ref:`system`, RRD Graph로 제공됩니다.
-   - 가상호스트가 포트를 Listen하지 않도록 :ref:`caching`할 수 있습니다.
+
+     | 미디어 기능(Trimming, HLS, DIMS등)이 HTTP와 동일하게 동작합니다.
+     | XML/JSON, SNMP 상세통계가 추가 되었습니다.
+
+   - 정규표현식을 사용한 URL전처리가 가능합니다.
+   - 시스템(OS)의 TCP 소켓상태를 실시간으로 모니터링 합니다. 지표는 모두 RRD Graph로 제공됩니다.
+   - 가상호스트가 포트를 Listen하지 않도록 설정할 수 있습니다.
 
 **버그수정**
 
@@ -836,12 +861,12 @@ v1.3.x
 1.3.2 (2014.03.05)
 ----------------------------
 
-   - WM을 통해 최신버전으로 :ref:`getting-started-update` 할 수 있습니다.
-   - STON의 설치/업그레이드 시 진행상황을 :ref:`install`에 기록합니다.
+   - WM을 통해 최신버전으로 업데이트 할 수 있습니다.
+   - STON의 설치/업그레이드 시 진행상황을 install.log에 기록합니다.
 
 **버그수정**
 
-   - 불완전한(=실시간으로 변환 중인) MP4 파일 캐싱 중 서비스가 멈추던 증상.
+   - 불완전한(=실시간으로 변환 중인) MP4 파일 캐싱 중 서비스가 멈추던 증상
    - WM에서 클러스터 전체 적용 시 가상호스트 파일이 초기화되던 증상
 
 
@@ -850,7 +875,7 @@ v1.3.x
 
 **버그수정**
 
-   - MP4 파일 서비스 중 비정상 종료될 수 있던 증상.
+   - MP4 파일 서비스 중 비정상 종료될 수 있던 증상
    - :ref:`caching` 기간 이외의 설정이 삭제되지 않던 증상
 
 
@@ -858,16 +883,19 @@ v1.3.x
 ----------------------------
 
    - :ref:`filesystem` 추가 - STON을 Linux VFS(Virtual File System)에 Mount합니다. 원본서버의 모든 파일을 로컬 파일 I/O로 사용할 수 있습니다.
-   - :ref:`caching` 추가 - 설정이 변경될 때마다 전체설정을 기록합니다. API(목록, 롤백, 다운로드, 업로드)와 :ref:`meta`SNMP를 통해 열람, 다운로드, 업로드, 복원이 가능합니다.
-   - :ref:`has-http-live-streaming` 추가 - 단일 MP4파일을 HLS(Http Live Streaming)으로 전송할 수 있습니다.
+   - :ref:`caching` 추가 - 설정이 변경될 때마다 전체설정을 기록합니다. API(목록, 롤백, 다운로드, 업로드)와 SNMP를 통해 열람, 다운로드, 업로드, 복원이 가능합니다.
+   - MP4HLS 추가 - 단일 MP4파일을 HLS(Http Live Streaming)으로 전송할 수 있습니다.
    - 통계 추가 - 전송 중 원본서버에서 먼저 소켓을 종료시킨 횟수
 
 **기능개선/정책변경**
 
    - :ref:`snmp-var`
+
      | **Before**. 가상호스트가 삭제되거나 순서가 변경될 경우 [vhostIndex]가 재조정된다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제된 경우 A(1), C(2)로 재조정된다.
      | **After**. [vhostIndex]를 기억한다. 예를 들어 A(1), B(2), C(3)에서 B가 삭제되더라도 A(1), C(3)을 유지한다. 신규 가상호스트가 추가되면 비어있는 [vhostIndex]를 가진다. 예를 들어 가상호스트 D가 추가되면 A(1), D(2), C(3)로 재조정된다.
+
    - 설정 리로드 API 변경
+
      | **Before**. /conf/reloadall, /conf/reloadserver, /conf/reloadvhosts가 별도로 존재하며 기능을 달리한다.
      | **After**. /conf/reload로 일괄통일한다. 하위 호환성을 위해 기존 API를 유지한다.
 
@@ -881,6 +909,7 @@ v1.2.x
 **기능개선/정책변경**
 
    - 원본주소 DNS 정책 변경
+
      | **Before**. 다른 가상호스트지만 원본주소로 같은 Domain을 사용한다면 Domain Resolving결과를 공유한다.
      | **After**. 모든 가상호스트는 독립적으로 Domain Resolving을 수행하며 공유하지 않는다.
 
@@ -894,7 +923,7 @@ v1.2.x
 
 **버그수정**
 
-   - 특정 설정(:ref:`no-cache-ttl`=ON, :ref:`caching-policy-renew`=ON, :ref:`vary` 존재)에서 응답이 지연되거나 전송되지 않던 동작 수정.
+   - 간헐적으로 응답이 지연되거나 전송되지 않던 동작 수정.
 
 
 1.2.12 (2014.01.02)
@@ -911,9 +940,12 @@ v1.2.x
 **기능개선/정책변경**
 
    - 원본서버 Cache-Control 헤더 인식정책 변경
+
      | **Before**. no-cache 또는 max-age만을 인식한다.
      | **After**. no-cache, no-store, no-transform, must-revalidate, proxy-revalidate, private, max-age를 구분하여 인식한다. custom은 무시한다.
+
    - 5분 평균 Request Hit율 계산방식 변경
+
      | **Before**. 각 TCP_XXX의 (단위 시간에 대한)평균을 구한 뒤 Hit율 계산한다. 각 평균 값이 단위 시간보다 작을 때 누락될 수 있다.
      | **After**. (평균을 내지 않고) 비율로만 계산하여 값이 누락되지 않는다.
 
@@ -924,12 +956,13 @@ v1.2.x
 **기능개선/정책변경**
 
    - HTTPS 통신에서 Access로그 범위 변경
+
      | **Before**. 클라이언트가 SSL Server Finished 패킷을 온전히 수신한 HTTPS 트랜잭션만을 Access로그에 기록한다.
      | **After**. 클라이언트가 SSL Server Finished 패킷을 온전히 수신하지 못했더라도 HTTP Request 패킷을 보냈다면 Access로그에 기록한다.
 
 **버그수정**
 
-   - 비정상 종료(물리적 세션 손실)된 HTTPS세션이 재사용될 때 이전에 요청되었던 컨텐츠와 현재 요청된 컨텐츠를 동시에 처리하던 증상. 2개의 HTTP 요청이 동시에 처리될 수 있었으며 이를 항상 현재 요청한 요청만이 유효하도록 수정.
+   - 비정상 종료(물리적 세션 손실)된 HTTPS세션이 재사용될 때 이전에 요청되었던 컨텐츠와 현재 요청된 컨텐츠를 동시에 처리하던 증상. 2개의 HTTP 요청이 동시에 처리될 수 있으며 이를 항상 현재 요청한 요청만이 유효하도록 수정.
 
 
 1.2.9 (2013.12.09)
@@ -937,7 +970,8 @@ v1.2.x
 
 **기능개선/정책변경**
 
-   - :ref:`bandwidth-throttling`
+   - Bandwidth-Throttling
+
      | **Before**. Boost 시간동안 미디어를 전송할 때 헤더를 포함한다. 헤더가 클 경우 미디어 데이터가 전송되지 않아 버퍼링이 발생할 수 있다.
      | **After**. 미디어 헤더는 대역폭 제한없이 전송한다. 헤더 전송이 완료된 후 Boost 시간이 시작된다.
 
@@ -956,7 +990,7 @@ v1.2.x
 
 **버그수정**
 
-   - :ref:`id5`가 ON으로 설정되어 있을 때 Content-Disposition헤더가 HTTP 응답에 2번 표시되던 증상
+   - Content-Disposition헤더가 HTTP 응답에 2번 표시되던 증상
    - Bandwidth-Throttling설정이 OFF일 때 Trimming이 동작하지 않던 증상
    - WM계정에 특수문자(&)사용시 로그인 안되던 증상
 
@@ -964,9 +998,8 @@ v1.2.x
 1.2.7 (2013.10.17)
 ----------------------------
 
-   - HTTP Connection헤더를 :ref:`handling-http-requests-session-man`할 수 있습니다.
-   - HTTP Keep-Alive헤더를 :ref:`handling-http-requests-session-man`할 수 있습니다.
-   - FAQ에 "HTTP 연결관리 정책은?"	이 추가되었습니다.
+   - HTTP Connection헤더를 설정할 수 있습니다.
+   - HTTP Keep-Alive헤더를 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
@@ -976,7 +1009,7 @@ v1.2.x
 1.2.6 (2013.10.14)
 ----------------------------
 
-   - 원본서버의 "Server" 헤더를 클라이언트에게 전달하도록 :ref:`server`할 수 있습니다.
+   - 원본서버의 "Server" 헤더를 클라이언트에게 전달하도록 설정할 수 있습니다.
 
 
 1.2.5 (2013.10.10)
@@ -986,7 +1019,7 @@ v1.2.x
 
 **기능개선/정책변경**
 
-   - 인식할 수 있는 미디어파일에 대해 동적으로 Bandwidth-Throttling의 Bandwidth를 :ref:`bandwidth-throttling`할 수 있습니다. v1.2.4까지 존재했던 Media.Pacing은 이 기능에 포함되면서 삭제되었습니다.
+   - 인식할 수 있는 미디어파일에 대해 동적으로 Bandwidth-Throttling의 Bandwidth를 설정할 수 있습니다. v1.2.4까지 존재했던 Media.Pacing은 이 기능에 포함되면서 삭제되었습니다.
 
 **버그수정**
 
@@ -996,17 +1029,19 @@ v1.2.x
 1.2.4 (2013.09.27)
 ----------------------------
 
-   - Bandwidth-Throttling을 통해 전송 대역폭을 다양하게 :ref:`bandwidth-throttling`할 수 있습니다.
-     | Warning: 다음 버전에서 Media.Pacing은 :ref:`bandwidth-throttling`에 통합될 것입니다. 미디어 파일(현재 MP3, MP4, M4A 지원)의 Bitrate를 :ref:`bandwidth-throttling`에서 인식할 수 있는 형태가 될 것입니다. 현재는 기존 기능인 Media.Pacing이 더 우선하도록 개발되어 있습니다.
-   - 가상호스트별로 클라이언트 최대 Bandwidth를 제한하도록 :ref:`id1`할 수 있습니다.
-   - 헤더가 뒤에 있는 M4A파일을 헤더를 앞으로 옮겨서 서비스하도록 :ref:`mp4-m4a`할 수 있습니다.
-   - M4A파일을 원하는 구간만큼 잘라내어 서비스하도록 :ref:`trimming`할 수 있습니다.
+   - Bandwidth-Throttling을 통해 전송 대역폭을 다양하게 설정할 수 있습니다.
+
+     | Warning: 다음 버전에서 Media.Pacing은 Bandwidth-Throttling에 통합될 것입니다. 미디어 파일(현재 MP3, MP4, M4A 지원)의 Bitrate를 Bandwidth-Throttling에서 인식할 수 있는 형태가 될 것입니다. 현재는 기존 기능인 Media.Pacing이 더 우선하도록 개발되어 있습니다.
+
+   - 가상호스트별로 클라이언트 최대 Bandwidth를 제한하도록 설정할 수 있습니다.
+   - 헤더가 뒤에 있는 M4A파일을 헤더를 앞으로 옮겨서 서비스하도록 설정할 수 있습니다.
+   - M4A파일을 원하는 구간만큼 잘라내어 서비스하도록 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
-   - 가상호스트 AccessControl 조건에 해당하는 클라이언트 요청에 대해 Redirect(302 moved temporarily)로 응답하도록 :ref:`acl`할 수 있습니다. HIT율은 TCP_REDIRECT_HIT로 별도로 수집됩니다.
+   - 가상호스트 AccessControl 조건에 해당하는 클라이언트 요청에 대해 Redirect(302 moved temporarily)로 응답하도록 접근을 제어할 수 있습니다. HIT율은 TCP_REDIRECT_HIT로 별도로 수집됩니다.
    - TCP_REDIRECT_HIT가 모든 통계에 추가되었습니다.
-   - 가상호스트 AccessControl 조건을 AND로 결합하도록 :ref:`acl`할 수 있습니다.
+   - 가상호스트 AccessControl 조건을 AND로 결합하도록 설정할 수 있습니다.
 
 **버그수정**
 
@@ -1016,15 +1051,15 @@ v1.2.x
 1.2.3 (2013.09.05)
 ----------------------------
 
-   - DIMS(Dynamic Image Management System) - 원본서버의 이미지를 가공(잘라내기, 썸네일생성, 크기변경, 포맷변경, 품질조절, 합성)하도록 :ref:`media-dims`할 수 있습니다.
-   - MP3파일을 원하는 구간만큼 잘라내어 서비스하도록 :ref:`trimming`할 수 있습니다.
-   - 특정 IP만 Listen하도록 :ref:`caching`할 수 있습니다.
+   - DIMS(Dynamic Image Management System) - 원본서버의 이미지를 가공(잘라내기, 썸네일생성, 크기변경, 포맷변경, 품질조절, 합성)하도록 설정할 수 있습니다.
+   - MP3파일을 원하는 구간만큼 잘라내어 서비스하도록 설정할 수 있습니다.
+   - 특정 IP만 Listen하도록 설정할 수 있습니다.
    - [WM] 신규 가상호스트를 생성할 때 기존 가상호스트를 선택해 복사할 수 있습니다.
    - [WM] 가상호스트에서 DIMS를 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
-   - 원본세션을 재사용하지 않도록 :ref:`id8`할 수 있습니다.
+   - 원본세션을 재사용하지 않도록 설정할 수 있습니다.
 
 **버그수정**
 
@@ -1035,19 +1070,19 @@ v1.2.x
 1.2.2 (2013.08.16)
 ----------------------------
 
-   - HTTP Post 요청을 캐싱하도록 :ref:`post`할 수 있습니다.
-   - STON이 서비스를 감당할 수 없는 상태에 :ref:`emergency`로 전환된다.
+   - HTTP Post 요청을 캐싱하도록 설정할 수 있습니다.
+   - STON이 서비스를 감당할 수 없는 상태에 Emergency로 전환된다.
 
 **기능개선/정책변경**
 
-   - 서비스 허용/차단 조건에 부정(!IP, !HEADER, !URL)조건이 :ref:`acl`되었습니다.
+   - 서비스 허용/차단 조건에 부정(!IP, !HEADER, !URL)조건이 추가되었습니다.
    - WM과 콘솔에서 동시에 설정을 변경할 때 WM에서 콘솔에서 변경한 내용을 인식하도록 변경되었습니다.
    - WM에서 IE의 "호환성 보기" 메뉴를 숨기도록 변경되었습니다.
 
 **버그수정**
 
    - CPU 과부하 상태에서 바이패스 세션이 정상적으로 정리되지 않아 비정상 종료되던 증상
-   - (:ref:`vary` 설정환경에서) 원본서버에서 200 OK로 응답하지 않는 컨텐츠 서비스 중 비정상 종료되던 증상
+   - (vary 설정에서) 원본서버에서 200 OK로 응답하지 않는 컨텐츠 서비스 중 비정상 종료되던 증상
    - 가상호스트명과 Alias가 같은 경우 Alias를 제거했을 때 가상호스트를 찾을 수 없던 증상
    - WM 클러스터에 설정이 반영되지 않던 증상
 
@@ -1055,8 +1090,8 @@ v1.2.x
 1.2.1 (2013.07.26)
 ----------------------------
 
-   - MP4파일을 원하는 구간만큼 잘라내어 서비스하도록 :ref:`trimming`할 수 있습니다.
-   - 원본서버에서 컨텐츠를 최초로 캐싱하거나 갱신할 때 Range요청을 하도록 :ref:`id9`할 수 있습니다.
+   - MP4파일을 원하는 구간만큼 잘라내어 서비스하도록 설정할 수 있습니다.
+   - 원본서버에서 컨텐츠를 최초로 캐싱하거나 갱신할 때 Range요청을 하도록 설정할 수 있습니다.
 
 **버그수정**
 
@@ -1069,17 +1104,17 @@ v1.2.x
 1.2.0 (2013.07.01)
 ----------------------------
 
-   - :ref:`wm`이 추가되었습니다. 모든 설정이 WM을 통해 가능하며 MRTG(5종류 - 대쉬보드/5분/30분/2시간/1일)가 최대 18개월치 제공됩니다. WM을 통해 STON을 클러스터로 묶어서 쉽게 관리할 수 있습니다.
+   - WM이 추가되었습니다. 모든 설정이 WM을 통해 가능하며 MRTG(5종류 - 대쉬보드/5분/30분/2시간/1일)가 최대 18개월치 제공됩니다. WM을 통해 STON을 클러스터로 묶어서 쉽게 관리할 수 있습니다.
    - Graph API가 추가되었습니다.
-   - 원본서버의 Vary헤더를 인식하도록 :ref:`vary`할 수 있습니다.
-   - 클라이언트와 통신하는 HTTP 요청/응답 헤더를 변경하도록 :ref:`id4`할 수 있습니다.
-   - 원본서버의 모든 헤더를 클라이언트에게 전달하도록 :ref:`id5`할 수 있습니다.
-   - 원본서버에서 Redirect된 컨텐츠를 추적하여 캐싱하도록 :ref:`redirect`할 수 있습니다.
-   - 특정 URL에 대해서만 QueryString을 인식 또는 무시 하도록 :ref:`querystring`할 수 있습니다.
-   - 매니저 포트 ACL마다 접근권한을 :ref:`env-host`할 수 있습니다.
-   - 로그를 ON/OFF하도록 :ref:`admin-log`할 수 있습니다.
-   - 로컬통신의 로그를 기록하지 않도록 :ref:`admin-log`할 수 있습니다.
-   - 로컬통신의 통계를 수집하지 않도록 :ref:`id2`할 수 있습니다.
+   - 원본서버의 Vary헤더를 인식하도록 설정할 수 있습니다.
+   - 클라이언트와 통신하는 HTTP 요청/응답 헤더를 변경하도록 설정할 수 있습니다.
+   - 원본서버의 모든 헤더를 클라이언트에게 전달하도록 설정할 수 있습니다.
+   - 원본서버에서 Redirect된 컨텐츠를 추적하여 캐싱하도록 설정할 수 있습니다.
+   - 특정 URL에 대해서만 QueryString을 인식 또는 무시 하도록 설정할 수 있습니다.
+   - 매니저 포트 ACL마다 접근권한을 설정할 수 있습니다.
+   - 로그를 ON/OFF하도록 설정할 수 있습니다.
+   - 로컬통신의 로그를 기록하지 않도록 설정할 수 있습니다.
+   - 로컬통신의 통계를 수집하지 않도록 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
@@ -1098,6 +1133,7 @@ v1.1.x
 **기능개선/정책변경**
 
    - Transfer-Encoding으로 전송된 컨텐츠를 (전송지연 등의 이유로) 온전하게 캐싱하지 못한 경우 클라이언트 서비스정책 변경
+
      | **Before**. 캐싱에 실패한 현재 컨텐츠를 서비스
      | **After**. 이전에 온전하게 캐싱된 컨텐츠가 있다면 이전 컨텐츠로 서비스. 없다면 500 Internal Error.
 
@@ -1125,7 +1161,7 @@ v1.1.x
 1.1.15 (2013.04.29)
 ----------------------------
 
-   - CPU 성능지표(Nice, IOWait, IRQ, SoftIRQ, Steal) 통계 추가 - :ref:`system`, :ref:`system`(System.27 ~ 36)
+   - CPU 성능지표(Nice, IOWait, IRQ, SoftIRQ, Steal) 통계 추가
 
 **버그수정**
 
@@ -1136,18 +1172,19 @@ v1.1.x
 1.1.14 (2013.04.10)
 ----------------------------
 
-   - SNMP에 :ref:`cache-host`(=전체 가상호스트의 합)가 추가되었습니다.
+   - SNMP에 전체 "가상호스트의 합"이 추가되었습니다.
 
 **기능개선/정책변경**
 
    - (파일이 없을 때) GeoIP파일목록 조회 결과 변경
+
      | **Before**. 404 NOT FOUND
      | **After**. 200 OK ("files": [] 응답)
 
 **버그수정**
 
    - SSLv3에서 RSA_WITH_3DES_EDE_CBC_SHA로 Handshake가 되지 않던 증상 수정
-   - :ref:`https`속성에 빈 문자열 입력 시 오동작하던 증상
+   - Https에 빈 문자열 입력 시 오동작하던 증상
 
 
 1.1.13 (2013.03.29)
@@ -1163,12 +1200,13 @@ v1.1.x
 1.1.12 (2013.03.27)
 ----------------------------
 
-   - No-Cache요청이 올 경우 요청된 컨텐츠를 즉시 만료시키도록 :ref:`no-cache-ttl`할 수 있습니다.
+   - No-Cache요청이 올 경우 요청된 컨텐츠를 즉시 만료시키도록 설정할 수 있습니다.
    - CentOS 패키지로 openSUSE에서 설치할 수 있습니다.
 
 **기능개선/정책변경**
 
    - No-Cache요청 인식조건 변경
+
      | **Before**. "pragma: no-cache" 또는 "cache-control: no-cache"
      | **After**. 기존 조건에 "cache-control: max-age=0" 추가
 
@@ -1182,18 +1220,20 @@ v1.1.x
 1.1.11 (2013.03.21)
 ----------------------------
 
-   - Disk장애 조건을 :ref:`storage`할 수 있습니다. 장애로 판단된 디스크는 자동배제됩니다.
+   - Disk 장애조건을 설정할 수 있습니다. 장애로 판단된 디스크는 자동배제됩니다.
    - Disk HotSwap용(실행 중 디스크 교체) API가 추가되었습니다.
-   - 로그를 syslog로 전송하도록 :ref:`syslog`할 수 있습니다.
-   - 원본서버에서 한번에 다운로드 받는 컨텐츠 크기를 :ref:`range`할 수 있습니다.
+   - 로그를 syslog로 전송하도록 설정할 수 있습니다.
+   - 원본서버에서 한번에 다운로드 받는 컨텐츠 크기를 설정할 수 있습니다.
    - GeoIP 파일목록 조회 API가 추가되었습니다.
    - FAQ에 "멀티 도메인에 대한 SSL구성은?" 이 추가되었습니다.
 
 **기능개선/정책변경**
 
    - 원본서버 장애코드 변경
+
      | **Before**. 숫자로 표시
      | **After**. 읽기 쉬운 형식으로 표시(Connect-Timeout, Receive-Timeout, Server-Close)
+
    - 원본서버 장애로그 기록시 주석으로 에러상황을 기록하던 것 제거. OriginErrorLog로 통합.
 
 **버그수정**
@@ -1204,9 +1244,10 @@ v1.1.x
 1.1.10 (2013.03.07)
 ----------------------------
 
-   - 가상호스트마다 접근/차단조건(IP, GeoIP, URI, Header)을 :ref:`access-control-vhost`할 수 있습니다. 관련 통계가 추가되었습니다.
+   - 가상호스트마다 접근/차단조건(IP, GeoIP, URI, Header)을 설정할 수 있습니다. 관련 통계가 추가되었습니다.
    - 도메인 Resolving이 실패할 경우 최근 사용된 IP들을 모두 사용하여 원본서버 부하를 분산하도록 설정할 수 있습니다.
    - 모니터링 API가 추가되었습니다.
+
      | 가상호스트 목록 조회
      | 하드웨어 정보 조회
      | HTTPS CipherSuite 조회
@@ -1216,46 +1257,62 @@ v1.1.x
 **기능개선/정책변경**
 
    - 로그 디스크 여유공간이 부족해질 경우 정책 변경
+
      | **Before**. 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
      | **After**. Access로그만을 삭제. 만약 현재 사용 중인 로그를 지워야하는 상황이라면 새로운 로그 생성 후 삭제함.
+
    - STON 종료 후 (vhosts.xml에서)삭제된 가상호스트 파일들에 대한 정책 변경
+
      | **Before**. 개입하지 않음. 관리자가 명시적으로 삭제해야 함.
      | **After**. 디스크 여유공간이 부족해지면 우선적으로 삭제.
+
    - (가상호스트 별) 재구동 시 정상적으로 로딩되지 않은 디스크의 파일들에 대한 정책 변경
+
      | **Before**. 서비스 중 자연히 덮어씌워지도록 남겨둠
      | **After**. 해당 디스크를 신뢰할 수 없다고 판단하여 모두 무효화. 클린업 시간 또는 디스크 여유공간 부족 시점에 모두 삭제.
+
    - 도메인 Resolving결과 조회 API 변경.
+
      | **Before**. /dns/list
      | **After**. /monitoring/dnslist
+
    - 로그 트레이스 API 변경
+
      | **Before**. /logtrace/...
      | **After**. /monitoring/logtrace/...
+
    - 도메인 Resolving결과에 백업된 IP목록 추가
 
 
 1.1.9 (2013.02.27)
 ----------------------------
 
-   - :ref:`httpd.apache.org/docs/2.2/mod/mod_expires.html`와 같이 Expires헤더를 :ref:`expires`할 수 있습니다.
-   - HTTPS의 CipherSuite를 :ref:`https`할 수 있습니다.
-   - 파일을 관리(Purge/Expire/HardPurge/ExpireAfter)할 때 단일 URL만 입력하여도 QueryString까지 모두 관리하도록 :ref:`querystring`할 수 있습니다.
-   - ETag헤더 표시여부를 :ref:`etag`할 수 있습니다.
-   - Age헤더 표시여부를 :ref:`age`할 수 있습니다.
+   - mod_expires와 같이 Expires헤더를 설정할 수 있습니다.
+   - HTTPS의 CipherSuite를 설정할 수 있습니다.
+   - 파일을 관리(Purge/Expire/HardPurge/ExpireAfter)할 때 단일 URL만 입력하여도 QueryString까지 모두 관리하도록 설정할 수 있습니다.
+   - ETag헤더 표시여부를 설정할 수 있습니다.
+   - Age헤더 표시여부를 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
    - HTTPS CipherSuite가 추가되었습니다.
+
      | RSA_WITH_RC4_MD5
      | TLS_RSA_WITH_3DES_EDE_CBC_SHA
+
    - 숫자(초=sec)로만 하던 표현을 인식하기 쉬운 문자형식으로 표현가능
+
      | **Before**. /image/ad.jpg, 1800
      | **After**. /image/ad.jpg, 6 hours
+
    - SNMP에서 평균으로만 제공하던 수치를 누적으로 제공 (클라이언트/원본)
+
      | 기존에 Count라는 표현을 Average로 변경. Average는 시간으로 나눈 평균을 의미
      | 시간동안 집계된 전체 수는 Count로 표현
      | 전체 요청/응답 개수 추가
      | 응답코드별 응답/완료 개수 추가
      | Request Hit Count 추가
+
    - 재시작/종료/캐시초기화 API를 호출할 때 "확인" 과정없이 호출할 수 있습니다.
    - 시스템 Load Average - 1분/5분/15분 통계추가
    - 모든 가상호스트의 원본서버를 초기화 할 수 있습니다.
@@ -1269,30 +1326,39 @@ v1.1.x
 1.1.8 (2013.02.21)
 ----------------------------
 
-   - 클라이언트의 요청이 항상 같은 원본서버로 바이패스되도록 :ref:`get-post`할 수 있습니다.
+   - 클라이언트의 요청이 항상 같은 원본서버로 바이패스되도록 설정할 수 있습니다.
    - 도메인 Resolving결과를 모니터링 할 수 있습니다.
    - 도메인 Resolving결과가 업데이트되었을 때 Info로그에 기록하도록 설정할 수 있습니다.
    - 원본서버 사용 및 배제/복구 상황을 초기화 할 수 있습니다.
-   - Clean-up 시간에 일정 기간동안 접근되지 않은 컨텐츠들을 삭제하도록 :ref:`caching`할 수 있습니다.
+   - Clean-up 시간에 일정 기간동안 접근되지 않은 컨텐츠들을 삭제하도록 설정할 수 있습니다.
    - Clean-up을 수행하는 API가 추가되었습니다.
 
 **기능개선/정책변경**
 
    - Origin 로그강화
+
      | 접속한 포트 기록
      | Bypass와 PrivateBypass구분 가능
      | 원본서버가 보낸 Content-Encoding 헤더 기록
+
    - Access 로그강화
+
      | 클라이언트가 보낸 Accept-Encoding헤더 기록
      | Bypass와 PrivateBypass구분 가능
+
    - 원본서버가 도메인명으로 설정되어 있을 때 기능개선
+
      | Resolving결과가 즉시 반영.
      | IP들에 대하여 개별로 배제/복구.
+
    - Purge/Expire/HardPurge/ExpireAfter 호출결과 응답코드 수정
+
      | 정상. 200 OK
      | 가상호스트 없음. 502 BAD GATEWAY
      | 잘못된 규격. 400 BAD REQUEST
+
    - FAQ페이지 업데이트
+
      | 원본서버 사용/배제/복구 정책은?
      | 디스크 여유공간은 어떻게 보장되나요?
 
@@ -1319,17 +1385,21 @@ v1.1.x
 1.1.6 (2013.01.30)
 ----------------------------
 
-   - 원본서버가 멀티로 구성되어 있을 때 항상 서버마다 동일하게 요청하도록 :ref:`origin-balancemode`한다.
+   - 원본서버가 멀티로 구성되어 있을 때 항상 서버마다 동일하게 요청하도록 설정한다.
 
 **기능개선/정책변경**
 
    - 원본서버 부하분산 정책이 Session에서 RoundRobin으로 변경되었습니다.
    - 전역로그(Info, Deny, OriginError)를 시간으로 롤링시킨다.
+
      | **Before**. 크기로만 롤링가능(Size속성만 존재)
      | **After**. 시간/크기로 롤링가능 (Size속성 제거. Type, Unit속성 추가)
+
    - 잘못된 형식 또는 존재하지 않는 가상호스트를 대상으로 Purge/Expire/ExpireAfter/HardPurge 호출시 응답코드 변경
+
      | **Before**. 200 OK
      | **After**. 400 BAD REQUEST 또는 404 NOT FOUND
+
 
 **버그수정**
 
@@ -1340,22 +1410,29 @@ v1.1.x
 1.1.5 (2013.01.28)
 ----------------------------
 
-   - 클라이언트마다 바이패스 전용세션을 사용하도록 :ref:`get-post`합니다. GET요청과 POST요청을 별도로 설정할 수 있습니다.
+   - 클라이언트마다 바이패스 전용세션을 사용하도록 설정합니다. GET요청과 POST요청을 별도로 설정할 수 있습니다.
    - 클라이언트 Cookie헤더에 따라 바이패스하도록 설정합니다.
 
 **기능개선/정책변경**
 
    - 원본서버 주소가 빠졌을 때 동작방식 변경
+
      | **Before**. 이미 연결되어 있다면 재사용한다.
      | **After**. 즉시 재사용하지 않는다.
-   - :ref:`querystring`이 ON일 때 Purge/Expire동작방식 변경.
+
+   - QueryString을 구분하도록 설정되었을 때 Purge/Expire동작방식 변경.
+
      | **Before**. 입력된 URL과 해당 URL에 QueryString이 붙은 컨텐츠 Purge/Expire
      | **After**. 입력된 URL만 Purge/Expire
+
    - Active세션 산출방식 변경
+
      | **Before**. 통계를 뽑는 시점에 데이터 전송이 이루어지고 있는 세션
      | **After**. 데이터 전송이 발생한 Unique한 세션
+
    - 통계/성능 데이터가 추가/삭제되었습니다.
-     | :ref:`system` 통계 추가
+
+     | System 통계 추가
      | 종합통계에 요청회수, Active세션 통계 추가
      | SSL클라이언트 세션 수 삭제
 
@@ -1363,13 +1440,13 @@ v1.1.x
 1.1.4 (2013.01.17)
 ----------------------------
 
-   - :ref:`https`를 IP와 Port로 다르게 바인딩할 수 있습니다.
+   - HTTPS를 IP와 Port로 다르게 바인딩할 수 있습니다.
 
 **기능개선/정책변경**
 
    - 64GB장비에서 Free메모리 정책이 16GB로 변경되었습니다. (이전: 8GB)
-   - HTTP Method를 서비스 포트(80)로 호출할 수 있으며 :ref:`env-host`가 적용되도록 설정할 수 있습니다.
-   - 전역설정(server.xml)의 :ref:`https`설정이 변경되지 않았어도 리로드할 때 인증서파일이 변경되었다면 반영합니다
+   - HTTP Method를 서비스 포트(80)로 호출할 수 있습니다.
+   - 전역설정(server.xml)의 HTTPS설정이 변경되지 않았어도 리로드할 때 인증서파일이 변경되었다면 반영합니다
 
 
 1.1.3 (2013.01.15)
@@ -1388,8 +1465,8 @@ v1.1.x
 1.1.2 (2013.01.14)
 ----------------------------
 
-   - GeoIP를 :ref:`acl`합니다. 클라이언트가 접속할 때 국가코드로 접속을 차단할 수 있습니다.
-   - 접근차단된 IP를 :ref:`deny`에 기록합니다.
+   - GeoIP로 접근제어가 가능합니다. 클라이언트가 접속할 때 국가코드로 접속을 차단할 수 있습니다.
+   - 접근차단된 IP를 deny.log에 기록합니다.
    - 로그를 동적으로 변경할 수 있습니다.
    - Access로그에 캐시 HIT결과(TCP_HIT, TCP_MISS, ...) 추가
    - 관리용 HTTP Method가 추가되었습니다.
@@ -1401,16 +1478,18 @@ v1.1.x
 
    - ETag헤더를 제공할 때 따옴표("...")로 묶어서 표기
    - HIT율 계산식 변경
+
      | **Before**. 즉시응답 / 모든응답
      | **After**. (TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT) / 모든 응답
+
    - 통계/성능 데이터가 추가/삭제되었습니다.
-     | :ref:`id9` 추가
+
      | 평균통계에 통계를 생성한 날짜/시간 추가
-     | 클라이언트에서 STON으로 접속/종료하는 :ref:`system` 수 추가
-     | STON이 원본서버로 접속/종료하는 :ref:`system` 수 추가
-     | :ref:`system`, :ref:`system` 추가
-     | :ref:`system` 추가
+     | 클라이언트에서 STON으로 접속/종료하는 통계 추가
+     | STON이 원본서버로 접속/종료하는 통계 추가
+     | System 추가
      | "Cached" 통계 제거
+
    - 정규표현식 성능향상 (X 20)
    - fileinfo에서 미캐싱파일인 경우 status를 "OK"에서 "NOT_CACHED"로 변경"
 
@@ -1425,16 +1504,19 @@ v1.1.x
 1.1.1 (2012.12.24)
 ----------------------------
 
-   - 모든 가상호스트의 원본서버 이상동작을 하나의 파일(:ref:`originerror`)로 기록한다.
+   - 모든 가상호스트의 원본서버 이상동작을 하나의 파일(originerror.log)로 기록한다.
    - HTTP Multi-Range요청을 처리할 수 있습니다.
-   - 원본서버에서 no-cache로 응답하더라도 클라이언트에게는 max-age를 주도록 :ref:`ttl-time-to-live`할 수 있습니다.
+   - 원본서버에서 no-cache로 응답하더라도 클라이언트에게는 max-age를 주도록 TTL을 설정할 수 있습니다.
 
 **기능개선/정책변경**
 
    - Accept-Encoding처리 정책변경.
+
      | **Before**. 클라이언트와 원본서버의 압축이 호환되지 않으면 500에러로 응답한다.
      | **After**. 클라이언트와 원본서버의 압축이 호환되지 않더라도 원본서버의 응답을 보낸다.
+
    - 다음과 같이 통계/성능 데이터가 추가되었습니다.
+
      | 원본/클라이언트 Active세션수가 추가되었습니다.
      | STON이 사용하는 CPU(Kernel, User) 성능수치가 추가되었습니다.
 
@@ -1446,26 +1528,26 @@ v1.1.x
 1.1.0 (2012.12.17)
 ----------------------------
 
-   - 가상호스트별로 최대 Outbound를 제한하도록 :ref:`id1`할 수 있습니다.
-   - 헤더가 뒤에 있는 MP4파일을 헤더를 앞으로 옮겨서 서비스하도록 :ref:`mp4-m4a`할 수 있습니다.
-   - MP4를 BiteRate만큼 낮은 대역폭으로 전송하도록 설정할 수 있습니다.
+   - 가상호스트별로 최대 Outbound를 제한하도록 설정할 수 있습니다.
+   - 헤더가 뒤에 있는 MP4파일을 헤더를 앞으로 옮겨서 서비스하도록 설정할 수 있습니다.
+   - MP4를 Bitrate 만큼 낮은 대역폭으로 전송하도록 설정할 수 있습니다.
    - 최대 서비스 파일개수를 설정할 수 있습니다.
-   - 최대 HTTP 세션 수를 :ref:`http`할 수 있습니다.
+   - 최대 HTTP 세션 수를 설정할 수 있습니다.
    - API의 모든 함수를 리눅스 콘솔에서 호출할 수 있습니다.
-   - :ref:`log-trace` API를 통해 기록되는 로그를 실시간으로 받아볼 수 있습니다.
-   - 쉘에서 STON을 :ref:`getting-started-update`할 수 있습니다.
+   - Log-Trace API를 통해 기록되는 로그를 실시간으로 받아볼 수 있습니다.
+   - 쉘에서 STON을 업데이트할 수 있습니다.
 
 **기능개선/정책변경**
 
-   - 메모리 정책이 수정되었습니다. 최대 파일개수와 최대 소켓개수를 설정하여 컨텐츠 메모리크기를 조절할 수 있습니다. 자세한 내용은 :ref:`caching`를 참고하시기 바랍니다.
+   - 메모리 정책이 수정되었습니다. 최대 파일개수와 최대 소켓개수를 설정하여 컨텐츠 메모리크기를 조절할 수 있습니다.
    - 도메인을 리졸빙(Resolving)한 결과를 캐싱합니다. 최소 1초, 최대 10초동안 캐싱됩니다.
-   - OriginOptions의 일부설정(:ref:`user-agent`, :ref:`host`Host, WL-Proxy-Client-IP, :ref:`xff-x-forwarded-for`)을 바이패스되는 HTTP요청에 선택적으로 적용할 수 있습니다.
+   - OriginOptions의 일부설정(user-agent, host, WL-Proxy-Client-IP, xff-x-forwarded-for)을 바이패스되는 HTTP요청에 선택적으로 적용할 수 있습니다.
    - 원본서버로부터 5xx계열의 응답코드가 캐싱된 경우 TTL이 만료되면 RefreshExpired가 OFF라도 항상 원본서버에서 갱신여부를 확인하고 서비스합니다.
    - 원본서버에 example.com/dir1 처럼 디렉토리명을 같이 지정할 수 있습니다. 클라이언트가 /test.jpg로 요청한다면 원본서버로 요청하는 주소는 example.com/dir1/test.jpg가 됩니다.
-   - :ref:`caching-policy-renew` 설정의 기본 값이 OFF에서 ON으로 변경되었습니다.
    - 파일캐싱 모니터링 항목이 강화되었습니다.
    - 원본서버 주소가 도메인명이라면 별도로 <Host>를 설정하지 않아도 도메인 명으로 Host헤더를 보내도록 수정하였습니다.
    - 다음과 같이 통계/성능 데이터가 추가되었습니다.
+
      | 원본/클라이언트 HTTP요청 개수가 통계에 추가되었습니다.
      | 정상적으로 완료된 원본/클라이언트 HTTP 트랜잭션의 통계가 추가되었습니다.
      | CPU와 Memory에 대한 통계가 추가되었습니다.
@@ -1478,13 +1560,16 @@ v1.1.x
    - HTTP 요청에서 헤더가 키와 값 사이에 공백이 없으면 해석하지 못하던 증상
    - 로그를 "Size"로 설정했을 때 중간파일이 먼저 롤링되어 삭제되던 증상
    - 다음 상황에서 응답을 주지 않던 증상
+
      | A파일을 원본서버에 요청하였으나 404 Not Found가 발생
      | Memory Swap과정 중 A파일의 Body를 Memory에서 삭제 (A파일은 Meta만 존재하는 상태가 됨)
      | A파일 서비스 요청이 들어옴
      | A파일이 서비스를 위해 Body를 Load하려고 하였으나 실패함. 파일 초기화 수행
      | A파일이 원본서버로 다운로드를 진행하려고 하였으나 원본서버 배제로 실패함
      | 이후 A파일은 초기화 시점을 잃어버리고 초기화 상태로 존재함
+
    - 다음 상황에서 Expire/Purge가 성공된 것처럼 나오고 갱신되지 않던 증상
+
      | A파일을 백그라운드로 갱신 시도함
      | 원본서버에서 HTTP응답을 받았으나 전송지연이 발생함
      | 전송지연으로 연결이 종료되거나 세션이 비정상 종료됐을 때 갱신실패가 제대로 정리되지 않는 상황이 발생함
@@ -1496,8 +1581,8 @@ v1.0.x
 1.0.17 (2012.11.29)
 ----------------------------
 
-   - :ref:`hardpurge`가 API로 추가되었습니다. HardPurge한 컨텐츠는 완전삭제를 의미하며 복구가 불가능합니다.
-   - 가상호스트별로 클라이언트 Keep-Alive시간을 :ref:`handling-http-requests-session-man`할 수 있습니다.
+   - HardPurge API가 신규로 추가되었습니다. HardPurge한 컨텐츠는 완전삭제를 의미하며 복구가 불가능합니다.
+   - 가상호스트별로 클라이언트 Keep-Alive시간을 설정할 수 있습니다.
 
 
 
@@ -1505,17 +1590,19 @@ v1.0.x
 ----------------------------
 
    - SNMPWalk가 동작하도록 SNMP의 기능이 전체적으로 수정되었습니다.
+
      | SNMP의 [min]변수의 기본 값을 설정할 수 있습니다. SNMPWalk는 설정 값을 참조하여 [min]변수를 설정합니다.
      | 전체 가상 호스트이름을 붙여서 제공하던 설정(VHostList)이 삭제되었습니다.
      | 일부 OID값이 확장가능하도록 재조정되었습니다.
-   - 루트(/) 디렉토리에 대한 Purge/Expire를 막도록 :ref:`caching`할 수 있습니다. 이 설정은 :ref:`caching`보다 우선합니다.
+
+   - 루트(/) 디렉토리에 대한 Purge/Expire를 막도록 설정할 수 있습니다.
 
 
 1.0.15 (2012.11.22)
 ----------------------------
 
-   - 정상적으로 캐싱(200 OK)되어 있는 파일을 갱신하는 과정에서 원본서버로부터 4xx응답을 받았을 때 마치 304 not modified를 받은 것처럼 동작하도록 :ref:`id6`합니다. 이를 통해 서버의 일시적인 장애로부터 컨텐츠를 갱신하는 행위를 방지할 수 있습니다.
-   - 컨텐츠의 만료시간을 강제로 지정하는 :ref:`expireafter`가 추가되었습니다.
+   - 정상적으로 캐싱(200 OK)되어 있는 파일을 갱신하는 과정에서 원본서버로부터 4xx응답을 받았을 때 마치 304 not modified를 받은 것처럼 동작하도록 설정합니다. 이를 통해 서버의 일시적인 장애로부터 컨텐츠를 갱신하는 행위를 방지할 수 있습니다.
+   - 컨텐츠의 만료시간을 강제로 지정하는 ExpireAfter API가 추가되었습니다.
    - 원본서버 주소에 포트가 같이 선언되어 있는 경우 포트바이패스가 되지 않던 문제가 수정되었습니다.
    - 누적통계가 ON인 상황에서 포트바이패스 통계를 집계하면 비정상 종료되던 문제가 수정되었습니다.
 
@@ -1531,9 +1618,9 @@ v1.0.x
 ----------------------------
 
    - 캐싱된 파일을 최초에 변경확인(If-Modified-Since)으로 접근할 경우 파일이 정상적으로 초기화되지 않던 버그가 수정되었습니다. 이 버그로 인하여 최초 응답시점에 500 Internal Error를 보내거나 TTL이 아주 짧게 설정되어 있는 경우 파일의 유효성이 문제가 될 수 있습니다.
-   - :ref:`caching-policy-renew`옵션이 ON인 경우 원본서버에서 컨텐츠가 변경되지 않았더라도(304 Not Modified) 최초 접근하는 클라이언트를 무조건 200 OK로 처리하던 증상이 수정되었습니다.
-   - 정상적으로 캐싱(200 OK)되어 있는 파일을 갱신하는 과정에서 원본서버로부터 5xx응답을 받았을 때 마치 304 not modified를 받은 것처럼 동작하도록 :ref:`id6`합니다. 이를 통해 서버의 임시적인 장애때문에 컨텐츠를 무효화하여 원본 서버 트래픽을 가중시키는 행위를 방지할 수 있습니다.
-   - SNMP에서 응답 받을 가상호스트의 최대 개수를 :ref:`view`할 수 있습니다.
+   - 간헐적으로 원본서버에서 컨텐츠가 변경되지 않았더라도(304 Not Modified) 최초 접근하는 클라이언트를 무조건 200 OK로 처리하던 증상이 수정되었습니다.
+   - 정상적으로 캐싱(200 OK)되어 있는 파일을 갱신하는 과정에서 원본서버로부터 5xx응답을 받았을 때 마치 304 not modified를 받은 것처럼 동작하도록 설정합니다. 이를 통해 서버의 임시적인 장애때문에 컨텐츠를 무효화하여 원본 서버 트래픽을 가중시키는 행위를 방지할 수 있습니다.
+   - SNMP에서 응답 받을 가상호스트의 최대 개수를 설정할 수 있습니다.
 
 
 1.0.12 (2012.11.05)
@@ -1546,7 +1633,7 @@ v1.0.x
 ----------------------------
 
    - 원본서버가 모두 배제된 상황에서는 Purge/Expire가 동작하지 않습니다.
-   - 특정 Purge명령이 Expire로 동작하도록 :ref:`caching`할 수 있습니다.
+   - 특정 Purge명령이 Expire로 동작하도록 설정할 수 있습니다.
 
 
 1.0.10 (2012.10.29)
@@ -1609,24 +1696,24 @@ v1.0.x
 1.0.1 (2012.09.20)
 ----------------------------
 
-   - :ref:`query string`  설정이 ON인 경우 Purge/Expire가 과도하게 CPU를 점유하던 문제가 개선되었습니다.
+   - QueryString설정이 ON인 경우 Purge/Expire가 과도하게 CPU를 점유하던 문제가 개선되었습니다.
 
 
 1.0.0 (2012.09.18)
 ----------------------------
 
-   - 설정파일을 동적으로 :ref:`reload`할 수 있습니다. 서비스 중단 없이 가상호스트 추가, 삭제, 변경이 가능합니다.
-   - 하드디스크의 최대사용량을 :ref:`storage`할 수 있습니다. 설정하지 않아도 언제나 디스크가 꽉차지 않도록 관리됩니다.
-   - 가상호스트의 순서가 변경되더라도 항상 동일한 SNMP의 OID로 통계를 수집할 수 있도록 가상호스트의 OID를 :ref:`vhosts-xml`할 수 있습니다.
-   - Access 로그를 Apache와 Microsoft IIS형식으로 :ref:`access`할 수 있습니다.
-   - HTTP응답에 Via헤더 삽입을 :ref:`via`할 수 있습니다.
-   - 클라이언트의 Accept-Encoding을 무시하도록 :ref:`accept-encoding`할 수 있습니다.
+   - 설정파일을 동적으로 Reload할 수 있습니다. 서비스 중단 없이 가상호스트 추가, 삭제, 변경이 가능합니다.
+   - 하드디스크의 최대사용량을 설정할 수 있습니다. 설정하지 않아도 언제나 디스크가 꽉차지 않도록 관리됩니다.
+   - 가상호스트의 순서가 변경되더라도 항상 동일한 SNMP의 OID로 통계를 수집할 수 있도록 가상호스트의 OID를 설정할 수 있습니다.
+   - Access 로그를 Apache와 Microsoft IIS형식으로 설정할 수 있습니다.
+   - HTTP응답에 Via헤더 삽입을 설정할 수 있습니다.
+   - 클라이언트의 Accept-Encoding을 무시하도록 설정할 수 있습니다.
    - 콘솔 또는 API를 통해 STON 버전확인이 가능합니다.
    - API를 통해 설정파일 열람이 가능합니다.
    - 원본서버 로그에 QueryString을 기록합니다.
    - SSL을 통한 HTTP Post요청 바이패스가 오동작하던 버그가 수정되었습니다.
-   - 가상호스트 서비스 포트설정이 <Address>에서 <Listen>으로 :ref:`caching`되었습니다.
-   - 가상호스트별로 디스크 설정을 별도로 할 수 없습니다. 모든 가상호스트는 <Storage>를 통해 디스크를 공유하도록 :ref:`storage`되었습니다.
+   - 가상호스트 서비스 포트설정이 <Address>에서 <Listen>으로 설정되었습니다.
+   - 가상호스트별로 디스크 설정을 별도로 할 수 없습니다. 모든 가상호스트는 <Storage>를 통해 디스크를 공유하도록 설정되었습니다.
    - Info로그가 보기 쉬운 형식으로 변경되었습니다.
    - fileinfo응답의 시간표현이 "2012.09.03 14:29:50" 같이 읽기쉬운 형태로 변경되었습니다.
 
@@ -1645,17 +1732,17 @@ v0.9.x
 0.9.6.6 (2012.08.01)
 ----------------------------
 
-   - 특정 IP의 서비스(가상호스트) 접근을 차단 또는 허가하도록 :ref:`access-control-serviceaccess`할 수 있습니다.
-   - 원본서버가 과부하 상태라고 :ref:`origin-busysessioncount`되면 만료된 컨텐츠의 TTL을 원본서버에게 물어보지 않고 :ref:`ttl`합니다.
-   - GET요청의 기본동작을 원본서버로 바이패스하도록 :ref:`bypass-getpost`할 수 있습니다.
+   - 특정 IP의 서비스(가상호스트) 접근을 차단 또는 허가하도록 설정할 수 있습니다.
+   - 원본서버가 과부하 상태라고 판단되면 만료된 컨텐츠의 TTL을 원본서버에게 물어보지 않고 갱신합니다.
+   - GET요청의 기본동작을 원본서버로 바이패스하도록 설정할 수 있습니다.
    - Origin로그에 바이패스 된 요청인지 기록합니다.
-   - 바이패스 세션의 :ref:`timeout`, :ref:`timeout` 시간을 설정할 수 있습니다.
+   - 바이패스 세션의 Timeout 시간을 설정할 수 있습니다.
 
 
 0.9.6.5 (2012.07.17)
 ----------------------------
 
-   - 원본서버를 Active/Standby로 :ref:`env-vhost-standbyorigin`할 수 있습니다.
+   - 원본서버를 Active/Standby로 설정할 수 있습니다.
    - Access로그에 클라이언트의 Range필드(cs-range)추가
    - HTTP요청이 Invalid Range를 요청하는 경우 동작방식을 변경하였습니다. 기존에는 파일 크기를 벗어난 Range요청은 무조건 416 Requested Range Not Satisfiable으로 처리됐습니다. 이번 버전부터는 끝 오프셋이 파일 크기보다 클 경우 206 Partial Content로 처리됩니다. 시작 오프셋이 파일 크기보다 큰 경우는 기존과 동일하게 처리됩니다.
 
@@ -1664,7 +1751,7 @@ v0.9.x
 ----------------------------
 
    - HTTP POST요청 처리시 비정상 종료되던 문제를 수정하였습니다.
-   - HTTP POST요청의 원본서버 바이패스 여부를 :ref:`bypass-getpost`할 수 있습니다.
+   - HTTP POST요청의 원본서버 바이패스 여부를 설정할 수 있습니다.
    - 원본서버 HTTP 응답에 Content-Type헤더가 명시되어 있지 않은 경우 클라이언트에게도 Content-Type헤더를 주지 않습니다. (기존에는 text/html로 설정)
 
 
@@ -1673,10 +1760,10 @@ v0.9.x
 
    - HTTPS 요청을 원본서버로 바이패스할 때 잘못된 메모리 참조로 인하여 오동작/비정상 종료되던 문제가 수정되었습니다.
    - 투명(Transparent) 모드를 지원합니다. STON과 원본서버 네트워크 구간 사이에 원본서버의 응답을 STON으로 포워딩하는 설정이 필요합니다.
-   - Expired된 컨텐츠를 서비스하기 전에 반드시 :ref:`caching-policy-renew`하도록 할 수 있습니다.
+   - Expired된 컨텐츠를 서비스하기 전에 반드시 원본서버에서 확인하도록 할 수 있습니다.
    - 더 이상 URLBypass통계를 별도로 수집하지 않습니다. 원본/클라이언트 트래픽 통계로 통합되었습니다.
    - IBM WebLogic에서 클라이언트 Access로그를 남길 수 있도록 WL-Proxy-Client-IP 헤더를 추가할 수 있습니다.
-   - 원본서버로 보내는 HTTP요청의 X-Forwarded-For헤더의 클라이언트 IP이후를 :ref:`xff-x-forwarded-for`할 수 있습니다.
+   - 원본서버로 보내는 HTTP요청의 X-Forwarded-For헤더의 클라이언트 IP이후를 설정할 수 있습니다.
    - 에러 페이지(500 Internal Error)에서 에러이유를 표시합니다.
    - 설정에서 문자열의 공백을 제거하지 않던 문제가 수정되었습니다. 모든 문자열의 좌우공백은 제거됩니다.
 
@@ -1702,13 +1789,4 @@ v0.9.x
 ----------------------------
 
    - SNMP(Simple Network Monitoring Protocol)가 지원됩니다. STON은 항상 실행경로에 MIB(Management Information Base)파일을 생성합니다. STON의 SNMP는 가상호스트별, 실시간, 최근 1~60분까지의 통계를 제공합니다. 최초 실행시 비활성화되어 있으며 server.xml을 편집해 활성화 시킬 수 잇습니다.
-
-     | <Server>
-     |   <Host>
-     |     <SNMP Port="161" Status="Active">
-     |       <Allow>211.104.97.150</Allow>
-     |     </SNMP>
-     |   </Host>
-     | </Server>
-
    - 원본서버에서 Content Length없는 응답이 올 경우, Origin로그에 원본서버 에러로 기록하지 않도록 변경되었습니다. 원본서버에서 일방적으로 연결을 종료한 경우, 만약 해당 세션이 Content Length가 없는 HTTP 트랜잭션을 수행 중이었다면 원본에러로 기록되지 않습니다.

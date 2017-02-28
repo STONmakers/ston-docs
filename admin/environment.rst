@@ -3,6 +3,11 @@
 3장. 설정구조
 ******************
 
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 2. 설정하기 <https://youtu.be/BROcSuFyHOQ?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 3. 가상호스트 만들기 <https://youtu.be/AvxxSWgXcqA?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+
 이 장에서는 설정구조와 변경된 설정을 적용하는 방법에 대해 설명한다.
 구조를 정확히 이해해야 빠르게 서버를 배치할 수 있을뿐만 아니라 장애상황을 유연하게 극복할 수 있다.
 
@@ -93,7 +98,7 @@ XML형식의 텍스트파일이다. ::
 
 -  ``<Name>``
     서버 이름을 설정한다.
-    이름이 입력되지 않으면 시스템 이름이 사용한다.
+    이름이 입력되지 않으면 시스템 이름을 사용한다.
 
 -  ``<Admin>``
     관리자 정보(메일 또는 이름)를 설정한다.

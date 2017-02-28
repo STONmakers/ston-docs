@@ -3,6 +3,11 @@
 17장. 미디어
 ******************
 
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 4. 실시간 이미지 가공 <https://youtu.be/Pdfe-HbtXVs?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 5. 동영상 전달 <https://youtu.be/YjOEVamhah4?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+
 이 장에서는 미디어를 스마트하게 서비스하는 방법에 대해 설명한다.
 클라이언트 환경과 서비스 다양화와 함께 콘텐츠를 다양한 형태로 가공하는 경우가 많다.
 때문에 같은 콘텐츠지만 다양한 형태로 원본서버에 존재하게 된다.
@@ -339,11 +344,11 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 
    GET /video.mp4/mp4hls/99.ts HTTP/1.1
    Range: bytes=0-512000
-   Host: www.wineosft.com
+   Host: www.winesoft.co.kr
 
-1.	``STON`` 최초 로딩. (아무 것도 캐싱되어 있지 않음.)
-#.	``Client`` HTTP Range 요청. (100번째 파일의 최초 500KB 요청)
-#.	``STON`` /video.mp4 파일 캐싱객체 생성.
+1.	``STON`` 최초 로딩 (아무 것도 캐싱되어 있지 않음.)
+#.	``Client`` HTTP Range 요청 (100번째 파일의 최초 500KB 요청)
+#.	``STON`` /video.mp4 파일 캐싱객체 생성
 #.	``STON`` /video.mp4 파일 분석을 위해 필요한 부분만을 원본서버에서 다운로드
 #.	``STON`` 100번째(99.ts)파일 서비스를 위해 필요한 부분만을 원본서버에서 다운로드
 #.	``STON`` 100번째(99.ts)파일 생성 후 Range 서비스
@@ -395,7 +400,7 @@ DIMS
 
 DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공하는 기능이다.
 `mod_dims <https://code.google.com/p/moddims/wiki/WebserviceApi>`_ 를 기반으로 확장한 형태이다.
-가공형태는 모두 7가지(optimize, crop, thumbnail, resize, reformat, quality, composite)이며 이를 조합한 복합가공이 가능하다.
+가공형태는 모두 7가지(optimize, crop, thumbnail, resize, format, quality, composite)이며 이를 조합한 복합가공이 가능하다.
 
 .. figure:: img/dims.png
    :align: center
@@ -487,7 +492,7 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 -----------------------
 
 좌상단을 기준으로 원하는 영역만큼 이미지를 잘라낸다.
-영역은 **widthxheight{+-}x{+-}y{%}** 로 표현한다.
+영역은 **width x height{+-}x{+-}y{%}** 로 표현한다.
 다음은 좌상단 x=20, y=30을 기준으로 width=100, height=200만큼 잘라내는 예제다. ::
 
    http://image.example.com/img.jpg/dims/crop/100x200+20+30/
@@ -497,7 +502,7 @@ Thumbnail 생성
 -----------------------
 
 Thumbnail 을 생성한다.
-크기와 옵션은 **widthxheight{%} {@} {!} {<} {>}** 로 표현한다.
+크기와 옵션은 **width x height{%} {@} {!} {<} {>}** 로 표현한다.
 기본적으로 이미지의 가로와 세로는 최대값을 사용한다.
 이미지를 확대 또는 축소하여도 가로 세로 비율은 유지된다.
 정확하게 지정한 크기로 이미지를 조절할 때는 크기 뒤에 느낌표(!)를 추가한다.
@@ -571,11 +576,11 @@ Format 변경
 
     -  ``Name`` 호출될 이름을 지정한다.
        '/'문자는 입력할 수 없다.
-       URL의 "/composite/" 뒤에 위치합니다.
+       URL의 "/composite/" 뒤에 위치한다.
 
     -  ``File`` 합성할 이미지파일 경로를 지정한다.
 
-    -  ``Gravity (기본: c)`` 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재합니다.
+    -  ``Gravity (기본: c)`` 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재한다.
 
        .. figure:: img/conf_dims2.png
           :align: center
