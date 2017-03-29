@@ -378,14 +378,18 @@ MP3파일을 HLS(HTTP Live Streaming)로 서비스한다. ::
    # server.xml - <Server><VHostDefault><Media>
    # vhosts.xml - <Vhosts><Vhost><Media>
 
-   <MP3HLS Status="Inactive" Keyword="mp3hls">
+   <MP3HLS Status="Inactive" Keyword="mp3hls" SegmentType="TS">
       <Index Ver="3" Alternates="off">index.m3u8</Index>
       <Sequence>0</Sequence>
       <Duration>10</Duration>
       <AlternatesName>playlist.m3u8</AlternatesName>
    </MP3HLS>
 
-모든 설정과 동작방식이 `MP4 HLS`_ 와 동일하다.
+모든 설정과 동작방식이 `MP4 HLS`_ 와 동일하며 추가적으로 Segement형식을 선택할 수 있다.
+
+-  ``<MP3HLS>``
+
+   - ``SegmentType (기본: TS)`` 원본 MP3를 MPEG2-TS( ``TS`` ) 또는 ``MP3`` 로 분할한다.
 
 .. note::
 
