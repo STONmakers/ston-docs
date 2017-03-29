@@ -17,7 +17,7 @@ v2.4.x
      | **Before**. 404 Not Found 응답
      | **After**. 분석된 지점까지 HLS로 서비스
 
- - :ref:`media-mp4-hls` - 시간값(PCR, PTS, DTS) 계산식 변경을 통한 플레이어 호환성 강화
+ - :ref:`media-hls` - 시간값(PCR, PTS, DTS) 계산식 변경을 통한 플레이어 호환성 강화
 
 **버그수정**
 
