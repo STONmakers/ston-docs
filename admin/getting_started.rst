@@ -196,6 +196,55 @@ OS 구성
       :align: center
 
 
+.. _getting-started-update-manual:
+
+외부접속이 되지 않을 때
+------------------------------------------------
+
+STON이 설치된 서버에서 외부접속이 되지 않을 경우 다음과 같이 매뉴얼 방식의 업데이트가 가능하다.
+
+1. 외부 연결이 가능한 PC에서 STON을 다운로드 한다. 다운로드 URL은 공식 release메일을 통해 배포된다.
+
+
+2. 다운로드 받은 파일을 PC에서 서버로 복사한다. 파일명 형식은 다음과 같다.
+
+   * RHEL/CentOS/openSUSE - ston. ``version`` .rhel.2.6.32.x64.tar.gz
+   * Ubuntu - ston. ``version`` .ubuntu.2.6.32.x64.tar.gz
+
+
+   CentOS에서 버전 ``2.4.9`` 라면 파일명은 ston.2.4.9.rhel.2.6.32.x64.tar.gz 이다.
+
+
+3. STON이 실행 중이라면 중단시킨다. ::
+
+      service ston stop
+
+
+4. 서버내 복사된 경로에서 압축을 해제한다. ::
+
+      tar zxvf ston.2.4.9.rhel.2.6.32.x64.tar.gz
+
+
+   .. figure:: img/update_manual1.png
+      :align: center
+
+5. 설치 스크립트를 실행한다. STON이 실행 중이라면 "yes"를 입력하여 중단시킨다. ::
+
+      sh ston.2.4.9.rhel.2.6.32.x64.sh
+
+
+   .. figure:: img/update_manual2.png
+      :align: center
+
+6. 설치 완료 후 STON을 시작한다. ::
+
+      service ston start
+
+
+   .. figure:: img/update_manual3.png
+      :align: center
+
+
 .. _getting-started-run:
 
 실행하기
