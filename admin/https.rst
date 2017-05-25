@@ -220,15 +220,49 @@ Multi NIC	        서버설정만으로 동작 (가장 널리쓰임)    NIC와 I
 =================== ====================================== ========================================================================
 
 
+
+.. _https_sni:
+
 SNI (Server Name Indication)
 --------------------------
 
 SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_
 확장 필드를 사용하는 방식이다.
-이 기능은 처음 클라이언트가 서버에게 SSL 연결을 요청할 때 HTTP 요청의 Host헤더처럼 대상 가상호스트를 명시함으로써 가능하다.
+이 방식은 클라이언트가 서버에게 SSL 연결을 요청할 때 Server Name 확장필드를 명시함으로써 가능하다. ::
+
+   # server.xml - <Server><Cache>
+
+   <HttpsSNI>OFF</HttpsSNI>
+
+-  ``<HttpsSNI>``
+
+   - ``OFF (기본)`` `Multi Port`_ 또는 `Multi NIC`_ 방식으로 여러 인증서를 지원한다.
+
+   - ``ON`` 같은 IP+Port 조합으로 여러개의 인증서를 지원한다. 
+     아래의 경우처럼 443포트로 여러개의 인증서를 지원할 수 있다. ::
+
+      # server.xml - <Server>
+
+      <Https>
+         <Cert>/usr/ssl/cert.pem</Cert>
+         <Key>/usr/ssl/certkey.pem</Key>
+         <CA>/usr/ssl/CA.pem</CA>
+      </Https>
+
+      <Https>
+         <Cert>/usr/ssl_another/cert.pem</Cert>
+         <Key>/usr/ssl_another/certkey.pem</Key>
+         <CA>/usr/ssl_another/CA.pem</CA>
+      </Https>
+
+
+.. note::
+
+   ``<HttpsSNI>`` 는 동적으로 변경이 불가능하다. 설정변경 후 반드시 서비스를 재가동해야 한다.
+
 현재까지 가장 우아한 방법이지만 일부 구버전 클라이언트에서 지원하지 않는다.
 다음은 SNI를 지원하지 않는 클라이언트 목록이다.
-(출처: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ ).
+(출처: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ )
 
 - Internet Explorer (any version) on Windows XP or Internet Explorer 6 or earlier
 - Safari on Windows XP
@@ -238,7 +272,6 @@ SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Nam
 - wget before 1.14
 - Java before 1.7
 
-현재 STON은 SNI를 지원하고 있지 않으나 클라이언트 환경이 개선되면 지원할 계획이다.
 
 
 
@@ -263,8 +296,8 @@ Multi Certificate
 Multi Port
 --------------------------
 
-SSL은 기본적으로 443포트를 사용한다.
-SSL포트를 중복되지 않는 포트로 설정하면 인증서를 여러개 설치할 수 있다.
+SSL/TLS는 443포트를 사용한다.
+중복되지 않는 포트를 이용하여 인증서를 여러개 설치할 수 있다.
 클라이언트에서는 다음과 같이 포트를 명시함으로써 SSL통신이 가능하다. ::
 
     https://winesoft.co.kr:543/

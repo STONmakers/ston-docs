@@ -32,6 +32,35 @@ Physical RAM  System Free    Contents        Caching Count Sockets
 
 
 
+.. _adv_topics_memory_only:
+
+Memory-Only 모드
+====================================
+
+Memory-Only 모드란 디스크를 이용하지 않고 컨텐츠를 메모리에만 적재하는 방식을 말한다. 
+:ref:`env-cache-storage` 을 하지 않으면 자동으로 Memory-Only모드로 동작한다. ::
+    
+    # server.xml - <Server><Cache>
+
+    <Storage />
+
+이 모드는 :ref:`caching-policy-ttl` 이 짧거나 컨텐츠 크기가 작은 경우 유용하다.
+
+- HLS 라이브 방송
+- 가격/재고
+- 티켓 조회
+- 실시간 순위
+- 검색
+- API
+
+반대로 컨텐츠 크기가 GB단위로 크거나 :ref:`caching-policy-ttl` 이 긴 서비스에서는 부적합하다.
+
+.. note::
+
+   v2.5.0부터 지원되며 동적으로 변경이 불가능하다. 설정변경 후 반드시 서비스를 재가동해야 한다.
+
+
+
 .. _adv_topics_indexing:
 
 인덱싱
