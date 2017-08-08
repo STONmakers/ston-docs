@@ -256,9 +256,13 @@ SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Nam
       </Https>
 
 
+``<HttpsSNI>`` 는 동적으로 변경이 불가능하다. 설정변경 후 반드시 서비스를 재가동해야 한다.
+
 .. note::
 
-   ``<HttpsSNI>`` 는 동적으로 변경이 불가능하다. 설정변경 후 반드시 서비스를 재가동해야 한다.
+   SNI는 2003년 6월 `RFC 3546 <https://tools.ietf.org/html/rfc3546#page-8>`_ 를 통해 TLS 1.0이상에서만 정의되었습니다. 
+   따라서 SSL v3에서는 SNI를 지원하지 않습니다. 
+   참고로 OpenSSL의 s_client에 SSL-3.0 옵션을 적용하면 SNI 확장필드를 보내지 않습니다.
 
 현재까지 가장 우아한 방법이지만 일부 구버전 클라이언트에서 지원하지 않는다.
 다음은 SNI를 지원하지 않는 클라이언트 목록이다.
