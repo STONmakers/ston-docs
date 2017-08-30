@@ -6,6 +6,25 @@ Appendix D: 릴리스 노트
 v2.5.x
 ====================================
 
+2.5.5 (2017.8.30)
+----------------------------
+
+- 콘텐츠 :ref:`handling_http_requests_drm` 을 지원한다.
+- :ref:`caching-policy-unvalidatable` 을 설정할 수 있다.
+
+**기능개선/정책변경**
+
+- :ref:`adv_topics_memory_only` 안정성 강화
+- 클러스터 정보 조회 :ref:`wm_cluster_list_api` 추가
+- [WM] Apache 보안 권고사항 반영
+
+
+**버그수정**
+
+ - :ref:`media-dims` , :ref:`handling_http_requests_compression` 된 파일에 대한 I/O가 실패 한 경우 변환 요청이 Bypass 되는 문제
+ 
+
+
 2.5.4 (2017.8.10)
 ----------------------------
 

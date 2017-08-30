@@ -194,6 +194,31 @@ TTL 우선순위
 주로 서버의 일시적인 장애로부터 콘텐츠를 무효화하여 원본부하를 가중시키지 않기 위한 용도로 사용된다.
 
 
+
+.. _caching-policy-unvalidatable:
+
+갱신불가시 정책
+---------------------
+
+콘텐츠의 TTL은 만료되었지만 원본서버가 모두 배제되어 정상적으로 콘텐츠를 갱신(Revalidate)할 수 없을 때의 정책을 설정한다. ::
+
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+
+    <UnvalidatableObjectResCode>0</UnvalidatableObjectResCode>
+
+-  ``<UnvalidatableObjectResCode>``
+
+   -  ``0 (기본)`` 만료된 콘텐츠의 TTL을 ``<ConnectTimeout>`` 만큼 연장한다.
+
+   -  ``HTTP 응답코드`` 갱신할 수 없다면 설정된 응답코드로 응답한다. 
+   
+예를 들어 다음과 같이 설정되어 있다면 콘텐츠를 갱신할 수 없을 때, 만료된 콘텐츠를 404 Not Found로 응답한다. ::
+
+   <UnvalidatableObjectResCode>404</UnvalidatableObjectResCode>
+
+
+
 .. _caching-policy-renew:
 
 갱신정책
