@@ -695,6 +695,15 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 위와 같이 URL에 명시적으로 지정되어 있는 경우 설정보다 우선한다.
 
 
+.. note::
+
+   ``limit`` 명령어를 통해 Animated GIF의 프레임 수를 조절할 수 있다. ::
+      
+      http://image.example.com/img.jpg/dims/limit/3
+      http://image.example.com/img.jpg/dims/limit/3/resize/200x200
+
+
+
 기타
 -----------------------
 

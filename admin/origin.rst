@@ -132,20 +132,34 @@ STON은 IP테이블을 기반으로 원본주소를 사용하며 `origin-status`
 IP 목록은 동적으로 변경될 수 있으며 모든 IP는 TTL(Time To Live)동안만 유효하다.
 
 -  Domain은 주기적으로(1~10초) Resolving한다.
--  Resolving결과를 통해 사용할 IP테이블을 구성한다.
+-  Resolving을 통해 사용할 IP테이블을 구성한다.
 -  모든 IP는 TTL만큼만 유효하며 TTL이 만료되면 사용하지 않는다.
 -  같은 IP가 다시 Resolving되면 TTL을 갱신한다.
 -  IP테이블은 비어서는 안된다. (TTL이 만료되었더라도) 마지막 IP들은 삭제되지 않는다.
 
-원본주소를 Domain으로 설정하여도 장애/복구는 IP기반으로 동작한다.
-Domain주소 장애/복구 정책은 다음과 같다.
+IP의 TTL이 너무 길 경우 지나치게 많은 IP를 사용하게 되어 의도치 않은 결과를 만들 수 있다. 
+이를 방지하기 위해 IP의 최대 TTL을 제한할 수 있다. ::
 
--  (Domain에 대해) 알고 있는 모든 IP주소가 배제(Inactive)되면 해당 Domain주소가 배제된다.
--  신규 IP가 Resolving되더라도 Domain이 배제되어 있다면 IP주소는 처음부터 배제된다.
--  모든 IP가 TTL 만료되더라도 배제된 Domain상태는 풀리지 않는다.
--  배제된 Domain에 속한 IP주소가 하나라도 복구되어야 해당 Domain은 다시 활성화된다.
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
 
-다소 복잡한 내용이므로 `origin-status`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
+   <DnsMaxTTL>60</DnsMaxTTL>
+
+-  ``<DnsMaxTTL> (기본: 60초)`` Resolving된 IP의 최대 사용시간(초)을 설정한다.
+   이 값이 0일 경우 DNS로부터 제공받은 TTL을 그대로 사용한다.
+
+
+.. note::
+
+   원본주소를 Domain으로 설정하여도 장애/복구는 IP기반으로 동작한다.
+   Domain주소 장애/복구 정책은 다음과 같다.
+
+   -  (Domain에 대해) 알고 있는 모든 IP주소가 배제(Inactive)되면 해당 Domain주소가 배제된다.
+   -  신규 IP가 Resolving되더라도 Domain이 배제되어 있다면 IP주소는 처음부터 배제된다.
+   -  모든 IP가 TTL 만료되더라도 배제된 Domain상태는 풀리지 않는다.
+   -  배제된 Domain에 속한 IP주소가 하나라도 복구되어야 해당 Domain은 다시 활성화된다.
+
+   다소 복잡한 내용이므로 `origin-status`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
 
 
 

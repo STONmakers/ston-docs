@@ -75,7 +75,7 @@ GET과 POST의 용도가 다른만큼 기본동작이 다름에 유의한다. ::
 
    - ``ON`` GET요청을 원본서버로 바이패스한다.
 
-:ref:`access-control-vhost_acl` 과 동일한 조건을 모두 지원한다.
+:ref:`access-control-vhost` 과 동일한 조건을 모두 지원한다.
 바이패스 예외조건은 /svc/{가상호스트 이름}/bypass.txt 에 설정한다. ::
 
    # /svc/www.example.com/bypass.txt
