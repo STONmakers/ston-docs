@@ -215,6 +215,8 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
 
 
 
+.. _env-etc:
+
 기타 Caching 설정
 ------------------------------------
 
@@ -226,6 +228,7 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
         <Cleanup>
             <Time>02:00</Time>
             <Age>0</Age>
+            <EmptyFolder>delete</EmptyFolder>
         </Cleanup>
         <Listen>0.0.0.0</Listen>
         <ConfigHistory>30</ConfigHistory>
@@ -240,6 +243,9 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
 
     - ``<Age> (기본: 0, 단위: 일)`` 0보다 큰 경우, 일정 기간동안 한번도 접근되지 않은 콘텐츠를 삭제한다.
       디스크를 미리 확보하여 서비스 시간 중 디스크 부족이 발생할 확률을 줄이기 위함이다.
+
+    - ``<EmptyFolder> (기본: delete)`` Cleanup 시점에 비어있는 폴더(캐싱저장용으로 사용)의 삭제여부를 결정한다.
+      ``delete`` 인 경우 삭제하며, ``keep`` 의 경우 삭제하지 않는다.
 
 -  ``<Listen>``
     모든 가상호스트가 Listen할 IP목록을 지정한다.
@@ -577,12 +583,41 @@ hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 
     http://127.0.0.1:10040/conf/download?hash=...
     http://127.0.0.1:10040/conf/download?id=...
 
+
+
 .. _api-conf-upload:
 
 설정 업로드
 ====================================
 
-설정파일을 HTTP Post방식(Multipart 지원)으로 업로드 한다. ::
+API를 이용해 설정을 변경한다. 정상적으로 반영된 경우 200 OK로 응답하지만, 실패한 경우 500 Internal Server Error로 응답한다. ::
+
+   {
+      "version": "2.5.10",
+      "method": "uploadconfig",
+      "status": "Fail",
+      "result": "E0001"
+    }
+
+"result" 에러코드는 다음과 같다.
+
+======= ===============================
+result  설명
+======= ===============================
+E0000   설정 적용 완료
+E0001   업로드한 파일이 존재하지 않는다.
+E0002   tgz 파일 압축 해제를 실패 했다.
+E0003   업로드한 xml 파일이 로딩 되지 않는다.
+E0004   업로드한 xml 파일의 내용이 잘못되었다.
+======= ===============================
+
+
+.. _api-conf-upload-tgz:
+
+전체 설정 업로드
+------------------------------------
+
+전체 설정 압축파일을 HTTP Post방식(Multipart 지원)으로 업로드 한다. ::
 
     http://127.0.0.1:10040/conf/upload
 
@@ -592,7 +627,7 @@ hash와 id가 모두 명시된 경우 hash값이 우선하며, 해당 시점의 
     Content-Length: 16455
     Content-Type: multipart/form-data; boundary=......
 
-업로드가 완료되면 압축을 해지한 뒤 즉시 반영시킨다.
+업로드가 완료되면 압축을 해지한 뒤 전체 설정을 갱신한다.
 
 Multipart방식에서는 "confile"을 기본 이름으로 사용한다.
 이 값은 ``<Manager>`` 의 ``UploadMultipartName`` 속성에서 설정할 수 있다. ::
@@ -601,3 +636,20 @@ Multipart방식에서는 "confile"을 기본 이름으로 사용한다.
         <input name="confile" type="file" />
         <input type="submit" value="Upload" />
     </form>
+
+
+.. _api-conf-upload-xml:
+
+XML 설정 업로드
+------------------------------------
+
+XML 개별 설정 압축파일을 HTTP Post방식(Multipart와 SOAP 방식 모두 지원)으로 업로드 한다. ::
+
+    http://127.0.0.1:10040/conf/upload/server.xml
+    http://127.0.0.1:10040/conf/upload/vhosts.xml
+
+
+.. note::
+   
+   server.xml을 업로드 하는 경우 전체 설정을 갱신하지만, vhosts.xml만 업로드 하는 경우 가상호스트에 대해서만 설정을 갱신한다.
+

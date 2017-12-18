@@ -614,6 +614,9 @@ ETag 헤더 인식
    *, $ORGREQ[If-Modified-Since], unset
    *, $ORGREQ[If-None-Match], unset
 
+   # #PROTOCOL 키워드를 통해 클라이언트가 요청한 프로토콜을 헤더에 추가한다.
+   $URL[*], $ORGREQ[X-Forwarded-Proto: #PROTOCOL], set
+
 
 .. note::
 

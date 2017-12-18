@@ -6,6 +6,23 @@ Appendix D: 릴리스 노트
 v2.5.x
 ====================================
 
+2.5.10 (2017.12.18)
+----------------------------
+
+**기능개선/정책변경**
+
+ - :ref:`media-dims` - Round(이미지 모서리를 둥글게 처리) 명령어 추가
+ - :ref:`handling_http_requests_modify_client` , :ref:`origin_modify_client` - #PROTOCOL 키워드 추가
+ - :ref:`env-etc` - 빈 디렉토리 삭제정책 추가
+ - :ref:`api-conf-upload-xml` 추가
+
+
+**버그수정**
+
+ - 일부 API 호출결과 JSON 문법오류 수정
+
+
+
 2.5.9 (2017.11.30)
 ----------------------------
 

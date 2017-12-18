@@ -447,6 +447,15 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 {Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
 
+.. note::
+
+   ``#PROTOCOL`` 키워드를 통해 클라이언트가 요청한 프로토콜(http 또는 https)을 클라이언트 헤더에 추가할 수 있다. ::
+
+      $URL[*], $REQ[X-Forwarded-Proto: #PROTOCOL], set
+
+
+
+
 .. _handling_http_requests_compression:
 
 압축
