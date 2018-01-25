@@ -394,6 +394,7 @@ Server 헤더
    $HEADER[user-agent: *IE6*], $REQ[accept-encoding], unset
    $HEADER[via], $REQ[via], unset
    $URL[/source/*.zip], $REQ[accept-encoding: deflate], set
+   $METHOD[POST], $REQ[host: sub.example.com], set
 
    # 응답변경
    # {Match}, {$RES}, {Action(set|put|append|unset)}, {condition} 순서로 표기한다.
@@ -412,19 +413,31 @@ Server 헤더
 {Match}는 IP, GeoIP, Header, URL 4가지로 설정이 가능하다.
 
 -  **IP**
+
    $IP[...]로 표기하며 IP, IP Range, Bitmask, Subnet 네 가지 형식을 지원한다.
 
+
 -  **GeoIP**
+
    $IP[...]로 표기하며 반드시 :ref:`access-control-geoip` 가 설정되어 있어야 한다.
    국가코드는 `ISO 3166-1 alpha-2 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>`_ 와 `ISO 3166-1 alpha-3 <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3>`_ 를 지원한다.
 
+
 -  **Header**
+
    $HEADER[Key : Value]로 표기한다.
    Value는 명확한 표현과 패턴을 지원한다.
    Value가 생략된 경우에는 Key에 해당하는 헤더의 존재유무를 조건으로 판단한다.
 
+
 -  **URL**
+
    $URL[...]로 표기하며 생략이 가능하다. 명확한 표현과 패턴을 인식한다.
+
+
+-  **METHOD**
+
+   $METHOD[...]로 표기하며 GET, POST, HEAD, OPTIONS 중 하나만 명시적으로 지정한다.
 
 {$REQ}와 {$RES}는 헤더변경 방법을 설정한다.
 ``set`` ``put`` ``append`` 의 경우 {Key: Value}로 설정하며,

@@ -6,6 +6,19 @@ Appendix D: 릴리스 노트
 v2.5.x
 ====================================
 
+2.5.11 (2018.1.25)
+----------------------------
+
+**기능개선/정책변경**
+
+ - SSL/TLS - :ref:`https-ciphersuite` SHA384 지원
+ - SSL/TLS - `The ROBOT Attack <https://robotattack.org/>`_ 대응
+ - :ref:`handling_http_requests_modify_client` - HTTP 요청 Method 조건 추가
+ - :ref:`access-control-vhost` - POST 요청도 접근 제한이 가능하도록 개선
+ - WM - 캐싱상태 확인 페이지에 HTTPS 다운로드 기능 추가
+
+
+
 2.5.10 (2017.12.18)
 ----------------------------
 

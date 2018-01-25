@@ -93,10 +93,13 @@ CipherSuite 선택
 ================================================ ======== =========== =======
 Cipher Suite                                     TLS1.2   TLS1.1/1.0  SSL3.0
 ================================================ ======== =========== =======
+TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384	(0xc030)   O
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384	(0xc028)   O
 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256	(0xc02F)   O
 TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256	(0xC027)   O
 TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xC014)      O        O
 TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xC013)      O        O
+TLS_RSA_WITH_AES_256_GCM_SHA384	(0x009D)         O
 TLS_RSA_WITH_AES_128_GCM_SHA256	(0x009C)         O
 TLS_RSA_WITH_AES_256_CBC_SHA256	(0x003D)         O
 TLS_RSA_WITH_AES_128_CBC_SHA256	(0x003C)         O
