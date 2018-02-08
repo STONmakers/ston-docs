@@ -209,6 +209,8 @@ Purge API가 호출될 때 컨텐츠 복구 여부를 선택한다. ::
    - ``Hard`` `HardPurge`_ 로 동작한다. (원본장애 시 복구하지 않음)
 
 
+.. _caching-purge-http-method:
+
 HTTP Method
 ====================================
 

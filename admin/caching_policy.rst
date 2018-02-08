@@ -17,9 +17,9 @@ HTTP에는 콘텐츠를 구분하는 다양한 규격이 존재한다.
 앞으로 설명되는 설정을 모든 가상호스트의 기본 설정으로 적용하고 싶다면 ``<VHostDefault>`` 하위에 설정한다.
 반대로 특정 가상호스트에만 적용하고 싶다면 <Vhost>태그 하위에 설정한다.
 
-**Caching-Key**란 콘텐츠를 구분하는 고유 값이다.
+**Caching-Key** 란 콘텐츠를 구분하는 고유 값이다.
 파일시스템에서 파일들과 구분되는 고유경로(예. /usr/conf.txt)를 가지는 것과 같은 개념이다.
-흔히 Caching-Key는 URL과 혼동되기 쉽다.
+흔히 **Caching-Key** 는 URL과 혼동되기 쉽다.
 HTTP의 여러 기능에 따라 같은 URL이라고 하더라도 콘텐츠가 달라질 수 있다.
 
 
@@ -418,7 +418,7 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 
    -  ``ON`` 파라미터 URL뿐만 아니라 URL에 QueryString이 존재하는 모든 컨텐츠를 대상으로 지정한다.
 
-``Collective`` 속성이 ON이고 파일이 많을수록 ::ref:`api-cmd-purge` API 수행 CPU부하가 높아진다.
+``Collective`` 속성이 ON이고 파일이 많을수록 :ref:`api-cmd-purge` API 수행 CPU부하가 높아진다.
 관련 파일을 검색하는 소요시간이 길어질 수 있어 예기치 않은 문제를 일으킬 수 있다.
 가급적 QueryString까지 붙은 명확한 URL로 :ref:`api-cmd-purge` API를 호출할 것을 권장한다.
 
