@@ -512,7 +512,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
    /sample.css, no       // 압축하지 않는다.
    *.css                 // *.css 조건에 대해 기본 Method와 Level로 압축한다.
    *.htm, gzip           // *.htm 조건에 대해 gzip으로 압축한다. (기본 Level)
-   *.xml, , 9            // *.xml 조건에 대해 Level 9로 압축한다.*. (기본 Method)
+   *.xml, , 9            // *.xml 조건에 대해 Level 9로 압축한다. (기본 Method)
    *.js, gzip, 5         // *.js 조건에 대해 gzip (Level=5)으로 압축한다.
 
 압축은 CPU자원을 많이 소모하는 기능이다.
