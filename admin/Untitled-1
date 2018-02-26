@@ -1,0 +1,25 @@
+<html>
+<body>
+<script type="text/javascript"
+src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+var domain = "whoapi.com"; // domain name you want to check
+var rtype = "status"; // check availability
+var apikey = "b7ca3c60b14c2333cdd70fbd6b7bab1f"; // your API key// make API call
+$.get('https://whoapi.com/api-v1/?domain='+domain+'&amp;amp;amp;amp;rtype='+rtype+'&amp;amp;amp;amp;apikey='+apikey,
+function(data){
+if(data.indexOf("error:") == 0){
+// translate error
+$.get('https://whoapi.com/api-v1/?error='+data, function(data) {
+$('#result').html('Error: '+data);
+});
+}else{
+// show the result
+$('#result').html('Domain availability: '+data);
+}
+});
+</script>
+<span id="result">[please wait]</span>
+
+</body>
+</html>

@@ -202,7 +202,7 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 
     MP4HLS는 Elementary Stream(Video 또는 Audio)을 변환하는 트랜스코딩(Transcoding)이 아니다.
     그러므로 HLS에 적합한 형식으로 인코딩된 MP4파일에 한해서 원활한 단말 재생이 가능하다.
-    인코딩이 적합하지 않을 경우 화면이나 깨지거나 소리가 재생되지 않을 수 있다.
+    인코딩이 적합하지 않을 경우 화면이 깨지거나 소리가 재생되지 않을 수 있다.
     현재(2014.2.20) Apple에서 밝히고 있는 Video/Audio 인코딩 규격은 다음과 같다.
 
     What are the specifics of the video and audio formats supported?
@@ -491,6 +491,13 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 그렇지 않다면 서비스 규모에 맞게 물리적인 CPU자원을 충분히 확보해야 한다.
 
 
+.. note::
+
+   메타정보만을 삭제하고 싶을 경우 아래 명령어를 이용한다. ::
+
+      http://image.example.com/img.jpg/dims/strip/true
+
+
 
 잘라내기
 -----------------------
@@ -500,6 +507,12 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 다음은 좌상단 x=20, y=30을 기준으로 width=100, height=200만큼 잘라내는 예제다. ::
 
    http://image.example.com/img.jpg/dims/crop/100x200+20+30/
+
+
+이미지 중앙을 기준으로 하고 싶은 경우 cropcenter명령어를 사용한다. ::
+
+   http://image.example.com/img.jpg/dims/cropcenter/100x200+20+30/
+
 
 
 Thumbnail 생성
@@ -536,6 +549,13 @@ Resizing
 
    http://image.example.com/img.jpg/dims/resize/200x200/
 
+그 외 명령어는 다음과 같다.
+
+-  **resizec** - 축소하면 resize와 동일하지만, 확대하면 이미지는 유지되고 캔버스 크기만 확대된다.
+-  **extent** - 캔버스만 조절하는 명령어. 축소하면 crop과 동일한 효과를 내지만, 확대하면 resizec와 동일하게 확대된다.
+-  **trim** - 상하좌우 흰색배경을 제거한다.
+
+
 
 Format 변경
 -----------------------
@@ -556,6 +576,25 @@ Format 변경
 다음은 이미지 품질을 25%로 조절하는 예제다. ::
 
    http://image.example.com/img.jpg/dims/quality/25/
+
+
+이펙트
+-----------------------
+
+이미지에 다양한 이펙트를 줄 수 있다.
+
+================ ===================== =================
+설명              명령어                  변수
+================ ===================== =================
+반전               invert                true 또는 false
+그레이 스케일        grayscale            true 또는 false
+대칭이동            flipflop             vertical
+밝기조절            bright                0 ~ 100
+회전               rotate                0 ~ 360 (도)
+세피아              sepia                 0 ~ 1
+모서리 라운드        round                 0 ~ 90
+================ ===================== =================
+
 
 
 합성

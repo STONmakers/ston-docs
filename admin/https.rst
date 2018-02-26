@@ -230,7 +230,7 @@ SNI (Server Name Indication)
 --------------------------
 
 SSL/TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_
-확장 필드를 사용하는 방식이다.
+확장필드를 사용하는 방식이다.
 이 방식은 클라이언트가 서버에게 SSL 연결을 요청할 때 Server Name 확장필드를 명시함으로써 가능하다. ::
 
    # server.xml - <Server><Cache>
