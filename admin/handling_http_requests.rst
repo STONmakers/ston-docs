@@ -467,13 +467,17 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
       $URL[*], $REQ[X-Forwarded-Proto: #PROTOCOL], set
 
 
+   ``#CACHEHIT`` 키워드를 통해 :ref:`adv_topics_req_hit_ratio` 의 상세코드를 응답헤더에 추가할 수 있다. ::
+
+      $URL[*], $RES[X-Cache-Result: #CACHEHIT], set
+
 
 
 .. _handling_http_requests_compression:
 
 압축
 ====================================
-원본을 대신하여 콘텐츠를 압축하여 전송한다.
+원본의 결과를 콘텐츠를 압축하여 전송한다.
 :ref:`caching-policy-accept-encoding` 에 따라 콘텐츠를 구분하도록 설정되어 있어야 한다. ::
 
    Accept-Encoding: gzip, deflate

@@ -8,7 +8,7 @@ STON Edge Server 완벽 가이드
 ==========================
 
 :저자: STON 개발팀
-:최신버전: 2.5.12, 2018년 2월 26일
+:최신버전: 2.5.13, 2018년 3월 27일
 
 
 1부. STON 기본: 설정 배우기
@@ -57,7 +57,8 @@ STON Edge Server 완벽 가이드
    admin/adv_vhost
    admin/access_control
    admin/bandwidth_control
-   admin/media
+   admin/image
+   admin/video
    admin/filesystem
    admin/adv_topics
 

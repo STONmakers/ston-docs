@@ -111,6 +111,22 @@ URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과
    // Pattern : example.com/video.mp4_10_20
    // Replace : example.com/example.com/video.mp4_10_20/video.mp4/10/20
 
+.. note::
+
+   다음처럼 유사한 서브도메인이 있는 경우 주의해야 한다. ::
+   
+      image.example.com
+      myimage.example.com
+      
+   정규표현식에서는 image.exampe.com으로 패턴을 생성한 경우 myimage.example.com도 패턴과 일치하는 것으로 간주된다. 
+   이를 방지하기 위해 맨 앞에 글자없음을 ``^`` 로 표기해주어야 image.example.com만 매칭시킬 수 있다. ::
+
+      <URLRewrite>
+         <Pattern>^image.example.com/img/(.*\.(jpg|png).*)</Pattern>
+         <Replace>image.example.com/#1/STON/composite/watermark1</Replace>
+      </URLRewrite>
+
+
 패턴표현에 XML의 5가지 특수문자( " & ' < > )가 들어갈 경우 반드시 <![CDATA[ ... ]]>로 묶어주어야 올바르게 설정된다.
 :ref:`wm` 을 통해 설정할 때 모든 패턴은 CDATA로 처리된다.
 
