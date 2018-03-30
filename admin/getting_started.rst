@@ -1,4 +1,4 @@
-﻿.. _getting-started:
+.. _getting-started:
 
 2장. 시작하기
 ******************
@@ -175,7 +175,7 @@ OS 구성
 
 신규 고객의 경우 다음 절차를 통해 라이선스를 발급한다.
 
-* `신청양식 <http://ston.winesoft.co.kr/EULR.doc>`_ 작성
+* `신청양식 <http://www.winesoft.co.kr/lic_req.doc>`_ 작성
 * license@winesoft.co.kr 로 전송
 * 확인절차 후 발급
 
