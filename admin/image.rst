@@ -107,6 +107,139 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 
 
 
+.. _media-dims-annotation:
+
+Annotation ``[Enterprise]``
+====================================
+
+Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
+
+.. figure:: img/dims_annotation.png
+   :align: center
+
+사전에 제작된 텍스트 이미지를 "합성" 하는 것이 아니라, 다양한 펜(폰트, 색상, 위치 등)을 이용해 이미지에 텍스트를 타이핑 한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims Status="Active" Keyword="dims">
+      <Annotation Name="maintext"> ... </Annotation>
+      <Annotation Name="subtext"> ... </Annotation> 
+      <Annotation Name="watermark"> ... </Annotation>
+   </Dims>
+
+각각의 ``<Annotation>`` 은 고유한 ``Name`` 으로 명명된다. 
+여러 ``<Annotation>`` 을 미리 등록하고 다음과 같이 ``*`` 를 구분자로 조합하여 사용한다. ::
+
+   // 메인 텍스트
+   http:// ... /dims/annotation/maintext
+
+   // 메인 텍스트 + 서브 텍스트
+   http:// ... /dims/annotation/maintext*subtext
+
+   // 서브 텍스트 + 워터마크
+   http:// ... /dims/annotation/subtext*watermark
+
+   // 메인 텍스트 + 서브 텍스트 + 워터마크
+   http:// ... /dims/annotation/maintext*subtext*watermark
+
+
+기본 텍스트는 ``<Annotation>`` 의 값이며, 약속된 QueryString 을 통해 텍스트를 입력받을 수 있다. ::
+
+   # server.xml - <Server><VHostDefault><Options><Dims>
+   # vhosts.xml - <Vhosts><Vhost><Options><Dims>
+
+   <Annotation Name="statictext">STON Edge Server</Annotation>
+   <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
+   <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
+
+다음과 같이 텍스트를 전달한다. ::
+
+   // "STON Edge Server" 를 statictext로 삽입
+   http:// .../dims/annotation/statictext
+
+   // msg(="HelloWorld") 를 maintext로 삽입
+   http:// ...?msg=HelloWorld/dims/annotation/maintext
+
+   // msg(="HelloWorld") 를 maintext로, tag(="Event")를 subtext로 삽입
+   http:// ...?msg=HelloWorld&tag=Event/dims/annotation/maintext*subtext
+
+   // tag(="Event")를 subtext로 삽입 (maintext 누락)
+   http:// ...?msg=HelloWorld&tag=Event/dims/annotation/subtext
+
+
+멀티라인을 입력하려면 라인피드(line feed) 문자인 ``\n`` 을 입력한다. ::
+
+   http:// ...?msg=1st\n2nd/dims/annotation/maintext
+
+
+.. note::
+
+   공백 등 표준 URL escape 문자는 브라우저가 적절히 인코딩하지만 한글의 경우 브라우저마다 처리 방식이 달라 깨질 수 있다. 
+   따라서 한글을 입력할 경우 서버에서 한글 인코딩된 결과를 제공해야 한다.  
+
+
+``<Annotation>`` 은 다양한 속성을 지원한다.
+
+================= ======================== ====================================================
+속성              기본 값                   설명
+================= ======================== ====================================================
+Name              (없음)                     ``<Annotation>`` 이름
+Font              none (System Font)        폰트를 지정한다. (ttf, otf, woff 지원)   
+FontSize          10                        텍스트 크기
+FontColor         #000000                   텍스트 색상
+TextAlign         center                    텍스트 정렬 ( ``left`` , ``center`` , ``right`` )
+BackgroundColor   none (투명)                배경 색상
+BackgroundWidth   (텍스트 크기에 맞춤)        배경 폭 
+BackgroundHeight  (텍스트 크기에 맞춤)        배경 높이
+Gravity           c                         텍스트 위치 기준
+Geometry          +0+0                      Gravity로부터 거리
+Dissolve          50                         텍스트 투명도
+================= ======================== ====================================================
+
+- ``FontColor`` 와 ``BackgroundColor`` 는 RGB의 16진수 표현(#FF0000)으로 설정한다. 
+
+- ``BackgroundWidth`` 와 ``BackgroundHeight`` 값이 0이면 텍스트에 맞추어진다. ``Origin`` 을 지정할 경우 대상 이미지의 폭과 넓이를 사용한다.
+
+- ``Gravity`` , ``Geometry`` , ``Dissolve`` 는 <합성>과 동일하다.
+
+
+.. _media-dims-annotation-font:
+
+Font
+---------------------
+
+폰트 라이선스 문제로 인해 아래 폰트들(.ttf)만을 기본 배포한다.
+
+========================================================================== ======================================
+Font                                                                       License
+========================================================================== ======================================
+`EB Garamond <https://fonts.google.com/specimen/EB+Garamond>`_               Open Font License
+`Lato <https://fonts.google.com/specimen/Lato>`_                             Open Font License
+`Montserrat <https://fonts.google.com/specimen/Montserrat>`_                 Open Font License
+`Open Sans <https://fonts.google.com/specimen/Open+Sans>`_                   Open Font License
+`Oswald <https://fonts.google.com/specimen/Oswald>`_                         Open Font License
+`Raleway <https://fonts.google.com/specimen/Raleway>`_                       Open Font License
+`Source Sans Pro <https://fonts.google.com/specimen/Source+Sans+Pro>`_       Open Font License
+`Roboto <https://fonts.google.com/specimen/Roboto>`_                         Apache License, Version 2.0
+`나눔고딕 <https://fonts.google.com/specimen/Nanum+Gothic>`_                  Open Font License
+`나눔명조 <https://fonts.google.com/specimen/Nanum+Myeongjo>`_                Open Font License
+`서울한강 <http://www.seoul.go.kr/v2012/seoul/symbol/font.html>`_            영리/비영리무료
+`서울남산 <http://www.seoul.go.kr/v2012/seoul/symbol/font.html>`_            영리/비영리무료
+========================================================================== ======================================
+
+폰트는 다음 경로에 복사하여 추가가 가능하다. ::
+
+   /usr/local/ston/fonts
+
+설정백업 시 용량 문제로 사용자가 추가한 폰트만을 백업한다.
+
+.. note::
+
+   보안적인 이유로 Web Management를 통한 업로드는 지원하지 않는다.
+
+
+
 잘라내기
 ====================================
 
@@ -196,7 +329,7 @@ Format 변경
 ================ ===================== =================
 반전               invert                true 또는 false
 그레이 스케일        grayscale            true 또는 false
-대칭이동            flipflop             vertical
+대칭이동            flipflop             vertical 또는 horizontal
 밝기조절            bright                0 ~ 100
 회전               rotate                0 ~ 360 (도)
 세피아              sepia                 0 ~ 1

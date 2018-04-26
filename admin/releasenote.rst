@@ -1,10 +1,19 @@
 .. _release:
 
-Appendix D: 릴리스 노트
+Appendix D: 릴리스 노트  ``[CDN]``
 ***********************
 
 v2.5.x
 ====================================
+
+
+2.5.14 (2018.4.26)
+----------------------------
+
+-  클라이언트 요청 :ref:`handling_http_requests_header_if_range` 헤더 지원 
+-  원본 요청 시 :ref:`origin_header_if_range` 헤더 지원
+-  :ref:`handling_http_requests_header_lastmodifiedcheck` 설정기능 추가
+
 
 2.5.13 (2018.3.27)
 ----------------------------

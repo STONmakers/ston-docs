@@ -550,6 +550,31 @@ ETag 헤더 인식
 
 
 
+.. _origin_header_if_range:
+
+If-Range 헤더
+---------------------
+
+원본에 Range요청을 보낼 때 If-Range헤더를 추가하여 요청한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <IfRange>OFF</IfRange>
+
+-  ``<IfRange>``
+
+   -  ``OFF (기본)`` Range요청 시 If-Range헤더를 추가하지 않는다.
+
+   -  ``ON`` Range요청 시 If-Range헤더를 추가한다.
+
+If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``200 OK`` 응답을 주는 경우 다음과 같이 전개된다.
+
+-  클라이언트가 요청한 파일은 무효화 처리
+-  해당 클라이언트 요청은 실패
+-  동일한 파일이 요청될 때 신규 캐싱 서비스
+
+
 .. _origin_url_rewrite:
 
 원본요청 URL변경
