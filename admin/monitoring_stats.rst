@@ -1285,8 +1285,8 @@ View 통계
 -  ``TTL-Left`` (만료시간, 만료시간-현재시간) 컨텐츠 만료 예정시간. TTL이 남았다면 양수로, 만료됐다면 음수로 표기된다.
 -  ``ResponseCode`` 원본서버 응답코드
 -  ``ContentType`` MIME Type
--  ``LastModifiedTime`` (Last Modified Time, Last Modified Time`` 현재시간) 원본서버가 보낸 Last Modified Time. 원본서버가 이 값을 보내지 않았다면 0으로 표시된다.
--  ``ExpireTime`` (Expire Time, Expire Time`` 현재시간) 원본서버가 보낸 Expire Time. 원본서버가 이 값을 보내지 않았다면 0으로 표시된다.
+-  ``LastModifiedTime`` 원본서버가 보낸 Last Modified Time. 원본서버가 이 값을 보내지 않았다면 0으로 표시된다.
+-  ``ExpireTime`` 원본서버가 보낸 Expire Time. 원본서버가 이 값을 보내지 않았다면 0으로 표시된다.
 -  ``CacheControl`` ("no-cache" or "not-specified" or (정수)) 원본서버가 보낸 Cache-Contorl 값
 -  ``ETag`` STON이 생성한 ETag
 -  ``CustomTTL`` 커스텀 TTL. 설정되어 있지 않다면 0이다.
@@ -1312,7 +1312,7 @@ Log Trace
 ====================================
 
 기록되는 로그를 실시간으로 받아본다.
-Access, Origin, Monitoing로그는 가상호스트(vhost)를 지정해야 한다. ::
+Access, Origin, Monitoring로그는 가상호스트(vhost)를 지정해야 한다. ::
 
     http://127.0.0.1:10040/monitoring/logtrace/info
     http://127.0.0.1:10040/monitoring/logtrace/deny

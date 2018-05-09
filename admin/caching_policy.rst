@@ -369,7 +369,7 @@ Accept-Encoding 헤더
 
 -  ``<CaseSensitive>``
 
-   -  ``ON (기본)`` URL 대소문자를 구문한다.
+   -  ``ON (기본)`` URL 대소문자를 구분한다.
 
    -  ``OFF`` URL 대소문자를 구분하지 않는다. 모두 소문자로 처리된다.
 
