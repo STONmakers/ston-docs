@@ -6,6 +6,16 @@ Appendix E: 릴리스 노트  ``[Enterprise]``
 v18.x
 ====================================
 
+18.05.0 (2018.5.15)
+----------------------------
+
+-  클라이언트 요청 :ref:`handling_http_requests_header_if_range` 헤더 지원 
+-  원본 요청 시 :ref:`origin_header_if_range` 헤더 지원
+-  :ref:`handling_http_requests_header_lastmodifiedcheck` 설정기능 추가
+-  :ref:`bypass-put` 기능 추가
+
+
+
 18.04.0 (2018.4.26)
 ----------------------------
 

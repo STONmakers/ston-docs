@@ -101,17 +101,38 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 
 
 
+.. _bypass-put:
+
+PUT 바이패스
+====================================
+
+PUT요청의 기본동작을 설정할 수 있다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <BypassPutRequest>OFF</BypassPutRequest>
+
+-  ``<BypassPutRequest>``
+
+   - ``OFF (기본)`` 501 Not Implemented 로 응답한다.
+
+   - ``ON`` 원본 서버로 바이패스 한다.
+
+
+
 원본서버 고정
 ====================================
 
 로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
-`GET/POST 바이패스`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
+`GET/POST 바이패스`_ , `PUT 바이패스`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
    <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
    <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
+   <BypassPutRequest OriginAffinity="ON">...</BypassPutRequest>
 
 -  ``OriginAffinity``
 
@@ -147,13 +168,14 @@ cache나 bypass조건을 명확하게 명시하지 않은 경우 기본설정과
 
    클라이언트가 원본세션을 소유한다.
 
-`GET/POST 바이패스`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
+`GET/POST 바이패스`_ ,  , `PUT 바이패스`_ 의 속성으로 원본세션을 고정시킬 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
    <BypassPostRequest Private="OFF">...</BypassPostRequest>
    <BypassGetRequest Private="OFF">...</BypassGetRequest>
+   <BypassPutRequest Private="OFF">...</BypassPutRequest>
 
 -  ``Private``
 
