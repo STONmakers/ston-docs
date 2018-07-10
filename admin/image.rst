@@ -56,6 +56,9 @@ DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 
    :maxdepth: 2
 
 
+
+.. _media-dims-optimize:
+
 최적화
 ====================================
 
@@ -302,10 +305,16 @@ Format 변경
 ====================================
 
 이미지 포맷을 변경한다.
-지원되는 포맷은 "png", "jpg", "gif" 이다.
+지원되는 포맷은 ``png`` , ``jpg`` , ``gif`` , ``webp`` 이다.
 다음은 JPG를 PNG로 변환하는 예제다. ::
 
    http://image.example.com/img.jpg/dims/format/png/
+
+
+.. note::
+
+   ``[Enterprise]`` v18.06.0 부터 WebP를 지원한다.
+
 
 
 품질 변경
@@ -387,6 +396,7 @@ Format 변경
     http://image.example.com/img.jpg/dims/composite/water1/
 
 
+.. _media-dims-byoriginal:
 
 원본이미지 조건판단
 ====================================

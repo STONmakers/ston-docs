@@ -306,6 +306,8 @@ ETag 헤더
       단, 메모리와 저장비용을 좀 더 소비한다.
 
 
+.. _handling_http_requests_basic_via:
+
 Via 헤더
 ---------------------
 
