@@ -214,7 +214,7 @@ STON이 설치된 서버에서 외부접속이 되지 않을 경우 다음과 �
 
 2. 다운로드 받은 파일을 PC에서 서버로 복사한다. 파일명 형식은 다음과 같다.
 
-   * RHEL/CentOS/openSUSE - ston. ``version`` .rhel.2.6.32.x64.tar.gz
+   * RHEL/CentOS - ston. ``version`` .rhel.2.6.32.x64.tar.gz
    * Ubuntu - ston. ``version`` .ubuntu.2.6.32.x64.tar.gz
 
 
