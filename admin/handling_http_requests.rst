@@ -501,6 +501,16 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 {Match}와 일치하더라도 {Condition}과 일치하지 않는다면 변경이 반영되지 않는다.
 {Condition}이 생략된 경우 응답코드를 검사하지 않는다.
 
+클라이언트가 보낸 헤더의 값은 $REQ. ``header-name`` 로 참조한다. 
+이를 이용해 클라이언트가 보낸 헤더 값을 응답 헤더에 명시할 수 있다. ::
+
+   # 응답변경 - 클라이언트 헤더 참조
+   # 클라이언트가 보낸 요청의 Origin헤더 값을 응답의 Access-Allow-Control-Origin 헤더 값으로 설정한다.
+   $URL[*.html], $RES[Access-Allow-Control-Origin: $REQ.Origin], Set
+
+   # 클라이언트가 보낸 요청의 여러 헤더 값을 응답의 X-Cookie 헤더 값으로 설정한다.
+   $URL[*.json], $RES[X-Cookie: $REQ.[User-Agent, Host]], Set
+
 
 .. note::
 
