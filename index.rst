@@ -9,7 +9,7 @@ STON Edge Server 완벽 가이드
 
 
 :저자: STON 개발팀
-:최신버전: ``[CDN]`` v2.5.18 / ``[Enterprise]`` v18.08.0
+:최신버전: ``[CDN]`` v2.6.0 / ``[Enterprise]`` v18.09.0
 
 
 1부. STON 기본: 설정 배우기

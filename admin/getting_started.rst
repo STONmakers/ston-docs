@@ -404,10 +404,10 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 ============================================
 
 가상호스트는 원본서버를 대신해 콘텐츠를 서비스하는 것이 목적이다.
-서비스 형태에 맞게 다양한 원본서버는 다양하게 접근이 가능하다. ::
+서비스 형태에 맞추어 다양한 원본서버 구성이 가능하다. ::
 
     <Vhosts>
-        <Vhost Name="www.example.com">
+        <Vhost Name="www.example.com" Protocol="HTTP">
             <Origin>
                 <Address>1.1.1.1</Address>
                 <Address>1.1.1.2</Address>
@@ -415,6 +415,8 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
         </Vhost>
     </Vhosts>
 
+-  ``Protocol (기본: HTTP)`` 원본서버와 통신할 프로토콜( ``HTTP`` 또는 ``HTTPS`` ).
+   
 -  ``<Address>``
    가상호스트가 콘텐츠를 복제 할 원본서버 주소.
    개수제한은 없다.
@@ -458,6 +460,7 @@ example.com:8080/account/dir   example.com:8080
 
    원본서버에 example.com/account/dir처럼 경로가 붙어있다면 요청된 URL은 원본서버 주소 경로 뒤에 붙는다.
    클라이언트가 /img.jpg를 요청하면 최종 주소는 example.com/account/dir/img.jpg가 된다.
+
 
 
 .. _env-vhost-standbyorigin:

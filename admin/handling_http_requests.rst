@@ -197,6 +197,9 @@ Age헤더는 캐싱된 순간부터 경과시간(초)을 의미하며
    -  ``ON`` Age헤더를 명시한다.
 
 
+
+.. _handling_http_requests_cache_control_expires:
+
 Expires 헤더
 ---------------------
 
@@ -264,6 +267,19 @@ Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
 
    Modification의 경우 계산된 Expires값이 현재시간보다 과거의 시간일 경우 현재시간을 명시한다.
    만약 원본서버에서 Last-Modified헤더를 제공하지 않는다면 Expires헤더를 보내지 않는다.
+
+
+.. note::
+
+   ``#ORG_MAXAGE`` 키워드를 통해 원본서버가 응답한 Max-Age 값을 Expire 시간으로 사용할 수 있다. ::
+
+      /stat.jpg, #ORG_MAXAGE
+      /pds/*.dat, #ORG_MAXAGE, modification
+      $MIME[application/shockwave], #ORG_MAXAGE
+      $MIME[application/octet-stream], #ORG_MAXAGE, modification
+      $MIME[image/gif], #ORG_MAXAGE, modification
+
+   원본서버가 보낸 Max-Age가 없거나, 값이 0인 경우 Expire헤더를 붙이지 않는다.
 
 
 ETag 헤더

@@ -6,6 +6,17 @@ Appendix E: 릴리스 노트  ``[Enterprise]``
 v18.x
 ====================================
 
+18.9.0 (2018.9.3)
+----------------------------
+
+- :ref:`env-vhost-activeorigin` HTTPS 통신 지원
+
+**기능개선/정책변경**
+
+- HTTPS - 성능개선 및 ECDSA 인증서 지원
+- :ref:`handling_http_requests_cache_control_expires` – 원본 Max-Age 값을 사용하는 기능 추가
+
+
 18.08.0 (2018.8.8)
 ----------------------------
 
