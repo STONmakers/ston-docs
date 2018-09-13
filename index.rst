@@ -74,4 +74,4 @@ STON Edge Server 완벽 가이드
    admin/cacti
    admin/dynpage_exception.rst
    admin/releasenote.rst
-   admin/releasenote_enterpise.rst
+   admin/releasenote_enterprise.rst
