@@ -3,12 +3,14 @@
 17장. 이미지/DIMS
 ******************
 
+이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 DIMS(딤스)에 대해 다룬다.
+DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공하는 기능이다.
+
+
 .. note::
 
    - `[동영상 강좌] 해보자! STON Edge Server - Chapter 4. 실시간 이미지 가공 <https://youtu.be/Pdfe-HbtXVs?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
 
-이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 DIMS(딤스)에 대해 다룬다.
-DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공하는 기능이다.
 
 .. figure:: img/dims.png
    :align: center

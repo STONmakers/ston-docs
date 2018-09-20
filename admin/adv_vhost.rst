@@ -1,9 +1,15 @@
-﻿.. _adv-vhost:
+.. _adv-vhost:
 
 14장. 가상호스트 고급기법
 ******************
 
 이 장에서는 가상호스트를 활용하여 서비스를 유연하게 구성하는 여러 기법에 대해 설명한다.
+
+
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 7. 가상호스트 고급기법 <https://www.youtube.com/watch?v=HFFVcBw0F7c&list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE&index=7>`_
+
 
 가상호스트는 보통 원본(Domain 또는 IP목록)과 1:1로 구성되는 것이 기본이다.
 하지만 상황에 따라 대표 가상호스트를 여러 하위 가상호스트로 분기하거나,

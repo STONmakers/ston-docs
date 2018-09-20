@@ -1,16 +1,17 @@
-﻿.. _handling_http_requests:
+.. _handling_http_requests:
 
 6장. HTTP 요청/응답
 ******************
-
-.. note::
-
-   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 6. 압축 <https://youtu.be/GZ_NaK2yqk0?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
 
 이 장에서는 HTTP 클라이언트 세션과 요청을 처리하는 방식에 대해 설명한다.
 서비스의 핵심기능으로 보기엔 어려운 내용들이 많으니 머리아파하지 않아도 된다.
 일부 HTTP에 대한 이해가 없다면 어려울 수 있는 부분이 있는데 이럴 때는 기본설정을 사용하길 바란다.
 전체적으로 기본 설정을 그대로 사용해도 서비스에는 전혀 지장이 없는 내용들이다.
+
+
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 6. 압축 <https://youtu.be/GZ_NaK2yqk0?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
 
 
 .. toctree::

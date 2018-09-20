@@ -1,4 +1,4 @@
-﻿.. _caching-policy:
+.. _caching-policy:
 
 4장. Caching 정책
 ******************
@@ -8,6 +8,12 @@
 HTTP 규격은 TTL을 설정할 수 있도록 Cache-Control을 명시하고 있다.
 하지만 이는 절대적인 것은 아니다.
 다양한 방식의 TTL 정책과 :ref:`caching-purge` 를 통해 서비스 품질을 높일 수 있다.
+
+
+.. note::
+
+   - `[Q&A] STON Edge Server는 어떤 콘텐츠를 캐싱할 수 있나요? <https://www.youtube.com/watch?v=0Y5LUM9O7KY&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w-&index=9>`_
+
 
 HTTP에는 콘텐츠를 구분하는 다양한 규격이 존재한다.
 그만큼 Caching-Key도 다양하게 존재할 수 있다.

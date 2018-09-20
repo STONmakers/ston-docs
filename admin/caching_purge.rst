@@ -1,10 +1,16 @@
-﻿.. _caching-purge:
+.. _caching-purge:
 
 5장. Caching 무효화
 ******************
 
 이 장에서는 Caching된 콘텐츠를 무효화하는 방법에 대해 설명한다.
 업계용어로 Purge로 통칭하지만 다양한 상황과 환경으로 인해 세분화된 API가 필요하다.
+
+
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 8. 컨텐츠 제어 <https://www.youtube.com/watch?v=bo-AItkIk-w&index=8&list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+
 
 원본으로부터 캐싱된 콘텐츠는 :ref:`caching-policy-ttl` 에 기반한 갱신주기를 가진다.
 하지만 명백히 콘텐츠가 변경되었고 관리자가 이를 즉시 반영하고 싶을 경우 :ref:`caching-policy-ttl` 이 만료될 때까지 기다릴 필요는 없다.

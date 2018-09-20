@@ -1,10 +1,16 @@
-﻿.. _bypass:
+.. _bypass:
 
 8장. 바이패스
 ******************
 
 이 장에서는 클라이언트 요청처리를 원본서버에게 위임하는 바이패스에 대해 설명한다.
 바이패스는 조건과 동작으로 구분된다.
+
+
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 9. 바이패스 <https://www.youtube.com/watch?v=kuM02O46eqQ&list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE&index=9>`_
+   - `[Q&A] 실시간으로 변경되는 정보는 캐싱을 적용할 수 없지 않나요? <https://www.youtube.com/watch?v=W7N2sbvoODY&index=7&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
 
 바이패스는 Caching정책보다 우선한다.
 설계단계에서 Edge도입이 고려되지 않은 서비스라면 정적리소스와 동적리소스를 정교하게 구분해낼 수 없는 경우가 많다.

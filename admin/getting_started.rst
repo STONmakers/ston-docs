@@ -3,12 +3,14 @@
 2장. 시작하기
 ******************
 
-.. note::
-
-   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 1. 설치와 실행 <https://youtu.be/sMfp728pMtM?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
-
 이 장에서는 시스템 구성으로부터 설치 그리고 예제 가상호스트까지 구성해본다.
 텍스트 편집기만 있으면 누구나 할 수 있다.
+
+
+.. note::
+
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 1. 설치와 실행 <https://youtu.be/sMfp728pMtM?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_   - `[Q&A] STON Edge Server의 2Tier 구성 동작방식이 궁금합니다. <https://www.youtube.com/watch?v=Cpa7OJa9Cgk&index=5&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+
 
 STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 개발 단계부터 HW뿐만 아니라 OS, 파일시스템 등 종속성을 가질 수 있는 요소는 최대한 배제하였다.

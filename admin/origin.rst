@@ -8,6 +8,16 @@
 관리자라면 원본을 보호하기 위해 이번 장의 모든 내용을 숙지할 필요가 있다.
 이를 바탕으로 원본장애에도 내구성을 갖춘 유연한 서비스를 구축할 수 있다.
 
+
+.. note::
+
+   - `[Q&A] STON Edge Server에서 말하는 ‘원본서버’는 무엇을 의미하나요? <https://www.youtube.com/watch?v=S2pxrv9gUy8&index=8&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+   - `[Q&A] STON Edge Server를 설치한 후에 내 웹서버(원본서버)와는 어떻게 연결하나요? <https://www.youtube.com/watch?v=RJcYwqAqOrY&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+   - `[Q&A] 원본서버에 장애가 발생하면 STON Edge Server는 어떻게 대처하나요? <https://www.youtube.com/watch?v=TfhdKB_ncTc&index=2&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+   - `[Q&A] 배제된 원본서버는 어떻게 서비스에 재투입되나요? <https://www.youtube.com/watch?v=iDekbXavdxQ&index=4&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+   - `[Q&A] STON Edge Server의 원본 부하분산은 어떻게 동작하나요? <https://www.youtube.com/watch?v=RqzH92YC9us&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w-&index=3>`_
+
+
 원본서버는 보호되어야 한다.
 장애의 종류가 다양한 만큼 대처방안도 다양하다.
 원본보호 정책을 적절히 구성하면 여유로운 점검시간을 가질 수 있다.
