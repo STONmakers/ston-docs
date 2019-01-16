@@ -1,10 +1,10 @@
 .. _media-dims:
 
-17장. 이미지/DIMS
+17장. 이미지 툴
 ******************
 
-이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 DIMS(딤스)에 대해 다룬다.
-DIMS(Dynamic Image Management System)는 원본이미지를 다양한 형태로 가공하는 기능이다.
+이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 이미지 툴(Tool)에 대해 다룬다.
+이미지 툴은 DIMS(Dynamic Image Management System)를 포함하여 원본이미지를 다양한 형태로 가공하는 기능이다.
 
 
 .. note::
