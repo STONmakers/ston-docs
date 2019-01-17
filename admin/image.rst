@@ -34,23 +34,18 @@
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" MaxSourceSize="10" OnFailure="message" />
+   <Dims Status="Active" Keyword="dims" MaxSourceSize="10" />
 
 -  ``<Dims>``
 
    - ``Status`` DIMS활성화 ( ``Active`` 또는 ``Inactive`` )
    - ``Keyword`` 원본과 DIMS를 구분하는 키워드
    - ``MaxSourceSize (기본: 10MB)`` 변환을 허용할 최대 원본 이미지 크기 (단위: MB)
-   - ``OnFailure`` 이미지 변환실패 시 동작방식
+ 
 
-     - ``message (기본)`` 500 Internal Error로 응답한다. 본문에는 구체적인 실패 이유를 명시한다.
+.. note::
 
-       - ``The original file was not successfully downloaded.`` 원본이미지를 완전하게 다운로드 하지 못했다.
-       - ``The original file size is too large.`` 원본이미지 크기가 ``MaxSourceSize`` 를 넘어 변환하지 못했다.
-       - ``The original file loading failed.`` 원본 이미지 데이터를 불러오지 못했다.
-       - ``Image converting failed or invalid DIMS command.`` 잘못된 명령어 또는 지원되지 않는 이미지등으로 인해 변환하지 못했다.
-
-     - ``redirect`` 원본 이미지 주소로 302 Redirect한다.
+   변환 과정 중 오류가 발생할 경우 원본 이미지를 전송한다.
 
 
 
