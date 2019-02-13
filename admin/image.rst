@@ -4,7 +4,8 @@
 ******************
 
 이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 이미지 툴(Tool)에 대해 다룬다.
-이미지 툴은 DIMS(Dynamic Image Management System)를 포함하여 원본이미지를 다양한 형태로 가공하는 기능이다.
+이미지 툴은 DIMS(Dynamic Image Management System)를 포함하여 원본이미지를 다양한 형태로 가공하는 기능이다. 
+이미지 가공에 대한 기록은 :ref:`admin-log-image` 에 기록된다.
 
 
 .. note::
@@ -302,7 +303,13 @@ Format 변경
 ====================================
 
 이미지 포맷을 변경한다.
-지원되는 포맷은 ``png`` , ``jpg`` , ``gif`` , ``webp`` 이다.
+``png`` , ``jpg`` , ``gif`` 를 지원한다.
+
+.. note::
+
+   ``Enterprise`` v18.06.0 부터 WebP를 지원한다.
+
+
 다음은 JPG를 PNG로 변환하는 예제다. ::
 
    http://image.example.com/img.jpg/dims/format/png/
@@ -310,7 +317,17 @@ Format 변경
 
 .. note::
 
-   ``[Enterprise]`` v18.06.0 부터 WebP를 지원한다.
+   ``Enterprise`` 변경된 Format의 기본 Quality를 설정할 수 있다. ::
+
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+
+      <Dims>
+         <FormatQuality>100</FormatQuality>
+      </Dims>
+
+   
+   -  ``FormatQuality (기본: 100)`` 변경된 Format의 기본 Quality (1~100).
 
 
 
@@ -323,6 +340,22 @@ Format 변경
 다음은 이미지 품질을 25%로 조절하는 예제다. ::
 
    http://image.example.com/img.jpg/dims/quality/25/
+
+
+.. note::
+
+   ``Enterprise`` 최대 Quality를 설정할 수 있다. ::
+
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+
+      <Dims>
+         <MaxQuality>100</MaxQuality>
+      </Dims>
+
+   
+   -  ``MaxQuality (기본: 100)`` 최대 이미지 품질(1~100).
+
 
 
 이펙트
