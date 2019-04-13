@@ -517,6 +517,56 @@ Emergency모드일 때 STON은 다음과 같이 동작한다.
 재투입된 디스크의 모든 콘텐츠는 무효화된다.
 
 
+.. _adv_topics_storage_cleanupsize:
+
+디스크 정리용량 설정
+====================================
+
+디스크 공간이 부족할 때 캐싱용량의 약 20%(+- 20GB)를 삭제한다. 
+이는 디스크 크기와 서비스 유형에 따라 너무 많을수도 또는 적을수도 있다. 
+디스크별로 정리용량을 적절히 설정해 효율을 높일 수 있다. ::
+
+   # server.xml - <Server><Cache>
+
+   <Storage CleanupSize=”100”>
+      <Disk CleanupSize=”50”>/usr/cache1</Disk>
+      <Disk>/usr/cache2</Disk>
+   </Storage>
+
+``<Storage>`` 와 ``<Disk>`` 태그의 ``CleanupSize (기본: 0, 단위: GB)`` 속성으로 설정한다. 
+위 예제는 다음과 같이 동작한다.
+
+-  /usr/cache1 디스크는 공간한계에 다다르면 50GB를 정리하여 공간을 확보한다.
+-  /usr/cache2 디스크는 공간한계에 다다르면 ``<Storage>`` 의 ``CleanupSize`` 속성인 100GB를 정리하여 공간을 확보한다.
+
+
+.. _adv_topics_perf_cleanupfilecount:
+
+캐싱객체 삭제개수 설정
+====================================
+
+캐싱객체가 최대 개수에 다다르면 가장 접근빈도가 낮은 10%의 객체를 삭제한다. 
+이런 정책은 범용성을 가지지만, 간혹 고용량 메모리 환경에서 불합리할 수도 있다.
+예를 들어 3,000만개의 캐싱객체 중 10%만 해도 300만 개라는 매우 큰 숫자가 나온다. 
+서비스에 따라 TTL이 많이 남은 300만개를 한번에 정리하는 것은 백엔드에 부담을 줄 수 있다. 
+
+이런 경우 한번에 정리할 캐싱객체의 절대개수를 설정하여 최적화가 가능하다. ::
+
+   # server.xml - <Server><Cache>
+
+   <Performance>
+      <CleanupFileCount>0</CleanupFileCount>
+   </Performance>
+
+
+-  ``CleanupFileCount (기본: 0)`` 한계시점에서 삭제할 캐싱객체의 절대개수. 0인 경우 전체의 10%를 삭제한다.
+
+.. note::
+
+   최소 10만개 이상을 권장한다.
+
+
+
 .. _adv_topics_syncstale:
 
 SyncStale
