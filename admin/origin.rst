@@ -651,6 +651,10 @@ If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``2
 
    # #PROTOCOL 키워드를 통해 클라이언트가 요청한 프로토콜을 헤더에 추가한다.
    $URL[*], $ORGREQ[X-Forwarded-Proto: #PROTOCOL], set
+   
+   # $REQ.header-name을 이용해 클라이언트 요청을 원본으로 보낼 수 있다.
+   $URL[/account/], $ORGREQ[cookie: $REQ.Cookie], set
+
 
 
 .. note::
