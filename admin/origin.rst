@@ -57,6 +57,11 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
    원본서버에서 연속적으로 n번 장애상황( ``<ConnectTimeout>`` 또는 ``<ReceiveTimeout>`` )이 발생하면 해당 서버를 유효 원본서버 목록에서 배제한다.
    배제 전 정상적인 통신이 이루어진다면 이 값은 다시 0으로 초기화된다.
 
+   .. note::
+
+      ``CDN v2.6.13`` , ``Enterprise v19.07.0`` 부터는 ``<Exclusion>`` 설정이 0이라면 원본서버를 배제하지 않는다.
+
+
 -  ``<Recovery> (기본: 5회)``
 
    ``Cycle`` 마다 ``Uri`` 로 요청하여 원본서버가 ``ResCode`` 로 연속적으로 n회 응답하면 해당 서버를 복구한다.
@@ -651,10 +656,9 @@ If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``2
 
    # #PROTOCOL 키워드를 통해 클라이언트가 요청한 프로토콜을 헤더에 추가한다.
    $URL[*], $ORGREQ[X-Forwarded-Proto: #PROTOCOL], set
-   
+
    # $REQ.header-name을 이용해 클라이언트 요청을 원본으로 보낼 수 있다.
    $URL[/account/], $ORGREQ[cookie: $REQ.Cookie], set
-
 
 
 .. note::

@@ -6,6 +6,24 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v19.x
 ====================================
 
+19.07.0 (2019.7.4)
+----------------------------
+
+**기능개선/정책변경**
+
+ - :ref:`adv_topics_rrd_inactive` - 기능 추가
+ - :ref:`caching-policy-customttl` – 원본 응답 조건 추가
+ - :ref:`origin_exclusion_and_recovery` - 원본 서버를 배제 하지 않는 기능 추가
+ - ImageTool(DIMS) - :ref:`media-dims-autorotate` 기능 추가
+
+
+**버그수정**
+
+ -  WM – 시스템 설정 중 디스크 설정이 초기화 될 수 있는 문제 수정
+ -  Hardware Info API를 호출 할 경우 CPU 사용량이 증가하는 문제 수정
+
+
+
 19.06.0 (2019.6.4)
 ----------------------------
 

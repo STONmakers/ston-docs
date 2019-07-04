@@ -426,6 +426,31 @@ Format 변경
     http://image.example.com/img.jpg/dims/composite/water1/
 
 
+.. _media-dims-autorotate:
+
+자동회전 ``[Enterprise]``
+====================================
+
+이미지가 회전된 상태라면 원래의 방향으로 바로 잡는다.
+
+.. figure:: img/dims_autorotate.png
+   :align: center
+
+다음과 같이 사용한다. ::
+
+   http://image.example.com/img.jpg/dims/autorotate/on
+
+
+.. note::
+
+   이 기능은 원본 이미지 메타를 분석하여 동작한다. 
+   따라서 다른 기능들과 함께 사용될 때는 가장 먼저 적용되도록 구성해야 올바른 결과를 얻을 수 있다. ::
+
+       http://image.example.com/img.jpg/dims/autorotate/on/resize/200x200/...
+
+
+
+
 .. _media-dims-byoriginal:
 
 원본이미지 조건판단
