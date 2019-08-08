@@ -572,8 +572,8 @@ If-Range 헤더
 
 원본에 Range요청을 보낼 때 If-Range헤더를 추가하여 요청한다. ::
 
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
 
    <IfRange>OFF</IfRange>
 
