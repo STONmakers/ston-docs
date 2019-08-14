@@ -17,13 +17,13 @@
 고객이 통계를 보다 쉽게 분석, 가공할 수 있도록 JSON과 XML 포맷으로 제공한다. ::
 
     http://127.0.0.1:10040/monitoring/realtime?type=[JSON 또는 XML]
-    http://127.0.0.1:10040/monitoring/average?type=[JSON 또는 XML]
+    http://127.0.0.1:10040/monitoring/average?type=[JSON 또는 XML]&min[1 또는 5]
 
 -  ``realtime``
    1초 전 서비스 상태를 제공한다.
 
 -  ``average``
-   5분 단위 통계를 제공한다.
+   5분(기본) 단위 통계를 제공한다. ``min`` 값이 1일 경우 1분 통계를 제공한다.
 
 
 .. toctree::

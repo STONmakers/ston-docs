@@ -6,6 +6,22 @@ Appendix E: 릴리스 노트  ``[CDN]``
 v2.6.x
 ====================================
 
+2.6.14 (2019.8.14)
+----------------------------
+
+**기능개선/정책변경**
+
+ - ImageTool(DIMS) - :ref:`media-dims-autorotate` 기능 추가
+ - HTTPS - ECDSA Key 파일 호환성 강화
+ - 1분 평균 통계 API 지원
+
+**버그수정**
+
+ -  WM - GeoIP 데이터베이스 파일이 업로드 되지 않는 문제
+ -  WM - CustomTTL을 편집 할 수 없는 문제
+ -  HTTPS - DSA 인증서에서 RSA인증서로 교체 할 경우 비정상 종료 되는 문제
+
+
 2.6.13 (2019.7.4)
 ----------------------------
 
@@ -13,7 +29,7 @@ v2.6.x
 
  - :ref:`adv_topics_rrd_inactive` - 기능 추가
  - :ref:`caching-policy-customttl` – 원본 응답 조건 추가
- - :ref:`origin_exclusion_and_recovery` - 원본 서버를 배제 하지 않는 기능 추가
+ - :ref:`origin_exclusion_and_recovery` - 원본 서버를 배제 하지 않는 기능 추가 
 
 **버그수정**
 
