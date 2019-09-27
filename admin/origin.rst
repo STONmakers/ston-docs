@@ -664,3 +664,30 @@ If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``2
 .. note::
 
    If-Modified-Since 헤더와 If-None-Match 헤더를 ``unset`` 하면 TTL이 만료된 컨텐츠는 항상 다시 다운로드 한다.
+
+
+
+.. _origin_aws_s3_authentication:
+
+AWS S3 인증
+====================================
+
+AWS S3 인증스펙인 `Authenticating Requests (AWS Signature Version 4) <https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/API/sig-v4-authenticating-requests.html>`_ 를 지원한다. ::
+
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <Authorization Type="AWS-S3" Status="Inactive">
+       <AccessKeyID>KeyID</AccessKeyID>
+       <SecretAccessKey>seceret-key</SecretAccessKey>
+       <Region>seoul</Region>
+   </Authorization>
+
+``<Authorization>`` 의 ``Status`` 속성이 ``Active`` 인 경우에 동작한다. 
+`Authenticating Requests (AWS Signature Version 4) <https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/API/sig-v4-authenticating-requests.html>`_ 동작에 필요한 세부 설정 ``<AccessKeyID>`` , ``<SecretAccessKey>`` , ``<Region>`` 을 구성한다.
+만약 모든 가상호스트의 원본서버가 AWS S3에 존재한다면 기본 가상호스트 ``<VHostDefault>`` 로도 설정이 가능하다.
+
+
+.. note::
+
+   읽기 권한인 GET 메소드만을 지원한다. 쓰기(POST, PUT, FETCH)는 캐시서버의 목적에 부합하지 않는다.
