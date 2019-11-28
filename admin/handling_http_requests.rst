@@ -531,9 +531,15 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 
 .. note::
 
-   ``#PROTOCOL`` 키워드를 통해 클라이언트가 요청한 프로토콜(http 또는 https)을 클라이언트 헤더에 추가할 수 있다. ::
+   ``#PROTOCOL`` 키워드를 통해 클라이언트가 요청한 프로토콜(http 또는 https)을 헤더에 추가할 수 있다. ::
 
       $URL[*], $REQ[X-Forwarded-Proto: #PROTOCOL], set
+
+
+   ``#PORT`` 키워드를 통해 클라이언트가 접속한 포트(80, 443 등)를 헤더에 추가할 수 있다. ::
+
+      $URL[*], $REQ[X-Forwarded-Port: #PORT], set
+      $URL[*], $ORGREQ[X-Client-Forwarded-Port: #PORT], set
 
 
    ``#CACHEHIT`` 키워드를 통해 :ref:`adv_topics_req_hit_ratio` 의 상세코드를 응답헤더에 추가할 수 있다. ::
