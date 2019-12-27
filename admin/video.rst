@@ -207,7 +207,7 @@ MP3파일을 HLS(HTTP Live Streaming)로 서비스한다. ::
    # server.xml - <Server><VHostDefault><Media>
    # vhosts.xml - <Vhosts><Vhost><Media>
 
-   <MP3HLS Status="Inactive" Keyword="mp3hls" SegmentType="TS">
+   <MP3HLS Status="Inactive" Keyword="mp3hls" SegmentType="TS" InsertPCR="OFF">
       <Index Ver="3" Alternates="off">index.m3u8</Index>
       <Sequence>0</Sequence>
       <Duration>10</Duration>
@@ -219,11 +219,12 @@ MP3파일을 HLS(HTTP Live Streaming)로 서비스한다. ::
 -  ``<MP3HLS>``
 
    - ``SegmentType (기본: TS)`` 원본 MP3를 MPEG2-TS( ``TS`` ) 또는 ``MP3`` 로 분할한다.
+   - ``InsertPCR (기본: OFF)`` 설정이 ``ON`` 이라면 MPEG2-TS( ``TS`` )에 PCR 필드를 추가한다.
 
 .. note::
 
-   `MP4 HLS`_ 와 `MP3 HLS`_ 가 같은 ``Keyword`` 로 설정되어 있을 경우 `MP3 HLS`_ 는 동작하지 않는다.
-
+   - `MP4 HLS`_ 와 `MP3 HLS`_ 가 같은 ``Keyword`` 로 설정되어 있을 경우 `MP3 HLS`_ 는 동작하지 않는다.
+   - 서비스 중 ``InsertPCR`` 속성을 변경하면 플레이어 호환성을 담보할 수 없다.
 
 
 

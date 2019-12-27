@@ -734,3 +734,32 @@ On-the-fly로 콘텐츠를 암호화하여 전송한다.
    따라서 인증서가 다르면 암/복호화 결과가 다르다.
 
 
+.. _handling_http_requests_http2:
+
+HTTP/2
+====================================
+
+전역설정으로 HTTP/2를 활성화할 수 있다. ::
+
+   $ server.xml - <Server><Cache>
+
+   <Http2 Status="active">
+      <MaxConcurrentStream>10</MaxConcurrentStream>
+      <ClientKeepAlive>10</ClientKeepAlive>
+   </Http2>
+
+-  ``MaxConcurrentStream`` 단일 HTTP2 세션으로 진행가능한 HTTP Stream의 최대 개수
+-  ``ClientKeepAlive`` HTTP 세션의 Keep-Alive 시간
+
+
+HTTP/2는 동적 리로딩이 지원되지 않는다. 설정 변경 후 반드시 재가동 해주어야 한다.
+
+
+.. note::
+
+   HTTP/2가 활성화되면 통계 수집시점이 Payload가 송/수신 되는 어플리케이션으로 변경된다.
+   따라서 아래의 이유로 통계 집계 시 약간의 오차가 발생할 수 있다.
+
+   -  ``HTTP/2`` HPACK과 멀티 Stream 처리 방식
+   -  ``TLS`` 에서의 멀티 프로토콜 ``HTTP/1.1``, ``HTTP/2`` 수용
+
