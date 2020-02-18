@@ -127,18 +127,20 @@ PUT요청의 기본동작을 설정할 수 있다. ::
 
 
 
+.. _bypass-affinity-sticky:
+
 원본서버 고정
 ====================================
 
-로그인 상태처럼 원본서버와 클라이언트가 반드시 1:1로 통신해야 하는 경우가 있다.
+예를 들어 로그인 세션 정보등을 원본서버에서 유지하는 경우, 반드시 해당 서버와 통신해야 하는 경우가 발생한다. 
 `GET/POST 바이패스`_ , `PUT 바이패스`_ 의 속성으로 원본서버를 고정시킬 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <BypassPostRequest OriginAffinity="ON">...</BypassPostRequest>
-   <BypassGetRequest OriginAffinity="ON">...</BypassGetRequest>
-   <BypassPutRequest OriginAffinity="ON">...</BypassPutRequest>
+   <BypassPostRequest OriginAffinity="ON" Sticky="ON">...</BypassPostRequest>
+   <BypassGetRequest OriginAffinity="ON" Sticky="ON">...</BypassGetRequest>
+   <BypassPutRequest OriginAffinity="ON" Sticky="ON">...</BypassPutRequest>
 
 -  ``OriginAffinity``
 
@@ -161,6 +163,19 @@ PUT요청의 기본동작을 설정할 수 있다. ::
         :align: center
 
         :ref:`origin-balancemode` 에 의해 따른다.
+
+-  ``Sticky``
+
+   - ``ON (기본)`` 이미 바이패스된 서버가 있다면 세션이 끊어지지 않는한 해당 서버로만 바이패스한다.
+   - ``OFF`` 매번 바이패스할 때 RoundRobin 알고리즘 등으로 서버를 선택한다.
+
+
+두 속성은 비슷한 목적을 가지지만 동작방식이 다르다. 
+``OriginAffinity`` 는 소켓 연결종료와 상관없이 고정된 원본서버로 요청을 보낸다. 
+반면 ``Sticky`` 는 이미 원본서버에 다녀온 적이 있다면 가급적 해당 서버를 선호하는 정도이다.
+
+바이패스 여부와 상관없이 항상 균등하게 원본서버의 부하를 분산하고 싶다면 모두 ``OFF`` 로 설정할 것을 권장한다.
+
 
 
 
