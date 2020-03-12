@@ -621,6 +621,24 @@ bootstrap.min.js(36KB)  73.00      1791     51.50          139.00               
 만약 원본 서버가 비압축 콘텐츠 요청에 대해 Content-Encoding 헤더를 명시했다면 이미 압축된 것으로 간주하여 다시 압축하지 않는다.
 
 
+.. _handling_http_requests_custom_error_page:
+
+커스텀 에러페이지
+====================================
+
+원본통신 장애등으로 인해 정상적인 서비스가 불가능한 경우 미리 정의된 에러페이지를 제공한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <ErrorPage ResCode="0">/usr/local/ston/error.html</ErrorPage>
+
+
+-  ``<ErrorPage>`` 원본장애 발생시 설정된 파일을 에러페이지로 제공한다. 
+
+   -  ``ResCode (기본: 0)`` 에러페이지의 HTTP 응답코드. 0인 경우 STON의 에러코드가 제공된다.
+
+
 
 .. _handling_http_requests_drm:
 
