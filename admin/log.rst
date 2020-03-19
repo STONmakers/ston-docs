@@ -803,7 +803,7 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
       <DeleteUploaded>OFF</DeleteUploaded>
       <BackupOnFail>OFF</BackupOnFail>
       <UploadPath>/log_backup/%v/%s-%e.%p.log</UploadPath>
-      <Transfer Time="Rotate" />
+      <TransferTime Type="Rotate" />
    </Ftp>
 
    <Ftp Name="backup2">
@@ -818,7 +818,7 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
       <TrafficCap>10240</TrafficCap>
       <DeleteUploaded>ON</DeleteUploaded>
       <BackupOnFail>ON</BackupOnFail>
-      <Transfer Time="Static">04:00</Transfer>
+      <TransferTime Type="Static">04:00</Transfer>
    </Ftp>
 
 -  ``<Ftp>`` FTP 클라이언트를 설정한다. ``Name`` 속성으로 고유의 이름을 설정한다.
@@ -863,7 +863,7 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
 
         /log_backup/example.com/200140722_0000-200140722_2300.access.log
 
-   - ``Transfer`` 로그 전송시간을 지정한다. ``Type`` 속성에 따라 값의 형식이 달라진다.
+   - ``TransferTime`` 로그 전송시간을 지정한다. ``Type`` 속성에 따라 값의 형식이 달라진다.
 
      - ``Rotate (기본)`` 롤링되면 바로 전송한다. 값을 가지지 않는다.
      - ``Static`` 하루에 한번 지정된 시간에 전송한다. 예를 들어 04:00으로 설정됐다면 새벽 4시에 전송을 시작한다.
