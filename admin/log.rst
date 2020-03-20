@@ -818,7 +818,7 @@ FTP 클라이언트는 전역설정(server.xml)에 설정한다. ::
       <TrafficCap>10240</TrafficCap>
       <DeleteUploaded>ON</DeleteUploaded>
       <BackupOnFail>ON</BackupOnFail>
-      <TransferTime Type="Static">04:00</Transfer>
+      <TransferTime Type="Static">04:00</TransferTime>
    </Ftp>
 
 -  ``<Ftp>`` FTP 클라이언트를 설정한다. ``Name`` 속성으로 고유의 이름을 설정한다.
