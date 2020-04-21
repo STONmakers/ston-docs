@@ -228,6 +228,8 @@ MP3파일을 HLS(HTTP Live Streaming)로 서비스한다. ::
 
 
 
+.. _media-mp4-upfront-header:
+
 MP4/M4A 헤더위치 변경
 ====================================
 

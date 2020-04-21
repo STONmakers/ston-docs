@@ -373,13 +373,21 @@ If-Range 헤더
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <IfRange>OFF</IfRange>
+   <IfRange Purge="OFF">OFF</IfRange>
 
 -  ``<IfRange>``
 
    -  ``OFF (기본)`` If-Range헤더를 무시한다.
 
    -  ``ON`` If-Range헤더를 인식하여 Range 요청을 처리한다. 값이 유효하다면 ``206 Partial Content`` 로 응답한다. 아니라면 ``200 OK`` 로 응답한다.
+
+
+``Purge (기본: OFF)`` 속성이 ``ON`` 인 경우 클라이언트가 보낸 Last-Modified 시간이 더 최근일 경우 캐싱된 컨텐츠를 Purge 한다.
+
+
+.. note:
+
+   2 Tier구성이라면 Parent Layer에서 반드시 활성화해주어야 무결성이 보장된다.
 
 
 
@@ -400,6 +408,8 @@ If-Modified-Since 헤더 처리
    -  ``exact (기본)`` 요청 대상의 Last-Modified 시간과 일치하는 경우에만 ``304 Not Modified`` 로 응답한다. 
 
    -  ``orlater`` 요청 대상의 Last-Modified 시간보다 일치하거나 큰 경우 ``304 Not Modified`` 응답한다.
+
+
 
 
 .. _handling_http_requests_modify_client:

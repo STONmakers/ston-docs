@@ -549,6 +549,41 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 
 
 
+
+.. _media-dims-external-image:
+
+외부이미지 연결 ``[Enterprise]``
+====================================
+
+원본 이미지가 불특정 다수의 외부 서비스에 존재한다면 다음 주소 체계를 사용하는 것이 적합하다. ::
+
+   http://{서비스도메인}/{이미지툴-함수}?sref={외부이미지 URL}
+
+아래와 같이 ``Keyword`` 없이 원본이미지 URL이 쿼리스트링으로 입력된다. ::
+
+   http://image.example.com/optimize?sref=https%3A%2F%2Fwww.google.com%2Flogo.jpg
+   http://image.example.com/resize/100x100/grayscale/true?sref=https%3A%2F%2Fwww.google.com%2Flogo.jpg
+
+쿼리스트링으로 입력되는 URL은 반드시 `URL 인코딩 <https://www.urlencoder.org/>`_ 되어야 한다.
+
+.. note::
+
+   ``Keyword`` 방식은 :ref:`env-vhost-activeorigin` 설정을 사용하기 때문에 별도의 주소 입력이 불필요하다.
+   
+외부이미지 연결에는 ``Query`` 설정이 키로 사용된다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims Status="Active" Keyword="dims" Query="sref">
+      ...
+   </Dims>
+
+
+-  ``Query (기본: sref)`` 외부이미지 URL을 입력받을 쿼리스트링 키. http/s를 지원하며 URL형식이 올바르지 않을 경우 400 bad request로 응답한다.
+
+
+
 기타
 ====================================
 

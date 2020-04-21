@@ -9,7 +9,8 @@
 
 .. note::
 
-   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 1. 설치와 실행 <https://youtu.be/sMfp728pMtM?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_   - `[Q&A] STON Edge Server의 2Tier 구성 동작방식이 궁금합니다. <https://www.youtube.com/watch?v=Cpa7OJa9Cgk&index=5&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
+   - `[동영상 강좌] 해보자! STON Edge Server - Chapter 1. 설치와 실행 <https://youtu.be/sMfp728pMtM?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+   - `[Q&A] STON Edge Server의 2Tier 구성 동작방식이 궁금합니다. <https://www.youtube.com/watch?v=Cpa7OJa9Cgk&index=5&list=PLqvIfHb2IlKc0M8JZNIjus9BseHXuu3w->`_
 
 
 STON은 표준 Linux 서버에서 동작하도록 개발되었다.
@@ -81,7 +82,7 @@ OS 구성
 ====================================
 
 가장 기본적인 형태로 설치한다.
-표준 64bit Linux 배포판(Cent 6.5부터 6.9까지, Ubuntu 10.04부터 16.04.2 LTS까지) 이라면 정상동작한다.
+표준 64bit Linux 배포판(Cent 6.5부터 7.6까지, Ubuntu 10.04부터 18.04.2 LTS까지) 이라면 정상동작한다.
 패키지 의존성을 가지지 않는다.
 
 

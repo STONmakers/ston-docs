@@ -166,10 +166,10 @@ OriginError로그는 전역설정(server.xml)에 설정한다. ::
    모든 가상호스트의 원본서버에서 발생한 장애만을 기록한다.
    장애는 접속장애와 전송장애를 의미하며 원본서버 배제/복구 결과가 기록된다. ::
 
-      #Fields: date time vhostname level s-domain s-ip cs-method cs-uri time-taken sc-error sc-resinfo
-      2012.11.15 07:06:10 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
-      2012.11.15 07:06:26 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
-      2012.11.15 07:06:30 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout -
+      #Fields: date time vhostname level s-domain s-ip cs-method cs-uri time-taken sc-error sc-resinfo s-port
+      2012.11.15 07:06:10 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout - 80
+      2012.11.15 07:06:26 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout - 80
+      2012.11.15 07:06:30 [example.com] [ERROR] 192.168.0.13 192.168.0.13 GET /Upload/ProductImage/stock/1716439_SM.jpg 20110 Connect-Timeout - 80
       #2012.11.15 07:06:30 [example.com] 192.168.0.13 excluded from service
       #2012.11.15 07:06:31 [example.com] Origin server list: 192.168.0.14
       #2012.11.15 07:11:11 [example.com] 192.168.0.13 recovered back in service
@@ -188,6 +188,7 @@ OriginError로그는 전역설정(server.xml)에 설정한다. ::
    - ``time-taken`` 장애가 발생 할때 까지 소요된 시간
    - ``sc-error`` 장애의 종류
    - ``sc-resinfo`` 장애발생시 서버 응답 정보(","문자로 구분)
+   - ``s-port`` 원본서버 Port
 
    ``Warning`` 속성이 ``ON`` 이라면 다음 예제처럼 잘못된 HTTP통신이 발생한 경우에 기록한다. ::
 
