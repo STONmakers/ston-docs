@@ -410,8 +410,8 @@ tcl-rrdtool-1.4.7-1.el6.rfx.x86_64.rpm	 06-Apr-2012 16:57   35K     RHEL6 and Ce
 서비스 형태에 맞추어 다양한 원본서버 구성이 가능하다. ::
 
     <Vhosts>
-        <Vhost Name="www.example.com" Protocol="HTTP">
-            <Origin>
+        <Vhost Name="www.example.com">
+            <Origin Protocol="HTTP">
                 <Address>1.1.1.1</Address>
                 <Address>1.1.1.2</Address>
             </Origin>
