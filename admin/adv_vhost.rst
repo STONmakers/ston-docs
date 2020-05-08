@@ -21,6 +21,90 @@
    :maxdepth: 2
 
 
+.. _adv-vhost-viewpoint:
+
+처리 시점
+====================================
+
+실서비스에서는 다양한 방식으로 HTTP 요청을 라우팅하는 경우가 발생한다. 
+각 모듈이 동작하는 시점을 명확히 이해해야 안정적인 운영이 가능하다.
+
+먼저 간단한 HTTP 요청부터 시작하자. ::
+
+   http://foo.com/
+
+
+이 요청은 아래 그림과 같은 흐름으로 처리된다. 
+
+.. figure:: img/avdhostpoint0.png
+   :align: center
+
+
+``HTTP 트랜잭션`` 은 HTTP 요청을 어플리케이션이 처리하는 단위이다.
+따라서 가상호스트에 진입하면서 시작되고, 떠나면서 종료된다.
+
+
+.. note::
+
+   흔히 HTTP 트랜잭션의 시작을 HTTP Layer로 생각하는데 이는 잘못된 이해이다. 
+   HTTP Layer의 책임은 HTTP 프로토콜 구현(Parsing & Reponse)에 한정된다.
+   파싱된 HTTP 요청이 가상호스트 ``[foo.com]`` 로 분기되어야 비로소 ``HTTP 트랜잭션`` 이 시작되는 것이다.
+
+
+
+`URL 전처리`_ 는 ``HTTP Layer`` 와 가상호스트 ``[foo.com]`` 사이에 위치한다. 
+`URL 전처리`_ 를 이용하면 ``[foo.com]`` 의 요청을 ``[bar.com]`` 으로 분기시킬 수 있다.
+
+
+.. figure:: img/avdhostpoint1.png
+   :align: center
+
+`URL 전처리`_ 는 ``HTTP 트랜잭션`` 에 영향을 주지 않는다. 
+``[bar.com]`` 으로 요청이 진입할 때 ``HTTP 트랜잭션`` 이 시작된다. 
+``[foo.com]`` 에는 아무런 액션도 발생하지 않는다.
+
+
+`Facade 가상호스트`_ 는 통계와 로그를 분리하기 위해 사용한다. 
+``[foo.com]`` 이 ``[bar.com]`` 의 facade라면 다음과 같이 동작한다.
+
+.. figure:: img/avdhostpoint2.png
+   :align: center
+
+그림에서 알 수 있듯이 ``HTTP 트랜잭션`` 이 2개의 가상호스트에서 발생한다. 
+이렇게 중첩된 경우 상위 ``HTTP 트랜잭션`` 이 모든 책임을 위임받는다.
+따라서 손쉽게 통계와 로그의 분리가 가능하다.
+
+
+`Sub-Path 지정`_ 은 분기조건만을 참조한다.
+
+.. figure:: img/avdhostpoint3.png
+   :align: center
+
+`Sub-Path 지정`_ 조건에 해당된면 ``[foo.com]`` 은 ``HTTP 트랜잭션`` 을 시작하지 않고 ``[bar.com]`` 으로 재분기한다.
+
+
+`가상호스트 링크`_ 는 `URL 전처리`_ 와 가상호스트 사이에 존재한다. 
+
+.. figure:: img/avdhostpoint4.png
+   :align: center
+
+
+``HTTP 트랜잭션`` 은 개별 가상호스트에서 독립적으로 이루어진다. 
+`가상호스트 링크`_ 는 HTTP 응답을 가로채 재분기 시키는 메카니즘이다.
+
+
+.. note::
+
+   `URL 전처리`_ 와 `가상호스트 링크`_ 가 같이 사용되는 경우가 종종 있다.
+   
+   .. figure:: img/avdhostpoint5.png
+      :align: center
+   
+   `가상호스트 링크`_ 는 `URL 전처리`_ 후 분기지점에 위치한다. 
+   따라서 URL은 더 이상 변조되지 않으며, 모든 가상호스트는 변조된 경로를 사용한다.
+
+
+
 .. _adv-vhost-url-rewrite:
 
 URL 전처리
