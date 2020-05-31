@@ -387,7 +387,7 @@ Format 변경
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" port="8500">
+   <Dims Status="Active" Keyword="dims">
       <Composite Name="water1" File="/img/small.jpg" />
       <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
       <Composite Name="water_ratio" File="/img/wmark_s.png" Gravity="s" Geometry="+0+15%" Dissolve="100" />
@@ -463,7 +463,7 @@ Format 변경
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" port="8500">
+   <Dims Status="Active" Keyword="dims">
       <ByOriginal Name="size1">
          <Condition Width="1024" Height="768">/quality/50/</Condition>
          <Condition>/resize/1024x768/</Condition>
@@ -494,7 +494,7 @@ Format 변경
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" port="8500">
+   <Dims Status="Active" Keyword="dims">
       <Composite Name="water1" File="/img/small.jpg" />
       <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
       <Composite Name="water3" File="/img/big.jpg" Gravity="se" Geometry="+10+10" Dissolve="50" />
