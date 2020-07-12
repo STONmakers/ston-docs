@@ -25,6 +25,7 @@
    
    <Purge2Expire>NONE</Purge2Expire>
    <RootPurgeExpire>ON</RootPurgeExpire>
+   <RootHardPurge>ON</RootHardPurge>
    <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
 
 -  ``<Purge2Expire> (기본: NONE)``
@@ -50,10 +51,17 @@
    - ``EXPIRE`` `Expire`_ 만 허용한다.
    - ``OFF`` 모든 `Purge`_ / `Expire`_ 를 금지한다.
 
+-  ``<RootHardPurge> (기본: ON)``
+   
+   전체 콘텐츠( ``/*`` ) 에 대한 `HardPurge`_ 는 모든 캐싱을 삭제하기 때문에 매우 위험하다.
+
+   - ``ON`` 전체 콘텐츠의 `HardPurge`_ 를 허용한다.
+   - ``OFF`` 전체 콘텐츠의 `HardPurge`_ 를 금지한다.
+
+
 -  ``<ResCodeNoCtrlTarget> (기본: 200)``
 
-   `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ 의 대상객체가 없을 때의 
-   HTTP 응답코드를 설정한다.
+   `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ 의 대상객체가 없을 때의 HTTP 응답코드를 설정한다.
    
 
 대상 지정은 URL, 패턴 2가지로 표현한다. ::

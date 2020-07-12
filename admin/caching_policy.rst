@@ -438,7 +438,7 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 가급적 QueryString까지 붙은 명확한 URL로 :ref:`api-cmd-purge` API를 호출할 것을 권장한다.
 
 
-
+.. _caching-policy-vary-header:
 
 Vary 헤더
 ====================================

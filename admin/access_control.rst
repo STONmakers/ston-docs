@@ -201,10 +201,21 @@ Redirect된 요청에 대해서는 **302 Moved temporarily** 로 응답한다. :
    $HEADER[referer:], redirect, http://another-site.com
    !HEADER[referer], redirect, http://example.com#URL
 
-Redirect 할 때 클라이언트가 요청한 URL이 필요할 수 있다.
-이런 경우 ``#URL`` 키워드를 사용한다.
+Redirect 시 클라이언트가 요청한 Host헤더나 URL이 필요할 수 있다.
+``#HOST`` , ``#URL`` 키워드를 사용한다. ::
 
-HTTPS만을 지원하는 서비스의 경우 HTTP 요청에 대해 다음과 같이 ``$PROTOCOL[HTTP]`` 조건으로 HTTPS로 강제하도록 redirect시킬 수 있다. ::
-
+   # HTTP 요청이라면 HTTPS로 강제하도록 redirect시킨다.
    $PROTOCOL[HTTP], redirect, https://example.com#URL
+
+   # 모든 요청에 대해 8080 포트로 리다이렉트 시킨다.
+   $URL[/*], redirect, http://#HOST:8080#URL
+
+
+.. note::
+
+   ``#HOST`` 참조 시 포트는 제거한다. ::
+
+      Host: example.com:8080
+
+   위와 같이 요청된 경우 ``#HOST`` 의 값은 ``example.com`` 이다.
 
