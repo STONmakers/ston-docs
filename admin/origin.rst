@@ -158,10 +158,15 @@ IP의 TTL이 너무 길 경우 지나치게 많은 IP를 사용하게 되어 의
    # server.xml - <Server><VHostDefault><OriginOptions>
    # vhosts.xml - <Vhosts><Vhost><OriginOptions>
 
-   <DnsMaxTTL>60</DnsMaxTTL>
+   <DnsMaxTTL Min="0">60</DnsMaxTTL>
 
 -  ``<DnsMaxTTL> (기본: 60초)`` Resolving된 IP의 최대 사용시간(초)을 설정한다.
    이 값이 0일 경우 DNS로부터 제공받은 TTL을 그대로 사용한다.
+
+
+간혹 너무 TTL이 짧은 경우 ``Min (기본: 0)`` 속성을 통해 최소 값을 보정할 수 있다.
+예를 들어 ``Min="30"`` 이라면 TTL이 30미만인 경우 30으로 보정된다.
+
 
 
 .. note::
@@ -174,7 +179,7 @@ IP의 TTL이 너무 길 경우 지나치게 많은 IP를 사용하게 되어 의
    -  모든 IP가 TTL 만료되더라도 배제된 Domain상태는 풀리지 않는다.
    -  배제된 Domain에 속한 IP주소가 하나라도 복구되어야 해당 Domain은 다시 활성화된다.
 
-   다소 복잡한 내용이므로 `origin-status`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
+   다소 복잡한 내용이므로 `원본상태 모니터링`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
 
 
 
