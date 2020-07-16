@@ -62,8 +62,7 @@ STON Edge Server 완벽 가이드
    admin/video
    admin/filesystem
    admin/adv_topics
-   admin/enterprise
-   admin/prefetch
+   admin/enterprise   
    
 
 5부. 부록
