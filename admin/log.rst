@@ -602,7 +602,7 @@ Origin 로그
    -  ``Receive-Timeout`` 수신대기 시간 초과
    -  ``Server-Close`` 원본에서의 연결종료
    -  ``Client-Close`` STON에서의 연결종료 (바이패스 중 클라이언트가 먼저 연결을 종료하는 경우)
-   -  ``Non-Existent Domain`` 연결할 Domain이 존재하지 않음
+   -  ``Non-Existent-Domain`` 연결할 Domain이 존재하지 않음
 
 -  ``sc-http-error`` 원본서버가 4xx 또는 5xx응답을 줬을 때 응답코드를 기록
 -  ``sc-content-length`` 원본서버가 보낸 Content Length
