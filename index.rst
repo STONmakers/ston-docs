@@ -9,7 +9,7 @@ STON Edge Server 완벽 가이드
 
 
 :저자: STON 개발팀
-:최신버전: ``[CDN]`` v2.7.8 / ``[Enterprise]`` v20.07.0
+:최신버전: ``[CDN]`` v2.7.9 / ``[Enterprise]`` v20.07.2
 
 
 1부. STON 기본: 설정 배우기
@@ -62,7 +62,7 @@ STON Edge Server 완벽 가이드
    admin/video
    admin/filesystem
    admin/adv_topics
-   admin/enterprise   
+   admin/enterprise
    
 
 5부. 부록

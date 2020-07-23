@@ -286,6 +286,30 @@ POST 메소드 원본서버와 통신해야 할 경우 다음과 같이 ``method
 -  ``schedule`` 이 ``reserved`` 인 목록이 경쟁에서 밀려 수행시간이 지나면 다른 ``reserved`` 보다 우선 수행된다.
 
 
+Polling
+------------------------------------
+
+정해진 시간에 약속된 URL을 호출하여 Prefetch Job을 수행한다. ::
+
+
+    # server.xml - <Server>
+
+    <Prefetch>
+       ... (생략)...
+
+       <Polling>
+          <Url>http://example.com/endpoint?key=value</Url>
+          <Time>03:00</Time>
+          <Retry>3</Retry>
+       </Polling>
+    </Prefetch>
+
+
+-  ``<Url>`` Prefetch Job을 게시할 URL
+-  ``<Time>`` 수행시간 (00:00 ~ 23:59)
+-  ``<Retry>`` URL호출 실패시 재시도 횟수
+
+
 
 재시도 정책
 ------------------------------------

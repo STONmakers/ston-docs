@@ -596,7 +596,13 @@ Origin 로그
 -  ``s-ip`` 원본서버 IP
 -  ``sc-status`` 원본서버 HTTP 응답코드
 -  ``cs-range`` 원본서버에게 보낸 Range요청 값
--  ``sc-sock-error`` 소켓 에러코드(1=전송실패, 2=전송지연, 3=연결종료)
+-  ``sc-sock-error`` 소켓 에러코드
+   
+   -  ``Connect-Timeout`` 연결 시간초과
+   -  ``Receive-Timeout`` 수신대기 시간 초과
+   -  ``Server-Close`` 원본에서의 연결종료
+   -  ``Client-Close`` STON에서의 연결종료 (바이패스 중 클라이언트가 먼저 연결을 종료하는 경우)
+
 -  ``sc-http-error`` 원본서버가 4xx 또는 5xx응답을 줬을 때 응답코드를 기록
 -  ``sc-content-length`` 원본서버가 보낸 Content Length
 -  ``cs-requestsize (단위: Bytes)`` 원본서버로 보낸 HTTP 요청 헤더 크기
