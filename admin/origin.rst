@@ -182,6 +182,37 @@ IP의 TTL이 너무 길 경우 지나치게 많은 IP를 사용하게 되어 의
    다소 복잡한 내용이므로 `원본상태 모니터링`_ API를 통해 서비스 동작상태에 대해 이해도를 높이는 것이 좋다.
 
 
+.. _origin-cache-control:
+
+원본 Cache-Control 동작정책
+====================================
+
+원본서버가 다음과 같이 혼란스럽게 응답한 경우 STON의 동작에 대해 기술한다. ::
+
+   Cache-Control: private, no-transform, max-age=900
+
+   
+``CDN - v2.7.11`` , ``Enterprise - v20.08.0`` 부터는 아래와 같이 동작한다.
+
+   - ``private`` 은 ``cache`` 인가 ``no-cache`` 인가에 대해서 해석의 여지가 있다.
+   - `Mozilla - Cache-Control <https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Cache-Control>`_ 에서는 다음과 같이 설명하고 있다. ::
+   
+      private
+      
+         응답이 단일 사용자를 위한 것이며 공유 캐시에 의해 저장되지 않아야 한다는 것을 나타냅니다. 
+         사설 캐시는 응답을 저장할 수도 있습니다.
+
+   - STON은 공유캐시 이기 때문에 ``private`` 이 있는 경우 ``no-cache`` 로 판단하고 ``no-cache`` TTL을 따르도록 한다.
+   - 사용자에게 응답하는 경우에는 원본에서 준 ``max-age`` 를 그대로 줄 수 있도록 한다.
+
+즉, ``no-cache`` 라고 하더라도 ``max-age`` 를 보정하지 않는 것이 올바른 정책이다.
+필요하면 TTL 우선순위를 조정해서 처리 하는 것이 맞다.
+
+참고로 이전 버전의 동작은 다음과 같다.
+
+   - ``private`` 키워드가 있기 때문에 ``no-cache`` 로 인식하고 ``max-age`` 를 0으로 변경 한다.
+
+
 
 .. _origin-status:
 
