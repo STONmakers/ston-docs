@@ -63,11 +63,11 @@ CPU
 
 
 
-STON 미디어 서버 CPU
+STON CPU
 ---------------------
 ::
 
-    /graph/ston_media_server_cpu_*.png
+    /graph/stoncpu_*.png
 
 -  ``Main`` Kernel + User
 -  ``Sub`` Kernel
