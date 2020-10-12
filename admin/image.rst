@@ -522,14 +522,22 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 2. 각각의 이미지를 변환한다.
 3. 변환된 이미지를 Animated GIF로 결합한다.
 
-결합된 이미지가 많을수록 처리비용이 높아 서비스 품질이 저하될 수 있다.
-이런 경우 첫 번째 이미지에 대해서만 변환하도록 설정하면 처리 비용을 낮출 수 있다. ::
+결합된 이미지가 많을수록 처리비용이 높아 서비스 품질이 저하될 수 있다. 
+이런 경우 유용한 몇 가지 기능을 제공한다.
+
+
+.. _media-dims-anigif-firstframeonly:
+
+FirstFrameOnly
+---------------------
+GIF 중 첫 번째 이미지에 대해서만 변환하도록 설정하면 처리 비용을 낮출 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
    <Dims FirstFrameOnly="OFF" />
 
+-  ``FirstFrameOnly (기본: OFF)`` ON인 경우 Animated GIF의 첫 장면만 변환한다.
 -  ``FirstFrameOnly (기본: OFF)`` ON인 경우 Animated GIF의 첫 장면만 변환한다.
 
 다음과 같이 URL을 호출할 때 ``FirstFrameOnly`` 옵션을 명시적으로 지정할 수 있다. ::
@@ -539,7 +547,6 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 
 위와 같이 URL에 명시적으로 지정되어 있는 경우 설정보다 우선한다.
 
-
 .. note::
 
    ``limit`` 명령어를 통해 Animated GIF의 프레임 수를 조절할 수 있다. ::
@@ -547,6 +554,28 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
       http://image.example.com/img.jpg/dims/limit/3
       http://image.example.com/img.jpg/dims/limit/3/resize/200x200
 
+
+.. _media-dims-anigif-exceptiongif:
+
+변환 후 용량 비교
+---------------------
+
+GIF 포맷의 특성상 변환 후 용량이 커지는 경우가 간혹 있는데, 이런 경우 원본 GIF를 서비스하는 것이 더 나을 수 있다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims ExceptionGIF="OFF" />
+
+-  ``ExceptionGIF (기본: OFF)`` 변환 후 용량이 원본보다 크다면 원본 GIF를 서비스한다.
+
+다시 말해 이 기능을 활성화하면 항상 작은 용량의 GIF파일이 서비스되는 것을 보장할 수 있다.
+
+
+.. note::
+
+   ``resize`` 등으로 이미지 사이즈를 늘리는 경우에 해당하지 않는다. 
+   사이즈를 늘리면 당연히 용량도 증가하기 때문이다. 
 
 
 
