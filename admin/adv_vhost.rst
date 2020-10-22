@@ -222,6 +222,32 @@ URL전처리는 :ref:`media-trimming` , :ref:`media-hls` 등 다른 기능들과
 
 
 
+.. _adv-vhost-url-rewrite-protocol:
+
+프로토콜 분기
+---------------------
+
+URL 전처리 시 프로토콜 조건을 설정한다. ::
+
+   <URLRewrite AccessLog="Replace" Protocol="ALL">
+      <Pattern>www.exmaple.com/([^/]+)/(.*)</Pattern>
+      <Replace>#1.exmaple.com/#2</Replace>
+   </URLRewrite>
+
+
+-  ``Protocol (기본: ALL)`` 속성
+
+   -  ``ALL`` 모든 프로토콜 매칭
+   -  ``HTTP`` HTTP에 대해서만 패턴 매칭
+   -  ``HTTPS`` HTTPS 에 대해서만 패턴 매칭
+   -  ``HTTP2`` HTTP2 에 대해서만 패턴 매칭
+
+
+이 기능을 이용해 프로토콜에 따라 서로 다른 가상호스트를 운영할 수 있다.
+
+
+
+
 .. _adv-vhost-facadevhost:
 
 Facade 가상호스트

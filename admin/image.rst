@@ -35,13 +35,14 @@
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Dims Status="Active" Keyword="dims" MaxSourceSize="10" />
+   <Dims Status="Active" Keyword="dims" MaxSourceSize="10" MinSourceSize="0" />
 
 -  ``<Dims>``
 
    - ``Status`` DIMS활성화 ( ``Active`` 또는 ``Inactive`` )
    - ``Keyword`` 원본과 DIMS를 구분하는 키워드
    - ``MaxSourceSize (기본: 10MB)`` 변환을 허용할 최대 원본 이미지 크기 (단위: MB)
+   - ``MinSourceSize (기본: 0KB)`` 변환을 허용할 최소 원본 이미지 크기 (단위: KB)
  
 
 .. note::
