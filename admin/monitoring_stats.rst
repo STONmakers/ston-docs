@@ -104,6 +104,8 @@
    - ``ON`` 집계한다.
 
 
+.. _monitoring-stats-host:
+
 호스트 종합통계
 ====================================
 
@@ -440,6 +442,8 @@ System 통계
 -  ``SystemLoadAverage`` System Load Average의 1분/5분/15분 평균
 -  ``URLRewrite`` URL전처리에 의해 변환이 성공한 횟수
 
+
+.. _monitoring-stats-vhost:
 
 가상호스트 통계
 ====================================
