@@ -4,12 +4,13 @@
 ******************
 
 이 장에서는 이미지를 전송시점에 on-the-fly로 변환/전송하는 이미지 툴(Tool)에 대해 다룬다.
-이미지 툴은 DIMS(Dynamic Image Management System)를 포함하여 원본이미지를 다양한 형태로 가공하는 기능이다. 
 이미지 가공에 대한 기록은 :ref:`admin-log-image` 에 기록된다.
 
 
 .. note::
 
+   `실시간 이미지 가공 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html#pattern-image-tool>`_  을 구현한다.
+   
    - `[동영상 강좌] 해보자! STON Edge Server - Chapter 4. 실시간 이미지 가공 <https://youtu.be/Pdfe-HbtXVs?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
 
 
@@ -56,10 +57,161 @@
 
 
 
+기본 기능
+====================================
+
+
+리사이즈
+------------------------------------
+
+이미지 크기를 변경한다.
+크기는 **width x height** 로 표현한다.
+이미지는 변경되어도 비율은 유지된다.
+다음은 원본 이미지를 width=200, height=200크기로 변경하는 예제다. ::
+
+   http://image.example.com/img.jpg/dims/resize/200x200/
+
+그 외 명령어는 다음과 같다.
+
+-  **resizec** - 축소하면 resize와 동일하지만, 확대하면 이미지는 유지되고 캔버스 크기만 확대된다.
+-  **extent** - 캔버스만 조절하는 명령어. 축소하면 crop과 동일한 효과를 내지만, 확대하면 resizec와 동일하게 확대된다.
+-  **trim** - 상하좌우 흰색배경을 제거한다.
+
+
+
+
+
+잘라내기
+------------------------------------
+
+좌상단을 기준으로 원하는 영역만큼 이미지를 잘라낸다.
+영역은 **width x height{+-}x{+-}y{%}** 로 표현한다.
+다음은 좌상단 x=20, y=30을 기준으로 width=100, height=200만큼 잘라내는 예제다. ::
+
+   http://image.example.com/img.jpg/dims/crop/100x200+20+30/
+
+
+이미지 중앙을 기준으로 하고 싶은 경우 cropcenter명령어를 사용한다. ::
+
+   http://image.example.com/img.jpg/dims/cropcenter/100x200+20+30/
+
+
+
+
+Format 변경
+------------------------------------
+
+이미지 포맷을 변경한다.
+``png`` , ``jpg`` , ``gif`` 를 지원한다.
+
+.. note::
+
+   ``Enterprise`` v18.06.0 부터 WebP를 지원한다.
+
+
+다음은 JPG를 PNG로 변환하는 예제다. ::
+
+   http://image.example.com/img.jpg/dims/format/png/
+
+
+.. note::
+
+   ``Enterprise`` 변경된 Format의 기본 Quality를 설정할 수 있다. ::
+
+      # server.xml - <Server><VHostDefault><Options>
+      # vhosts.xml - <Vhosts><Vhost><Options>
+
+      <Dims>
+         <FormatQuality>100</FormatQuality>
+      </Dims>
+
+   
+   -  ``FormatQuality (기본: 100)`` 변경된 Format의 기본 Quality (1~100).
+
+
+
+
+이펙트
+------------------------------------
+
+이미지에 다양한 이펙트를 줄 수 있다.
+
+================ ===================== =================
+설명              명령어                  변수
+================ ===================== =================
+반전               invert                true 또는 false
+그레이 스케일        grayscale            true 또는 false
+대칭이동            flipflop             vertical 또는 horizontal
+밝기조절            bright                0 ~ 100
+회전               rotate                0 ~ 360 (도)
+세피아              sepia                 0 ~ 1
+모서리 라운드        round                 0 ~ 90
+================ ===================== =================
+
+
+
+합성
+------------------------------------
+
+두 이미지를 합성한다.
+앞서 설명한 기능과는 다르게 합성조건은 미리 설정되어 있어야 한다.
+주로 워터마크 효과를 내기 위해 사용된다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims Status="Active" Keyword="dims">
+      <Composite Name="water1" File="/img/small.jpg" />
+      <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
+      <Composite Name="water_ratio" File="/img/wmark_s.png" Gravity="s" Geometry="+0+15%" Dissolve="100" />
+   </Dims>
+
+-  ``<Composite>``
+
+    이미지 합성조건을 설정한다. 속성에 의해 정해지며 별도의 값을 가지지 않는다.
+
+    -  ``Name`` 호출될 이름을 지정한다.
+       '/'문자는 입력할 수 없다.
+       URL의 "/composite/" 뒤에 위치한다.
+
+    -  ``File`` 합성할 이미지파일 경로를 지정한다.
+
+    -  ``Gravity (기본: c)`` 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재한다.
+
+       .. figure:: img/conf_dims2.png
+          :align: center
+
+          Gavity 기준점
+
+    -  ``Geometry (기본: +0+0)`` ``Gravity`` 기준으로 합성할 이미지 위치를 설정한다.
+       {+-}x{+-}y. 붉은색 원은 Gravity속성에 따라 +0+0이 의미하는 기준점으로 +x+y의
+       값이 커질수록 이미지 안쪽으로 배치된다.
+       초록색 화살표는 +x, 보라색 화살표는 +y가 증가하는 방향이다.
+       -x-y를 사용하면 대상 이미지의 바깥에 위치하게 되어 결과 이미지에서는 보여지지 않는다.
+       이 속성은 다소 복잡해 보이지만 이미지 크기를 자동으로 계산하여 배치하므로
+       일관된 결과물을 얻을 수 있어서 효과적이다.
+       또한 +x%+y% 처럼 %옵션을 주어 비율로 배치할 수도 있다.
+
+    -  ``Dissolve (기본: 50)`` 합성할 이미지의 투명도(0~100).
+
+``<Composite>`` 을 설정했다면 ``Name`` 속성을 사용하여 이미지를 합성할 수 있다. ::
+
+    http://image.example.com/img.jpg/dims/composite/water1/
+
+
+
+
+고급 기능 ``powered by M2``
+====================================
+
+이외에 실서비스에서 즉시 활용 가능한 다양한 `이미지 서비스 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html>`_ 이 존재한다. 
+`이미지 서비스 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html>`_ 은 `M2 파이프라인 플랫폼 <https://m2-kr-next.readthedocs.io/>`_ 의 `이미지 엔진 <https://m2-kr.readthedocs.io/ko/latest/guide/imagetool.html>`_ 에 기반하여 구현된다.
+
+
 .. _media-dims-optimize:
 
 최적화
-====================================
+------------------------------------
 
 최적화란 이미지 품질을 저하시키지 않으면서 이미지를 압축하는 과정이다.
 JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
@@ -72,7 +224,7 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 
    http://image.example.com/img.jpg/dims/resize/100x100/optimize
 
-다른 모든 DIMS기능이 시스템 자원을 많이 사용하지만 그 중에서도 최적화가 가장 무거운 작업이다.
+
 다음은 HitRatio가 0%인 상태에서 이미지 크기별 성능 테스트 결과이다.
 
 -  ``OS`` CentOS 6.2 (Linux version 2.6.32-220.el6.x86_64 (mockbuild@c6b18n3.bsys.dev.centos.org) (gcc version 4.4.6 20110731 (Red Hat 4.4.6-3) (GCC) ) #1 SMP Tue Dec 6 19:48:22 GMT 2011)
@@ -111,8 +263,8 @@ JPEG, JPEG-2000, Loseless-JPEG 이미지만 지원이 가능하다.
 
 .. _media-dims-annotation:
 
-Annotation ``[Enterprise]``
-====================================
+Annotation
+------------------------------------
 
 Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
 
@@ -151,13 +303,13 @@ Annotation은 이미지에 글씨를 입힐 수 있는 기능이다.
    # server.xml - <Server><VHostDefault><Options><Dims>
    # vhosts.xml - <Vhosts><Vhost><Options><Dims>
 
-   <Annotation Name="statictext">STON Edge Server</Annotation>
+   <Annotation Name="statictext">on the fly</Annotation>
    <Annotation Name="maintext">$QUERYSTRING[msg]</Annotation>
    <Annotation Name="subtext">$QUERYSTRING[tag]</Annotation>
 
 다음과 같이 텍스트를 전달한다. ::
 
-   // "STON Edge Server" 를 statictext로 삽입
+   // "on the fly" 를 statictext로 삽입
    http:// .../dims/annotation/statictext
 
    // msg(="HelloWorld") 를 maintext로 삽입
@@ -206,11 +358,6 @@ Dissolve          50                         텍스트 투명도
 - ``Gravity`` , ``Geometry`` , ``Dissolve`` 는 <합성>과 동일하다.
 
 
-.. _media-dims-annotation-font:
-
-Font
----------------------
-
 폰트 라이선스 문제로 인해 아래 폰트들(.ttf)만을 기본 배포한다.
 
 ========================================================================== ======================================
@@ -242,24 +389,9 @@ Font                                                                       Licen
 
 
 
-잘라내기
-====================================
-
-좌상단을 기준으로 원하는 영역만큼 이미지를 잘라낸다.
-영역은 **width x height{+-}x{+-}y{%}** 로 표현한다.
-다음은 좌상단 x=20, y=30을 기준으로 width=100, height=200만큼 잘라내는 예제다. ::
-
-   http://image.example.com/img.jpg/dims/crop/100x200+20+30/
-
-
-이미지 중앙을 기준으로 하고 싶은 경우 cropcenter명령어를 사용한다. ::
-
-   http://image.example.com/img.jpg/dims/cropcenter/100x200+20+30/
-
-
 
 Thumbnail 생성
-====================================
+------------------------------------
 
 Thumbnail 을 생성한다.
 크기와 옵션은 **width x height{%} {@} {!} {<} {>}** 로 표현한다.
@@ -282,58 +414,9 @@ URL Encoding규칙에 따라 %문자가 %25로 인코딩 됨을 명심해야 한
    http://image.example.com/img.jpg/dims/thumbnail/78x110/
 
 
-Resizing
-====================================
-
-이미지 크기를 변경한다.
-크기는 **width x height** 로 표현한다.
-이미지는 변경되어도 비율은 유지된다.
-다음은 원본 이미지를 width=200, height=200크기로 변경하는 예제다. ::
-
-   http://image.example.com/img.jpg/dims/resize/200x200/
-
-그 외 명령어는 다음과 같다.
-
--  **resizec** - 축소하면 resize와 동일하지만, 확대하면 이미지는 유지되고 캔버스 크기만 확대된다.
--  **extent** - 캔버스만 조절하는 명령어. 축소하면 crop과 동일한 효과를 내지만, 확대하면 resizec와 동일하게 확대된다.
--  **trim** - 상하좌우 흰색배경을 제거한다.
-
-
-
-Format 변경
-====================================
-
-이미지 포맷을 변경한다.
-``png`` , ``jpg`` , ``gif`` 를 지원한다.
-
-.. note::
-
-   ``Enterprise`` v18.06.0 부터 WebP를 지원한다.
-
-
-다음은 JPG를 PNG로 변환하는 예제다. ::
-
-   http://image.example.com/img.jpg/dims/format/png/
-
-
-.. note::
-
-   ``Enterprise`` 변경된 Format의 기본 Quality를 설정할 수 있다. ::
-
-      # server.xml - <Server><VHostDefault><Options>
-      # vhosts.xml - <Vhosts><Vhost><Options>
-
-      <Dims>
-         <FormatQuality>100</FormatQuality>
-      </Dims>
-
-   
-   -  ``FormatQuality (기본: 100)`` 변경된 Format의 기본 Quality (1~100).
-
-
 
 품질 변경
-====================================
+------------------------------------
 
 이미지 품질을 조절한다.
 이 기능은 전송되는 이미지 용량을 줄일 수 있어서 효과적이다.
@@ -359,78 +442,10 @@ Format 변경
 
 
 
-이펙트
-====================================
-
-이미지에 다양한 이펙트를 줄 수 있다.
-
-================ ===================== =================
-설명              명령어                  변수
-================ ===================== =================
-반전               invert                true 또는 false
-그레이 스케일        grayscale            true 또는 false
-대칭이동            flipflop             vertical 또는 horizontal
-밝기조절            bright                0 ~ 100
-회전               rotate                0 ~ 360 (도)
-세피아              sepia                 0 ~ 1
-모서리 라운드        round                 0 ~ 90
-================ ===================== =================
-
-
-
-합성
-====================================
-
-두 이미지를 합성한다.
-앞서 설명한 기능과는 다르게 합성조건은 미리 설정되어 있어야 한다.
-주로 워터마크 효과를 내기 위해 사용된다. ::
-
-   # server.xml - <Server><VHostDefault><Options>
-   # vhosts.xml - <Vhosts><Vhost><Options>
-
-   <Dims Status="Active" Keyword="dims">
-      <Composite Name="water1" File="/img/small.jpg" />
-      <Composite Name="water2" File="/img/medium.jpg" Gravity="se" Geometry="+0+0" Dissolve="50" />
-      <Composite Name="water_ratio" File="/img/wmark_s.png" Gravity="s" Geometry="+0+15%" Dissolve="100" />
-   </Dims>
-
--  ``<Composite>``
-
-    이미지 합성조건을 설정한다. 속성에 의해 정해지며 별도의 값을 가지지 않는다.
-
-    -  ``Name`` 호출될 이름을 지정한다.
-       '/'문자는 입력할 수 없다.
-       URL의 "/composite/" 뒤에 위치한다.
-
-    -  ``File`` 합성할 이미지파일 경로를 지정한다.
-
-    -  ``Gravity (기본: c)`` 합성할 위치는 좌측상단부터 9가지의 포인트(nw, n, ne, w, c, e, sw, s, se)가 존재한다.
-
-       .. figure:: img/conf_dims2.png
-          :align: center
-
-          Gavity 기준점
-
-    -  ``Geometry (기본: +0+0)`` ``Gravity`` 기준으로 합성할 이미지 위치를 설정한다.
-       {+-}x{+-}y. 붉은색 원은 Gravity속성에 따라 +0+0이 의미하는 기준점으로 +x+y의
-       값이 커질수록 이미지 안쪽으로 배치된다.
-       초록색 화살표는 +x, 보라색 화살표는 +y가 증가하는 방향이다.
-       -x-y를 사용하면 대상 이미지의 바깥에 위치하게 되어 결과 이미지에서는 보여지지 않는다.
-       이 속성은 다소 복잡해 보이지만 이미지 크기를 자동으로 계산하여 배치하므로
-       일관된 결과물을 얻을 수 있어서 효과적이다.
-       또한 +x%+y% 처럼 %옵션을 주어 비율로 배치할 수도 있다.
-
-    -  ``Dissolve (기본: 50)`` 합성할 이미지의 투명도(0~100).
-
-``<Composite>`` 을 설정했다면 ``Name`` 속성을 사용하여 이미지를 합성할 수 있다. ::
-
-    http://image.example.com/img.jpg/dims/composite/water1/
-
-
 .. _media-dims-autorotate:
 
-자동회전 ``[Enterprise]``
-====================================
+자동회전
+------------------------------------
 
 이미지가 회전된 상태라면 원래의 방향으로 바로 잡는다.
 
@@ -455,7 +470,7 @@ Format 변경
 .. _media-dims-byoriginal:
 
 원본이미지 조건판단
-====================================
+------------------------------------
 
 원본 이미지 조건에 따라 동적으로 가공 옵션을 다르게 적용할 수 있다.
 예를 들어 1024 X 768 이하의 이미지는 품질을 50%로 떨어트리고 그 이상의
@@ -514,7 +529,7 @@ Format 변경
 .. _media-dims-anigif:
 
 Animated GIF
-====================================
+------------------------------------
 
 Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 처리 순서는 다음과 같다.
@@ -526,11 +541,6 @@ Animated GIF에 대해서도 모든 DIMS변환이 동일하게 적용된다.
 결합된 이미지가 많을수록 처리비용이 높아 서비스 품질이 저하될 수 있다. 
 이런 경우 유용한 몇 가지 기능을 제공한다.
 
-
-.. _media-dims-anigif-firstframeonly:
-
-FirstFrameOnly
----------------------
 GIF 중 첫 번째 이미지에 대해서만 변환하도록 설정하면 처리 비용을 낮출 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
@@ -556,11 +566,6 @@ GIF 중 첫 번째 이미지에 대해서만 변환하도록 설정하면 처리
       http://image.example.com/img.jpg/dims/limit/3/resize/200x200
 
 
-.. _media-dims-anigif-exceptiongif:
-
-변환 후 용량 비교
----------------------
-
 GIF 포맷의 특성상 변환 후 용량이 커지는 경우가 간혹 있는데, 이런 경우 원본 GIF를 서비스하는 것이 더 나을 수 있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
@@ -582,7 +587,7 @@ GIF 포맷의 특성상 변환 후 용량이 커지는 경우가 간혹 있는�
 
 
 기타
-====================================
+------------------------------------
 
 이상의 기본기능을 결합하여 복합적인 이미지 가공을 할 수 있다.
 예를 들어 Thumbnail생성(78x110), 포맷을 JPG에서 PNG로 변환, 품질 50% 이상의 옵션을 한번의 호출로 실행할 수 있다. ::
@@ -603,3 +608,4 @@ DIMS는 URL을 이용하여 이미지 가공이 이루어진다.
 -  :ref:`caching-policy-casesensitive` 이 ``OFF`` 라면 모든 URL을 소문자로 변환하여 처리한다.
    그러므로 DIMS 키워드에 대문자가 포함되었다면 키워드를 인식하지 못한다.
    항상 키워드는 소문자로 사용하는 것이 좋다.
+
