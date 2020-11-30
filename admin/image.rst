@@ -205,7 +205,7 @@ Format 변경
 ====================================
 
 이외에 실서비스에서 즉시 활용 가능한 다양한 `이미지 서비스 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html>`_ 이 존재한다. 
-`이미지 서비스 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html>`_ 은 `M2 파이프라인 플랫폼 <https://m2-kr-next.readthedocs.io/>`_ 의 `이미지 엔진 <https://m2-kr.readthedocs.io/ko/latest/guide/imagetool.html>`_ 에 기반하여 구현된다.
+`이미지 서비스 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_image.html>`_ 은 `M2 파이프라인 플랫폼 <https://m2-kr.readthedocs.io/>`_ 의 `이미지 엔진 <https://m2-kr.readthedocs.io/ko/latest/guide/imagetool.html>`_ 에 기반하여 구현된다.
 
 
 .. _media-dims-optimize:

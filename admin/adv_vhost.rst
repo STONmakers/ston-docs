@@ -369,12 +369,27 @@ Redirect 추적
 
 
 
+고급 기능 ``powered by M2``
+====================================
+
+이외에 실서비스에서 즉시 활용 가능한 다양한 `인프라 구성 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_infra.html>`_ 이 존재한다. 
+`인프라 구성 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_infra.html>`_ 은 `M2 파이프라인 플랫폼 <https://m2-kr-next.readthedocs.io/>`_ 의 `이미지 엔진 <https://m2-kr.readthedocs.io/ko/latest/guide/image.html>`_ 에 기반하여 구현된다.
+
+
 .. _adv-vhost-link:
 
 가상호스트 링크
-====================================
+-------------------------------------------
 
 콘텐츠가 여러 원본에 분산되어 있다면, 가상호스트 링크를 활용하여 콘텐츠가 통합되어 있는 것처럼 서비스가 가능하다.
+
+
+.. note::
+
+   - 이 기능을 활용하면 `인프라 구성 패턴 <https://csp-kr.readthedocs.io/ko/latest/patterns/pattern_infra.html>`_ 의 위치 투명성을 손쉽게 구현할 수 있다.
+
+
+
 특히 On-Premise에서 클라우드로 스토리지를 마이그레이션하거나, 스토리지의 용량, 비용 등의 이유로 콘텐츠가 분산되어 있는 환경에서 유용하다.
 
 .. figure:: img/adv_vhost_link.png
