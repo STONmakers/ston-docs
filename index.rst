@@ -9,7 +9,7 @@ STON Edge Server 완벽 가이드
 
 
 :저자: STON 개발팀
-:최신버전: ``[CDN]`` v2.7.13 / ``[Enterprise]`` v20.11.0
+:최신버전: v2.7.14
 
 
 1부. STON 기본: 설정 배우기
@@ -76,4 +76,3 @@ STON Edge Server 완벽 가이드
    admin/cacti
    admin/dynpage_exception.rst
    admin/releasenote.rst
-   admin/releasenote_enterprise.rst
