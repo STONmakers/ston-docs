@@ -282,6 +282,13 @@ Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
 
    원본서버가 보낸 Max-Age가 없거나, 값이 0인 경우 Expire헤더를 붙이지 않는다.
 
+   ``#TTL_LEFT`` 키워드를 통해 콘텐츠가 만료되는 시간을 Expires 헤더의 값으로 명시한다. 
+   기준 설정이 ``access`` 인 경우에만 동작한다. ::
+
+      /*, #TTL_LEFT, access
+
+   원본서버가 보낸 Max-Age가 없거나, 값이 0인 경우 Expire헤더를 붙이지 않는다.
+
 
 ETag 헤더
 ---------------------
@@ -548,6 +555,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 ``#PORT``                  클라이언트가 접속한 포트. ``80`` , ``443`` 등
 ``#CACHEHIT``              :ref:`adv_topics_req_hit_ratio` 의 상세코드
 ``#SESSIONID``             :ref:`admin-log-access` 의 ``session-id``
+``#HOSTNAME``              호스트 이름
 ========================== =============================================================
    
 ::
@@ -557,6 +565,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
    $URL[*], $ORGREQ[X-Client-Forwarded-Port: #PORT], set
    $URL[*], $RES[X-Cache-Result: #CACHEHIT], set
    $URL[*], $RES[X-Cache-Sessionid: #SESSIONID], set
+   $URL[*], $RES[X-Cache-Hostname: #HOSTNAME], set
 
 
 

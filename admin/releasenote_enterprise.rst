@@ -3,8 +3,32 @@
 Appendix F: 릴리스 노트  ``[Enterprise]``
 ***********************
 
+.. note::
+
+   2021년부터 ``Enterprise Edition`` 은 `M2 <https://m2-kr.readthedocs.io/ko/latest/>`_ 로 통합됨을 알려 드립니다.
+   
+
+
 v20.x
 ====================================
+
+20.12.0 (2021.1.28)
+----------------------------
+
+**기능개선/정책변경**
+
+-  SSL Library(OpenSSL) 버전 업데이트
+-  :ref:`caching-policy-customttl-cron` 기능 추가
+-  :ref:`admin-log-origin` 에 ``time-sock-creation`` , ``x-cs-retry`` 필드 추가
+-  :ref:`handling_http_requests_modify_client` , :ref:`origin_modify_client` - ``#HOSTNAME``  예약어 추가
+-  :ref:`handling_http_requests_cache_control_expires` - 남은 TTL 정보를 알려주는 ``#TTL_LEFT`` 예약어 추가
+-  [WM] 가상호스트 삭제 시 가상호스트 이름 표시
+ 
+
+**버그수정**
+
+-  :ref:`adv-vhost-redirection-trace` 과 :ref:`origin_modify_client` 을 함께 사용 할 경우 비정상 종료 되는 문제 수정
+
 
 
 20.11.0 (2020.11.24)
