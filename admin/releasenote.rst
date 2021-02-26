@@ -6,6 +6,22 @@ Appendix E: 릴리스 노트
 v2.7.x
 ====================================
 
+2.7.17 (2021.02.24)
+----------------------------
+
+**기능개선/정책변경**
+
+-  SSL Library(OpenSSL) 버전 업데이트
+-  Origin 로그 에 ``time-sock-creation`` , ``x-cs-retry`` 필드 추가
+
+
+**버그수정**
+
+-  :ref:`adv-vhost-redirection-trace` 과 :ref:`origin_modify_client` 을 함께 사용 할 경우 비정상 종료 되는 문제 수정
+-  가상호스트 추가 시 간헐적으로 SNMP 통계가 보이지 않는 문제 수정
+
+
+
 2.7.16 (2021.02.01)
 ----------------------------
 
@@ -20,18 +36,11 @@ v2.7.x
 
 **기능개선/정책변경**
 
--  SSL Library(OpenSSL) 버전 업데이트
 -  :ref:`caching-policy-customttl-cron` 기능 추가
--  :ref:`admin-log-origin` 에 ``time-sock-creation`` , ``x-cs-retry`` 필드 추가
 -  :ref:`handling_http_requests_modify_client` , :ref:`origin_modify_client` - ``#HOSTNAME``  예약어 추가
 -  :ref:`handling_http_requests_cache_control_expires` - 남은 TTL 정보를 알려주는 ``#TTL_LEFT`` 예약어 추가
 -  [WM] 가상호스트 삭제 시 가상호스트 이름 표시
  
-
-**버그수정**
-
--  :ref:`adv-vhost-redirection-trace` 과 :ref:`origin_modify_client` 을 함께 사용 할 경우 비정상 종료 되는 문제 수정
-
 
 
 2.7.14 (2020.12.29)
