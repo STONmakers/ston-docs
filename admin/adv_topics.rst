@@ -85,6 +85,25 @@ Volatile 가상호스트
 
 
 
+.. _adv_topics_instant:
+
+Instant 모드
+====================================
+
+가상호스트가 서비스하는 콘텐츠가 1회성이거나 아주 짧은 시간만 유효할 경우 ``Instant 모드`` 가 효과적이다. ::
+
+   # vhosts.xml - <Vhosts>
+
+   <Vhost Name="foo.com" Instant="OFF"> ... </Vhost>
+
+
+``Instant="ON"`` 이라면 서비스 중인 콘텐츠 외에는 모두 즉시 삭제된다.
+
+-  캐싱 객체를 LRU로 관리하지 않으며, 사용이 끝나는 즉시 삭제한다.
+-  디스크로 백업하거나 인덱싱하지 않는다.
+
+
+
 .. _adv_topics_mem:
 
 메모리 구조
