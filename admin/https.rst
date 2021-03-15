@@ -85,28 +85,6 @@ AES-NI가 인식된 경우 다음과 같이 Info.log에 기록된다. ::
 CipherSuite 선택
 ====================================
 
-지원하는 CipherSuites는 다음과 같다.
-
-================================================ ======== =========== =======
-Cipher Suite                                     TLS1.2   TLS1.1/1.0  SSL3.0
-================================================ ======== =========== =======
-TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384	(0xc030)   O
-TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384	(0xc028)   O
-TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256	(0xc02F)   O
-TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256	(0xC027)   O
-TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xC014)      O        O
-TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xC013)      O        O
-TLS_RSA_WITH_AES_256_GCM_SHA384	(0x009D)         O
-TLS_RSA_WITH_AES_128_GCM_SHA256	(0x009C)         O
-TLS_RSA_WITH_AES_256_CBC_SHA256	(0x003D)         O
-TLS_RSA_WITH_AES_128_CBC_SHA256	(0x003C)         O
-TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)            O        O
-TLS_RSA_WITH_AES_128_CBC_SHA (0x002F)            O        O
-TLS_RSA_WITH_3DES_EDE_CBC_SHA (0x000A)           O        O
-TLS_RSA_WITH_RC4_128_SHA (0x0005)                                     O
-TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
-================================================ ======== =========== =======
-
 ``<Https>`` 의 ``CipherSuite`` 속성을 사용하면 사용할 CipherSuite를 설정할 수 있다. ::
 
    # server.xml - <Server>
@@ -141,6 +119,85 @@ TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
 .. note::
 
    성능상의 이유로 ECDHE만 지원한다. DHE는 지원하지 않는다.
+
+
+다음 지원 CipherSuite 이름은 OpenSSL 이름을 사용한다.
+
+.. note::
+
+   ``IANA``, ``OpenSSL``, ``GnuTLS`` 의 표기법이 약간씩 다르다. `https://ciphersuite.info/ <https://ciphersuite.info/>`_ 참고
+
+
+.. _https-ciphersuite-tls13:
+
+TLS 1.3
+--------------------------
+
+-  TLS_AES_256_GCM_SHA384 ``0x13, 0x02``
+-  TLS_CHACHA20_POLY1305_SHA256 ``0x13, 0x03``
+-  TLS_AES_128_GCM_SHA256 ``0x13, 0x01``
+
+
+.. _https-ciphersuite-tls12:
+
+TLS 1.2
+--------------------------
+
+-  ECDHE-ECDSA-AES256-GCM-SHA384 ``0xC0, 0x2C``
+-  ECDHE-RSA-AES256-GCM-SHA384 ``0xC0, 0x30``
+-  DHE-RSA-AES256-GCM-SHA384 ``0x00, 0x9F``
+-  ECDHE-ECDSA-CHACHA20-POLY1305 ``0xCC, 0xA9``
+-  ECDHE-RSA-CHACHA20-POLY1305 ``0xCC, 0xA8``
+-  DHE-RSA-CHACHA20-POLY1305 ``0xCC, 0xAA``
+-  ECDHE-ECDSA-AES256-CCM8 ``0xC0, 0xAF``
+-  ECDHE-ECDSA-AES256-CCM ``0xC0, 0xAD``
+-  DHE-RSA-AES256-CCM8 ``0xC0, 0xA3``
+-  DHE-RSA-AES256-CCM ``0xC0, 0x9F``
+-  ECDHE-ECDSA-AES128-GCM-SHA256 ``0xC0, 0x2B``
+-  ECDHE-RSA-AES128-GCM-SHA256 ``0xC0, 0x2F``
+-  DHE-RSA-AES128-GCM-SHA256 ``0x00, 0x9E``
+-  ECDHE-ECDSA-AES128-CCM8 ``0xC0, 0xAE``
+-  ECDHE-ECDSA-AES128-CCM ``0xC0, 0xAC``
+-  DHE-RSA-AES128-CCM8 ``0xC0, 0xA2``
+-  DHE-RSA-AES128-CCM ``0xC0, 0x9E``
+-  ECDHE-ECDSA-AES256-SHA384 ``0xC0, 0x24``
+-  ECDHE-RSA-AES256-SHA384 ``0xC0, 0x28``
+-  DHE-RSA-AES256-SHA256 ``0x00, 0x6B``
+-  ECDHE-ECDSA-AES128-SHA256 ``0xC0, 0x23``
+-  ECDHE-RSA-AES128-SHA256 ``0xC0, 0x27``
+-  DHE-RSA-AES128-SHA256 ``0x00, 0x67``
+-  AES256-GCM-SHA384 ``0x00, 0x9D``
+-  AES256-CCM8 ``0xC0, 0xA1``
+-  AES256-CCM ``0xC0, 0x9D``
+-  AES128-GCM-SHA256 ``0x00, 0x9C``
+-  AES128-CCM8 ``0xC0, 0xA0``
+-  AES128-CCM ``0xC0, 0x9C``
+-  AES256-SHA256 ``0x00, 0x3D``
+
+
+.. _https-ciphersuite-tls10:
+
+TLS 1.1/TLS 1.0
+--------------------------
+
+-  ECDHE-ECDSA-AES256-SHA ``0xC0, 0x0A``
+-  ECDHE-RSA-AES256-SHA ``0xC0, 0x14``
+-  ECDHE-ECDSA-AES128-SHA ``0xC0, 0x09``
+-  ECDHE-RSA-AES128-SHA ``0xC0, 0x13``
+-  ECDHE-ECDSA-DES-CBC3-SHA ``0xC0, 0x08``
+-  ECDHE-RSA-DES-CBC3-SHA ``0xC0, 0x12``
+
+
+.. _https-ciphersuite-ssl30:
+
+SSL 3
+--------------------------
+
+-  DHE-RSA-AES256-SHA ``0x00, 0x39``
+-  DHE-RSA-AES128-SHA ``0x00, 0x33``
+-  DHE-RSA-SEED-SHA ``0x00, 0x9A``
+-  DHE-RSA-DES-CBC3-SHA ``0x00, 0x16``
+
 
 
 
