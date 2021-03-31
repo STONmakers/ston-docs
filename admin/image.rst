@@ -585,6 +585,57 @@ GIF 포맷의 특성상 변환 후 용량이 커지는 경우가 간혹 있는�
 
 
 
+.. _media-dims-resize-stretch-out:
+
+리사이즈 확대제한
+------------------------------------
+
+원본보다 과도하게 이미지를 크게 확대하는 경우 문제가 될 수 있다.
+
+-  커진 이미지로 인한 전송량 증가
+-  과도한 이미지 프로세싱에 따른 성능저하
+-  메모리 과다사용
+
+특히 ``Animated GIF`` 포맷인 경우 낱개의 이미지를 각각 처리하기 때문에 예상치 못한 문제가 발생할 수 있다.
+
+이를 방지하기 위해 리사이즈는 허용하되 확대만을 막는 설정을 제공한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <Dims StretchOut="ON" />
+
+-  ``StretchOut (기본: ON)`` 이미지 확대를 허용한다. 
+   ``OFF`` 로 설정하면 이미지 확대를 허용하지 않는다.
+   관련 명령어는 아래와 같다.
+
+   -  ``resize``
+   -  ``resizec``
+   -  ``resizef``
+   -  ``resizemc``
+   -  ``resizecrop``
+   -  ``extent``
+   -  ``thumbnail``
+
+
+예를 들어 ``StretchOut="OFF"`` 상태에서 다음과 같은 요청이 발생한 경우 ::
+
+   .../dims/resize/10000/quality/10
+
+
+``/resize/100000`` 은 무시되고 ``/quality/10`` 만 처리된다.
+
+.. note::
+
+   ``StretchOut`` 속성과 ``ExceptionGIF`` 속성의 연계를 통해 ``GIF`` 포맷에 대해서만 확대요청 처리를 허용하지 않을 수 있다. ::
+
+      <Dims StretchOut="ON" ExceptionGIF="OFF" />
+
+   위와 같이 설정하면 ``GIF`` 가 아닌 ``JPG`` , ``PNG`` 포맷만 확대가 허용된다.
+
+
+
+
 
 기타
 ------------------------------------
