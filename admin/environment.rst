@@ -144,7 +144,7 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
         <Storage DiskFailSec="60" DiskFailCount="10" OnCrash="hang">
             <Disk>/user/cache1</Disk>
             <Disk>/user/cache2</Disk>
-            <Disk Quota="100">/user/cache3</Disk>
+            <Disk Quota="100" QuotaUnit="size">/user/cache3</Disk>
         </Storage>
     </Cache>
 
@@ -167,6 +167,17 @@ Caching된 콘텐츠를 저장할 Storage를 구성한다. ::
     - ``selfkill`` STON을 종료시킨다.
 
 각 디스크마다 최대 캐싱용량을 ``Quota (단위: GB)`` 속성으로 설정할 수 있다.
+
+.. note::
+
+   v2.7.23부터 ``QuotaUnit (기본: size)`` 속성을 이용해 비율로 설정이 가능하다. ::
+
+      <Disk Quota="90" QuotaUnit="ratio">/cache1</Disk>
+
+   위 설정은 전체 디스크 공간 중 90%를 Quota로 설정한다. 
+   유효범위 1~100% 를 넘도록 설정한 경우 Quota는 무시된다.
+
+
 굳이 설정하지 않더라도 항상 디스크가 꽉 차지 않도록 LRU(Least Recently Used) 알고리즘에 의해 오래된 콘텐츠를 자동으로 삭제한다.
 특별히 호환성에 문제가 있는 파일시스템은 없다. 그러므로 관리자가 친숙한 파일 시스템을 사용해도 성능에 큰 영향은 없다.
 
