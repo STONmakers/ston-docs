@@ -312,22 +312,58 @@ ETag 헤더
 기본응답 헤더
 ====================================
 
-원본 비표준 헤더
+.. _handling_http_requests_headers_originalheader:
+
+헤더 캐싱
 ---------------------
 
-성능과 보안상의 이유로 원본서버가 보내는 헤더 중 표준헤더만을 선택적으로 인식한다. ::
+성능과 보안상의 이유로 원본서버가 보내는 헤더 중 캐싱과 관련된 표준 헤더만을 선별적으로 인식한다. 
+
+.. note::
+
+   어떠한 경우라도 다음 헤더는 캐싱할 수 없다.
+   
+   -  ``cookie``
+   -  ``set-cookie``
+   -  ``set-cookie2``
+
+
+원본이 응답하는 헤더를 캐싱하기 위해서는 추가 설정이 필요하다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <OriginalHeader>OFF</OriginalHeader>
+   <OriginalHeader Standard="OFF">OFF</OriginalHeader>
 
 -  ``<OriginalHeader>``
 
-   -  ``OFF (기본)`` 표준헤더가 아니라면 무시한다.
+   -  ``OFF (기본)`` 다음 헤더만을 캐싱한다.
 
-   -  ``ON`` cookie, set-cookie, set-cookie2를 제외한 모든 헤더를 저장하여 클라이언트에게 전달한다.
-      단, 메모리와 저장비용을 좀 더 소비한다.
+      -  ``Cache-Control``
+      -  ``Content-Disposition``
+      -  ``Content-Encoding``
+      -  ``Content-Length``
+      -  ``Content-Type``
+      -  ``Expire``
+      -  ``Transfer-Encoding``
+      -  ``Server``
+
+   -  ``ON`` 위 목록 이외의 헤더를 캐싱한다. 
+      
+      -  ``Standard="OFF" (기본)`` 비표준 헤더만을 캐싱한다.
+
+      -  ``Standard="ON"`` 비표준 헤더와 다음 목록의 헤더를 추가로 캐싱한다.
+
+         -  ``Content-Language``
+         -  ``Content-Location``
+         -  ``Content-MD5``
+         -  ``Proxy-Authenticate``
+         -  ``Retry-After``
+         -  ``TE``
+         -  ``Trailer``
+         -  ``Warning``
+         -  ``WWW-Authenticate``
+
 
 
 .. _handling_http_requests_basic_via:
