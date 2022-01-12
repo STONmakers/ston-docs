@@ -151,8 +151,37 @@ URL마다 별도로 TTL을 설정한다.
     $URL[*.jpg] & $ORGSTATUS[200], 3600
     $URL[/image/ad.jpg] & $ORGSTATUS[4xx], 10
 
+    // CDN v2.7.30 부터 지원
+    // 원본이 304 Not Modified로 응답할 경우 기존 콘텐츠의 TTL을 설정된 시간으로 설정한다.
+    $URL[*] & $ORGSTATUS[304], 1000
+
+
 ``$ORGSTATUS[ ]`` 표현의 값은 명시적인 원본 응답코드(200, 404) 또는 응답코드 그룹(2xx, 3xx, 4xx, 5xx)으로 설정 가능하다. 
 결합조건(&)을 지원하며, 부정조건(!)은 지원하지 않는다.
+
+
+.. _caching-policy-base:
+
+TTL 기준시점
+---------------------
+
+TTL을 결정하는 기준 시점을 설정한다. ::
+
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+
+    <TTL Base="response">
+      ...
+   </TTL>
+
+
+
+-  ``Base``
+   
+   -  ``response (기본)`` 원본으로부터 응답을 받은 시점에 TTL을 계산한다.
+
+   -  ``request`` 원본으로 요청을 보내는 시점에 TTL을 계산한다.
+
 
 
 .. _caching-policy-customttl-cron:

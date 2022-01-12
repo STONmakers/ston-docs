@@ -207,6 +207,7 @@ HardPurge는 가장 강력한 삭제방법이지만 삭제한 컨텐츠는 원�
     http://127.0.0.1:10040/command/hardpurge?url=...
 
 
+
 Purge 기본동작
 ====================================
 
@@ -223,6 +224,7 @@ Purge API가 호출될 때 컨텐츠 복구 여부를 선택한다. ::
    - ``Hard`` `HardPurge`_ 로 동작한다. (원본장애 시 복구하지 않음)
 
 
+
 .. _caching-purge-http-method:
 
 HTTP Method
@@ -235,6 +237,7 @@ HTTP Method
     
 HTTP Method는 기본적으로 Manager포트와 서비스(80)포트에서 동작한다. 
 서비스포트로 요청되는 HTTP Method의 :ref:`env-host` 에서 설정한다.
+
 
 
 .. _api-etc-post:
@@ -250,3 +253,51 @@ POST 규격
    url=http://ston.winesoft.co.kr/sample.dat
     
 
+
+.. _caching-purge-async:
+
+동기/비동기 무효화
+====================================
+
+무효화 API의 기본동작은 동기방식이다. 
+설정을 통해 비동기로 동작하도록 설정할 수 있다. ::
+
+   #server.xml
+
+   <Cache>
+      <ControlAPI>sync</ControlAPI>
+   </Cache>
+
+
+-  ``<ControlAPI>`` 
+   
+   - ``sync (기본)`` 무효화 API가 동기로 동작한다.
+   
+   - ``async`` 무효화 API가 비동기로 동작한다.
+
+
+비동기로 동작하는 경우 무효화 요청은 큐에 저장되며 백그라운드로 수행된다. 
+
+.. note::
+
+   백그라운드 수행 이전이라도 접근되는 콘텐츠가 무효화 대상이라면 즉시 만료된다.
+
+
+비동기 무효화 동작의 세부 설정은 다음과 같다. ::
+
+   # server.xml - <Server><Cache>
+
+   <Performance>
+      <MaxAsyncCacheCtrl>100000</MaxAsyncCacheCtrl>
+      <PreCacheControl Max="5000" FirstOnly="OFF">ON</PreCacheControl>
+   </Performance>
+
+
+-  ``<MaxAsyncCacheCtrl> (기본: 100000)`` 비동기 무효화 최대 저장개수
+
+-  ``<PreCacheControl> (기본: ON)`` 접근되는 콘텐츠에 대해 저장된 비동기 무효화를 매칭한다.
+
+   -  ``Max (기본: 5000)`` 가상호스트별로 매칭할 비동기 무효화 최대 개수
+   
+   -  ``FirstOnly (기본: OFF)`` ON인 경우 첫번째 미칭에 대해서 반영하며, OFF인 경우 전체 무효화를 검사해 가장 강한 표현을 반영한다.
+   
