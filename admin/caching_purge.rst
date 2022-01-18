@@ -239,6 +239,20 @@ HTTP Method는 기본적으로 Manager포트와 서비스(80)포트에서 동작
 서비스포트로 요청되는 HTTP Method의 :ref:`env-host` 에서 설정한다.
 
 
+비동기 모드를 사용하는 경우 다음과 같이 HTTP Method가 변경된다. ::
+
+   // 비동기 expire
+   ASYNCEXPIRE /index.html HTTP/1.1
+   Host: foo.com:10040
+
+   // 비동기 purge
+   ASYNCPURGE /* HTTP/1.1
+   Host: foo.com:10040
+
+   // 비동기 hardpurge
+   ASYNCHARDPURGE /*.html HTTP/1.1
+   Host: foo.com:10040
+
 
 .. _api-etc-post:
 
@@ -276,11 +290,17 @@ POST 규격
    - ``async`` 무효화 API가 비동기로 동작한다.
 
 
-비동기로 동작하는 경우 무효화 요청은 큐에 저장되며 백그라운드로 수행된다. 
+비동기로 동작하는 경우 무효화 요청은 큐에 저장되며 백그라운드로 수행된다.
 
 .. note::
 
    백그라운드 수행 이전이라도 접근되는 콘텐츠가 무효화 대상이라면 즉시 만료된다.
+
+호출 규격은 아래과 같다. ::
+
+  /command/async/expire?url=foo.com/index.html
+  /command/async/purge?url=foo.com/*
+  /command/async/hardpurge?url=foo.com/*.jpg
 
 
 비동기 무효화 동작의 세부 설정은 다음과 같다. ::
