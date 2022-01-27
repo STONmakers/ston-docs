@@ -695,7 +695,7 @@ If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``2
    // Pattern : /img/image.jpg?date=20140326
    // Replace : /image.jpg?date=20140326/STON/composite/watermark1
 
-:ref:`handling_http_requests_url_rewrite` 와 같은 표현을 사용하지만
+:ref:`adv-vhost-url-rewrite` 와 같은 표현을 사용하지만
 가상호스트마다 독립적으로 설정하기 때문에 가상호스트명을 입력하지 않는다.
 
 .. note::
