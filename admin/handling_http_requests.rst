@@ -707,7 +707,7 @@ HTTP/2
 
    $ server.xml - <Server><Cache>
 
-   <Http2 Status="active">
+   <Http2 Status="Inactive">
       <MaxConcurrentStream>10</MaxConcurrentStream>
       <ClientKeepAlive>10</ClientKeepAlive>
    </Http2>
