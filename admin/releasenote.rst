@@ -6,6 +6,25 @@ Appendix E: 릴리스 노트
 v2.7.x
 ====================================
 
+
+.. _release-cdn-2-7-35:
+
+2.7.35 (2022.06.16)
+----------------------------
+
+-  :ref:`handling_http_requests_header_contentfreshness` 설정 기능
+
+-  캐싱관리 - Root Purge/HardPurge를 허용하지 않는 경우 Purge API 응답 코드 설정 기능
+
+-  :ref:`admin-log-origin` - 원본 요청시간 필드 ``time-request`` 추가
+
+
+**버그수정**
+
+-  HTTP/2가 활성화 되어 있는 경우 ``X-Forwarded-For`` 헤더의 값에 ``127.0.0.1`` 이 추가 되는 버그 수정
+
+
+
 .. _release-cdn-2-7-34:
 
 2.7.34 (2022.05.19)

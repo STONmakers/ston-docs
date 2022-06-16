@@ -437,7 +437,7 @@ If-Range 헤더
 .. _handling_http_requests_header_lastmodifiedcheck:
 
 If-Modified-Since 헤더 처리
----------------------
+------------------------------
 
 클라이언트가 보내는 요청의 If-Modified-Since 헤더 처리정책을 설정한다. ::
 
@@ -452,6 +452,27 @@ If-Modified-Since 헤더 처리
 
    -  ``orlater`` 요청 대상의 Last-Modified 시간보다 일치하거나 큰 경우 ``304 Not Modified`` 응답한다.
 
+
+
+.. _handling_http_requests_header_contentfreshness:
+
+Content Freshness 판단정책
+------------------------------
+
+클라이언트 요청에 대해 ``304 Not Modified`` 응답 판단정책을 설정한다. ::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <ContentFreshnessCheck>BOTH</ContentFreshnessCheck>
+
+-  ``<ContentFreshnessCheck>``
+
+   -  ``BOTH (기본)`` If-Modified-Since 또는 ETag 헤더 중 하나라도 같다면 동일 콘텐츠로 판단한다.
+
+   -  ``LMT`` If-Modified-Since 만으로 동일 콘텐츠로 판단한다.
+
+   -  ``ETAG`` ETag 만으로 동일 콘텐츠로 판단한다.
 
 
 

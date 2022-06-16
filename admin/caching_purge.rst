@@ -27,6 +27,7 @@
    <RootPurgeExpire>ON</RootPurgeExpire>
    <RootHardPurge>ON</RootHardPurge>
    <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
+   <ResCodeDenyCtrlTarget>200</ResCodeNoCtrlTarget>
 
 -  ``<Purge2Expire> (기본: NONE)``
 
@@ -62,7 +63,12 @@
 -  ``<ResCodeNoCtrlTarget> (기본: 200)``
 
    `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ 의 대상객체가 없을 때의 HTTP 응답코드를 설정한다.
+
+-  ``<ResCodeDenyCtrlTarget> (기본: 200)``
    
+   ``<RootPurgeExpire>`` , ``<RootHardPurge>`` 설정에 의해서 Control API 호출이 거부 될 경우 설정된 응답코드로 응답 한다.
+
+
 
 대상 지정은 URL, 패턴 2가지로 표현한다. ::
 
