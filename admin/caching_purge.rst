@@ -27,7 +27,7 @@
    <RootPurgeExpire>ON</RootPurgeExpire>
    <RootHardPurge>ON</RootHardPurge>
    <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
-   <ResCodeDenyCtrlTarget>200</ResCodeNoCtrlTarget>
+   <ResCodeDenyCtrlTarget>200</ResCodeDenyCtrlTarget>
 
 -  ``<Purge2Expire> (기본: NONE)``
 
