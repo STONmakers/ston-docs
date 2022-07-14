@@ -11,6 +11,18 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v22.x
 ====================================
 
+.. _release-enterprise-22-07-0:
+
+22.07.0 (2022.07.14)
+----------------------------
+
+-  ``RHEL/CentOS Stream 8`` 지원
+-  ``RHEL/CentOS Stream 9`` 지원
+-  ``Ubuntu 20.04`` 지원
+-  ``Rocky Linux 8`` 지원 ( ``RHEL/CentOS`` 패키지 사용)
+
+
+
 .. _release-enterprise-22-06-1:
 
 22.06.1 (2022.06.28)

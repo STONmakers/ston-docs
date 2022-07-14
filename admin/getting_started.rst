@@ -81,9 +81,14 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 OS 구성
 ====================================
 
-가장 기본적인 형태로 설치한다.
-표준 64bit Linux 배포판(Cent 6.5부터 7.6까지, Ubuntu 10.04부터 18.04.2 LTS까지) 이라면 정상동작한다.
-패키지 의존성을 가지지 않는다.
+다음 64bit Linux 배포판을 지원하며 패키지 의존성을 가지지 않는다.
+
+-  ``RHEL/CentOS 6``
+-  ``RHEL/CentOS 7``
+-  ``RHEL/CentOS Stream 8``
+-  ``RHEL/CentOS Stream 9``
+-  ``Ubuntu 12.04`` 부터 ``20.04`` 까지
+-  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
 
 
 .. _getting-started-install:
