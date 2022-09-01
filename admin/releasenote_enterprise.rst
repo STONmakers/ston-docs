@@ -11,6 +11,18 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v22.x
 ====================================
 
+
+.. _release-enterprise-22-08-0:
+
+22.08.0 (2022.09.01)
+----------------------------
+
+-  Access.log의 ``sc-bytes`` 정밀도 개선
+-  `CVE-2022-2274 <https://nvd.nist.gov/vuln/detail/CVE-2022-2274>`_ 취약점 대응
+-  `CVE-2022-2097 <https://nvd.nist.gov/vuln/detail/CVE-2022-2097>`_ 취약점 대응
+
+
+
 .. _release-enterprise-22-07-0:
 
 22.07.0 (2022.07.14)
