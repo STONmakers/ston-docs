@@ -451,6 +451,7 @@ Range요청
 
 
 
+.. _origin-fullrangeinit:
 
 전체 Range 초기화
 ====================================
@@ -490,6 +491,8 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
      최초로 파일 Caching할 때는 컨텐츠의 Range를 알지 못하므로 Full-Range(=0부터 시작하는)를 요청한다.
      원본서버가 Range요청에 대해 정상적으로 응답(206 OK)하는지 반드시 확인해야 한다.
 
+   -  ``HEAD`` :ref:`origin-fullrangeinit-head`
+
 콘텐츠를 갱신할 때는 다음과 같이 **If-Modified-Since** 헤더가 같이 명시된다.
 원본서버가 올바르게 **304 Not Modified** 로 응답해야 한다. ::
 
@@ -505,6 +508,34 @@ Range요청을 사용하면 모듈을 우회하여 원본을 다운로드할 수
    - nginx/1.4.2
    - lighttpd/1.4.32
    - Apache/2.2.22
+
+
+.. _origin-fullrangeinit-head:
+
+``HEAD`` 메소드 초기화
+------------------------
+
+원본서버가 ``Range`` 가 아닌 ``GET`` 메소드를 처리하지 못하는 경우 ``HEAD`` 메소드를 이용하여 캐싱객체를 초기화할 수 있다. ::
+
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <FullRangeInit>HEAD</FullRangeInit>
+
+
+위와 같이 설정하면 객체 캐싱과 갱신과정에 ``HEAD`` 메소드가 사용된다. ::
+
+
+   # 최초 요청
+   ... HEAD ... /sample.mp3 ... 200 ...
+   ... GET ... /sample.mp3 ... 206 ...
+
+   # Expire 후 요청
+   ... HEAD ... /sample.mp3 ... 304 ...
+
+   # Purge 후 요청
+   ... HEAD ... /sample.mp3 ... 200 ...
+   ... GET ... /sample.mp3 ... 206 ...
 
 
 .. _origin-wholeclientrequest:
