@@ -6,6 +6,19 @@ Appendix E: 릴리스 노트
 v2.7.x
 ====================================
 
+.. _release-cdn-2-7-41:
+
+2.7.41 (2022.11.11)
+----------------------------
+
+-  DNS resolving 시스템 콜이 잠기고 복구되는 시점의 ``sys.log`` 메시지 강화 ::
+
+      [qDnsCache] dns-resolver timeout (domain: google.com, elapsed: 10010 ms)
+      [qDnsCache] dns-resolver created (2)
+      [qDnsCache] dns-resolver terminated (1)
+
+
+
 .. _release-cdn-2-7-40:
 
 2.7.40 (2022.10.20)
