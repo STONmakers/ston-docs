@@ -338,3 +338,94 @@ POST 규격
    
    -  ``FirstOnly (기본: OFF)`` ON인 경우 첫번째 미칭에 대해서 반영하며, OFF인 경우 전체 무효화를 검사해 가장 강한 표현을 반영한다.
    
+
+
+
+.. _caching-purge-async-management-api:
+
+비동기 무효화 관리 API ``beta``
+-----------------------------------
+
+비동기 무효화가 활성화되어 있다면 등록된 무효화 요청을 아래와 같이 조회할 수 있다.
+
+::
+
+    # 전체 가상호스트의 비동기 무효화 요약정보
+    http://127.0.0.1:10040/monitoring/asynctrl/actives
+
+    # 특정 가상호스트들의 비동기 무효화 요약정보
+    http://127.0.0.1:10040/monitoring/asynctrl/actives?vhosts=foo.com,bar.com
+
+    # 전체 가상호스트의 비동기 무효화 상세정보
+    http://127.0.0.1:10040/monitoring/asynctrl/actives?detail=true
+
+    # 특정 가상호스트의 비동기 무효화 상세정보
+    http://127.0.0.1:10040/monitoring/asynctrl/actives?vhosts=foo.com,bar.com&detail=true
+
+
+-  ``vhosts`` 쿼리스트링이 없다면 전체 가상호스트를 조회한다. 콤마로 멀티 가상호스트 입력이 가능하며 해당 가상호스트만 조회한다.
+-  ``detail`` 쿼리스트링이 ``true`` 라면 가상호스트별로 저장된 비동기 무효화 목록 상세정보를 출력한다.
+
+
+상세정보 응답은 ``vhosts[].prectrl.list`` 를 제공한다.
+
+::
+
+   {
+      "queue": {
+         "used": 3,
+         "max": 100000
+      },
+      "prectrl": {
+         "firstonly": true,
+         "max": 1024
+      },
+      "vhosts": [
+         {
+            "name": "foo.com",
+            "prectrl": {
+               "enable": true,
+               "used": 3,
+               "max": 1024,
+               "list": [
+                  {
+                     "command": "purge",
+                     "timestamp": "2023-01-13T08:58:34Z",
+                     "url": "/*.jpg"
+                  },
+                  {
+                     "command": "purge",
+                     "timestamp": "2023-01-13T08:58:35Z",
+                     "url": "/*.bmp"
+                  },
+                  {
+                     "command": "purge",
+                     "timestamp": "2023-01-13T08:58:36Z",
+                     "url": "/*"
+                  }
+               ]
+            }
+         },
+         {
+            "name": "bar.com",
+            "prectrl": {
+               "enable": true,
+               "used": 0,
+               "max": 1024,
+               "list": [
+                  
+               ]
+            }
+         }
+      ]
+   }
+
+
+관리 API는 다음과 같다. ::
+
+   # 모든 비동기 무효화 정보를 초기화한다.
+   http://127.0.0.1:10040/command/async/asynctrl/reset
+
+   # 특정 가상호스트의 prectrl만 초기화한다.
+   # 단, 비동기 무효화 항목은 삭제되지 않고 수행된다.
+   http://127.0.0.1:10040/command/async/asynctrl/prectrl/reset?vhost=foo.com
