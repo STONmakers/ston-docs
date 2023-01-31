@@ -3,6 +3,21 @@
 Appendix E: 릴리스 노트
 ***********************
 
+
+v2.8.x
+====================================
+
+.. _release-cdn-2-8-0:
+
+2.8.0 (2023.01.31)
+----------------------------
+
+-  ``brotli`` :ref:`handling_http_requests_compression` 알고리즘 지원
+-  :ref:`api-conf-reload-mode` - 변경된 가상호스트만을 로딩하는 ``Shared`` 모드 추가
+-  :ref:`handling_http_requests_http2` 가 활성화된 상태에서 ``ECDSA`` 인증서가 로딩되지 않던 문제 수정
+-  `dlsym <https://man7.org/linux/man-pages/man3/dlsym.3.html>`_ 함수로 참조되는 외부 라이브러리 로딩속도 개선
+
+
 v2.7.x
 ====================================
 

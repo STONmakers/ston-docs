@@ -57,6 +57,35 @@
 설정이 변경될 때마다 :ref:`admin-log-info` 에 변경사항이 기록된다.
 
 
+.. _api-conf-reload-mode:
+
+Reload 동작방식
+------------------------------------
+
+``v2.8.0`` 부터 설정 Reload의 상세 동작방식을 지원한다. ::
+
+    # <Server><Cache>
+
+    <Reload>Shared<Reload>
+
+-  ``<Reload> (기본: Exclusive)``
+
+    - ``Exclusive (기본)`` 전체 가상호스트를 상호배제적으로 설정변경 처리한다. 
+
+        .. figure:: img/reload_exclusive.png
+           :align: center
+
+           모든 설정이 한번에 Exclusive (상호배제)상태에서 로딩된다.
+
+    - ``Shared`` 변경된 가상호스트만 상호배제적으로 설정변경 처리한다. 
+
+        .. figure:: img/reload_shared.png
+           :align: center
+
+           ``Exclusive`` 상태 들어가기 전 변경 필요한 가상호스트만 추려서 로딩한다.
+    
+
+
 server.xml 전역설정
 ====================================
 
