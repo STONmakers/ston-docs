@@ -75,6 +75,7 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
       <Sequence>0</Sequence>
       <Duration>10</Duration>
       <AlternatesName>playlist.m3u8</AlternatesName>
+      <M4ATSAudioContentType>ON</M4ATSAudioContentType>
    </MP4HLS>
 
 -  ``<MP4HLS>``
@@ -111,6 +112,18 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
 -  ``<AlternatesName> (기본: playlist.m3u8)`` Stream Alternates 파일명. ::
 
       http://www.example.com/video.mp4/mp4hls/playlist.m3u8
+
+-  ``<M4ATSAudioContentType>`` Content-Type 헤더 응답 ::
+
+         # 설정 ON - 오디오만 존재하는 MP4파일
+         Content-Type: audio/MP2T
+
+         # 설정 OFF - 오디오만 존재하는 MP4파일
+         Content-Type: video/MP2T
+
+         # 설정 무관 - 비디오가 있는 MP4파일, 확장자가 m4a이지만 비디오가 존재하는 파일.
+         Content-Type: video/MP2T
+         
 
 
 서비스 주소가 다음과 같다면 해당 주소로 Pseudo-Streaming을 진행할 수 있다. ::
