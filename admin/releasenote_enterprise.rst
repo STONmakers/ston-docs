@@ -1,11 +1,25 @@
 .. _release_enterprise:
 
 Appendix F: 릴리스 노트  ``[Enterprise]``
-***********************
+********************************************
 
 .. note::
 
-   2021년부터 ``Enterprise Edition`` 은 `M2 <https://m2-kr.readthedocs.io/ko/latest/>`_ 로 통합됨을 알려 드립니다.
+   ``deprecated`` 2021년부터 `M2 <https://doc.m2live.co.kr>`_ 로 통합됨을 알려 드립니다.
+
+
+v23.x
+====================================
+
+
+.. _release-enterprise-23-03-0:
+
+23.03.0 (2023.03.03)
+----------------------------
+
+-  CDN 에디션 추가기능 통합
+-  DIMS 안정성 강화, 성능개선
+
 
 
 v22.x

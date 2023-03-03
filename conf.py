@@ -194,6 +194,7 @@ latex_elements = {
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
+  'pdf_documents': []  # Disable PDF output
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
