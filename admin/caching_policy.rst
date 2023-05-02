@@ -48,6 +48,8 @@ TTL은 한번 설정되면 만료되기 전까지 바뀌지 않는다.
 관리자는 :ref:`api-cmd-purge` , :ref:`api-cmd-expire` , :ref:`api-cmd-expireafter` , :ref:`api-cmd-hardpurge` 등의 API를 사용해 TTL을 변경할 수 있다.
 
 
+.. _caching-policy-ttl-basic:
+
 기본 TTL
 ---------------------
 
@@ -61,7 +63,8 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
 
     <TTL>
         <Res2xx Ratio="20" Max="86400">1800</Res2xx>
-        <NoCache Ratio="0" Max="5" MaxAge="0">5</NoCache>
+        <NoCache Ratio="0" Max="5" MaxAge="0" Expire="OFF">5</NoCache>
+        <NoStore Ratio="0" Max="5" MaxAge="0" Bypass="OFF">5</NoStore>
         <Res3xx>300</Res3xx>
         <Res4xx>30</Res4xx>
         <Res5xx>30</Res5xx>
@@ -78,8 +81,8 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
    (TTL만료 후) 원본서버에서 변경되지 않았다면(304 Not Modified) ``Ratio`` 비율(0~100)만큼 TTL을 연장한다.
    TTL은 최대 ``Max`` 까지 증가한다.
 
--  ``<NoCache> (기본: 5초, Ratio: 0, Max=5, MaxAge=0)``
-   ``<Res2xx>`` 와 동일하나 원본서버가 no-cache로 응답하는 경우에만 적용된다. ::
+-  ``<NoCache> (기본: 5초, Ratio: 0, Max=5, MaxAge=0, Expire=OFF)``
+   ``<Res2xx>`` 와 동일하나 원본서버가 ``no-cache`` 로 응답하는 경우에만 적용된다. ::
 
       cache-control: no-cache 또는 private 또는 must-revalidate
 
@@ -89,6 +92,18 @@ TTL이 만료되면 원본서버로 콘텐츠 변경여부( **If-Modified-Since*
       :align: center
 
       Max-Age만큼 클라이언트에 Caching된다.
+
+   ``Expire`` 속성이 ``ON`` 이라면 TTL과 상관없이 캐싱 즉시 TTL을 만료시킨다. 
+   클라이언트 서비스 전 항상 원본 갱신여부를 체크한다.
+
+
+-  ``<NoStore> (기본: 5초, Ratio: 0, Max=5, MaxAge=0, Bypass=OFF)``
+   ``<Res2xx>`` 와 동일하나 원본서버가 ``no-store`` 로 응답하는 경우에만 적용된다. ::
+
+      cache-control: no-store
+   
+   ``Bypass`` 속성이 ``ON`` 이라면 클라이언트 요청을 원본서버로 바이패스 한다.
+   이때 콘텐츠는 캐싱되지 않으며, TTL은 클라이언트 요청을 바이패스할 시간으로만 기능한다.
 
 -  ``<Res3xx> (기본: 300초)``
    원본서버가 3xx로 응답했을 때 TTL을 설정한다.
@@ -244,16 +259,17 @@ TTL 우선순위
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
 
-    <TTL Priority="cc_nocache, custom, cc_maxage, rescode">
+    <TTL Priority="cc_nocache, custom, cc_maxage, rescode, cc_nostore">
         ... (생략) ...
     </TTL>
 
 ``<TTL>`` 의 ``Priority (기본: cc_nocache, custom, cc_maxage, rescode)`` 속성으로 설정한다.
 
-- ``cc_nocache`` 원본이 Cache-Control: no-cache로 응답한 경우
+- ``cc_nocache`` 원본이 ``Cache-Control: no-cache`` 로 응답한 경우
 - ``custom`` `caching-policy-customttl`
-- ``cc_maxage`` 원본이 Cache-Control에 maxage를 명시한 경우
+- ``cc_maxage`` 원본이 ``Cache-Control에 {maxage}`` 를 명시한 경우
 - ``rescode`` 원본 응답코드별 기본 TTL
+- ``cc_nostore`` 원본이 ``Cache-Control: no-stor`` 로 응답한 경우
 
 
 비정상 TTL 연장

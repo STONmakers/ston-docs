@@ -41,7 +41,7 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
 
    <ConnectTimeout>3</ConnectTimeout>
    <ReceiveTimeout>10</ReceiveTimeout>
-   <Exclusion>3</Exclusion>
+   <Exclusion All="ON">3</Exclusion>
    <Recovery Cycle="10" Uri="/" ResCode="0" Log="ON">5</Recovery>
 
 -  ``<ConnectTimeout> (기본: 3초)``
@@ -60,6 +60,8 @@ Caching과정 중 원본서버에 장애가 발생하면 자동배제한다.
    .. note::
 
       ``CDN v2.6.13`` , ``Enterprise v19.07.0`` 부터는 ``<Exclusion>`` 설정이 0이라면 원본서버를 배제하지 않는다.
+
+   ``All`` 속성이 ``ON`` 이라면 장애가 발생한 모든 IP를 배제하지만, ``OFF`` 라면 마지막 IP는 배제하지 않는다.
 
 
 -  ``<Recovery> (기본: 5회)``

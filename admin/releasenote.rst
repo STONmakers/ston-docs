@@ -7,6 +7,32 @@ Appendix E: 릴리스 노트
 v2.8.x
 ====================================
 
+.. _release-cdn-2-8-3:
+
+2.8.3 (2023.05.2)
+----------------------------
+
+-  더 큰 디스크 공간지원을 위한 :ref:`adv_topics_perf_securedisk` 고도화
+
+-  :ref:`caching-policy-ttl-basic` 개선
+
+   -  ``<NoCache Expire="OFF" />`` 속성 추가
+   -  ``<NoStore>`` 설정 추가
+
+
+-  :ref:`origin_exclusion_and_recovery` 시 원본 전체 장애상황이라도 마지막 IP는 배제하지 않는 설정 추가 ::
+
+      <Exclusion All="OFF">3</Exclusion>
+
+
+-  소스 이미지 ``quality`` 보다 높은 ``quality`` 변환을 요청할 때 변환하지 않는 설정 추가 ::
+
+      <Dims UpscalingQuality="OFF">
+
+
+-  솔루션 재구동시 파일삭제 대상이 존재한다면 삭제를 진행한다.
+
+
 .. _release-cdn-2-8-2:
 
 2.8.2 (2023.03.14)

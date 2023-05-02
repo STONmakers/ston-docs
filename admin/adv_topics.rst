@@ -577,6 +577,35 @@ Emergency모드일 때 STON은 다음과 같이 동작한다.
 -  /usr/cache2 디스크는 공간한계에 다다르면 ``<Storage>`` 의 ``CleanupSize`` 속성인 100GB를 정리하여 공간을 확보한다.
 
 
+.. _adv_topics_perf_securedisk:
+
+디스크 삭제정책 설정
+====================================
+
+디스크 공간부족시 삭제정책을 설정한다. ::
+
+   # server.xml - <Server><Cache>
+
+   <Performance>
+      <SecureDiskSlotSec>480</SecureDiskSlotSec>
+      <SecureDiskReservedSize>10</SecureDiskReservedSize>
+   </Performance>
+
+
+디스크 공간정리기 접근시간 기준으로 전체 파일을 정렬시킨다.
+이때 접근시간 단위로 파일을 슬롯에 넣는데 이 슬록의 크기는 128K 고정이다. 
+슬롯 크기를 지정하면 정렬할 전체 시간범위 산정할 수 있다.
+예를 들어 480초(8분) 단위로 슬롯을 정렬하면 2년 범위를, 20초 단위로 슬롯을 정렬하면 1달까지만 계산이 가능하다.
+
+
+-  ``SecureDiskSlotSec (기본: 480초)`` 삭제 슬롯 단위
+
+-  ``SecureDiskSlotSec (기본: 10MB)``  디스크 부족시 자연 삭제분(Purge 등 파일 유효시간 경과)을 먼저 삭제하는 조건을 지정한다.
+   ``./removes`` 디렉토리에는 삭제 목록이 기록되는데 이 용량의 합이 일정 크기 이상이라면 인덱싱을 떨구지 않고 먼저 삭제한다.
+   대략 10MB는 20만개 내외이다.
+
+
+
 .. _adv_topics_perf_cleanupfilecount:
 
 캐싱객체 삭제개수 설정
