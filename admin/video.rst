@@ -210,6 +210,60 @@ MP4파일 헤더의 위치에 상관없이 다운로드와 동시에 실시간�
       /video.mp4?start=0/mp4hls/index.m3u8?end=60
 
 
+
+.. _media-mp4-hls-enc:
+
+암호화
+------------------
+
+.. warning::
+
+   암호화 기능은 STON Enterprise 버전 또는 `M2 <https://doc.m2live.co.kr/>`_ 에서 지원됩니다.
+
+
+::
+
+   # server.xml - <Server><VHostDefault><Media>
+   # vhosts.xml - <Vhosts><Vhost><Media>
+
+   <MP4HLS Status="Inactive" Keyword="mp4hls">
+      ... (생략) ...
+      <Encrypt Status="INACTIVE" Keyword="segment.key">
+         <Token Type="enc">xxxxxxxx</Token>
+      </Encrypt>
+   </MP4HLS>
+
+
+
+-  ``<Encrypt>``
+
+   - ``Status (기본: Inactive)`` 값이 ``Active`` 일 때만 활성화된다.
+
+   - ``Keyword (기본: segment.key)`` 암호화 Key 키워드
+
+-  ``<Token>`` 암호화 Key의 시드 값으로 사용할 문자열을 입력한다. 
+
+   - ``Type`` 속성이 ``enc`` 라면 ``Token`` 을 라이선스에 기반한 알고리즘으로 암호화하여 사용한다.
+
+   - ``Type`` 속성이 생략되었다면 Token을 MD5 해쉬하여 키로 사용한다.
+
+
+
+
+생성된 인덱스 파일은 다음과 같이 암호화 Key 정보를 ``#EXT-X-KEY`` 속성으로 명시한다. :: 
+
+   #EXTM3U
+   #EXT-X-VERSION:3
+   #EXT-X-TARGETDURATION:15
+   #EXT-X-MEDIA-SEQUENCE:0
+   #EXT-X-KEY:METHOD=AES-128,URI="/example/video.mp4/mp4hls/segment.key"
+   #EXTINF:10.051,
+   /example/video.mp4/mp4hls/0.ts
+   ...
+   ...
+
+
+
 .. _media-mp3-hls:
 
 MP3 HLS
