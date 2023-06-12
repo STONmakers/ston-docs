@@ -537,6 +537,43 @@ QueryString-예외조건은 /svc/{가상호스트 이름}/querystring.txt에 설
 가급적 QueryString까지 붙은 명확한 URL로 :ref:`api-cmd-purge` API를 호출할 것을 권장한다.
 
 
+.. _caching-policy-applyquerystring-match:
+
+QueryString 재조합
+---------------------------
+
+.. note::
+
+    ``v2.8.4`` 부터 지원
+
+
+::
+
+    # server.xml - <Server><VHostDefault><Options>
+    # vhosts.xml - <Vhosts><Vhost><Options>
+
+    <ApplyQueryString>MATCH</ApplyQueryString>
+
+
+설정이 ``MATCH`` 인 경우 ``querystring.txt`` 를 참고하여 쿼리스트링을 재조합한다. ::
+
+   # ./svc/www.example.com/querystring.txt
+
+   # 쿼리스트링 중 token, key만 유지한다.
+   /private/personal.jsp, +token&key
+   /private/personal1.jsp, token&key
+
+   # 쿼리스트링 중 dummy, ts만 제거한다.
+   /image/ad.jpg, -dummy&ts
+
+
+-  ``/private/personal.jsp?key=a&name=b&token=c`` 라고 입력 했다면 ``/private/personal.jsp?token=c&key=a`` 로 캐싱키가 생성된다.
+
+-  ``/image/ad.jpg?var=1&dummy=000000&ts=3&name=john`` 라고 입력 했다면 ``/image/ad.jpg?var=1&name=john`` 로 캐싱키가 생성된다.
+
+-  조건(url)에 매칭되지 않을 경우 모든 ``ON`` 과 동일하게 동작한다.
+
+
 .. _caching-policy-vary-header:
 
 Vary 헤더

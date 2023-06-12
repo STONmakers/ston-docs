@@ -7,9 +7,18 @@ Appendix E: 릴리스 노트
 v2.8.x
 ====================================
 
+.. _release-cdn-2-8-4:
+
+2.8.4 (2023.06.12)
+----------------------------
+
+-  :ref:`caching-policy-applyquerystring-match` 기능 추가
+-  :ref:`origin-retry` 기능 추가
+
+
 .. _release-cdn-2-8-3:
 
-2.8.3 (2023.05.2)
+2.8.3 (2023.05.02)
 ----------------------------
 
 -  더 큰 디스크 공간지원을 위한 :ref:`adv_topics_perf_securedisk` 고도화
