@@ -272,6 +272,8 @@ TTL 우선순위
 - ``cc_nostore`` 원본이 ``Cache-Control: no-stor`` 로 응답한 경우
 
 
+.. _caching-policy-invalid-refresh:
+
 비정상 TTL 연장
 ---------------------
 
@@ -287,23 +289,27 @@ TTL 우선순위
 
     <TTLExtensionBy4xx>OFF</TTLExtensionBy4xx>
     <TTLExtensionBy5xx>ON</TTLExtensionBy5xx>
+    <TTLExtensionByFail>ON</TTLExtensionByFail>
 
 -  ``<TTLExtensionBy4xx>``
 
    -  ``OFF (기본)`` 4xx 응답으로 콘텐츠를 갱신한다.
 
-   -  ``ON`` 304 not modified를 받은 것처럼 동작한다.
+   -  ``ON`` 304 not modified를 받은 것처럼 동작한다. 의도된 4xx응답이 아닌지 주의해야 한다.
 
-의도된 4xx응답이 아닌지 주의해야 한다.
 
 -  ``<TTLExtensionBy5xx>``
 
    -  ``ON (기본)`` **304 Not Modified** 를 받은 것처럼 동작한다.
 
-   -  ``OFF`` 5xx 응답으로 콘텐츠를 갱신한다.
+   -  ``OFF`` 5xx 응답으로 콘텐츠를 갱신한다. 정상적인 서버라면 5xx로 응답하지 않는다.
+      주로 서버의 일시적인 장애로부터 콘텐츠를 무효화하여 원본부하를 가중시키지 않기 위한 용도로 사용된다.
 
-정상적인 서버라면 5xx로 응답하지 않는다.
-주로 서버의 일시적인 장애로부터 콘텐츠를 무효화하여 원본부하를 가중시키지 않기 위한 용도로 사용된다.
+-  ``<TTLExtensionByFail>``
+
+   -  ``ON (기본)`` 원본과 정상통신이 실패하는 경우 **304 Not Modified** 를 받은 것처럼 동작한다.
+
+   -  ``OFF`` 정상 객체를 에러 객체로 교체한 뒤 노출한다.
 
 
 

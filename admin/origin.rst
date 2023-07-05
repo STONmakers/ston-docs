@@ -119,6 +119,7 @@ Health-Checker
 
    -  ``Log (기본: ON)`` HTTP Transaction을 :ref:`admin-log-origin` 에 기록한다.
 
+
 Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 상관없이 독립적으로 수행된다.
 `장애감지와 복구`_ 나 다른 Health-Checker와도 정보를 공유하지 않고
 자신만의 기준으로 배제와 투입을 결정한다.
