@@ -672,3 +672,74 @@ POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정�
 
     ``MaxContentLength`` 속성을 너무 크게 설정할 경우 Caching-Key 관리에 많은 메모리가 필요하다.
     가능한 작게 설정하는 것이 좋다.
+
+
+
+.. _caching-policy-custom-cachingkey:
+
+커스텀 캐싱키
+====================================
+
+캐싱키는 URL을 기반으로 아래 헤더의 영향을 받는다.
+
+-  :ref:`caching-policy-accept-encoding`
+-  :ref:`caching-policy-casesensitive`
+-  :ref:`caching-policy-applyquerystring`
+-  :ref:`caching-policy-vary-header` 
+
+
+특정 URL 패턴에 대하여 클라이언트 요청 헤더 중 일부를 캐싱키에 반영할 수 있다.
+
+::
+
+    # vhosts.xml - <Vhosts><Vhost><Options>
+
+    <CustomKey Status="ACTIVE">
+      <Item>
+         <Pattern><![CDATA[/*.do]]></Pattern>
+         <Headers><![CDATA[User-Agent, Cookie:key1;key2]]></Headers>
+      </Item>
+      <Item>
+         <Pattern><![CDATA[/*]]></Pattern>
+         <Headers><![CDATA[MyHeader]]></Headers>
+      </Item>
+   </CustomKey>
+
+
+-  ``<CustomKey>`` 
+
+   -  ``Status (기본: Inactive)`` 커스텀 캐싱키 기능 활성화 ( ``Active`` 또는 ``Inactive`` )
+   -  ``<Item>`` 커스텀 캐싱키 패턴과 반영될 헤더 목록. 우선순위를 가진다.
+      
+      -  ``<Pattern>`` 커스텀 캐싱키를 적용할 요청 URL 패턴
+      -  ``<Headers>`` 클라이언트 요청 헤더 중 캐싱키에 반영할 헤더 목록 (헤더의 구분자는 콤마 ``,`` 이며 ``Cookie`` 값의 키 구분자는 세미콜론 ``;`` 이다. ) ::
+
+            # User-Agent 헤더를 반영한다.
+            <Headers><![CDATA[User-Agent]]></Headers>
+
+            # User-Agent와 Cookie 헤더를 반영한다.
+            <Headers><![CDATA[User-Agent, Cookie]]></Headers>
+
+            # User-Agent와 Cookie 헤더의 값 중 user-id와 session-id 값만 반영한다. 
+            <Headers><![CDATA[User-Agent, Cookie:user-id;session-id]]></Headers>
+
+
+``<Header>`` 에 설정된 모든 헤더는 원본 응답에 영향을 줄 수 있기 때문에 원본으로 포워딩된다. 
+동작 순서는 아래와 같다.
+
+1.  표준헤더 생성
+2.  ``<Header>`` 에 설정된 헤더 추가
+3.  :ref:`origin_modify_client`
+
+
+.. warning::
+
+   다음 헤더는 설정이 불가하다.
+
+   -  ``Host``
+   -  ``Range``
+   -  ``If-Modified-Since``
+   -  ``If-None-Match``
+   -  ``If-Range``
+
+
