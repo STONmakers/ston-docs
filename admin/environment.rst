@@ -66,7 +66,7 @@ Reload 동작방식
 
     # <Server><Cache>
 
-    <Reload>Shared<Reload>
+    <Reload>Shared</Reload>
 
 -  ``<Reload> (기본: Exclusive)``
 
