@@ -8,10 +8,10 @@ STON은 `FUSE <http://fuse.sourceforge.net/>`_ 를 기반으로 Linux VFS(Virtua
 Mount된 경로의 모든 파일은 접근되는 순간 Caching되지만 다른 프로세스는 이 사실을 알지 못한다.
 **Caching기능이 탑재된 ReadOnly 디스크** 로 이해해도 좋다.
 
+다음 그림은 `Fuse <http://upload.wikimedia.org/wikipedia/commons/0/08/FUSE_structure.svg>`_ 구조이다.
+
 .. figure:: img/conf_fs1.png
    :align: center
-
-   `Fuse <http://upload.wikimedia.org/wikipedia/commons/0/08/FUSE_structure.svg>`_ 구조
 
 구조상 File I/O 함수 호출을 Linux Kernel이 STON에게 직접 전달하는 과정에 어떠한 요소(물리적 파일 I/O 또는 Socket통신 등)도 개입하지 않는다.
 이런 구조는 아주 높은 성능을 가능케 한다.

@@ -278,6 +278,85 @@ Facade 가상호스트
 
 
 
+.. _adv-vhost-sharevhost:
+
+Share 가상호스트
+====================================
+
+가상호스트를 구성하는 3요소는 다음과 같다.
+
+-  설정
+-  캐싱객체
+-  원본
+
+
+이는 가상호스트 안에 격리되어 있으며 상호 공유되지 않는다.
+
+.. figure:: img/adv_vhost_share1.png
+   :align: center
+
+
+STON은 ``share`` 가상호스트라는 개념으로 캐싱객체를 공유하는 기능을 제공한다.
+
+.. figure:: img/adv_vhost_share2.png
+   :align: center
+
+
+``share`` 로 지정된 가상호스트는 자신의 캐싱객체 대신 공유영역에 있는 캐싱객체를 사용하여 상호 공유가 가능하다.
+예를 들어 ``foo.com`` 가상호스트에서 캐싱한 객체를 ``bar.com`` 에서 공유하고 싶다면 다음 순서를 따른다.
+
+1.  ``foo.com`` 을 ``share`` 가상호스트로 만든다. ::
+
+         # vhosts.xml - <Vhosts>
+
+         <Vhost Name="example.com" Status="share">
+            ...
+         </Vhost>
+
+
+2.  ``bar.com`` 을 ``share`` 가상호스트로 만들며 ``foo.com`` 을 참조하도록 한다. ::
+
+         # vhosts.xml - <Vhosts>
+
+         <Vhost Name="bar.com" Status="share:foo.com">
+            ...
+         </Vhost>
+
+
+
+위와 같이 구성하면 ``foo.com`` 과 ``bar.com`` 은 같은 URL에 대해서는 캐싱 객체를 공유한다.
+다시 말해 ``foo.com`` 에 의해 캐싱된 객체는 ``bar.com`` 으로 접근해도 재캐싱하지 않고 ``TCP_HIT`` 로 서비스 된다.
+``bar.com`` 에 의해 먼저 캐싱된 객체도 동일하게 동작한다.
+
+``share`` 모드에는 가상호스트 이름이 캐싱키로 붙는다. 
+따라서 아래와 같이 선언만 하는 것으로는 아무 것도 공유되지 않는다. ::
+
+   <Vhost Name="foo.com" Status="share"> ... </Vhost>
+   <Vhost Name="bar.com" Status="share"> ... </Vhost>
+   <Vhost Name="que.com" Status="share"> ... </Vhost>
+
+
+상호 캐싱객체를 공유하려면 캐싱키에 사용될 적절한 공유이름을 지정해주어야 한다. ::
+
+   <Vhost Name="foo.com" Status="share:temp"> ... </Vhost>
+   <Vhost Name="bar.com" Status="share:temp"> ... </Vhost>
+   <Vhost Name="que.com" Status="share:temp"> ... </Vhost>
+   <Vhost Name="football.com" Status="share:sports"> ... </Vhost>
+   <Vhost Name="soccer.com" Status="share:sports"> ... </Vhost>
+
+
+공유 그룹 개수에 제약은 없으며, ``share`` 가상호스트는 실시간으로 적용/해제가 가능하다.
+
+
+.. warning::
+
+   ``share`` 가상호스트는 객체만 공유할 뿐 설정/원본을 독립적으로 유지하기 때문에 관리가 매우 어렵다.
+
+   1.  무결성이 보장되지 않는다. 멀티 가상호스트로 동시에 유입된 공유객체는 각자 다른 설정과 다른 원본으로부터 분할 캐싱된다.
+   2.  캐싱개수가 많아져 패턴 Purge 등 객체 관리기능의 성능이 저하된다.
+   3.  객체 유입과 서비스 경로가 명확하지 않아 서비스 추적이 어렵다.
+
+
 
 고급 기능 ``powered by M2``
 ====================================
