@@ -290,6 +290,8 @@ Expires조건은 /svc/{가상호스트 이름}/expires.txt에 설정한다. ::
    원본서버가 보낸 Max-Age가 없거나, 값이 0인 경우 Expire헤더를 붙이지 않는다.
 
 
+.. _handling_http_requests_cache_control_etag:
+
 ETag 헤더
 ---------------------
 
