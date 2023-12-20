@@ -11,6 +11,14 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v23.x
 ====================================
 
+.. _release-enterprise-23-12-0:
+
+23.12.0 (2023.12.21)
+----------------------------
+
+-  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
+
+
 
 .. _release-enterprise-23-03-0:
 

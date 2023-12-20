@@ -269,7 +269,7 @@ TTL 우선순위
 - ``custom`` `caching-policy-customttl`
 - ``cc_maxage`` 원본이 ``Cache-Control에 {maxage}`` 를 명시한 경우
 - ``rescode`` 원본 응답코드별 기본 TTL
-- ``cc_nostore`` 원본이 ``Cache-Control: no-stor`` 로 응답한 경우
+- ``cc_nostore`` 원본이 ``Cache-Control: no-store`` 로 응답한 경우
 
 
 .. _caching-policy-invalid-refresh:

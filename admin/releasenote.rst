@@ -6,6 +6,15 @@ Appendix E: 릴리스 노트
 v2.9.x
 ====================================
 
+.. _release-cdn-2-9-4:
+
+2.9.4 (2023.12.21)
+----------------------------
+
+-  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
+
+
+
 .. _release-cdn-2-9-3:
 
 2.9.3 (2023.11.24)
