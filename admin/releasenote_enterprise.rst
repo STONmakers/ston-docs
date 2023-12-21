@@ -11,17 +11,6 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v23.x
 ====================================
 
-.. _release-enterprise-23-12-0:
-
-23.12.0 (2023.12.21)
-----------------------------
-
--  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
-
-   .. note::
-
-      HTTPS, HTTP/2 설정이 통합되었으며, HTTP/2 TLS 옵션은 HTTPS TLS옵션 보다 우선합니다. (HTTP/2 사용시 HTTPS 도메인별 TLS옵션은 무시 됩니다.)
-
 
 .. _release-enterprise-23-03-0:
 

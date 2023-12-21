@@ -6,18 +6,6 @@ Appendix E: 릴리스 노트
 v2.9.x
 ====================================
 
-.. _release-cdn-2-9-4:
-
-2.9.4 (2023.12.21)
-----------------------------
-
--  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
-
-   .. note::
-
-      HTTPS, HTTP/2 설정이 통합되었으며, HTTP/2 TLS 옵션은 HTTPS TLS옵션 보다 우선합니다. (HTTP/2 사용시 HTTPS 도메인별 TLS옵션은 무시 됩니다.)
-
-
 
 .. _release-cdn-2-9-3:
 
