@@ -11,6 +11,18 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v23.x
 ====================================
 
+.. _release-enterprise-23-12-0:
+
+23.12.0 (2023.12.22)
+----------------------------
+
+-  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
+-  :ref:`https-conf` 과 :ref:`handling_http_requests_http2` 설정이 통합되었으며, :ref:`handling_http_requests_http2` 설정은 :ref:`https-conf` 보다 우선한다.
+   
+   .. note::
+      
+      :ref:`handling_http_requests_http2` 활성화시 :ref:`https-conf` 의 개별 설정은 무시된다.
+
 
 .. _release-enterprise-23-03-0:
 

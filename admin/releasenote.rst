@@ -6,6 +6,19 @@ Appendix E: 릴리스 노트
 v2.9.x
 ====================================
 
+.. _release-cdn-2-9-4:
+
+2.9.4 (2023.12.22)
+----------------------------
+
+-  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
+-  :ref:`https-conf` 과 :ref:`handling_http_requests_http2` 설정이 통합되었으며, :ref:`handling_http_requests_http2` 설정은 :ref:`https-conf` 보다 우선한다.
+   
+   .. note::
+      
+      :ref:`handling_http_requests_http2` 활성화시 :ref:`https-conf` 의 개별 설정은 무시된다.
+
+
 
 .. _release-cdn-2-9-3:
 
