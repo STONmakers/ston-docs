@@ -8,9 +8,10 @@ v2.9.x
 
 .. _release-cdn-2-9-6:
 
-2.9.6 (2024.02.01)
+2.9.6 (2024.02.05)
 ----------------------------
 
+-  ``Ubuntu v22.04`` 지원
 -  :ref:`https-conf` - 잘못된 인증서가 설정되더라도 해당 인증서만 제외하고 정상 인증서를 로딩
 -  :ref:`env-vhost-defaultvhost` 선택시 서비스 포트를 검사하지 않도록 개선
 -  ImageTool(DIMS), 압축등 콘텐츠 가공 과정 중 발생한 원본요청에 대해 ``X-Forwarded-For`` 헤더를 전달하도록 개선
@@ -23,16 +24,18 @@ v2.9.x
 2.9.5
 ----------------------------
 
-.. warning::
-
-   비공식 버전입니다.
-   
+-  가상 호스트가 삭제될 때 Alias를 반납하여 다른 가상호스트로 양도하도록 개선
 
 
 .. _release-cdn-2-9-4:
 
 2.9.4 (2023.12.22)
 ----------------------------
+
+.. warning::
+
+   Cent OS 6 지원 종료
+   
 
 -  `HTTP/2 Rapid Reset <https://blog.cloudflare.com/ko-kr/technical-breakdown-http2-rapid-reset-ddos-attack-ko-kr/>`_ 패치
 -  :ref:`https-conf` 과 :ref:`handling_http_requests_http2` 설정이 통합되었으며, :ref:`handling_http_requests_http2` 설정은 :ref:`https-conf` 보다 우선한다.

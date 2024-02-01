@@ -83,11 +83,12 @@ OS 구성
 
 다음 64bit Linux 배포판을 지원하며 패키지 의존성을 가지지 않는다.
 
--  ``RHEL/CentOS 6``
 -  ``RHEL/CentOS 7``
 -  ``RHEL/CentOS Stream 8``
 -  ``RHEL/CentOS Stream 9``
--  ``Ubuntu 12.04`` 부터 ``20.04`` 까지
+-  ``Ubuntu 18.04``
+-  ``Ubuntu 20.04``
+-  ``Ubuntu 22.04``
 -  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
 
 
