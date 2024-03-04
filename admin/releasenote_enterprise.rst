@@ -18,7 +18,7 @@ v24.x
 ----------------------------
 
 -  :ref:`media-hls` 변환시 모노 오디오가 스테레오로 한쪽만 재생되던 증상 수정
-
+-  ``Amazone Linux 2023`` , ``Amazone Linux 2`` 지원 ( :ref:`getting-started-os` )
 
 
 .. _release-enterprise-24-01-0:
@@ -26,7 +26,7 @@ v24.x
 24.01.0 (2024.02.05)
 ----------------------------
 
--  ``Ubuntu v22.04`` 지원
+-  ``Ubuntu v22.04`` 지원 ( :ref:`getting-started-os` )
 -  :ref:`https-conf` - 잘못된 인증서가 설정되더라도 해당 인증서만 제외하고 정상 인증서를 로딩
 -  :ref:`env-vhost-defaultvhost` 선택시 서비스 포트를 검사하지 않도록 개선
 -  ImageTool(DIMS), 압축등 콘텐츠 가공 과정 중 발생한 원본요청에 대해 ``X-Forwarded-For`` 헤더를 전달하도록 개선

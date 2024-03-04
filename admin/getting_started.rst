@@ -78,7 +78,7 @@ STON은 표준 Linux 서버에서 동작하도록 개발되었다.
 
 .. _getting-started-os:
 
-OS 구성
+OS 지원
 ====================================
 
 다음 64bit Linux 배포판을 지원하며 패키지 의존성을 가지지 않는다.
@@ -90,6 +90,9 @@ OS 구성
 -  ``Ubuntu 20.04``
 -  ``Ubuntu 22.04``
 -  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
+-  ``RHEL/CentOS 7``
+-  ``Amazone Linux 2023``
+-  ``Amazone Linux 2``
 
 
 .. _getting-started-install:
