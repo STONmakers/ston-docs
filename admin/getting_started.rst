@@ -91,8 +91,8 @@ OS 지원
 -  ``Ubuntu 22.04``
 -  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
 -  ``RHEL/CentOS 7``
--  ``Amazone Linux 2023``
--  ``Amazone Linux 2``
+-  ``Amazon Linux 2023``
+-  ``Amazon Linux 2``
 
 
 .. _getting-started-install:

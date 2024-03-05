@@ -12,7 +12,7 @@ v2.9.x
 ----------------------------
 
 -  :ref:`media-hls` 변환시 모노 오디오가 스테레오로 한쪽만 재생되던 증상 수정
--  ``Amazone Linux 2023`` , ``Amazone Linux 2`` 지원 ( :ref:`getting-started-os` )
+-  ``Amazon Linux 2023`` , ``Amazon Linux 2`` 지원 ( :ref:`getting-started-os` )
 
 
 .. _release-cdn-2-9-6:
