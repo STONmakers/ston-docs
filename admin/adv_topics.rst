@@ -84,6 +84,18 @@ Volatile 가상호스트
 디스크모드라면 ``Volatile="ON"`` 인 가상호스트는 `Memory-Only 모드`_ 로 동작한다.
 
 
+.. note::
+   
+   :ref:`adv-vhost-sharevhost` 를 Volatile로 지정할 수 있다. ::
+
+      # server.xml - <Server><Cache>
+
+      <Storage VolatileOnShare="OFF" />
+
+   
+   동적변경이 불가하여 재가동해주어야 반영된다.
+
+
 
 .. _adv_topics_instant:
 
@@ -394,6 +406,7 @@ Request hit ratio
 캐시처리 결과는 Squid와 동일하게 TCP_*로 명명되며 각 표현마다 캐시서버가 처리한 방식을 의미한다.
 
 -  ``TCP_HIT`` 요청된 리소스(만료되지 않음)가 캐싱되어 있어 즉시 응답함.
+-  ``TCP_RT_HIT`` 이미 신규캐싱/갱신 과정 중이어서 해당 객체를 대기하여 응답함. ``<CacheRoundTripPolicy>`` 설정이 ``HIT`` 일 때만 발생.
 -  ``TCP_IMS_HIT`` IMS(If-Modified-Since)헤더와 함께 요청된 리소스가 만료되지 않은 상태로 캐싱되어 있어 304 NOT MODIFIED로 응답함. TTLExtensionBy4xx, TTLExtensionBy5xx설정에 해당하는 경우에도 이에 해당함.
 -  ``TCP_REFRESH_HIT`` 요청된 리소스가 만료되어 원본서버 확인(원본 미변경, 304 NOT MODIFIED) 후 응답함. 리소스 만료시간 연장됨.
 -  ``TCP_REF_FAIL_HIT`` TCP_REFRESH_HIT과정 중 원본서버에서 확인이 실패(접속실패, 전송지연)한 경우 만료된 컨텐츠로 응답함.

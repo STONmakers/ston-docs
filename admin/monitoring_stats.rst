@@ -30,6 +30,7 @@
    :maxdepth: 2
 
 
+.. _monitoring_stats_conf:
 
 수집범위
 ====================================
@@ -45,6 +46,9 @@
       <HttpsTraffic>OFF</HttpsTraffic>
       <ClientLocal>OFF</ClientLocal>
       <OriginLocal>OFF</OriginLocal>
+      <ClientResCode>OFF</ClientResCode>
+      <OriginResCode>OFF</OriginResCode>
+      <CacheRoundTripPolicy>miss</CacheRoundTripPolicy>
    </Stats>
 
 -  ``<DirDepth> (기본: 0)``
@@ -102,6 +106,32 @@
    - ``OFF (기본)`` 집계하지 않는다.
 
    - ``ON`` 집계한다.
+
+-  ``<ClientResCode>``
+
+   원본서버의 모든 응답코드별 개수를 제공한다.
+
+   - ``OFF (기본)`` 제공하지 않는다.
+
+   - ``ON`` 제공한다.
+
+
+-  ``<OriginResCode>``
+
+   원본서버의 모든 응답코드별 개수를 제공한다.
+
+   - ``OFF (기본)`` 제공하지 않는다.
+
+   - ``ON`` 제공한다.
+
+
+-  ``<CacheRoundTripPolicy>``
+
+   신규캐싱/갱신과정 중인 객체를 클라이언트가 요청할 때의 Cache 판정. 다시 말해 2번째 클라
+
+   -  ``MISS (기본)`` 첫번째 원본요청을 발생시킨 클라이언트와 동일하게 ``MISS`` 계열로 판정한다.
+
+   -  ``HIT`` 원본요청을 발생시키지 않았기 때문에 ``TCP_RT_HIT`` 로 판정한다.
 
 
 .. _monitoring-stats-host:
@@ -812,6 +842,23 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
    -  ``AvgDNSQueryTime (단위: 0.01ms)`` 평균 DNS쿼리 시간
    -  ``AvgConnTime (단위: 0.01ms)`` 평균 접속시간 (TCP SYN전송 ~ TCP SYN ACK수신)
 
+
+``v2.9.8`` 부터는 ``<OriginResCode>`` 설정이 활성화되어 있다면 다음과 같이 상세 코드별 개수를 제공한다. ::
+
+    # xml
+    <Response _0="0" _100"="0" _200="435" ... >
+
+    # json
+    "Response": {
+      "Codes": {
+        "_0": 0,
+        "_100": 0,
+        "_200": 435,
+        ...
+      }
+    }
+
+
 .. note::
 
    5분 통계에서만 제공되는 항목.
@@ -1056,6 +1103,22 @@ STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
    -  ``Open`` open함수 호출회수와 응답시간
    -  ``Read`` read함수 호출회수와 응답시간, 요청크기(BufferSize)와 응답크기(BufferFilled)
    -  ``RequestHit`` (File I/O 접근) 캐싱 HIT결과
+
+
+``v2.9.8`` 부터는 ``<ClientResCode>`` 설정이 활성화되어 있다면 다음과 같이 상세 코드별 개수를 제공한다. ::
+
+    # xml
+    <Response _0="0" _100"="0" _200="435" ... >
+
+    # json
+    "Response": {
+      "Codes": {
+        "_0": 0,
+        "_100": 0,
+        "_200": 435,
+        ...
+      }
+    }
 
 
 .. note::

@@ -6,6 +6,23 @@ Appendix E: 릴리스 노트
 v2.9.x
 ====================================
 
+.. _release-cdn-2-9-8:
+
+2.9.8 (2024.03.18) 
+----------------------------
+
+-  원본과 클라이언트의 HTTP 응답코드별 개수 통계를 제공한다. ( :ref:`monitoring_stats_conf` 설정)
+-  :ref:`adv-vhost-sharevhost` 를 :ref:`adv_topics_volatile` 로 지정할 수 있다.
+-  :ref:`adv_topics_req_hit_ratio` 판정에 ``TCP_RT_HIT`` 상태 추가
+-  :ref:`media-hls` - :ref:`media-mp4-hls-enc` 기능 사용시 미디어가 간헐적으로 튀는 증상 개선
+-  WM - 가상호스트 목록에서 :ref:`adv-vhost-sharevhost` 가 :ref:`adv-vhost-facadevhost` 로 표기 되는 문제 수정
+-  HTTP 비정상 ``Range`` 요청에 처리 정책 변경
+
+   | **Before**. 세션 종료
+   | **After**. ``Range`` 헤더 무시
+
+
+
 .. _release-cdn-2-9-7:
 
 2.9.7 (2024.03.05) 
