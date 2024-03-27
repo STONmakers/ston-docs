@@ -420,8 +420,8 @@ Request hit ratio
 
 이상을 종합하여 Request hit ratio계산 공식은 다음과 같다. ::
 
-   TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT + TCP_REDIRECT_HIT
-   ------------------------------------------------------------------------------------------------
+   TCP_HIT + TCP_IMS_HIT + TCP_REFRESH_HIT + TCP_REF_FAIL_HIT + TCP_NEGATIVE_HIT + TCP_REDIRECT_HIT + TCP_RT_HIT
+   --------------------------------------------------------------------------------------------------------------
                                             SUM(TCP_*)
 
 
