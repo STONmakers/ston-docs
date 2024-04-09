@@ -13,6 +13,7 @@ v2.9.x
 ----------------------------
 
 -  :ref:`https-conf` - SNI(Server Name Indication) 필드가 없는 ClientHello에 대해 최상위에 설정된 인증서가 제공되도록 정책 변경
+-  :ref:`origin-retry` 동작시 ``Host`` 헤더의 값으로 IP가 설정되던 증상 수정
 
 
 .. _release-cdn-2-9-8:
