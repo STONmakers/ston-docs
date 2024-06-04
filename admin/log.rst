@@ -443,6 +443,12 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       /mp4/iu.mp4 라면 iu.mp4를 기록
 
+
+-  ``%...F`` 파일명 ::
+
+      원본서버 선택이유
+
+
 -  ``%...h`` HostName ::
 
       example.com
@@ -568,14 +574,14 @@ Origin 로그
 
 ::
 
-    #Fields: date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port sc-contentencoding session-id session-type time-sock-creation x-cs-retry time-request
-    2012.06.27 17:40:00 357 899 192.168.0.13 GET i.example.com /t/2.gif 115.71.9.136 200 - - - 3874 197 271 3874 20 0 0 17 3 - gzip+deflate - 80 gzip 7 cache
-    2012.06.27 17:40:00 357 900 192.168.0.13 GET i.example.com /ex1.gif 115.71.9.136 200 - - - 5673 223 272 5673 24 0 0 21 3 - - - 80 - 8 cache
-    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9  4 Bypass - - 80 - 7 cache
-    #[ERROR:01] 2012.06.27 17:40:01 220.73.216.5 220.73.216.5 GET /web/nmb/img/main/v1/h1.gif 1824 Connect-Timeout - 11 cache
-    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB1.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - max-age=3600 80 - 12 cache
-    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB2.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - no-cache 80 - 35 cache
-    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB3.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - - 80 - 35 cache
+    #Fields: date time cs-sid cs-tcount c-ip cs-method s-domain cs-uri s-ip sc-status cs-range sc-sock-error sc-http-error sc-content-length cs-requestsize sc-responsesize sc-bytes time-taken time-dns time-connect time-firstbyte time-complete cs-reqinfo cs-acceptencoding sc-cachecontrol s-port sc-contentencoding session-id session-type time-sock-creation x-cs-retry time-request cs-balance
+    2012.06.27 17:40:00 357 899 192.168.0.13 GET i.example.com /t/2.gif 115.71.9.136 200 - - - 3874 197 271 3874 20 0 0 17 3 - gzip+deflate - 80 gzip 7 cache rr
+    2012.06.27 17:40:00 357 900 192.168.0.13 GET i.example.com /ex1.gif 115.71.9.136 200 - - - 5673 223 272 5673 24 0 0 21 3 - - - 80 - 8 cache rr
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9  4 Bypass - - 80 - 7 cache rr
+    #[ERROR:01] 2012.06.27 17:40:01 220.73.216.5 220.73.216.5 GET /web/nmb/img/main/v1/h1.gif 1824 Connect-Timeout - 11 cache rr
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB1.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - max-age=3600 80 - 12 cache rr
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB2.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - no-cache 80 - 35 cache rr
+    2012.06.27 17:40:00 357 901 192.168.0.13 GET i.example.com /exB3.jpg 115.71.9.136 200 - - - 8150 189 273 8150 13 0 0 9 4 - - 80 - 35 cache rr
 
 원본서버에 장애가 발생했다면 #[ERROR:xx]로 시작하는 에러 로그가 기록된다.
 모든 필드는 공백으로 구분되며 각 필드의 의미는 다음과 같다.
@@ -628,7 +634,21 @@ Origin 로그
 
 -  ``time-sock-creation (단위: ms)`` - 소켓 생성 소요시간
 -  ``x-cs-retry`` - 해당 세션 Retry 상태 (Retry 시 ``Y`` , Retry 하지 않았다면 ``N`` )
--  ``time-request`` - 원본서버 요청시간. ``시간:분:초.밀리세컨드 (hh:mm:ss.SSS)`` 양식. ( ``v2.7.35`` 부터 지원 )
+-  ``time-request`` - 원본서버 요청시간. ``시간:분:초.밀리세컨드 (hh:mm:ss.SSS)`` 양식( ``v2.7.35`` 부터 지원)
+-  ``cs-balance`` - 원본서버 선택이유
+
+   -  ``rr`` :ref:`origin-balancemode` ``RoundRobin`` 설정
+   -  ``hash`` :ref:`origin-balancemode` ``Hash`` 설정
+   -  ``session`` :ref:`origin-balancemode` ``Session`` 설정
+   -  ``boaf`` :ref:`bypass-affinity-sticky` ``OriginAffinity`` 속성 활성화 바이패스
+   -  ``bs`` :ref:`bypass-affinity-sticky` ``Sticky`` 속성 활성화 바이패스
+   -  ``-`` :ref:`origin_exclusion_and_recovery` 또는 :ref:`origin-health-checker`
+
+   .. note::
+      
+      :ref:`origin-balancemode-on-counter` 으로 동작할 경우 분산 알고리즘과 판단 조건이 같이 기록된다. ::
+
+         rr;47>30         # AccessGt(30)보다 더 많은 요청(47)이 기록되어 RR로 원본 선택
 
 
 .. _admin-log-image:

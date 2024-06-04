@@ -403,6 +403,45 @@ STON의 많은 기능은 기존 URL 뒤에 명령어를 붙이는 형식이다. 
 ``<BalanceHashRules>`` 은 원본서버 선택에만 관여할 뿐 URL을 변형시키는 것은 아니다.
 
 
+
+
+.. _origin-balancemode-on-counter:
+
+카운터 기반 분산
+-----------------------------------
+
+요청수에 기반하여 동적으로 원본 분산정책을 적용한다.
+
+.. note::
+
+   이 기능 동작을 위해서는 :ref:`monitoring_counter` 가 활성화되어 있어야 한다. 
+
+
+::
+
+
+   # server.xml - <Server><VHostDefault><OriginOptions>
+   # vhosts.xml - <Vhosts><Vhost><OriginOptions>
+
+   <BalanceMode>Hash
+     <OnCounter AccessGt="40">
+       <Pattern><![CDATA[/live/*.ts]]></Pattern>
+       <Pattern><![CDATA][/live/*.m4v]]></Pattern>
+       <Pattern><![CDATA][/live/*.m4a]]></Pattern>
+       <Action>RounbRobin</Action>
+     </OnCounter>
+     <OnCounter AccessGt="10">
+       <Pattern><![CDATA[/live/*.mp4]]></Pattern>
+       <Action>RounbRobin</Action>
+     </OnCounter>
+   </BalanceMode>
+   
+
+원본을 선택하는 시점에 요청수(=카운터의 값)가 ``<OnCounter>`` 의 ``AccessGt`` 보다 크다면 ``<Action>`` 의 정책을 사용한다.
+``<OnCounter>`` 하위에 ``<Pattern>`` 리스트를 작성하여 카운터를 적용할 URL을 정의한다.
+
+
+
 .. _origin-retry:
 
 원본 재시도

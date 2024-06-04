@@ -1389,3 +1389,74 @@ Access, Origin, Monitoring로그는 가상호스트(vhost)를 지정해야 한�
     http://127.0.0.1:10040/monitoring/logtrace/access?vhost=www.site1.com
     http://127.0.0.1:10040/monitoring/logtrace/origin?vhost=www.site1.com
     http://127.0.0.1:10040/monitoring/logtrace/monitoring?vhost=www.site1.com
+
+
+
+.. _monitoring_counter:
+
+카운터
+====================================
+
+실시간(1~30초)으로 URL depth기반 요청수를 집계한다.
+요청수에는 바이패스도 포함된다.
+
+
+.. note::
+   
+   단기 휘발성 데이터이기에 ``<Options>`` 기능으로 분류한다.
+
+
+::
+
+   # server.xml - <Server><VHostDefault>
+   # vhosts.xml - <Vhosts><Vhost>
+
+   <Options>
+     <Counter Status="Inactive" Value="1" Duration="10" />
+   </Options>
+
+
+-  ``Status (기본: Inactive)``
+
+   ``Active`` 로 설정하면 카운터를 활성화한다.
+
+
+-  ``Value (기본: 1)``
+
+   카운팅할 URL depth를 지정한다. ::
+
+      /assets/prd/sample.jpg
+      /assets/images/sample.jpg?a=1
+      /assets/images/private/test/logo.png
+
+      # Value="1" 이라면 동일한 카운터로 간주하여 3회를 카우팅한다.
+      /assets/
+
+      # Value="2" 라면 1회, 2회로 나누어 카운팅한다.
+      /assets/prd/
+      /assets/images/
+
+
+   .. warning::
+   
+      지나치게 큰 값을 넣어 모든 URL을 카운팅할 경우 메모리 과다사용 문제가 발생할 수 있다.
+   
+
+-  ``Duration (기본: 10초, 최대: 30초)``
+
+   카운터 집계기준을 지정한다.
+
+
+
+.. _monitoring_counter_api:
+
+카운터 API
+---------------------
+
+카운팅 상태를 API로 조회할 수 있다. ::
+
+  /monitoring/counter?vhost={가상호스트}
+  /monitoring/counter?vhost={가상호스트}&dur={1~30}
+
+
+depth별 요청수가 우선순위로 정렬되어 제공된다.

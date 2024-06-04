@@ -7,6 +7,18 @@ v2.9.x
 ====================================
 
 
+.. _release-cdn-2-9-11:
+
+2.9.11 (2024.06.04) 
+----------------------------
+
+-  :ref:`monitoring_counter` 기능 추가
+-  :ref:`origin-balancemode-on-counter` 기능 추가
+-  원본서버 선택이유를 알 수 있도록 :ref:`admin-log-origin` 에 ``cs-balance`` 필드 추가
+-  :ref:`caching-policy-vary-header` 로 파생된 객체가 Purge되지 않던 증상 수정
+
+
+
 .. _release-cdn-2-9-10:
 
 2.9.10 (2024.05.16) 
