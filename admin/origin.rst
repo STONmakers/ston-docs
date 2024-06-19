@@ -428,11 +428,11 @@ STON의 많은 기능은 기존 URL 뒤에 명령어를 붙이는 형식이다. 
        <Pattern><![CDATA[/live/*.ts]]></Pattern>
        <Pattern><![CDATA][/live/*.m4v]]></Pattern>
        <Pattern><![CDATA][/live/*.m4a]]></Pattern>
-       <Action>RounbRobin</Action>
+       <Action>RoundRobin</Action>
      </OnCounter>
      <OnCounter AccessGt="10">
        <Pattern><![CDATA[/live/*.mp4]]></Pattern>
-       <Action>RounbRobin</Action>
+       <Action>RoundRobin</Action>
      </OnCounter>
    </BalanceMode>
    
