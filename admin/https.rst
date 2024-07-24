@@ -57,7 +57,10 @@ HTTPS 설정
 
 .. note::
 
-   인증서 포맷은 PEM(Privacy Enhanced Mail), 비대칭키 알고리즘은 RSA만 지원한다.
+   -  인증서 포맷은 PEM(Privacy Enhanced Mail), 비대칭키 알고리즘은 RSA만 지원한다.
+
+   -  ``v.2.10.0`` 부터 ``DSA`` , ``RSA`` 하이브리드 인증서를 지원한다.
+
 
 
 .. _https-aes-ni:
