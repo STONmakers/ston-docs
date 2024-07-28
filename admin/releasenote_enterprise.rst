@@ -12,6 +12,17 @@ Appendix F: 릴리스 노트  ``[Enterprise]``
 v24.x
 ====================================
 
+.. _release-enterprise-24-07-29:
+
+24.08.0 (2024.07.29)
+----------------------------
+
+-  :ref:`origin-balancemode` ``Hash`` 맵 구성 성능 개선
+-  :ref:`media-hls` 비정상 MP4 예외처리 강화
+-  :ref:`media-mp3-hls` – 낮은 확률의 메모리누수 문제 수정
+-  ``DSA`` , ``RSA`` 하이브리드 인증서 지원
+
+
 .. _release-enterprise-24-03-18:
 
 24.03.1 (2024.03.18)
