@@ -90,6 +90,7 @@ OS 지원
 -  ``Ubuntu 20.04``
 -  ``Ubuntu 22.04``
 -  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
+-  ``Rocky Linux 9`` ( ``RHEL/CentOS`` 패키지 사용)
 -  ``RHEL/CentOS 7``
 -  ``Amazon Linux 2023``
 -  ``Amazon Linux 2``

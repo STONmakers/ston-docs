@@ -647,7 +647,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
-   <Compression GzipLevel="6" BrotliQuality="11" BrotliWindow="22" SourceSize="2-2048">OFF</Compression>
+   <Compression GzipLevel="6" BrotliQuality="6" BrotliWindow="22" SourceSize="2-2048" Method="gzip">OFF</Compression>
 
 -  ``<Compression>``
 
@@ -656,9 +656,10 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
    -  ``ON`` 압축 기능을 사용한다. 다음 속성을 지원한다.
 
       -  ``GzipLevel (기본: 6)`` gzip 알고리즘 압축 단계를 1~9 범위에서 지정한다. 숫자가 작을수록 빠르지만 압축률이 나쁘고, 클수록 느리지만 압축률이 좋다.
-      -  ``BrotliQuality (기본: 11)`` brotli 알고리즘 압축 단계를 0~11 범위에서 지정한다. `BrotliEncoderParameter 참고 <https://brotli.org/encode.html#a9a8>`_ 
+      -  ``BrotliQuality (기본: 6)`` brotli 알고리즘 압축 단계를 0~11 범위에서 지정한다. `BrotliEncoderParameter 참고 <https://brotli.org/encode.html#a9a8>`_ 
       -  ``BrotliWindow (기본: 22)`` brotli 슬라이딩 LZ77 윈도우 크기를 10~24 범위에서 지정한다. `BrotliEncoderParameter 참고 <https://brotli.org/encode.html#a9a8>`_ 
       -  ``SourceSize (기본: 2-2048, 단위: KB)`` 원본 크기를 범위로 지정한다. 너무 작은 파일은 압축률이 떨어진다. 반대로 너무 큰 파일은 과도하게 CPU를 점유할 수 있다.
+      -  ``Method (기본: gzip)`` 우선 적용할 압축 알고리즘 ( ``v2.10.0`` 부터 지원)
 
 압축된 콘텐츠는 원본과 다른 콘텐츠로 인식/캐싱되며, 동일한 요청에 대해 다시 압축되지 않는다.
 
