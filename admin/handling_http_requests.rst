@@ -598,8 +598,8 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 이를 이용해 클라이언트가 보낸 헤더 값을 응답 헤더와 원본 요청 헤더에 명시할 수 있다. ::
 
    # 응답변경 - 클라이언트 헤더 참조
-   # 클라이언트가 보낸 요청의 Origin헤더 값을 응답의 Access-Allow-Control-Origin 헤더 값으로 설정한다.
-   $URL[*.html], $RES[Access-Allow-Control-Origin: $REQ.Origin], Set
+   # 클라이언트가 보낸 요청의 Origin헤더 값을 응답의 Access-Control-Allow-Origin 헤더 값으로 설정한다.
+   $URL[*.html], $RES[Access-Control-Allow-Origin: $REQ.Origin], Set
 
    # 클라이언트가 보낸 요청의 여러 헤더 값을 응답의 X-Cookie 헤더 값으로 설정한다.
    $URL[*.json], $RES[X-Cookie: $REQ.[User-Agent, Host]], Set
