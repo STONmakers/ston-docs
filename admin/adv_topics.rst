@@ -621,7 +621,7 @@ Emergency모드일 때 STON은 다음과 같이 동작한다.
 
 .. _adv_topics_perf_cleanupfilecount:
 
-캐싱객체 삭제개수 설정
+캐싱 삭제정책
 ====================================
 
 캐싱객체가 최대 개수에 다다르면 가장 접근빈도가 낮은 10%의 객체를 삭제한다. 
@@ -643,6 +643,30 @@ Emergency모드일 때 STON은 다음과 같이 동작한다.
 .. note::
 
    최소 10만개 이상을 권장한다.
+
+
+
+.. _adv_topics_perf_cleanup-condition:
+
+캐싱 삭제조건
+------------------
+
+캐싱 삭제조건을 설정한다. ::
+
+   # server.xml - <Server><Cache>
+
+   <Performance>
+      <CleanupFilePolicy>Both</CleanupFilePolicy>
+   </Performance>
+
+
+-  ``CleanupFilePolicy (기본: both)`` 인덱싱 개수와 인덱싱 데이터 메모리 사용량으로 판단한다.
+
+   -  ``count`` 인덱싱 개수로만 판단한다.
+
+   -  ``size`` 인덱싱 데이터 메모리 사용량으로만 판단한다.
+
+   -  ``both`` 위 두 조건중 하나라도 해당하면 삭제를 진행한다.
 
 
 
