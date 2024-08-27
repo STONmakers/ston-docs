@@ -473,6 +473,12 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       Id=10&value=20
 
+
+-  ``%...{foobar}Q``  서버가 수신한 Foobar 쿼리스트링의 내용 ::
+
+      문자열
+
+
 -  ``%...r`` 요청의 첫번째 줄(Request Line) ::
 
       GET /img.jpg HTTP/1.1
