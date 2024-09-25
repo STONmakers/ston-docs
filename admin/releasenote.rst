@@ -6,9 +6,20 @@ Appendix E: 릴리스 노트
 v2.10.x
 ====================================
 
+.. _release-cdn-2-10-2:
+
+2.10.2 (2024.09.25)
+----------------------------
+
+-  :ref:`origin_dynamic` 기능 추가
+-  원본 ``Cache-Control`` 헤더의 ``s-maxage`` 지시자 지원 ( :ref:`caching-policy-priority` 참고)
+-  :ref:`handling_http_requests_http_to_https` 기능 추가
+-  :ref:`admin-log-origin` 의 ``cs-acceptencoding`` 필드가 기록되지 않던 문제 수정
+
+
 .. _release-cdn-2-10-1:
 
-2.10.1 (2024.08.21) 
+2.10.1 (2024.08.21)
 ----------------------------
 
 -  ( ``v2.10.0`` 버그) 멀티 ``RSA`` 인증서 등록시 인증서가 정상선택되지 않던 증상 수정

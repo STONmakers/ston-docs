@@ -628,6 +628,42 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 
 
 
+.. _handling_http_requests_http_to_https:
+
+HTTP to HTTPS 리다이렉트
+====================================
+
+:ref:`access-control-vhost` 의 :ref:`access-control-vhost_redirect` 기능을 통해서 ``HTTP`` 프로토콜 접근을 ``HTTPS`` 프로토콜로 리다이렉트할 수 있지만, 자주 쓰는 기능이기 때문에 보다 간단한 방식을 지원한다.
+
+::
+
+   # server.xml - <Server><VHostDefault><Options>
+   # vhosts.xml - <Vhosts><Vhost><Options>
+
+   <RedirectHttpToHttps ResCode="307">OFF</RedirectHttpToHttps>
+
+
+-  ``<RedirectHttpToHttps>``
+
+   -  ``OFF (기본)`` 동작하지 않는다.
+
+   -  ``ON`` HTTP 프로토콜 요청을 HTTPS 프로토콜로 리다이렉트한다.
+
+      -  ``ResCode (기본: 307)`` 리다이렉트 응답코드
+
+         .. warning::
+            
+            ``302`` 는 클라이언트에 따라 ``POST`` 메소드 요청시 ``GET`` 메소드로 변경될 수 있음에 주의한다.
+
+
+동작시점은 :ref:`access-control-vhost` 보다 우선한다.
+``Location`` 헤더의 값은 가상호스트가 바인딩된 시점의 ``Host`` 와 URL을 그대로 사용하며, 프로토콜만 HTTPS로 변경 된다.
+
+.. note::
+
+   만약, 요청 URL별로 설정을 다르게 하고 싶다면 :ref:`access-control-vhost` 의 :ref:`access-control-vhost_redirect` 기능을 이용하여 구성하는 것이 바람직하다. 
+
+
 .. _handling_http_requests_compression:
 
 압축

@@ -250,6 +250,7 @@ TTL 만료시간 지정
    TTL은 객체가 초기화(=캐싱) 되는 시점에 고정되기 때문이다.
 
 
+.. _caching-policy-priority:
 
 TTL 우선순위
 ---------------------
@@ -259,17 +260,18 @@ TTL 우선순위
     # server.xml - <Server><VHostDefault><Options>
     # vhosts.xml - <Vhosts><Vhost><Options>
 
-    <TTL Priority="cc_nocache, custom, cc_maxage, rescode, cc_nostore">
+    <TTL Priority="cc_nostore, cc_nocache, custom, cc_maxage, rescode, cc_smaxage">
         ... (생략) ...
     </TTL>
 
-``<TTL>`` 의 ``Priority (기본: cc_nocache, custom, cc_maxage, rescode)`` 속성으로 설정한다.
+``<TTL>`` 의 ``Priority (기본: cc_nostore, cc_nocache, custom, cc_maxage, rescode, cc_smaxage)`` 속성으로 설정한다.
 
+- ``cc_nostore`` 원본이 ``Cache-Control: no-store`` 로 응답한 경우
 - ``cc_nocache`` 원본이 ``Cache-Control: no-cache`` 로 응답한 경우
-- ``custom`` `caching-policy-customttl`
+- ``custom`` :ref:`caching-policy-customttl`
 - ``cc_maxage`` 원본이 ``Cache-Control에 {maxage}`` 를 명시한 경우
 - ``rescode`` 원본 응답코드별 기본 TTL
-- ``cc_nostore`` 원본이 ``Cache-Control: no-store`` 로 응답한 경우
+- ``cc_smaxage`` 원본이 ``Cache-Control에 {s-maxage}`` 를 명시한 경우
 
 
 .. _caching-policy-invalid-refresh:

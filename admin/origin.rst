@@ -466,6 +466,8 @@ STON의 많은 기능은 기존 URL 뒤에 명령어를 붙이는 형식이다. 
    재시도하는 만큼 클라이언트 대기 시간이 지연되어 서비스 품질에 악영향을 줄 우려가 있음에 주의한다.
 
 
+.. _origin-session-reuse:
+
 세션 재사용
 ====================================
 
@@ -872,3 +874,128 @@ AWS S3 인증스펙인 `Authenticating Requests (AWS Signature Version 4) <https
 .. note::
 
    읽기 권한인 GET 메소드만을 지원한다. 쓰기(POST, PUT, FETCH)는 캐시서버의 목적에 부합하지 않는다.
+
+
+
+.. _origin_dynamic:
+
+동적 원본분기
+====================================
+
+가상호스트는 :ref:`env-vhost-activeorigin` 를 대신하기에 1:1의 관계가 기본이다.
+가상호스트 안에는 원본팜이 존재하지만 1:1의 관계이기 때문에 특별한 이유가 없다면 표기하지 않는다.
+
+   .. figure:: img/origin_dynamic01.png
+      :align: center
+
+      원본팜은 항상 존재한다.
+
+
+동적 원본분기는 클라이언트 요청 패턴에 따라 동적으로 원본팜을 생성하는 기능으로 다음과 같은 상황에서 효과적이다.
+
+.. note::
+
+   -  라이브 방송처럼 원본서버가 특정 이벤트동안만 운영될 때
+   -  원본서버 정보를 사전에 알 수 없을 때
+   -  단일 서비스 도메인으로 URL path로 원본이 구분될 때
+   -  수백 개가 넘는 가상호스트를 사전에 구성/분기 작업이 어려울 때
+
+
+.. figure:: img/origin_dynamic02.png
+   :align: center
+
+   한 가상호스트 안에 독립된 원본팜을 멀티로 구성한다.
+
+::
+
+   # vhosts.xml - <Vhosts><Vhost><Origin>
+
+   <Dynamic Status="Active" KeepAlive="60">
+      <MatchingList>
+         <Item><![CDATA[$URL[/ko-kr/live/*/*], #1]]></Item>
+         <Item><![CDATA[$URL[/*?ch=*&*], #2]]></Item>
+      </MatchingList>
+      <Origin Protocol="HTTP">
+         <Address>#ORGKEY.mylive.com</Address>
+      </Origin>
+   </Dynamic>
+
+
+.. warning::
+   
+   설정위치가 :ref:`env-vhost-activeorigin` ``<Origin>`` 하위임을 주의한다. ::
+
+      # vhosts.xml
+
+      <Vhosts>
+         <Vhost Name="www.example.com">
+            <Origin>
+               <Dynamic Status="Active" KeepAlive="60">
+                  ...
+               </Dynamic>
+            </Origin>
+         </Vhost>
+      </Vhosts>
+   
+
+-  ``<Dynamic>``  
+
+   -  ``Status (기본: Inactive)`` 값이 ``Active`` 인 경우 활성화된다. 서비스 중 변경이 가능하다.
+
+   -  ``KeepAlive (기본: 1800초, 최대: 86400초)`` 동적으로 생성된 원본팜이 일정 시간동안 접근되지 않는다면 파괴한다.
+
+   -  ``<MatchingList>`` 동적 원본을 생성할 패턴을 하위 ``<Item>`` 으로 구성한다. ``<Item>`` 을 통해 동적 원본에서 사용할 키를 추출한다. ``#1 ~ #9`` 까지 사용이 가능하다. ::
+          
+          # /ko-kr/live/ch01/0000-0000-0001/test 요청시
+          패턴: /ko-kr/live/*/*
+          키: ch01 (#1)
+
+          # /9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d?ch=ston 요청시
+          패턴: /*?ch=*&*
+          키: ston (#2)
+          
+      
+      일치하는 패턴이 없다면 기존대로 지정된 :ref:`env-vhost-activeorigin` 를 사용한다. 
+
+   -  ``<Origin>`` 동적 원본의 설정으로 ``<MatchingList>`` 에서 매칭된 키를 ``#ORGKEY`` 키워드로 사용할 수 있다.  ::
+          
+          # /ko-kr/live/ch01/0000-0000-0001/test 요청시 원본 형상
+          <Origin Protocol="HTTP">
+            <Address>ch01.mylive.com</Address>
+          </Origin>
+
+          # /9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d?ch=ston 요청시
+          <Origin Protocol="HTTP">
+            <Address>ston.mylive.com</Address>
+          </Origin>
+
+
+각각의 원본팜은 원본 사용정책 ``<OriginOptions>`` 는 공유하지만, 객체 ``<Origin>`` 는 완전히 독립된다.
+따라서 다음과 같이 독립적인 :ref:`origin-health-checker` 도 구성 가능하다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><Origin>
+
+   <Dynamic Status="Active" KeepAlive="60">
+      <MatchingList>
+         <Item><![CDATA[$URL[/ko-kr/live/*/*], #1]]></Item>
+         <Item><![CDATA[$URL[/*?ch=*&*], #2]]></Item>
+      </MatchingList>
+      <Origin Protocol="HTTP">
+         <Address>#ORGKEY.mylive.com</Address>
+         <Address2>#ORGKEY-backup.mylive.com</Address>
+         <HealthChecker ResCode="0" Timeout="10" Cycle="10" Exclusion="3" Recovery="5" Log="ON">/</HealthChecker> 
+         <HealthChecker ResCode="200, 404" Timeout="3" Cycle="5" Exclusion="5" Recovery="20" Log="ON">/alive.html</HealthChecker>
+      </Origin>
+   </Dynamic>
+
+
+각 원본팜마다 IP 구성, :ref:`origin-session-reuse` , :ref:`origin_exclusion_and_recovery` , :ref:`origin-health-checker` 등이 독립적으로 동작한다.
+
+.. note::
+
+   각 원본팜의 생성/파괴는 :ref:`admin-log-info` 에 기록된다. ::
+
+      2024-09-12 18:18:36 [foo.com] dynamic origin <ch01> created: <Origin Protocol="HTTP"><Address>cd01.mylive.com</Address><Address2>cd01-backup.mylive.com</Address><HealthChecker ResCode="0" Timeout="10" Cycle="10" Exclusion="3" Recovery="5" Log="ON">/</HealthChecker><HealthChecker ResCode="200, 404" Timeout="3" Cycle="5" Exclusion="5" Recovery="20" Log="ON">/alive.html</HealthChecker></Origin>
+      2024-09-12 18:48:36 [foo.com] dynamic origin <ch01> destroyed
+
+
