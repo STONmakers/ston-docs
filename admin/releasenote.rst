@@ -6,6 +6,16 @@ Appendix E: 릴리스 노트
 v2.10.x
 ====================================
 
+.. _release-cdn-2-10-4:
+
+2.10.4 (2024.11.05)
+----------------------------
+
+-  :ref:`origin_dynamic` 에 대한 :ref:`monitoring_stats_vhost_origin` 지원
+-  :ref:`caching-purge-async` 기능을 :ref:`caching-purge-async-idbase` 으로 개선 및 :ref:`caching-purge-async-cancelreset` 보강
+
+
+
 .. _release-cdn-2-10-3:
 
 2.10.3 (2024.10.22)

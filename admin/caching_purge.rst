@@ -341,87 +341,124 @@ POST 규격
 
 
 
-.. _caching-purge-async-management-api:
+.. _caching-purge-async-idbase:
 
-비동기 무효화 관리 API
+``Id`` 체계와 응답
 -----------------------------------
 
-비동기 무효화가 활성화되어 있다면 등록된 무효화 요청을 아래와 같이 조회할 수 있다.
+API를 통해 비동기 무효화가 등록되면 고유한 ``Id`` 가 자동 발급된다. ::
+
+   {
+     "version": "2.10.3",
+     "method": "async/purge",
+     "status": "OK",
+     "result": { "Count": 0, "Size": 0, "Time": 4, "Id": "20241022114432345", "Merge": "N" }
+   }
+
+``Id`` 는 ``YYYY:MM:DD hh:mm:ss.SSS`` 형식으로 발급되며 충돌이 발생할 경우 문자열 끝에 ``_{n}`` 을 순차적으로 추가한다.
+
+``Id`` 를 임의로 지정하여 호출이 가능하다. ::
+
+   # my_sample_id로 Id를 명시적 지정
+   /command/async/purge?id=my_sample_id&url=foo.com/*
+
+   # 응답
+   {
+     "version": "22.2.0",
+     "method": "async/purge",
+     "status": "OK",
+     "result": { "Count": 0, "Size": 0, "Time": 4, "Id": "my_sample_id", "Merge": "N" }
+  }
+
+
+에러 상황시 응답코드로 구분한다.
+
+================================= ==================================================
+응답코드                            설명
+================================= ==================================================
+``400 Bad Request``               쿼리스트링 URL 이 없음
+``503 Service Unavailable``       비동기 무효화 삽입 실패
+``409 Conflict``                  중복 ID 생성 시도
+================================= ==================================================
+
+
+
+.. _caching-purge-async-getter:
+
+조회 API
+-----------------------------------
+
+비동기 무효화로 관리되는 아이템을 조회한다.
 
 ::
 
-    # 전체 가상호스트의 비동기 무효화 요약정보
-    http://127.0.0.1:10040/monitoring/asynctrl/actives
+    # 전체 비동기 무효화 정보
+    http://127.0.0.1:10040/monitoring/asynctrl/info
 
-    # 특정 가상호스트들의 비동기 무효화 요약정보
-    http://127.0.0.1:10040/monitoring/asynctrl/actives?vhosts=foo.com,bar.com
+    # 특정 ID의 비동기 무효화 정보
+    http://127.0.0.1:10040/monitoring/asynctrl/info?id=20241022171032554
 
-    # 전체 가상호스트의 비동기 무효화 상세정보
-    http://127.0.0.1:10040/monitoring/asynctrl/actives?detail=true
+    # 특정 가상호스트들의 비동기 무효화 정보
+    http://127.0.0.1:10040/monitoring/asynctrl/info?vhosts=foo.com,bar.com
 
-    # 특정 가상호스트의 비동기 무효화 상세정보
-    http://127.0.0.1:10040/monitoring/asynctrl/actives?vhosts=foo.com,bar.com&detail=true
+    # 특정 URL의 비동기 무효화 정보
+    http://127.0.0.1:10040/monitoring/asynctrl/info?url=foo.com/*
+
+    # 특정 type의 비동기 무효화 정보
+    http://127.0.0.1:10040/monitoring/asynctrl/info?type=purge
 
 
+-  ``type`` 쿼리스트링은 가상호스트, URL 쿼리스트링과 함께 사용하여 type 별로 조회할 수 있다.
 -  ``vhosts`` 쿼리스트링이 없다면 전체 가상호스트를 조회한다. 콤마로 멀티 가상호스트 입력이 가능하며 해당 가상호스트만 조회한다.
--  ``detail`` 쿼리스트링이 ``true`` 라면 가상호스트별로 저장된 비동기 무효화 목록 상세정보를 출력한다.
 
-
-상세정보 응답은 ``vhosts[].prectrl.list`` 를 제공한다.
 
 ::
 
    {
-      "queue": {
-         "used": 3,
-         "max": 100000
+      "map": {
+        "used": 1424,
+        "wait": 1324,
+        "max": 100000
       },
-      "prectrl": {
-         "firstonly": true,
-         "max": 1024
-      },
-      "vhosts": [
-         {
-            "name": "foo.com",
-            "prectrl": {
-               "enable": true,
-               "used": 3,
-               "max": 1024,
-               "list": [
-                  {
-                     "command": "purge",
-                     "timestamp": "2023-01-13T08:58:34Z",
-                     "url": "/*.jpg"
-                  },
-                  {
-                     "command": "purge",
-                     "timestamp": "2023-01-13T08:58:35Z",
-                     "url": "/*.bmp"
-                  },
-                  {
-                     "command": "purge",
-                     "timestamp": "2023-01-13T08:58:36Z",
-                     "url": "/*"
-                  }
-               ]
-            }
-         },
-         {
-            "name": "bar.com",
-            "prectrl": {
-               "enable": true,
-               "used": 0,
-               "max": 1024,
-               "list": [
-                  
-               ]
-            }
+      "ids": [
+        {
+            "id": "202410221646113b",
+            "command": "purge",
+            "timestamp": "2024-10-22T16:46:11Z",
+            "url": "bar.com/*.jpg",
+            "cancel": "N",
+            "done": "N"
+        },
+        {
+            "id": "2024102216461111",
+            "command": "purge",
+            "timestamp": "2024-10-22T16:46:11Z",
+            "url": "bar.com/*.bmp",
+            "cancel": "N",
+            "done": "N"
          }
       ]
    }
 
 
-관리 API는 다음과 같다. ::
+.. _caching-purge-async-cancelreset:
+
+취소/초기화 API
+-----------------------------------
+
+특정 ``Id`` 의 작업을 취소하거나 등록된 전체 API를 초기화할 수 있다. ::
+
+   # 특정 id를 가진 비동기 무효화를 취소한다.
+   http://127.0.0.1:10040/command/async/asynctrl/cancel?id=202410221646113b
+
+   # 특정 가상호스트를 가진 비동기 무효화를 모두 취소한다.
+   http://127.0.0.1:10040/command/async/asynctrl/cancel?vhost=foo.com
+
+   # 특정 URL를 가진 비동기 무효화를 모두 취소한다.
+   http://127.0.0.1:10040/command/async/asynctrl/cancel?url=foo.com/*.jpg
+
+   # 특정 가상호스트를 가진 비동기 무효화중 type에 해당하는 비동기 무효화를 취소한다.
+   http://127.0.0.1:10040/command/async/asynctrl/cancel?type=purge&vhost=foo.com
 
    # 모든 비동기 무효화 정보를 초기화한다.
    http://127.0.0.1:10040/command/async/asynctrl/reset
@@ -429,3 +466,6 @@ POST 규격
    # 특정 가상호스트의 prectrl만 초기화한다.
    # 단, 비동기 무효화 항목은 삭제되지 않고 수행된다.
    http://127.0.0.1:10040/command/async/asynctrl/prectrl/reset?vhost=foo.com
+
+
+``type`` 쿼리스트링은 가상호스트, URL과 함께 사용하여 ``type`` 별로 취소를 진행한다.

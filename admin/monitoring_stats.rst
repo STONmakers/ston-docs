@@ -743,11 +743,25 @@ DIMS의 성능지표를 제공한다. ::
 -  ``AvgTime (단위: ms)`` 압축 소요시간
 
 
+.. _monitoring_stats_vhost_origin:
 
 원본 통계
 ------------------------------
 
-STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. ::
+STON과 원본서버 사이에 발생하는 트래픽통계를 제공한다. 
+
+.. note::
+
+   :ref:`origin_dynamic` 기능이 활성화될 경우 ``OriginTraffic`` 에 ``Name`` 속성이 추가되며 멀티로 구성된다.
+   ``JSON`` 포맷인 경우 아래와 같이 배열로 구성된다. ::
+
+     "OriginTraffic" : [
+      { ... },
+      { ... }
+     ]
+
+
+::
 
    "OriginTraffic":                             <OriginTraffic>
    {                                              <HttpReqCount Sum="600">2</HttpReqCount>
