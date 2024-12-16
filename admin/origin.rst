@@ -825,7 +825,7 @@ If-Range 헤더에 의해 원본서버가 ``206 Partial Content`` 가 아닌 ``2
 단, Range헤더는 변조할 수 없다.
 
 이 기능은 :ref:`handling_http_requests_modify_client` 의 하위 기능이다.
-헤더변경에는 $ORGREQ 키워드를 사용한다. ::
+헤더변경에는 ``$ORGREQ`` 키워드를 사용한다. ::
 
    # /svc/www.example.com/headers.txt
 

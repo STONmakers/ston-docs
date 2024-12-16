@@ -89,6 +89,7 @@ OS 지원
 -  ``Ubuntu 18.04``
 -  ``Ubuntu 20.04``
 -  ``Ubuntu 22.04``
+-  ``Ubuntu 24.04``
 -  ``Rocky Linux 8`` ( ``RHEL/CentOS`` 패키지 사용)
 -  ``Rocky Linux 9`` ( ``RHEL/CentOS`` 패키지 사용)
 -  ``RHEL/CentOS 7``

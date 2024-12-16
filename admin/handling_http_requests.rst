@@ -615,6 +615,7 @@ Value가 입력되지 않은 경우 빈 값("")이 입력된다.
 ``#CACHEHIT``              :ref:`adv_topics_req_hit_ratio` 의 상세코드
 ``#SESSIONID``             :ref:`admin-log-access` 의 ``session-id``
 ``#HOSTNAME``              호스트 이름
+``#CLIENTIP``              클라이언트 IP
 ========================== =============================================================
    
 ::
