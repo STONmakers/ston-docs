@@ -12,7 +12,7 @@ v2.11.x
 ----------------------------
 
 -  Ubuntu 24.04 지원
--  :ref:`handling_http_requests_modify_client` , :ref:`origin_modify_client` - ``#CLIETIP`` 예약어 추가
+-  :ref:`handling_http_requests_modify_client` , :ref:`origin_modify_client` - ``#CLIENTIP`` 예약어 추가
 -  SNMPWalk가 종료되지않던 증상 수정
 
 
