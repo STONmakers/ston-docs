@@ -702,9 +702,13 @@ POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정�
          <Headers><![CDATA[User-Agent, Cookie:key1;key2]]></Headers>
       </Item>
       <Item>
+         <Pattern><![CDATA[/imags/*]]></Pattern>
+         <Headers><![CDATA[Accept: @image/webp; @image/avif;]]></Headers>
+      </Item>     
+      <Item>
          <Pattern><![CDATA[/*]]></Pattern>
          <Headers><![CDATA[MyHeader]]></Headers>
-      </Item>
+      </Item>      
    </CustomKey>
 
 
@@ -724,6 +728,20 @@ POST요청 예외조건은 /svc/{가상호스트 이름}/postbody.txt에 설정�
 
             # User-Agent와 Cookie 헤더의 값 중 user-id와 session-id 값만 반영한다. 
             <Headers><![CDATA[User-Agent, Cookie:user-id;session-id]]></Headers>
+
+         .. warning::
+            
+            모든 헤더가 Key=Value 형식인 것은 아니다. ::
+
+               Accept: text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8
+               Cache-Control: no-cache, no-store, must-revalidate
+               Connection: close
+               Upgrade: websocket               
+
+            
+            이런 경우 ``@`` 를 추가해야 올바르게 동작한다. ::
+
+               Cache-Control: @no-store; @imagemust-revalidate;
 
 
 ``<Header>`` 에 설정된 모든 헤더는 원본 응답에 영향을 줄 수 있기 때문에 원본으로 포워딩된다. 
