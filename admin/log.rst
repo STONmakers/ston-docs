@@ -435,6 +435,9 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       %{id=}c 로 입력하면 Cookie 에서 id=에 해당하는 값을 기록
 
+
+-  ``%d`` access.log ``sc-resinfo`` 필드
+
 -  ``%D`` 요청을 처리하는데 걸린 시간(MS) ::
 
       3000
@@ -453,6 +456,11 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
       원본서버 선택이유
 
 
+-  ``%{foobar}G`` 서버가 수신한 요청에서 ``foobar: ...`` 헤더 값의 공백을 ``+`` 로 치환하여 기록 ::
+
+       %{User-Agent}G 로 입력 할 경우 User-Agent의 값의 공백을 +로 치환하여 기록
+
+
 -  ``%h`` HostName ::
 
       example.com
@@ -463,7 +471,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
 -  ``%{foobar}i`` 서버가 수신한 요청에서 ``foobar: ...`` 헤더의 내용 ::
 
-     %{User-Agent}i 로 입력 할 경우 User-Agent의 값을 기록
+       %{User-Agent}i 로 입력 할 경우 User-Agent의 값을 기록
 
 
 -  ``%I`` 요청헤더를 포함한 수신바이트 ::
@@ -473,6 +481,10 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 -  ``%K`` 요청 HTTP 버전	::
 
       HTTP/1.1
+
+-  ``%L`` :ref:`adv-vhost-link` 결과 ::
+
+      "-" 또는 "a.com+b.com+c.com"
 
 -  ``%m`` 요청 Method ::
 
@@ -500,7 +512,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 
       GET /img.jpg HTTP/1.1
 
--  ``%R`` 응답시간(MS) ::
+-  ``%R`` 응답시간(MS), ::
 
       2
 
