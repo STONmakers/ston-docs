@@ -441,8 +441,10 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 ``%j``         서버가 수신한 Range 값                                                ``218103808-236978175``
 ``%k``         서버가 수신한 Accept-Encoding 헤더의 값                                 ``gzip``
 ``%K``         서버가 수신한 HTTP 버전                                                ``HTTP/1.0``
+``%{foobar}l`` 서버가 송신 한 응답헤더의 foobar 내용 (스페이스는 +로 인코딩)              ``my+customer+header``
 ``%L``         가상호스트 링크 결과 값                                                 ``foo.com``
 ``%m``         서버가 수신한 HTTP Method                                             ``GET``
+``%{foobar}o`` 서버가 송신 한 응답헤더의 foobar 내용                                    ``my customer header``
 ``%O``         HTTP헤더를 포함한 전송 바이트수                                         ``1024``
 ``%P``         서버 Port                                                            ``80``
 ``%q``         쿼리스트링                                                           ``a=1&b=2``

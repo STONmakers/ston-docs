@@ -125,6 +125,49 @@ Health-Checker는 멀티로 구성할 수 있으며 클라이언트 요청과 �
 자신만의 기준으로 배제와 투입을 결정한다.
 
 
+.. _origin-health-checker-validation:
+
+HTTP Validation 지원
+--------------------------------
+
+원본서버의 최초 ``200 OK`` 상태를 기억한 뒤 이후 HTTP Validation ( ``304 Not Modified`` )에 기반하여 ``Healthy`` 여부를 판단한다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><Origin>
+
+   <HealthChecker ..(생략).. Validate="OFF">/</HealthChecker>
+
+
+-  ``Validate (기본: OFF)``
+
+   설정이 ``ON`` 일 경우 HTTP Validation 메커니즘( ``If-Modified-Since`` , ``If-None-Match`` ) 헤더를 추가한다. 
+   반드시 유효 응답코드에 304를 추가해야 한다. ::
+
+      <HealthChecker ResCode="200, 304" Validate="ON>/</HealthChecker>
+
+
+.. _origin-health-checker-header:
+
+응답헤더 추적
+--------------------------------
+
+원본서버가 응답한 특정 헤더를 추적하며 ``Healthy`` 여부를 판단한다. ::
+
+   # vhosts.xml - <Vhosts><Vhost><Origin>
+
+   <HealthChecker ..(생략)..  HealthyHeader="..." HealthyWhen="changed">/</HealthChecker>
+
+-  ``HealthyHeader``
+   추적할 원본응답 헤더
+
+-  ``HealthyWhen (기본: changed)``
+   응답헤더의 상태판단
+   
+   -  ``changed (기본)`` 이전 값에서 변경되었을 때만 ``Healthy`` 로 판단한다.
+   
+   -  ``unchanged`` 이전 값과 동일할때만 ``Healthy`` 로 판단한다.
+
+
+
 .. _origin-use-policy:
 
 원본주소 사용정책

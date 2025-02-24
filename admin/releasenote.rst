@@ -6,6 +6,20 @@ Appendix E: 릴리스 노트
 v2.11.x
 ====================================
 
+.. _release-cdn-2-11-2:
+
+2.11.2 (2025.02.25)
+----------------------------
+
+-  :ref:`origin-health-checker` - :ref:`origin-health-checker-validation` , :ref:`origin-health-checker-header` 기능 추가
+-  :ref:`admin-log-access-custom` - 특정 응답헤더 기록설정 ``%l`` , ``%o`` 추가 
+-  :ref:`env-vhost-standbyorigin` - 원본서버 완전 정상화상태에서 일부 보조주소가 사용되던 증상 개선
+-  :ref:`handling_http_requests_compression` - 원본 서버가 비압축 콘텐츠 요청에 대해 ``Content-Encoding`` 헤더를 명시했을 때 압축하던 증상 수정. 원본의 응답을 그대로 전송하도록 개선.
+-  클러스터 Purge 요청시 ``&`` 문자열 이후는 전달 되지 않는 문제 수정
+
+
+
+
 .. _release-cdn-2-11-1:
 
 2.11.1 (2025.01.07)
