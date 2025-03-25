@@ -1,16 +1,13 @@
-﻿.. admin-log:
+﻿.. _admin-log:
 
 12장. 로그
 ******************
 
 이 장에서는 로그를 다룬다.
-서비스는 로그로 시작해서 로그로 끝난다.
-로그는 금이며, 법이며, 분쟁지역의 평화유지군이다.
-
 로그는 전역과 가상호스트로 구분된다.
 모든 로그는 기록여부를 설정할 수 있으며, 공통속성을 가진다. ::
 
-   <XXX Type="time" Unit="1440" Retention="10" Compression="OFF">ON</XXX>
+   <XXX Type="time" Unit="1440" Retention="10" Unify="OFF" Compression="OFF">ON</XXX>
 
 -  ``Type (기본: time)`` , ``Unit (기본: 1440분)`` 로그 롤링조건을 설정한다.
 
@@ -20,6 +17,22 @@
      예를 들어 Unit="1440, 100"인 경우 시간이 24시간(1440분) 또는 100MB 인 경우 로그 파일을 롤링한다.
 
 -  ``Retention (기본: 10개)`` 단위 로그파일을 최대 n개 유지한다.
+
+-  ``Unify (기본: OFF)``
+   
+   -  ``OFF (기본)`` 로그 저장경로 가상호스트 이름의 디렉토리를 생성하고, 용도별로 로그를 기록한다.
+   -  ``ON`` 로그 저장경로에 단일 파일로 통합하여 기록한다. 가상호스트 구분을 위해 ``x-vhost`` 필드가 추가된다.
+
+   .. note::
+      
+      로그 통합은 ``v2.11.4`` 부터 다음 로그에 대해 지원된다.
+
+      -  :ref:`admin-log-access`
+      -  :ref:`admin-log-origin`
+      -  :ref:`admin-log-filesystem`
+      -  :ref:`admin-log-image`
+      -  :ref:`admin-log-dns`
+
 
 -  ``Compression (기본: OFF)`` 로그가 롤링될 때 압축을 진행한다.
    예를 들어 access_20140715_0000.log파일이 롤링되면 access_20140715_0000.log.gz로 압축되어 저장된다.
@@ -43,7 +56,7 @@
 
 
 
-.. admin-log-install:
+.. _admin-log-install:
 
 Install 로그
 ====================================
@@ -458,6 +471,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 ``%u``         요청 Full URI                                                        ``/index.html?v=1``
 ``%U``         쿼리스트링을 제외한 URI                                                ``/index.html``
 ``%v``         제품 버전                                                            ``2.11.1``
+``%V``         가상호스트 "설정상" 이름                                                ``www.example.com``
 ``%x``         HTTP 트랜잭션 결과 (소문자로 기록)                                      ``c``
 ``%X``         HTTP 트랜잭션 결과 (대문자로 기록)                                      ``C``
 ``%y``         HTTP 요청 헤더 크기                                                   ``100``
@@ -628,7 +642,7 @@ Image.log는 Access.log와 Origin.log사이에 위치하며 다음과 같은 관
 -  ``time-processed (단위: 밀리세컨드)`` 이미지 가공 소요시간
 
 
-.. admin-log-monitoring:
+.. _admin-log-monitoring:
 
 Monitoring 로그
 ====================================
@@ -644,7 +658,7 @@ Monitoring 로그
 
 
 
-.. admin-log-filesystem:
+.. _admin-log-filesystem:
 
 FileSystem 로그
 ====================================

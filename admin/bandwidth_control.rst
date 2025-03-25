@@ -96,6 +96,8 @@ BT(Bandwidth Throttling)이란 (각 세션마다)클라이언트 전송 대역�
    -  ``ON`` 조건목록과 일치하면 BT를 적용한다.
 
 
+.. _bandwidth-control-bt-list:
+
 Bandwidth Throttling 조건목록
 --------------------------
 

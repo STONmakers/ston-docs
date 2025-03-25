@@ -694,3 +694,240 @@ XML 개별 설정 압축파일을 HTTP Post방식(Multipart와 SOAP 방식 모�
    
    server.xml을 업로드 하는 경우 전체 설정을 갱신하지만, vhosts.xml만 업로드 하는 경우 가상호스트에 대해서만 설정을 갱신한다.
 
+
+.. _api-conf-vhostapi:
+
+가상호스트 설정 API
+====================================
+
+``vhosts.xml`` 형상 단위가 아닌 개별 가상호스트 단위의 CRUD(생성, 읽기, 변경, 삭제)를 지원한다.
+API를 통해 ``vhosts.xml`` 를 변경하고, 이후 :ref:`api-conf-reload` 시나리오로 동작하기에 재가동시에도 형상은 유지된다.
+
+
+.. _api-conf-vhostapi-create:
+
+생성
+--------------------------
+
+가상호스트를 생성한다.  ::
+
+    POST /conf/vhosts/create?name=example.com
+    Content-Length: 1065
+    Content-Type: application/xml
+
+    <Vhost Name="example.com" Status="Active" Volatile="OFF" Instant="OFF">
+        <Origin ByClient="OFF" Protocol="HTTP">
+            <Address>192.168.0.144</Address>
+        </Origin>
+        <Listen>*:80</Listen>
+    </Vhost>
+
+
+``Content-Type`` 은 반드시 ``application/xml`` 이여야 하며 개별 가상호스트 단위로 설정한다.
+
+===================== ============================================
+응답코드                설명
+===================== ============================================
+``200``                성공
+``400``                요청 body가 올바르지 않음
+``409``                생성하려는 가상호스트가 이미 구성되어 있음
+``500``                설정 갱신 중 에러 발생
+``510``                ``vhosts.xml`` 로딩중 에러 발생
+===================== ============================================
+
+정상적으로 추가된 경우 다음과 같이 ``200 OK`` 로 응답한다. ::
+
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/create",
+        "status": "OK",
+        "result": "created"
+    }
+
+
+실패할경우 위에서 정의한 응답코드와 함께 ``reason`` 이 제공된다. ::
+
+    # 400 Bad Request
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/create",
+        "status": "fail",
+        "reason": "Invalid Post Body."
+    }
+
+
+.. note::
+   
+   ``*.txt`` 형식으로 존재하는 예외 목록은 ``<MatchingList Target="...">`` 태그를 이용하여 업데이트 한다.
+   값은 ``CDATA`` 형식으로 개행을 포함한다. ::
+
+        <MatchingList Target="...">
+            <![CDATA[...]]>
+        </MatchingList>
+   
+   다음은 :ref:`access-control-vhost` 리스트를 업데이트하는 예제이다. :: 
+
+        <Vhost Name="example.com">
+            <Origin>
+                <Address>1.1.1.1</Address>
+            </Origin>
+            <MatchingList Target="acl">
+                <![CDATA[$URL[/source/*.zip], deny
+                    $URL[/source/*], deny
+                    $URL[/*.zip], deny]]>
+            </MatchingList>
+            <MatchingList Target="bypass">
+                <![CDATA[$URL[/source/*.zip], bypass]]>
+            </MatchingList>
+        </Vhost>
+
+   ``Target`` 값은 물리적인 ``.txt`` 파일명과 같으며, 다음과 같다.
+
+   ===================== ===========================================================================
+   ``Target``             설명
+   ===================== ===========================================================================
+   ``acl``                :ref:`가상호스트 접근제어목록 <access-control-vhost_allow_deny>`
+   ``bypass``             :ref:`바이패스 예외목록 <bypass-getpost>`
+   ``compression``        :ref:`압축 대상목록 <handling_http_requests_compression>`
+   ``expires``            :ref:`Expire헤더 예외목록 <handling_http_requests_cache_control_expires>`
+   ``headers``            :ref:`헤더 변조목록 <handling_http_requests_modify_client>`
+   ``postbody``           :ref:`POST 캐싱목록 <caching-policy-post-method-caching>`
+   ``querystring``        :ref:`쿼리스트링 예외목록 <caching-policy-applyquerystring>`
+   ``throttling``         :ref:`대역폭조절 목록 <bandwidth-control-bt-list>`
+   ``ttl``                :ref:`커스텀 TTL목록 <caching-policy-customttl>`
+   ===================== ============================================
+
+
+
+.. _api-conf-vhostapi-read:
+
+열람
+--------------------------
+
+가상호스트를 열람한다.  ::
+
+    GET /conf/vhosts?name=example.com
+
+
+===================== ============================================
+응답코드                설명
+===================== ============================================
+``200``                성공
+``400``                쿼리스트링 ``name`` 이 없음
+``404``                조회하려는 가상호스트가 없음
+``500``                설정 조회 중 에러 발생
+``510``                ``vhosts.xml`` 로딩중 에러 발생
+===================== ============================================
+
+정상적으로 조회된 경우 다음과 같이 ``200 OK`` 로 설정 내용을 XML로 응답한다. ::
+
+    <Vhost Name="wwwexample.com" Status="Active" Volatile="OFF" Instant="OFF">
+        <Origin ByClient="OFF" Protocol="HTTP">
+            <Address>192.168.0.144</Address>
+        </Origin>
+        <Listen>*:80</Listen>
+    </Vhost>
+
+
+실패할 경우 위에서 정의한 응답코드와 함께 reason 이 제공된다. ::
+
+    # 404 Not found
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/get",
+        "status": "fail",
+        "reason": "Not found vhosts. 'example.com'"
+    }
+
+
+.. _api-conf-vhostapi-update:
+
+변경
+--------------------------
+
+가상호스트 설정을 변경한다. ::
+
+    POST /conf/vhosts/edit?name=example.com
+    Content-Length: 1065
+    Content-Type: application/xml
+
+    <Vhost Name="example.com" Status="Active" Volatile="OFF" Instant="OFF">
+        <Origin ByClient="OFF" Protocol="HTTP">
+            <Address>192.168.0.101</Address>
+        </Origin>
+        <Listen>*:80</Listen>
+    </Vhost>
+
+
+``Content-Type`` 은 반드시 ``application/xml`` 이여야 하며 개별 가상호스트 단위로 설정한다.
+
+===================== ===========================================================
+응답코드                설명
+===================== ===========================================================
+``200``                성공
+``400``                쿼리스트링 ``name`` 이 없거나 요청 body가 올바르지 않음
+``404``                변경하려는 가상호스트가 존재하지 않음
+``500``                설정 갱신 중 에러 발생
+``510``                ``vhosts.xml`` 로딩중 에러 발생
+===================== ===========================================================
+
+정상적으로 추가된 경우 다음과 같이 ``200 OK`` 로 응답한다. ::
+
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/edit",
+        "status": "OK",
+        "result": "edited"
+    }
+
+
+실패할경우 위에서 정의한 응답코드와 함께 ``reason`` 이 제공된다. ::
+
+    # 404 Not Found
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/edit",
+        "status": "fail",
+        "reason": "Empty vhost name. 'example.com'"
+    }
+
+
+
+.. _api-conf-vhostapi-delete:
+
+삭제
+--------------------------
+
+가상호스트를 삭제한다. ::
+
+    GET /conf/vhosts/delete?name=example.com
+
+
+===================== ============================================
+응답코드                설명
+===================== ============================================
+``200``                성공
+``400``                쿼리스트링 ``name`` 이 없음
+``404``                삭제 할 가상호스트가 없음
+``500``                설정 갱신 중 에러 발생
+===================== ============================================
+
+정상적으로 삭제된 경우 다음과 같이 ``200 OK`` 로 응답한다. ::
+
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/delete",
+        "status": "OK",
+        "result": "deleted"
+    }
+
+
+실패할 경우 위에서 정의한 응답코드와 함께 ``reason`` 이 제공된다. ::
+
+    # 500 Internal Server Error
+    {
+        "version": "2.11.0",
+        "method": "/conf/vhosts/delete",
+        "status": "fail",
+        "reason": "Failed to reload setting."
+    }

@@ -6,6 +6,19 @@ Appendix E: 릴리스 노트
 v2.11.x
 ====================================
 
+.. _release-cdn-2-11-4:
+
+2.11.4 (2025.03.26)
+----------------------------
+
+-  :ref:`api-conf-vhostapi` 추가
+-  :ref:`로그 통합기록<admin-log>` 기능 추가
+-  :ref:`handling_http_requests_compression` - 클라이언트의 ``Accept-Encoding`` 헤더와 원본의 ``Content-Encoding`` 헤더가 호환성되지 않을 경우 예외처리 강화
+-  하이브리드 인증서( ``ECDSA / RSA`` ) 지원 개선
+-  DNS 리졸빙 실패시 예외처리 강화
+
+
+
 .. _release-cdn-2-11-3:
 
 2.11.3 (2025.03.06)
