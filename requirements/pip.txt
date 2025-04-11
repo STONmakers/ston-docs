@@ -43,7 +43,7 @@ celery==5.1.2
 django-allauth==0.42.0  # pyup: ignore
 
 # GitPython >3.1.18 drops support for python 3.6.
-GitPython==3.1.18  # pyup: ignore
+GitPython==3.1.30  # pyup: ignore
 
 # Search
 elasticsearch==7.15.1  # pyup: <8.0.0
