@@ -321,71 +321,87 @@ System 통계
 
     "System":                                   <System>
     {                                             <CPU
-      "CPU":                                          Kernel="689"
-      {                                               User="1316"
-        "Kernel":689,                                 Idle="7993"
-        "User":1316,                                  ProcKernel="570"
-        "Idle":7993,                                  ProcUser="1216"
-        "ProcKernel":570,                             Nice="0"
-        "ProcUser":1216,                              IOWait="52"
-        "Nice":0,                                     IRQ="10"
-        "IOWait":52,                                  SoftIRQ="12"
-        "IRQ":10,                                     Steal="0" />
-        "SoftIRQ":12,                             <Mem Free="5914644" STON="9785800"/>
-        "Steal":0                                 <Storage>
-      },                                            <Disk
-      "Mem":                                        	Path="/cache1"
-      {                                             	Status="Normal"
-        "Free":5914644,                             	Read="23"
-        "STON":9785800                              	ReadMerged="0"
-      },                                            	ReadSectors="344"
-      "Storage":                                    	ReadTime="117"
-      {                                             	Write="24"
-        "Disk":                                     	WriteMerged="93"
-        [                                           	WriteSectors="936"
-          {                                         	WriteTime="256"
-            "Path":"/cache1",                       	IOProgress="0"
-            "Status":"Normal",                      	IOTime="173"
-            "Read":23,                              	IOWeightedTime="373"/>
-            "ReadMerged":0,                         <Disk
-            "ReadSectors":344,                      	Path="/cache2"
-            "ReadTime":117,                         	Status="Normal"
-            "Write":24,                             	Read="27"
-            "WriteMerged":93,                       	ReadMerged="1"
-            "WriteSectors":936,                     	ReadSectors="488"
-            "WriteTime":256,                        	ReadTime="144"
-            "IOProgress":0,                         	Write="24"
-            "IOTime":173,                           	WriteMerged="86"
-            "IOWeightedTime":373                    	WriteSectors="880"
-          },                                        	WriteTime="254"
-          {                                         	IOProgress="0"
-            "Path":"/cache2",                       	IOTime="189"
-            "Status":"Normal",                      	IOWeightedTime="380"/>
-            "Read":27,                            </Storage>
-            "ReadMerged":1,                       <ServerSocket
-            "ReadSectors":488,                    	Total="42"
-            "ReadTime":144,                       	Established="2"
-            "Write":24,                            	Accepted="1"
-            "WriteMerged":86,                      	Closed="0"/>
-            "WriteSectors":880,                   <ClientSocket
-            "WriteTime":254,                       	Total="1"
-            "IOProgress":0,                        	Established="0"
-            "IOTime":189,                          	Connected="0"
-            "IOWeightedTime":380                   	Closed="0"/>
-          }                                       <TCPSocket
-        ]                                          	Established="30"
-      },                                           	Timewait="2"
-      "ServerSocket":                              	Orphan="0"
-      {                                            	Alloc="0"
-        "Total":42,                                	Mem="20"/>
-        "Established":1,                          <EQ>0</EQ>
-        "Accepted":0,                             <RQ>1000000</RQ>
-        "Closed":0                                <WaitingFiles2Write>0</WaitingFiles2Write>
-      },                                          <ServiceAccess Allow="60" Deny="2"/>
-      "ClientSocket":                             <SystemLoadAverage Min1="0" Min5="0" Min15="0"/>
-      {                                           <URLRewrite>57</URLRewrite>
-        "Total":1,                              </System>
-        "Established":0,
+      "CPU":                                        Kernel="689"
+      {                                             User="1316"
+        "Kernel":689,                               Idle="7993"
+        "User":1316,                                ProcKernel="570"
+        "Idle":7993,                                ProcUser="1216"
+        "ProcKernel":570,                           Nice="0"
+        "ProcUser":1216,                            IOWait="52"
+        "Nice":0,                                   IRQ="10"
+        "IOWait":52,                                SoftIRQ="12"
+        "IRQ":10,                                   Steal="0" />
+        "SoftIRQ":12,                             <Mem 
+        "Steal":0                                   Total="8106168" 
+      },                                            Free="5914644"
+      "Mem":                                        STON="9785800" />
+      {                                           <ProcessMemory 
+        "Total": 1048576,                           Peak="355300" 
+        "Free":5914644,                             Size="355296" 
+        "STON":9785800                              Rss="355296">
+      },                                            <Contents 
+      "ProcessMemory":                                Limit="1740170" 
+      {                                               Using="0" 
+        "Peak": 1024,                                 OverUsing="0" 
+        "Size": 512,                                  SecureRatio="10" 
+        "Rss": 256,                                   SecureSize="174017" />
+        "Contents":                               </ProcessMemory>
+        {                                         <Storage>    
+          "Limit": 1024,                            <Disk    
+          "Using": 128,                               Path="/cache1"
+          "OverUsing": 0,                             Status="Normal"
+          "SecureRatio": 10,                          Read="23"
+          "SecureSize": 102                           ReadMerged="0"
+        }                                             ReadSectors="344"
+      },                                            	ReadTime="117"
+                                                    	Write="24"
+      "Storage":                                    	WriteMerged="93"
+      {                                             	WriteSectors="936"
+        "Disk":                                     	WriteTime="256"
+        [                                           	IOProgress="0"
+          {                                         	IOTime="173"
+            "Path":"/cache1",                       	IOWeightedTime="373"/>
+            "Status":"Normal",                      <Disk
+            "Read":23,                              	Path="/cache2"
+            "ReadMerged":0,                         	Status="Normal"
+            "ReadSectors":344,                      	Read="27"
+            "ReadTime":117,                         	ReadMerged="1"
+            "Write":24,                             	ReadSectors="488"
+            "WriteMerged":93,                       	ReadTime="144"
+            "WriteSectors":936,                     	Write="24"
+            "WriteTime":256,                        	WriteMerged="86"
+            "IOProgress":0,                         	WriteSectors="880"
+            "IOTime":173,                           	WriteTime="254"
+            "IOWeightedTime":373                    	IOProgress="0"
+          },                                        	IOTime="189"
+          {                                         	IOWeightedTime="380"/>
+            "Path":"/cache2",                     </Storage>
+            "Status":"Normal",                    <ServerSocket
+            "Read":27,                            	Total="42"
+            "ReadMerged":1,                       	Established="2"
+            "ReadSectors":488,                     	Accepted="1"
+            "ReadTime":144,                        	Closed="0"/>
+            "Write":24,                           <ClientSocket
+            "WriteMerged":86,                      	Total="1"
+            "WriteSectors":880,                    	Established="0"
+            "WriteTime":254,                       	Connected="0"
+            "IOProgress":0,                        	Closed="0"/>
+            "IOTime":189,                         <TCPSocket
+            "IOWeightedTime":380                   	Established="30"
+          }                                        	Timewait="2"
+        ]                                          	Orphan="0"
+      },                                           	Alloc="0"
+      "ServerSocket":                              	Mem="20"/>
+      {                                           <EQ>0</EQ>
+        "Total":42,                               <RQ>1000000</RQ>
+        "Established":1,                          <WaitingFiles2Write>0</WaitingFiles2Write>
+        "Accepted":0,                             <ServiceAccess Allow="60" Deny="2"/>
+        "Closed":0                                <SystemLoadAverage Min1="0" Min5="0" Min15="0"/>
+      },                                          <URLRewrite>57</URLRewrite>
+      "ClientSocket":                             <MaxFileCount>1979927</MaxFileCount>
+      {                                         </System>
+        "Total":1,                              
+        "Established":0,                        
         "Connected":0,
         "Closed":0
       },
@@ -407,8 +423,9 @@ System 통계
         "Min5":0,
         "Min15":0
       },
-      "URLRewrite":57
-    }
+      "URLRewrite":57,
+      "MaxFileCount": 10000
+    }        
 
 -  ``CPU (단위: 0.01%)`` CPU사용량. 전체 CPU사용량은 Kernel + User로 계산해야 한다.
 
@@ -425,8 +442,23 @@ System 통계
 
 -  ``Mem (단위: Bytes)`` 메모리 사용량
 
+   - ``Total`` 시스템 물리 메모리 크기
    - ``Free`` 시스템 Free 메모리 크기
    - ``STON`` STON이 사용하는 메모리 크기
+
+-  ``ProcessMemory`` 프로세스 메모리 정보
+
+   - ``Peak`` STON Peak 메모리 크기
+   - ``Size`` STON 가용 메모리 크기
+   - ``Rss`` STON RSS 메모리 크기
+
+- ``Contents`` 콘텐츠 정보
+
+   - ``Limit`` 임계 콘텐츠 메모리 크기
+   - ``Using`` 사용 중인 콘텐츠 메모리 크기
+   - ``OverUsing`` 초과 사용 중인 콘텐츠 메모리 크기
+   - ``SecureRatio`` 콘텐츠 메모리 정리 비율
+   - ``SecureSize`` 콘텐츠 메모리 정리 용량
 
 -  ``Disk`` 디스크 성능지표
 
@@ -472,6 +504,7 @@ System 통계
 -  ``ServiceAccess`` ServiceAccess에 의해 허가(Allow), 거부(Deny)된 소켓 수
 -  ``SystemLoadAverage`` System Load Average의 1분/5분/15분 평균
 -  ``URLRewrite`` URL전처리에 의해 변환이 성공한 횟수
+- ``MaxFileCount`` 캐싱 최대 인덱싱 개수
 
 
 .. _monitoring-stats-vhost:
