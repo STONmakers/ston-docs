@@ -3,6 +3,20 @@
 Appendix E: 릴리스 노트
 ***********************
 
+v2.12.x
+====================================
+
+.. _release-cdn-2-12-0:
+
+2.12.0 (2025.06.24)
+----------------------------
+
+-  ``HTTP/3`` 지원
+-  :ref:`https-ocsp-stapling` 기능 추가
+-  `HTTP/2 continuation flood <https://nowotarski.info/http2-continuation-flood/>`_ 취약점 대응
+-  ``/monitoring/realtime`` , ``/monitoring/average`` 가상호스트 통계분리 지원
+
+
 v2.11.x
 ====================================
 

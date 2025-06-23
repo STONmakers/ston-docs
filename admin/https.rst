@@ -4,7 +4,6 @@
 ******************
 
 이 장에서는 HTTPS 구성에 대해 설명한다.
-TLS 1.2까지 지원하며 SSL 2.0은 보안상의 이유로 업그레이드만 허용한다.
 STON은 클라이언트와 원본 양쪽 구간 모두 HTTP/HTTPS 를 지원한다.
 
 
@@ -414,7 +413,9 @@ STON에서는 다음과 같이 Listen속성에 IP를 명시하여 인증서를 �
 
    # server.xml - <Server>
 
-   <Https TLS1.2="ON" TLS1.1="ON" TLS1.0="ON" SSL3.0="ON"> ...  </Https>
+   <Https TLS1.3="ON" TLS1.2="ON" TLS1.1="ON" TLS1.0="ON" SSL3.0="ON"> ...  </Https>
+
+- ``TLS1.3 (기본: ON)`` TLS1.3을 사용한다.
 
 - ``TLS1.2 (기본: ON)`` TLS1.2를 사용한다.
 
@@ -444,3 +445,24 @@ HSTS
    :align: center
 
    STON v2.2부터는 A+를 받을 수 있다.
+
+
+.. _https-ocsp-stapling:
+
+OCSP Stapling
+====================================
+
+OCSP Stapling을 지원한다. ::
+
+   # server.xml - <Server><Cache>
+
+   <HttpsOCSP UpdateInterval="4">OFF</HttpsOCSP>
+
+-  ``<HttpsOCSP> (기본: OFF)`` ``ON`` 으로 설정하면 OCSP Stapling을 사용한다.
+
+   - ``HttpsOCSP (기본: 4시간)`` 업데이트 주기
+
+
+.. warning::
+
+   동적 Reload를 지원하지 않는다.
