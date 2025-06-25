@@ -744,7 +744,8 @@ DIMS의 성능지표를 제공한다. ::
    {                                           Requests="30"
      "Requests": 30,                           Converted="29"
      "Converted": 29,                          Failed="1"
-     "Failed": 1,                              AvgSrcSize="1457969"
+     "Failed": 1,                              NotModified="0"
+     "NotModified": 0,                         AvgSrcSize="1457969"
      "AvgSrcSize": 1457969,                    AvgDestSize="598831"
      "AvgDestSize": 598831,                    AvgTime="34" />
      "AvgTime": 34
@@ -753,6 +754,7 @@ DIMS의 성능지표를 제공한다. ::
 -  ``Requests`` 변환요청 횟수
 -  ``Converted`` 변환성공 횟수
 -  ``Failed`` 변환실패 횟수
+-  ``NotModified`` 미변환 횟수 (원본이미지 미변경)
 -  ``AvgSrcSize (단위: Bytes)`` 원본 이미지의 평균 크기
 -  ``AvgDestSize (단위: Bytes)`` 변환된 이미지의 평균 크기
 -  ``AvgTime (단위: ms)`` 변환 소요시간
