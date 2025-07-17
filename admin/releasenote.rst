@@ -6,6 +6,18 @@ Appendix E: 릴리스 노트
 v2.12.x
 ====================================
 
+.. _release-cdn-2-12-1:
+
+2.12.1 (2025.07.17)
+----------------------------
+
+-  :ref:`adv_topics_maxsockets` - ``<MaxSockets>`` 설정 임계치 변경 (기존 10만 -> 20만)
+-  :ref:`admin-log-access` - ``x-sc-ssl-cipher`` 필드 추가
+-  :ref:`https-conf` - 중복된 인증서 로딩시 예외 처리 및 로그 강화
+-  :ref:`caching-purge-async` - ``PreCacheControl`` 에 의해서 Purege가 되지 않는 문제 개선
+-  ``HTTP/2`` 다수 인증서(20개) 로딩 문제 개선
+-  WM - Apache HTTP Server 버전 업데이트(v2.4.64) 및 보안 패치
+
 .. _release-cdn-2-12-0:
 
 2.12.0 (2025.06.24)

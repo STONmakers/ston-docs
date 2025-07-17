@@ -386,6 +386,11 @@ Access 로그
 -  ``cs-acceptencoding`` 클라이언트가 보낸 Accept-Encoding헤더
 -  ``session-id`` HTTP 클라이언트 세션 ID (unsigned int64)
 -  ``sc-content-length`` 서버 응답 Content-Length 헤더 값
+-  ``time-response`` 서버에서 응답이 시작되기까지 걸린 시간
+-  ``x-transaction-status`` HTTP 트랜잭션 결과 ( ``c`` = Complete, ``x`` = Aborted )
+-  ``x-vhostlink`` 가상호스트 링크 정보
+-  ``x-vhost`` 통합로그 운용시 트래픽이 유입된 가상호스트
+-  ``x-sc-ssl-cipher`` TLS 암호화 알고리즘
 
 Access로그는 전송 성공/실패 여부에 상관없이 모든 HTTP 트랜잭션을 기록한다.
 HTTP 트랜잭션은 클라이언트가 HTTP요청을 보낼 때 시작된다.
@@ -459,6 +464,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 ``%m``         서버가 수신한 HTTP Method                                             ``GET``
 ``%{foobar}o`` 서버가 송신 한 응답헤더의 foobar 내용                                    ``my customer header``
 ``%O``         HTTP헤더를 포함한 전송 바이트수                                         ``1024``
+``%p``         TLS Ciphersuite                                                     ``TLS_AES_128_GCM_SHA256``
 ``%P``         서버 Port                                                            ``80``
 ``%q``         쿼리스트링                                                           ``a=1&b=2``
 ``%{foobar}Q`` 서버가 수신한 Foobar 쿼리스트링의 내용                                  ``value``
