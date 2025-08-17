@@ -286,7 +286,7 @@ POST 규격
 
    <Cache>
       <ControlAPI>sync</ControlAPI>
-      <AsyncControlTarget>PATTERN</AsyncControlTarget>
+      <AsyncControlTarget Concurrent="1">PATTERN</AsyncControlTarget>
    </Cache>
 
 
@@ -297,11 +297,11 @@ POST 규격
    - ``async`` 무효화 API가 비동기로 동작한다.
 
 
--  ``<AsyncControlTarget>`` 비동기 무효화로 구성된 상태라도, 요청된 URL에 따라 선별적으로 비동기 처리한다.
-   
-   - ``pattern (기본)`` 패턴(*) 요청에 대해서만 비동기 처리한다.
-   
-   - ``all`` 모든 요청을 비동기 처리한다.
+-  ``<AsyncControlTarget> (기본: pattern)`` 비동기 무효화로 구성된 상태라도, 요청된 URL에 따라 선별적으로 비동기 처리한다. ``all`` 로 설정하면 모든 요청을 비동기 처리한다.
+
+   - ``Concurrent`` 비동기 무효화 동시처리 수. 많이 설정할수록 서비스 Throughput이 저하될 수 있다. 최대 수행개수는 ``CPU 코어수 - 2`` 이다.
+
+
 
 
 비동기로 동작하는 경우 무효화 요청은 큐에 저장되며 백그라운드로 수행된다.
