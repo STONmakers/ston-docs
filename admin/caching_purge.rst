@@ -326,11 +326,14 @@ POST 규격
 
    <Performance>
       <MaxAsyncCacheCtrl>100000</MaxAsyncCacheCtrl>
+      <MaxCompleteAsyncCacheCtrl>100000</MaxCompleteAsyncCacheCtrl>
       <PreCacheControl Max="5000" FirstOnly="OFF">ON</PreCacheControl>
    </Performance>
 
 
 -  ``<MaxAsyncCacheCtrl> (기본: 100000)`` 비동기 무효화 최대 저장개수
+
+-  ``<MaxCompleteAsyncCacheCtrl> (기본: 10000, 최대: 100000)`` 완료된 비동기 무효화 최대 저장개수
 
 -  ``<PreCacheControl> (기본: ON)`` 접근되는 콘텐츠에 대해 저장된 비동기 무효화를 매칭한다.
 
