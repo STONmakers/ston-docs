@@ -466,3 +466,64 @@ OCSP Stapling을 지원한다. ::
 .. warning::
 
    동적 Reload를 지원하지 않는다.
+
+
+
+
+.. _https-api:
+
+인증서 설정조회 API
+====================================
+
+구성된 인증서를 API로 조회한다. ::
+
+   http://127.0.0.1:10040/conf/https
+
+
+결과는 JSON형식으로 제공된다. ::
+
+   {
+      "version": "2.12.8",
+      "method": "conf/https",
+      "status": "OK",
+      "result": {
+         "https": [
+            {
+            "options": {
+               "listen": "*:443",
+               "enableTls13": true,
+               "enableTls12": true,
+               "enableTls11": true,
+               "enableTls10": false,
+               "enableSsl30": false,
+               "forwardSecrecy": true,
+               "cipherSuite": "ALL:!DSS:!RC4:!IDEA:!CAMELLIA:!aNULL:!eNULL"
+            },
+            "cert": "/usr/local/ston/certificates/ecdsa/winesoft.co.kr.crt",
+            "certHash": "181CE29DB53841E8EDC669B3C972B9433C98760514E60FF0CE0409C6B53CFA71",
+            "key": "/usr/local/ston/certificates/ecdsa/winesoft.co.kr.key",
+            "keyHash": "487D4241C459284B8DE4D5BA758AE5B3A351D257DE06649F6BB8ADB34F3F37CA",
+            "ca": "/usr/local/ston/certificates/ecdsa/lesstif-rootca.crt",
+            "caHash": "60C2D2CE0B4D7B7E3408B0905908E1D0CE5DBF6A43026AB00A60C9C71676E641"
+            },
+            {
+            "options": {
+               "listen": "*:443",
+               "enableTls13": true,
+               "enableTls12": true,
+               "enableTls11": true,
+               "enableTls10": false,
+               "enableSsl30": false,
+               "forwardSecrecy": true,
+               "cipherSuite": "ALL:!DSS:!RC4:!IDEA:!CAMELLIA:!aNULL:!eNULL"
+            },
+            "cert": "/usr/local/ston/certificates/rsa/rsa.winesoft.co.kr.crt",
+            "certHash": "B25F95AABBE0B220D881C7C2E78A539528FFBD3E912CC2F3A2A7262D1C2A0A8A",
+            "key": "/usr/local/ston/certificates/rsa/rsa.winesoft.co.kr.key",
+            "keyHash": "31E597E294953A2B83170874D17FD6E3ADB6E4BE08423224BA91E1A8FC389DAC",
+            "ca": "/usr/local/ston/certificates/rsa/rsa.lesstif-rootca.crt",
+            "caHash": "A7067B344E5738E43E7D2E610E334BEAAAA712F3C63C8D9F326B71A316A4E497"
+            }
+         ]
+      }
+   }

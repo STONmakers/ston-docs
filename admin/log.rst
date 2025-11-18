@@ -451,7 +451,7 @@ Access 로그형식을 사용자정의 로그로 설정한다. ::
 ``%e``         SessionID (STON에서 발급하는 SessionID)                                ``1``
 ``%f``         파일명                                                                ``/mp4/iu.mp4``
 ``%g``         Apache 로그 시간 형식                                                  ``28/Jul/2006:10:27:32 -0300``
-``%{foobar}G`` 서버가 수신한 요청헤더의 foobar 내용                                     ``%{Host}G``
+``%{foobar}G`` 서버가 수신한 요청헤더의 foobar 내용  (스페이스는 +로 인코딩)               ``gzip,+deflate,+br,``
 ``%h``         HostName                                                             ``example.com``
 ``%H``         클라이언트 요청 프로토콜                                                ``HTTP``
 ``%{foobar}i`` 서버가 수신한 요청헤더의 foobar 내용                                    ``%{X-Forwarded-For}i``
