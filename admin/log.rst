@@ -406,6 +406,22 @@ STON이 클라이언트에게 응답을 보내기 전에 HTTP연결이 종료된
    이는 설정된 ``size`` 까지 1분 안에 도달할 경우 로그가 유실될 우려가 있기 때문이다.
 
 
+
+
+.. _admin-log-accessextra:
+
+추가 로그
+------------------------
+
+``v2.12.9`` 부터 :ref:`admin-log-access` , :ref:`admin-log-access-custom` 를 추가할 수 있다. ::
+
+   # server.xml - <Server><VHostDefault><Log>
+   # vhosts.xml - <Vhosts><Vhost><Log>
+
+   <AccessExtra Type="time" Unit="1440" Retention="10" XFF="on" Form="ston" Local="Off">OFF</AccessExtra>
+   <AccessExtraFormat>%a %A %b id=%{userid}C %f %h %H "%{user-agent}i" %m %P "%r" %s %t %T %X %I %O %R %e %S %K</AccessExtraFormat>
+
+
 .. _admin-log-access-custom:
 
 사용자정의 Access 로그포맷
